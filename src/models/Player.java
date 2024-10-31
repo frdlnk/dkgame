@@ -1,19 +1,10 @@
 package models;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.UUID;
 
-
-
-public class Player {
+public class Player implements Serializable {
+    private static final long serialVersionUID = 1L;
     private UUID id;
     private String username;
     private String password;
@@ -66,48 +57,54 @@ public class Player {
     public void setLevel(int level) {
         this.level = level;
     }
+
     public void updatePassword(String username, String currentPassword, String newPassword) {
-        try (FileReader reader = new FileReader(DATA_FILE)) {
-            JSONParser parser = new JSONParser();
-            JSONArray users = (JSONArray) parser.parse(reader);
+        Player[] players = readPlayersFromFile();
+        if (players == null) {
+            System.out.println("El archivo data.json no existe o está vacío.");
+            return;
+        }
 
-            boolean userFound = false;
-            for (int i = 0; i < users.size(); i++) {
-                JSONObject user = (JSONObject) users.get(i);
-                String storedUsername = (String) user.get("username");
-                String storedPassword = (String) user.get("password");
-
-                if (storedUsername.equals(username))
-                {
-                    if (storedPassword.equals(currentPassword)) {
-                        // Actualiza la contraseña
-                        user.put("password", newPassword);
-                        userFound = true;
-                        break;
-                    } else {
-                        System.out.println("La contraseña actual no coincide.");
-                        return;
-                    }
+        boolean userFound = false;
+        for (Player player : players) {
+            if (player != null && player.getUsername().equals(username)) {
+                if (player.getPassword().equals(currentPassword)) {
+                    player.setPassword(newPassword); // Actualiza la contraseña
+                    userFound = true;
+                    break;
+                } else {
+                    System.out.println("La contraseña actual no coincide.");
+                    return;
                 }
             }
+        }
 
-            if (!userFound) {
-                System.out.println("Usuario no encontrado.");
-                return;
-            }
+        if (!userFound) {
+            System.out.println("Usuario no encontrado.");
+            return;
+        }
 
-            // Reescribe el archivo JSON
-            try (FileWriter writer = new FileWriter(DATA_FILE)) {
-                writer.write(users.toJSONString());
-                System.out.println("Contraseña actualizada correctamente.");
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Error al escribir el archivo JSON.");
-            }
+        writePlayersToFile(players);
+        System.out.println("Contraseña actualizada correctamente.");
+    }
+
+    private Player[] readPlayersFromFile() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(DATA_FILE))) {
+            return (Player[]) ois.readObject();
         } catch (FileNotFoundException e) {
             System.out.println("El archivo data.json no existe.");
-        } catch (IOException | ParseException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    private void writePlayersToFile(Player[] players) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
+            oos.writeObject(players);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error al escribir el archivo JSON.");
         }
     }
 }
