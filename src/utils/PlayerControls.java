@@ -1,7 +1,6 @@
 package utils;
 
 import motor_v1.motor.input.InputKeyboard;
-import motor_v1.motor.input.InputMouse;
 import motor_v1.motor.input.Key;
 
 public class PlayerControls {

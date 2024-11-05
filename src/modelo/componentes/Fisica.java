@@ -1,10 +1,6 @@
 package modelo.componentes;
 
-
-import java.util.ArrayList;
-
 import motor_v1.motor.GameLoop;
-import motor_v1.motor.component.Movement;
 import motor_v1.motor.component.Physics;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;

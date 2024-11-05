@@ -5,7 +5,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import modelo.Game;
 import modelo.mapObjects.Caja;
 import modelo.mapObjects.DeadBox;
 import modelo.mapObjects.MovementBarrier;

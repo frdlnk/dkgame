@@ -4,7 +4,6 @@ package modelo.maps;
 import java.awt.Graphics;
 
 import motor_v1.motor.Entidad;
-import motor_v1.motor.GameLoop;
 import motor_v1.motor.util.Vector2D;
 import utils.Array;
 import utils.Colisionable;

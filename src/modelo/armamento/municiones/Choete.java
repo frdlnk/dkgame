@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 
 import modelo.armamento.Explosion;
 import modelo.armamento.Explosivo;
-import modelo.entidades.Soldado;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Renderer;

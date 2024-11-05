@@ -8,10 +8,8 @@ import modelo.mapObjects.Caja;
 import modelo.mapObjects.DeadBox;
 import modelo.mapObjects.Plataforma;
 import modelo.maps.Zona;
-import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.util.Vector2D;
-import utils.Colisionable;
 import utils.Conf;
 
 public class Zona2N1 extends Zona {

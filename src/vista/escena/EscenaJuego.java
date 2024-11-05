@@ -2,15 +2,10 @@ package vista.escena;
 
 import java.awt.Graphics;
 
-import modelo.Game;
-import modelo.entidades.Player;
-import modelo.mapObjects.Plataforma;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.Scene;
 import motor_v1.motor.entidades.ListaEntidades;
-import motor_v1.motor.entidades.SpriteSolido;
 import utils.Colisionable;
-import utils.Conf;
 
 public abstract class EscenaJuego extends Scene {
 	public static ListaEntidades entidades = new ListaEntidades();

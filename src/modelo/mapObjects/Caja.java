@@ -5,14 +5,11 @@ import java.awt.image.BufferedImage;
 
 import modelo.componentes.Fisica;
 import motor_v1.motor.Entidad;
-import motor_v1.motor.component.Collider;
-import motor_v1.motor.component.Physics;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.Movible;
 import motor_v1.motor.entidades.SpriteSolido;
 import motor_v1.motor.util.Vector2D;
 import utils.Colisionable;
-import utils.Conf;
 
 public class Caja extends SpriteSolido implements Colisionable {
 

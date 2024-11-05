@@ -5,22 +5,20 @@ import java.awt.image.BufferedImage;
 import modelo.entidades.Soldado;
 import modelo.mapObjects.TriggerBox;
 import motor_v1.motor.Entidad;
-import motor_v1.motor.GameLoop;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
 import utils.Array;
 
 public class Explosion extends TriggerBox{
-	private double tiempoDeExplosion;
+	//private double tiempoDeExplosion;
 	private double dano;
-	private double factorDeDanoXDistancia;
-	private Vector2D epicentroRelativo = Vector2D.ZERO;
+	//private double factorDeDanoXDistancia;
+	//private Vector2D epicentroRelativo = Vector2D.ZERO;
 	private Array<String> targetsIgnore;
 	
 	
 	public Explosion(String nombre, BufferedImage textura, Transform transformar, Array<String> targetsIgnore) {
 		super(nombre, textura, transformar);
-		tiempoDeExplosion = 2.5;
 		dano = 10;
 		colisiona.actualizar();
 		this.targetsIgnore = targetsIgnore;
@@ -30,7 +28,6 @@ public class Explosion extends TriggerBox{
 
 	public Explosion(String nombre, BufferedImage textura, Vector2D posicion, Array<String> targetsIgnore) {
 		super(nombre, textura, posicion);
-		tiempoDeExplosion = 2.5;
 		dano = 10;
 		colisiona.actualizar();
 		this.targetsIgnore = targetsIgnore;
