@@ -31,7 +31,7 @@ public class Zona1N1 extends Zona{
 
 	@Override
 	protected void crearComponentes() {
-		bac  = new Sprite("bakground", Assets.MAPA_NIVEL_1, new Vector2D(0,-224));
+		bac  = new Sprite(Tags.STATIC_OBJECT.getTag(), Assets.MAPA_NIVEL_1, new Vector2D(0,-224));
 		bac.getTransformar().escalarloA(2);
 		
 		//plataforma inicial

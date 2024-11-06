@@ -8,7 +8,7 @@ import motor_v1.motor.util.Vector2D;
 import utils.Array;
 import utils.Colisionable;
 
-public abstract class Map{
+public abstract class Map extends Entidad{
 	protected Array<Zona> zonas;
 	private Zona zonaActual;
 	private Zona zonaAnterior;
@@ -70,6 +70,11 @@ public abstract class Map{
 		if (isChangingZone) {
 			zonaAnterior.dibujar(g);
 		}
+	}
+	
+	@Override
+	public void destruir() {
+		
 	}
 
 	public Array<Zona> getZonas() {

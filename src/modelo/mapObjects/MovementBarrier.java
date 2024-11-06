@@ -6,6 +6,7 @@ import modelo.entidades.Player;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
+import utils.Colisionable;
 
 public class MovementBarrier extends Caja {
 	private boolean playerOverlap;
@@ -24,6 +25,14 @@ public class MovementBarrier extends Caja {
 		if (entidad instanceof Player) {
 			playerOverlap = true;
 		}
+	}
+	
+	@Override
+	public boolean hayColision(Colisionable entidad) {
+		if (entidad instanceof Player) {
+			return super.hayColision(entidad);
+		}
+		return false;
 	}
 	
 	@Override

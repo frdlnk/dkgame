@@ -39,6 +39,7 @@ public class EscenaUno extends EscenaJuego{
 		mapa = new MapaNivel1();
 		
 		
+		entidades.add(mapa.getNombre(), mapa);
 		entidades.add(jugador1.getNombre(), jugador1);
 		entidades.add(enemy.getNombre(), enemy);
 	}
