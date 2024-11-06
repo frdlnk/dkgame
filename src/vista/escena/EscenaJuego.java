@@ -1,6 +1,5 @@
 package vista.escena;
 
-import java.awt.Graphics;
 
 import motor_v1.motor.Entidad;
 import motor_v1.motor.Scene;
@@ -10,20 +9,6 @@ import utils.Colisionable;
 public abstract class EscenaJuego extends Scene {
 	public static ListaEntidades entidades = new ListaEntidades();
 	
-	@Override
-	public void actualizar() {
-		
-	}
-
-	@Override
-	public void destruir() {
-		
-	}
-
-	@Override
-	public void dibujar(Graphics arg0) {
-		
-	}
 
 	public abstract void addEntidad(Entidad entidad);
 	
