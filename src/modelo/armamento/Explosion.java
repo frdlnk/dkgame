@@ -8,21 +8,31 @@ import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
 import utils.Array;
+import utils.Colisionable;
 
+/**
+ * Objeto encargado de representar una explosion que realice dano
+ */
 public class Explosion extends TriggerBox{
 	//private double tiempoDeExplosion;
-	private double dano;
 	//private double factorDeDanoXDistancia;
 	//private Vector2D epicentroRelativo = Vector2D.ZERO;
+	private double dano;
 	private Array<String> targetsIgnore;
 	
 	
+	/**
+	 * Crea una nueva explosion con dano predeterminado de 10
+	 * @param nombre
+	 * @param textura
+	 * @param transformar
+	 * @param targetsIgnore
+	 */
 	public Explosion(String nombre, BufferedImage textura, Transform transformar, Array<String> targetsIgnore) {
 		super(nombre, textura, transformar);
-		dano = 10;
 		colisiona.actualizar();
+		dano = 10;
 		this.targetsIgnore = targetsIgnore;
-		destruir();
 	}
 	
 
@@ -31,7 +41,6 @@ public class Explosion extends TriggerBox{
 		dano = 10;
 		colisiona.actualizar();
 		this.targetsIgnore = targetsIgnore;
-		destruir();
 	}
 
 	@Override
@@ -39,6 +48,14 @@ public class Explosion extends TriggerBox{
 		if (entidad instanceof Soldado && !targetsIgnore.contains(entidad.getNombre())) {
 			hitSoldado((Soldado) entidad);
 		}
+	}
+	
+	@Override
+	public boolean hayColision(Colisionable entidad) {
+		if (!getViva()) {
+			return false;
+		}
+		return super.hayColision(entidad);
 	}
 
 	private void hitSoldado(Soldado soldado) {
@@ -51,6 +68,9 @@ public class Explosion extends TriggerBox{
 	
 	@Override
 	public void actualizar() {
+		//TODO crear timer de duracion y controlar colision unica
+		//solo existe un segundo
+		destruir();
 		super.actualizar();
 	}
 }
