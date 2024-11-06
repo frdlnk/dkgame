@@ -25,6 +25,7 @@ public class Fisica extends Physics{
 		this.masa = masa;
 		setFriccion(0);
 		vectorMovimiento = Vector2D.ZERO;
+		ultimaDireccion = Vector2D.ZERO;
 		fuerzasAplicadas = new Array<>();
 	}
     
