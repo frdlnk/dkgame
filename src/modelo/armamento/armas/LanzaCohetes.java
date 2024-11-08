@@ -3,7 +3,7 @@ package modelo.armamento.armas;
 import modelo.armamento.municiones.Choete;
 import modelo.armamento.municiones.Municion;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
+import utils.arrays.ArrayString;
 
 /**
  * Arma que genera choetes
@@ -18,7 +18,7 @@ public class LanzaCohetes extends Arma {
 	}
 	
 	@Override
-	protected Municion generarBala(Vector2D posicion, Vector2D direccion, Array<String> target) {
+	protected Municion generarBala(Vector2D posicion, Vector2D direccion, ArrayString target) {
 		return new Choete("Cohete", posicion, direccion, target, 20);
 	}
 

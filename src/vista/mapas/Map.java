@@ -5,23 +5,24 @@ import java.awt.Graphics;
 
 import motor_v1.motor.Entidad;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
 import utils.Colisionable;
+import utils.arrays.ArrayZona;
+import vista.zonas.Zona;
 
 public abstract class Map extends Entidad{
-	protected Array<Zona> zonas;
+	protected ArrayZona zonas;
 	private Zona zonaActual;
 	private Zona zonaAnterior;
 	private int indiceZonaActual;
 	private boolean isChangingZone;
 
-	public Map(Array<Zona> zonas) {
+	public Map(ArrayZona zonas) {
 		this.zonas = zonas;
 		crearZonas();
 	}
 	
 	public Map() {
-		this.zonas = new Array<>();
+		this.zonas = new ArrayZona();
 		crearZonas();
 		indiceZonaActual = 0;
 		zonaActual = zonas.get(0);
@@ -42,9 +43,6 @@ public abstract class Map extends Entidad{
 		}
 	}
 
-	public Zona getActualZone() {
-		return zonas.get(indiceZonaActual);
-	}
 	
 	public void generarColisiones(Colisionable colisionable, Entidad entidad) {
 		zonaActual.verificarColisiones(colisionable, entidad);
@@ -72,16 +70,12 @@ public abstract class Map extends Entidad{
 		}
 	}
 	
-	@Override
-	public void destruir() {
-		
-	}
 
-	public Array<Zona> getZonas() {
+	public ArrayZona getZonas() {
 		return zonas;
 	}
 
-	public void setZonas(Array<Zona> zonas) {
+	public void setZonas(ArrayZona zonas) {
 		this.zonas = zonas;
 	}
 

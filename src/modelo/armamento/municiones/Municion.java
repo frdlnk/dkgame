@@ -13,9 +13,9 @@ import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.Movible;
 import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
 import utils.Colisionable;
 import utils.Conf;
+import utils.arrays.ArrayString;
 
 /**
  * Clase encargada del funcionamiento de una municion
@@ -27,7 +27,7 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	protected Collider colisiona;
 	protected Fisica fisica;
 	public final static double velocity = 7;
-	protected Array<String> targetIgnore;
+	protected ArrayString targetIgnore;
 	private double dano;
 
 	/**
@@ -38,7 +38,7 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	 * @param targetsIgnore Lista de tags a ignorar para impactar
 	 * @param dano double cantidad de dano que hace la municion a las entidades objetivo
 	 */
-	public Municion(String nombre, Vector2D posicion, Vector2D direccion, Array<String> targetsIgnore, double dano) {
+	public Municion(String nombre, Vector2D posicion, Vector2D direccion, ArrayString targetsIgnore, double dano, double velocity) {
 		super(nombre);
 		Rectangle rect = new Rectangle(15,10);
 		Color color = new Color(255,153,0);

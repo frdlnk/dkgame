@@ -4,8 +4,8 @@ import motor_v1.motor.GameLoop;
 import motor_v1.motor.component.Physics;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
 import utils.Conf;
+import utils.arrays.ArrayVector2D;
 
 public class Fisica extends Physics{
 	private double gravity;
@@ -13,7 +13,7 @@ public class Fisica extends Physics{
 	private Vector2D ultimaDireccion;
 	private Transform transform;
 	private int masa;
-	private Array<Vector2D> fuerzasAplicadas;
+	private ArrayVector2D fuerzasAplicadas;
 	
 	public Fisica(Transform transform) {
 		this(1,1,transform);
@@ -26,7 +26,7 @@ public class Fisica extends Physics{
 		setFriccion(0);
 		vectorMovimiento = Vector2D.ZERO;
 		ultimaDireccion = Vector2D.ZERO;
-		fuerzasAplicadas = new Array<>();
+		fuerzasAplicadas = new ArrayVector2D();
 	}
     
 	public void impulsar(Vector2D vector) {

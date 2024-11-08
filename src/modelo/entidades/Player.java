@@ -16,7 +16,6 @@ import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.input.InputMouse;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
 import utils.Colisionable;
 import utils.Conf;
 import utils.PlayerControls;
@@ -130,8 +129,8 @@ public class Player extends Soldado implements Colisionable{
 	public void disparar() {
 		if (InputMouse.isPressed()) {
 			Scene escena = Scene.getEscenaActual();
-			Array<String> targetsIgnore = new Array<>();
 			targetsIgnore.add(Tags.PLAYER.getTag());
+			ArrayString targetsIgnore = new ArrayString();
 			Municion disparo = getArma().disparar(getCentro(), direccionDisparo, targetsIgnore);
 			if (escena instanceof EscenaJuego && disparo != null) {
 				((EscenaJuego) escena).addEntidad(disparo);

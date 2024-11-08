@@ -2,12 +2,9 @@ package modelo.armamento.municiones;
 
 import modelo.entidades.Soldado;
 import motor_v1.motor.Entidad;
-import motor_v1.motor.component.Collider;
-import motor_v1.motor.component.Movement;
-import motor_v1.motor.component.Physics;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
 import utils.Tags;
+import utils.arrays.ArrayString;
 
 /**
  * Municion mas comun, crea una bala que viaja en linea recta hasta impactar
@@ -21,8 +18,8 @@ public class Bala extends Municion {
 	 * @param targetsIgnored lista de tags a ignorar
 	 * @param dano double cantidad de dano a generar en las entidades
 	 */
-	public Bala(Vector2D posicion, Vector2D direccion, Array<String> targetsIgnored, double dano) {
-		super(Tags.STATIC_OBJECT.getTag(), posicion, direccion, targetsIgnored, dano);
+	public Bala(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored, double dano) {
+		super(Tags.STATIC_OBJECT, posicion, direccion, targetsIgnored, dano, 7);
 		setDano(5);
 	}
 
