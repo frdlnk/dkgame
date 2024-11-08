@@ -1,4 +1,4 @@
-package vista.mapas.zonas;
+package vista.zonas;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -17,7 +17,6 @@ import motor_v1.motor.util.Vector2D;
 import utils.Assets;
 import utils.Conf;
 import utils.Tags;
-import vista.mapas.Zona;
 
 public class Zona1N1 extends Zona{
 	public final static double limit = -100000;
@@ -31,7 +30,7 @@ public class Zona1N1 extends Zona{
 
 	@Override
 	protected void crearComponentes() {
-		bac  = new Sprite(Tags.STATIC_OBJECT.getTag(), Assets.MAPA_NIVEL_1, new Vector2D(0,-224));
+		bac  = new Sprite(Tags.STATIC_OBJECT, Assets.MAPA_NIVEL_1, new Vector2D(0,-224));
 		bac.getTransformar().escalarloA(2);
 		
 		//plataforma inicial
@@ -55,7 +54,7 @@ public class Zona1N1 extends Zona{
 		Color colorPl1Avion = new Color(128,50,0);
 		BufferedImage imagePl1Avion = Renderer.crearTextura(rectPl1Avion, colorPl1Avion);
 		Vector2D posicionPl1Avion = new Vector2D(1713,330);
-		Plataforma pl_1Avion = new Plataforma(Tags.PLATFORM.getTag(), imagePl1Avion, posicionPl1Avion);
+		Plataforma pl_1Avion = new Plataforma(Tags.PLATFORM, imagePl1Avion, posicionPl1Avion);
 		pl_1Avion.getColisiona().actualizar();
 		
 		//segunda plataforma Avion
@@ -63,7 +62,7 @@ public class Zona1N1 extends Zona{
 		Color colorPl2Avion = new Color(128,50,0);
 		BufferedImage imagePl2Avion = Renderer.crearTextura(rectPl2Avion, colorPl2Avion);
 		Vector2D posicionPl2Avion = new Vector2D(1880,251);
-		Plataforma pl_2Avion = new Plataforma(Tags.PLATFORM.getTag(), imagePl2Avion, posicionPl2Avion);
+		Plataforma pl_2Avion = new Plataforma(Tags.PLATFORM, imagePl2Avion, posicionPl2Avion);
 		pl_2Avion.getColisiona().actualizar();
 		plat1 = pl_2Avion;
 		
@@ -72,7 +71,7 @@ public class Zona1N1 extends Zona{
 		Color colorPl3Avion = new Color(128,50,0);
 		BufferedImage imagePl3Avion = Renderer.crearTextura(rectPl3Avion, colorPl3Avion);
 		Vector2D posicionPl3Avion = new Vector2D(2_225.5,330);
-		Plataforma pl_3Avion = new Plataforma(Tags.PLATFORM.getTag(), imagePl3Avion, posicionPl3Avion);
+		Plataforma pl_3Avion = new Plataforma(Tags.PLATFORM, imagePl3Avion, posicionPl3Avion);
 		pl_3Avion.getColisiona().actualizar();
 		
 		
