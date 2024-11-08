@@ -18,7 +18,7 @@ public class ArrayVector2D {
 	} 
 	
 	public void clear() {
-		arregloObjetos = (Vector2D[]) new Object[TAMANO_INICIAL];
+		arregloObjetos = new Vector2D[TAMANO_INICIAL];
 		size = 0;
 	}
 	

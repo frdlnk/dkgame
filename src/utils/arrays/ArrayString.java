@@ -17,7 +17,7 @@ public class ArrayString {
 	} 
 	
 	public void clear() {
-		arregloObjetos = (String[]) new Object[TAMANO_INICIAL];
+		arregloObjetos = new String[TAMANO_INICIAL];
 		size = 0;
 	}
 	

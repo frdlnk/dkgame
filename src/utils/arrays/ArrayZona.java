@@ -18,7 +18,7 @@ public class ArrayZona {
 	} 
 	
 	public void clear() {
-		arregloObjetos = (Zona[]) new Object[TAMANO_INICIAL];
+		arregloObjetos = new Zona[TAMANO_INICIAL];
 		size = 0;
 	}
 	
