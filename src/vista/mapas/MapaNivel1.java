@@ -18,4 +18,8 @@ public class MapaNivel1 extends Map {
 		zonas.add(zona2);
 	}
 
+	@Override
+	public void destruir() {
+	}
+
 }

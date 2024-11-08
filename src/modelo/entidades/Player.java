@@ -20,13 +20,14 @@ import utils.Colisionable;
 import utils.Conf;
 import utils.PlayerControls;
 import utils.Tags;
+import utils.arrays.ArrayString;
 import vista.escena.EscenaJuego;
 
-public class Player extends Soldado implements Colisionable{
+public class Player extends Soldado{
 	public final static int speed = 40;
 	public final static int jumpForce = 8;
 	private double yVelocity;
-	public Vector2D direccionDisparo;
+	private Vector2D direccionDisparo;
 	private boolean isGrounded;
 	private PlayerControls controles;
 	private boolean estaAgachado;
@@ -48,10 +49,6 @@ public class Player extends Soldado implements Colisionable{
 		salud = 10;
 	}
 	
-	@Override
-	public void destruir() {
-		super.destruir();
-	}
 
 	@Override
 	public void actualizar() {

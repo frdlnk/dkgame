@@ -2,7 +2,6 @@ package modelo.entidades;
 
 import java.awt.image.BufferedImage;
 
-import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.SpriteSolido;
 import motor_v1.motor.util.Vector2D;
@@ -25,10 +24,6 @@ public abstract class Recogible extends SpriteSolido implements Colisionable {
 		return colisiona.colisionaCon(entidad.getColisiona());
 	}
 
-	@Override
-	public void onColision(Entidad entidad) {
-		//do nothing
-	}
 	
 	@Override
 	public boolean isTrigger() {

@@ -21,10 +21,9 @@ import utils.arrays.ArrayString;
  * Filtra las colisiones e implementa los impactos de las municiones
  */
 public abstract class Municion extends Sprite implements Colisionable, Movible{
-	protected Movement movimiento;
 	protected Collider colisiona;
 	protected Fisica fisica;
-	public final static double velocity = 7;
+	private double velocity;
 	protected ArrayString targetIgnore;
 	private double dano;
 
@@ -41,13 +40,13 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 		Rectangle rect = new Rectangle(15,10);
 		Color color = new Color(255,153,0);
 		this.textura = Renderer.crearTextura(rect, color);
-		this.movimiento = new Movement(0.5, Vector2D.ZERO);
+		this.velocity = velocity;
 		transformar = new Transform(posicion);
 	    int width = this.textura.getWidth();
 	    int height = this.textura.getHeight();
 	    this.colisiona = new Collider(this.transformar, width, height);
 	    this.fisica = new Fisica(1,0,transformar);
-		fisica.impulsar(direccion.scale(velocity));
+		fisica.impulsar(direccion.scale(this.velocity));
 		fisica.setAceleracion(1);
 		renderer = new Renderer(transformar, textura);
 		this.targetIgnore = targetsIgnore;
@@ -89,8 +88,8 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	@Override
 	public void onColision(Entidad entidad) {
 		if (!targetIgnore.contains(entidad.getNombre())) {
-			impacto(entidad);
 			destruir();
+			impacto(entidad);
 		}
 	}
 
