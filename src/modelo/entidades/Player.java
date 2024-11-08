@@ -129,8 +129,8 @@ public class Player extends Soldado implements Colisionable{
 	public void disparar() {
 		if (InputMouse.isPressed()) {
 			Scene escena = Scene.getEscenaActual();
-			targetsIgnore.add(Tags.PLAYER.getTag());
 			ArrayString targetsIgnore = new ArrayString();
+			targetsIgnore.add(Tags.PLAYER);
 			Municion disparo = getArma().disparar(getCentro(), direccionDisparo, targetsIgnore);
 			if (escena instanceof EscenaJuego && disparo != null) {
 				((EscenaJuego) escena).addEntidad(disparo);

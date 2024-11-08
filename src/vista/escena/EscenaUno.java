@@ -30,11 +30,11 @@ public class EscenaUno extends EscenaJuego{
 		Color color = new Color(128,128,0);
 		BufferedImage[] image = {Renderer.crearTextura(rect, color)};
 		Vector2D posicionJ = new Vector2D(10,180);
-		this.jugador1 = new Player(Tags.PLAYER.getTag(), image, posicionJ, 10);
+		this.jugador1 = new Player(Tags.PLAYER, image, posicionJ, 10);
 		
 		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
 		Vector2D posicionE = new Vector2D(300,200);
-		Enemigo enemy = new Enemigo(Tags.ENEMY.getTag(), imageE, posicionE, 10);
+		Enemigo enemy = new Enemigo(Tags.ENEMY, imageE, posicionE, 10);
 		
 		mapa = new MapaNivel1();
 		

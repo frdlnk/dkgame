@@ -67,8 +67,8 @@ public class Enemigo extends Soldado {
 	public void disparar() {
 		Scene escena = Scene.getEscenaActual();
 		if (escena instanceof EscenaJuego) {
-			targetsIgnore.add(Tags.ENEMY.getTag());
 			ArrayString targetsIgnore = new ArrayString();
+			targetsIgnore.add(Tags.ENEMY);
 			Municion disparo = getArma().disparar(getCentro(), Vector2D.LEFT, targetsIgnore);
 			if(disparo != null) {
 				((EscenaJuego) escena).addEntidad(disparo);
