@@ -10,7 +10,7 @@ public class StateManager {
     private static final String DATA_FILE = "data.json";
     private static Player[] players = new Player[10];
     private static int playerCount = 0;
-    private static String currentPlayerOnSession = null;
+    public static Player currentPlayerOnSession;
     public static boolean islogged = false;
 
     public Object readPlayers() {
@@ -27,7 +27,7 @@ public class StateManager {
             System.out.println("El archivo data.json no existe. Se creará un archivo nuevo.");
             createNewFile();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+
         }
         return null;
     }
@@ -42,6 +42,18 @@ public class StateManager {
     }
 
     public void createPlayer(String username, String password) {
+        // Leemos los jugadores existentes
+        readPlayers();
+
+        // Verificamos si el nombre de usuario ya existe
+        for (Player player : players) {
+            if (player != null && player.getUsername().equals(username)) {
+                System.out.println("Error: El nombre de usuario '" + username + "' ya está en uso. Intenta con otro nombre.");
+                return; // No creamos el jugador si el nombre ya existe
+            }
+        }
+
+        // Si no existe, creamos el nuevo jugador
         Player newPlayer = new Player(username, password);
         newPlayer.setId(UUID.randomUUID());
         newPlayer.setLevel(1);
@@ -52,6 +64,7 @@ public class StateManager {
         writePlayersToFile();
         System.out.println("Jugador " + username + " creado exitosamente.");
     }
+
 
     private void writePlayersToFile() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
@@ -84,13 +97,14 @@ public class StateManager {
         System.out.println("Jugador no encontrado.");
     }
 
-    public Player getCurrentSession() {
-        return getPlayerById(currentPlayerOnSession);
-    }
-
     public void login(String id) {
-        currentPlayerOnSession = id;
-        islogged = true;
+        for (Player player : players) {
+            if(player != null && player.getId().toString().equals(id)) {
+                currentPlayerOnSession = player;
+                islogged = true;
+            }
+        }
+
     }
 
     public void logout() {
