@@ -1,15 +1,14 @@
-package modelo.maps.zonas.nivel1;
+package vista.mapas.zonas;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import modelo.mapObjects.Caja;
-import modelo.mapObjects.DeadBox;
-import modelo.mapObjects.MovementBarrier;
-import modelo.mapObjects.Plataforma;
-import modelo.maps.Zona;
+import modelo.worldObjects.Caja;
+import modelo.worldObjects.DeadBox;
+import modelo.worldObjects.MovementBarrier;
+import modelo.worldObjects.Plataforma;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.input.InputKeyboard;
@@ -18,6 +17,7 @@ import motor_v1.motor.util.Vector2D;
 import utils.Assets;
 import utils.Conf;
 import utils.Tags;
+import vista.mapas.Zona;
 
 public class Zona1N1 extends Zona{
 	public final static double limit = -100000;

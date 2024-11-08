@@ -1,4 +1,4 @@
-package modelo.mapObjects;
+package modelo.worldObjects;
 
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;

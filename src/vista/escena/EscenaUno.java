@@ -8,8 +8,6 @@ import java.awt.image.BufferedImage;
 import modelo.armamento.Explosion;
 import modelo.entidades.Enemigo;
 import modelo.entidades.Player;
-import modelo.maps.Map;
-import modelo.maps.MapaNivel1;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.entidades.ListaEntidades;
@@ -19,6 +17,8 @@ import motor_v1.motor.util.Vector2D;
 import utils.ColisionUtils;
 import utils.Colisionable;
 import utils.Tags;
+import vista.mapas.Map;
+import vista.mapas.MapaNivel1;
 
 public class EscenaUno extends EscenaJuego{
 	public static ListaEntidades entidades = new ListaEntidades();

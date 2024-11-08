@@ -1,4 +1,4 @@
-package modelo.mapObjects;
+package modelo.worldObjects;
 
 import java.awt.image.BufferedImage;
 

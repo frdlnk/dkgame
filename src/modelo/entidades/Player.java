@@ -8,7 +8,7 @@ import modelo.armamento.armas.Arma;
 import modelo.armamento.armas.LanzaCohetes;
 import modelo.armamento.municiones.Municion;
 import modelo.componentes.Fisica;
-import modelo.mapObjects.Caja;
+import modelo.worldObjects.Caja;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;

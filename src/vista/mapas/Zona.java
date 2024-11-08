@@ -1,4 +1,4 @@
-package modelo.maps;
+package vista.mapas;
 
 import java.awt.Graphics;
 

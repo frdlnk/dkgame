@@ -1,7 +1,7 @@
-package modelo.maps;
+package vista.mapas;
 
-import modelo.maps.zonas.nivel1.Zona1N1;
-import modelo.maps.zonas.nivel1.Zona2N1;
+import vista.mapas.zonas.Zona1N1;
+import vista.mapas.zonas.Zona2N1;
 
 public class MapaNivel1 extends Map {
 

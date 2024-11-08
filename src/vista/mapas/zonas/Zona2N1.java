@@ -1,16 +1,16 @@
-package modelo.maps.zonas.nivel1;
+package vista.mapas.zonas;
 
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import modelo.mapObjects.Caja;
-import modelo.mapObjects.DeadBox;
-import modelo.mapObjects.Plataforma;
-import modelo.maps.Zona;
+import modelo.worldObjects.Caja;
+import modelo.worldObjects.DeadBox;
+import modelo.worldObjects.Plataforma;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.util.Vector2D;
 import utils.Conf;
+import vista.mapas.Zona;
 
 public class Zona2N1 extends Zona {
 

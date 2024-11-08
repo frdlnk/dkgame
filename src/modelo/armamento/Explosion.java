@@ -3,7 +3,7 @@ package modelo.armamento;
 import java.awt.image.BufferedImage;
 
 import modelo.entidades.Soldado;
-import modelo.mapObjects.TriggerBox;
+import modelo.worldObjects.TriggerBox;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
