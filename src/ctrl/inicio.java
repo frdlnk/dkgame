@@ -1,6 +1,5 @@
 package ctrl;
 
-import modelo.Game;
 import motor_v1.motor.GameLoop;
 import utils.Assets;
 import vista.escena.EscenaJuego;

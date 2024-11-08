@@ -1,4 +1,4 @@
-package modelo;
+package ctrl;
 
 import java.awt.Graphics;
 
