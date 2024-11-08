@@ -6,15 +6,13 @@ import java.awt.Rectangle;
 import modelo.componentes.Fisica;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Collider;
-import motor_v1.motor.component.Movement;
-import motor_v1.motor.component.Physics;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
-import motor_v1.motor.entidades.Movible;
 import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.util.Vector2D;
 import utils.Colisionable;
 import utils.Conf;
+import utils.Movible;
 import utils.arrays.ArrayString;
 
 /**
@@ -133,10 +131,6 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 		return fisica;
 	}
 
-	@Override
-	public Movement getMovimiento() {
-		return movimiento;
-	}
 
 	@Override
 	public void setColisiona(Collider colisiona) {
@@ -144,14 +138,8 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	}
 
 	@Override
-	public void setFisica(Physics fisica) {
-		if (fisica instanceof Fisica) {
-			this.fisica = (Fisica) fisica;
-		}
+	public void setFisica(Fisica fisica) {
+		this.fisica = (Fisica) fisica;
 	}
 
-	@Override
-	public void setMovimiento(Movement movimiento) {
-		this.movimiento = movimiento;
-	}
 }

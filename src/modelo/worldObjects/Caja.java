@@ -8,16 +8,13 @@ import modelo.componentes.Fisica;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
-import motor_v1.motor.entidades.Movible;
+import utils.Movible;
 import motor_v1.motor.entidades.SpriteSolido;
 import motor_v1.motor.util.Vector2D;
 import utils.Colisionable;
 
 public class Caja extends SpriteSolido implements Colisionable {
 
-	public Caja(String nombre) {
-		super(nombre);
-	}
 
 	public Caja(String nombre, BufferedImage textura, Transform transformar) {
 		super(nombre, textura, transformar);
@@ -40,9 +37,9 @@ public class Caja extends SpriteSolido implements Colisionable {
 
 	@Override
 	public void onColision(Entidad entidad) {
-		if (entidad instanceof Movible && ((Movible) entidad).getFisica() instanceof Fisica) {
+		if (entidad instanceof Movible) {
 			Movible objeto = (Movible) entidad;
-			Fisica fisicaOtro = (Fisica) objeto.getFisica();
+			Fisica fisicaOtro = objeto.getFisica();
 			Rectangle colliderOtro = objeto.getColisiona().getHitbox();
 			Rectangle thisHitBox = colisiona.getHitbox();
 			Vector2D direccion = fisicaOtro.getUltimaDireccion().scale(-1).normalize();
