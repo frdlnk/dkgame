@@ -49,7 +49,18 @@ public class EscenaUno extends EscenaJuego{
 		if (!mapa.isChangingZone()) {
 			entidades.actualizar();
 			calcularColisiones();
+			calcularColisionesMapa(jugador1, jugador1);
 			entidades.destruir();
+		}
+	}
+
+	@Override
+	public void calcularColisiones() {
+		super.calcularColisiones();
+		for (int i = 0; i < entidades.getSize(); i++) {
+			if (entidades.get(i) instanceof Colisionable) {
+				calcularColisionesMapa((Colisionable)entidades.get(i), entidades.get(i));
+			}
 		}
 	}
 
