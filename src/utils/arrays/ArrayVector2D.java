@@ -1,29 +1,29 @@
-package utils;
+package utils.arrays;
 
-import java.util.Arrays;
+import motor_v1.motor.util.Vector2D;
 
-public class Array<T> {
+public class ArrayVector2D {
 	public final static int TAMANO_INICIAL = 10;
-	private T[] arregloObjetos;
+	private Vector2D[] arregloObjetos;
 	private int size;
 	
-	public Array() {
-		this.arregloObjetos = (T[]) new Object[TAMANO_INICIAL];
+	public ArrayVector2D() {
+		this.arregloObjetos = new Vector2D[TAMANO_INICIAL];
 		size = 0;
 	}
 	
-	public Array(T[] arreglo) {
+	public ArrayVector2D(Vector2D[] arreglo) {
 		arregloObjetos = arreglo;
 		size = arreglo.length;
 	} 
 	
 	public void clear() {
-		arregloObjetos = (T[]) new Object[TAMANO_INICIAL];
+		arregloObjetos = new Vector2D[TAMANO_INICIAL];
 		size = 0;
 	}
 	
-	public boolean contains(T object) {
-		T searchedT = get(object);
+	public boolean contains(Vector2D object) {
+		Vector2D searchedT = get(object);
 		if (searchedT != null) {
 			return true;
 		}
@@ -31,14 +31,14 @@ public class Array<T> {
 	}
 	
 	private void grow() {
-		T[] nuevoArreglo = (T[]) new Object[arregloObjetos.length*2];
+		Vector2D[] nuevoArreglo = new Vector2D[arregloObjetos.length*2];
 		for (int i = 0; i < arregloObjetos.length; i++) {
 			nuevoArreglo[i] = arregloObjetos[i];
 		}
 		arregloObjetos = nuevoArreglo;
 	}
 	
-	public void add(T object) {
+	public void add(Vector2D object) {
 		if (size == arregloObjetos.length) {
 			grow();
 		}
@@ -46,18 +46,7 @@ public class Array<T> {
 		size++;
 	}
 	
-	public T pop(T object) {
-		for (int i = 0; i < size; i++) {
-			T actual = arregloObjetos[i];
-			if (actual.equals(arregloObjetos[i])) {
-				remove(i);
-				return actual;
-			}
-		}
-		return null;
-	}
-	
-	public void remove(T object) {
+	public void remove(Vector2D object) {
 		for (int i = 0; i < size; i++) {
 			if (object.equals(arregloObjetos[i])) {
 				remove(i);
@@ -73,14 +62,14 @@ public class Array<T> {
 		size--;
 	}
 	
-	public T get(int index) {
+	public Vector2D get(int index) {
 		if (index >= size || index < 0) {
 			return null;
 		}
 		return arregloObjetos[index];
 	}
 	
-	public T get(T object) {
+	public Vector2D get(Vector2D object) {
 		for (int i = 0; i < size; i++) {
 			if (object.equals(arregloObjetos[i])) {
 				return arregloObjetos[i];
@@ -89,11 +78,11 @@ public class Array<T> {
 		return null;
 	}
 
-	public T[] getArregloObjetos() {
+	public Vector2D[] getArregloObjetos() {
 		return arregloObjetos;
 	}
 
-	public void setArregloObjetos(T[] arregloObjetos) {
+	public void setArregloObjetos(Vector2D[] arregloObjetos) {
 		this.arregloObjetos = arregloObjetos;
 	}
 
@@ -107,7 +96,7 @@ public class Array<T> {
 
 	@Override
 	public String toString() {
-		return "Array [arregloObjetos=" + Arrays.toString(arregloObjetos) + ", size=" + size + "]";
+		return "Array [arregloObjetos=" + arregloObjetos + ", size=" + size + "]";
 	}
 	
 	

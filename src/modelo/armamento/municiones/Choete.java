@@ -10,8 +10,7 @@ import motor_v1.motor.Entidad;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
-import utils.Tags;
+import utils.arrays.ArrayString;
 import vista.escena.EscenaJuego;
 
 /**
@@ -30,8 +29,8 @@ public class Choete extends Municion implements Explosivo{
 	 * @param targetsIgnored 	lista de tags a ignorar
 	 * @param dano double 		cantidad de dano a realizar a los objeivos
 	 */
-	public Choete(String nombre, Vector2D posicion, Vector2D direccion, Array<String> targetsIgnored, double dano) {
-		super(nombre, posicion, direccion, targetsIgnored, dano);
+	public Choete(String nombre, Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored, double dano) {
+		super(nombre, posicion, direccion, targetsIgnored, dano, 5);
 		//asigna gravedad al cohete
 		this.fisica.setGravity(1);
 	}

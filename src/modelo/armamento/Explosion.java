@@ -7,8 +7,8 @@ import modelo.worldObjects.TriggerBox;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
 import utils.Colisionable;
+import utils.arrays.ArrayString;
 
 /**
  * Objeto encargado de representar una explosion que genere dano
@@ -21,7 +21,7 @@ public class Explosion extends TriggerBox{
 	//private double factorDeDanoXDistancia;
 	//private Vector2D epicentroRelativo = Vector2D.ZERO;
 	private double dano;
-	private Array<String> targetsIgnore;
+	private ArrayString targetsIgnore;
 	
 	
 	/**
@@ -31,7 +31,7 @@ public class Explosion extends TriggerBox{
 	 * @param transformar
 	 * @param targetsIgnore
 	 */
-	public Explosion(String nombre, BufferedImage textura, Transform transformar, Array<String> targetsIgnore) {
+	public Explosion(String nombre, BufferedImage textura, Transform transformar, ArrayString targetsIgnore) {
 		super(nombre, textura, transformar);
 		colisiona.actualizar();
 		dano = 10;
@@ -46,7 +46,7 @@ public class Explosion extends TriggerBox{
 	 * @param posicion	Vector2D con la posicion de la explosion
 	 * @param targetsIgnore Lista de tags que ignorara
 	 */
-	public Explosion(String nombre, BufferedImage textura, Vector2D posicion, Array<String> targetsIgnore) {
+	public Explosion(String nombre, BufferedImage textura, Vector2D posicion, ArrayString targetsIgnore) {
 		super(nombre, textura, posicion);
 		dano = 10;
 		colisiona.actualizar();

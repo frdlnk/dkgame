@@ -6,16 +6,14 @@ import java.awt.Rectangle;
 import modelo.componentes.Fisica;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Collider;
-import motor_v1.motor.component.Movement;
-import motor_v1.motor.component.Physics;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
-import motor_v1.motor.entidades.Movible;
 import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
 import utils.Colisionable;
 import utils.Conf;
+import utils.Movible;
+import utils.arrays.ArrayString;
 
 /**
  * Clase encargada del funcionamiento de una municion
@@ -26,11 +24,10 @@ import utils.Conf;
  * @see Sprite, Colisionable, Movible
  */
 public abstract class Municion extends Sprite implements Colisionable, Movible{
-	protected Movement movimiento;
 	protected Collider colisiona;
 	protected Fisica fisica;
-	public final static double velocity = 7;
-	protected Array<String> targetIgnore;
+	private double velocity;
+	protected ArrayString targetIgnore;
 	private double dano;
 
 	/**
@@ -41,18 +38,18 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	 * @param targetsIgnore Lista de tags a ignorar para impactar
 	 * @param dano double 	cantidad de dano que hace la municion a las entidades objetivo
 	 */
-	public Municion(String nombre, Vector2D posicion, Vector2D direccion, Array<String> targetsIgnore, double dano) {
+	public Municion(String nombre, Vector2D posicion, Vector2D direccion, ArrayString targetsIgnore, double dano, double velocity) {
 		super(nombre);
 		Rectangle rect = new Rectangle(15,10);
 		Color color = new Color(255,153,0);
 		this.textura = Renderer.crearTextura(rect, color);
-		this.movimiento = new Movement(0.5, Vector2D.ZERO);
+		this.velocity = velocity;
 		transformar = new Transform(posicion);
 	    int width = this.textura.getWidth();
 	    int height = this.textura.getHeight();
 	    this.colisiona = new Collider(this.transformar, width, height);
 	    this.fisica = new Fisica(1,0,transformar);
-		fisica.impulsar(direccion.scale(velocity));
+		fisica.impulsar(direccion.scale(this.velocity));
 		fisica.setAceleracion(1);
 		renderer = new Renderer(transformar, textura);
 		this.targetIgnore = targetsIgnore;
@@ -73,10 +70,10 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	 * Calcula los limites de la municion en pantalla
 	 */
 	private void calcularLimites() {
-		if(transformar.getPosicion().getX() > Conf.WINDOW_WIDHT
+		if(transformar.getPosicion().getX() > Conf.WINDOW_WIDTH
 		|| transformar.getPosicion().getX() < 0
 		|| transformar.getPosicion().getY() < 0
-		|| transformar.getPosicion().getY() > Conf.WINDOW_HEIGT)
+		|| transformar.getPosicion().getY() > Conf.WINDOW_HEIGHT)
 		{
 			destruir();
 		}
@@ -94,8 +91,8 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	@Override
 	public void onColision(Entidad entidad) {
 		if (!targetIgnore.contains(entidad.getNombre())) {
-			impacto(entidad);
 			destruir();
+			impacto(entidad);
 		}
 	}
 
@@ -136,10 +133,6 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 		return fisica;
 	}
 
-	@Override
-	public Movement getMovimiento() {
-		return movimiento;
-	}
 
 	@Override
 	public void setColisiona(Collider colisiona) {
@@ -147,14 +140,8 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	}
 
 	@Override
-	public void setFisica(Physics fisica) {
-		if (fisica instanceof Fisica) {
-			this.fisica = (Fisica) fisica;
-		}
+	public void setFisica(Fisica fisica) {
+		this.fisica = (Fisica) fisica;
 	}
 
-	@Override
-	public void setMovimiento(Movement movimiento) {
-		this.movimiento = movimiento;
-	}
 }

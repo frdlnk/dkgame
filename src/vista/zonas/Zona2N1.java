@@ -1,4 +1,4 @@
-package vista.mapas.zonas;
+package vista.zonas;
 
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -10,17 +10,16 @@ import modelo.worldObjects.Plataforma;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.util.Vector2D;
 import utils.Conf;
-import vista.mapas.Zona;
 
 public class Zona2N1 extends Zona {
 
 	public Zona2N1() {
-		super(Vector2D.LEFT, new Vector2D(Conf.WINDOW_WIDHT,0));
+		super(Vector2D.LEFT, new Vector2D(Conf.WINDOW_WIDTH,0));
 	}
 
 	@Override
 	protected void crearComponentes() {
-		Rectangle rectFloor = new Rectangle(Conf.WINDOW_WIDHT, 10);
+		Rectangle rectFloor = new Rectangle(Conf.WINDOW_WIDTH, 10);
 		Color colorFloor = new Color(80,70,0);
 		BufferedImage imageFloor = Renderer.crearTextura(rectFloor, colorFloor);
 		Vector2D posicionF = new Vector2D(0,280);

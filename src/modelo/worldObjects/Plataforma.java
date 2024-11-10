@@ -5,15 +5,12 @@ import java.awt.image.BufferedImage;
 
 import modelo.componentes.Fisica;
 import motor_v1.motor.component.Transform;
-import motor_v1.motor.entidades.Movible;
+import utils.Movible;
 import motor_v1.motor.util.Vector2D;
 import utils.Colisionable;
 
 public class Plataforma extends Caja {
 
-	public Plataforma(String nombre) {
-		super(nombre);
-	}
 
 	public Plataforma(String nombre, BufferedImage textura, Transform transformar) {
 		super(nombre, textura, transformar);
@@ -25,12 +22,11 @@ public class Plataforma extends Caja {
 
 	@Override
 	public boolean hayColision(Colisionable entidad) {
-		if (entidad instanceof Movible 
-			&& ((Movible) entidad).getFisica() instanceof Fisica) 
+		if (entidad instanceof Movible ) 
 		{
 			//TODO: tratar de hacer con producto punto de la resta de pos-Jpos y Vector.UP
 			Movible objeto = (Movible) entidad;
-			Fisica fisicaOtro = (Fisica) objeto.getFisica();
+			Fisica fisicaOtro = objeto.getFisica();
 			Rectangle otroHitbox = objeto.getColisiona().getHitbox();
 			Rectangle thisHitBox = colisiona.getHitbox();  
 			double thisYLevel = thisHitBox.getMaxY();

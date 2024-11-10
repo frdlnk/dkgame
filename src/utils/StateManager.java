@@ -5,12 +5,14 @@ import models.Player;
 import java.io.*;
 import java.util.UUID;
 
+import static vista.MenuProvicional.sm;
+import utils.Conf;
 public class StateManager {
 
     private static final String DATA_FILE = "data.json";
-    private static Player[] players = new Player[10];
-    private static int playerCount = 0;
-    private static String currentPlayerOnSession = null;
+    public static Player[] players = new Player[10];
+    public static int playerCount = 0;
+    public static Player currentPlayerOnSession;
     public static boolean islogged = false;
 
     public Object readPlayers() {
@@ -27,7 +29,7 @@ public class StateManager {
             System.out.println("El archivo data.json no existe. Se creará un archivo nuevo.");
             createNewFile();
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+
         }
         return null;
     }
@@ -41,7 +43,16 @@ public class StateManager {
         return null;
     }
 
-    public void createPlayer(String username, String password) {
+    public String createPlayer(String username, String password) {
+        readPlayers();
+
+        for (Player player : players) {
+            if (player != null && player.getUsername().equals(username)) {
+                System.out.println("Error: El nombre de usuario '" + username + "' ya está en uso. Intenta con otro nombre.");
+                return null;
+            }
+        }
+
         Player newPlayer = new Player(username, password);
         newPlayer.setId(UUID.randomUUID());
         newPlayer.setLevel(1);
@@ -49,13 +60,13 @@ public class StateManager {
 
         players[playerCount++] = newPlayer;
 
-        writePlayersToFile();
-        System.out.println("Jugador " + username + " creado exitosamente.");
+        writePlayersToFile(players);
+        return "Jugador " + username + " creado exitosamente.";
     }
 
-    private void writePlayersToFile() {
+    public void writePlayersToFile(Player[] players) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
-            oos.writeObject(players);
+            oos.writeObject(StateManager.players);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error al escribir el archivo JSON.");
@@ -76,7 +87,7 @@ public class StateManager {
             if (players[i] != null && players[i].getId().toString().equals(playerId)) {
                 players[i].setScore(newScore);
                 players[i].setLevel(newLevel);
-                writePlayersToFile();
+                writePlayersToFile(sm.players);
                 System.out.println("Datos del jugador " + playerId + " actualizados correctamente.");
                 return;
             }
@@ -84,13 +95,14 @@ public class StateManager {
         System.out.println("Jugador no encontrado.");
     }
 
-    public Player getCurrentSession() {
-        return getPlayerById(currentPlayerOnSession);
-    }
-
     public void login(String id) {
-        currentPlayerOnSession = id;
-        islogged = true;
+        for (Player player : players) {
+            if(player != null && player.getId().toString().equals(id)) {
+                currentPlayerOnSession = player;
+                islogged = true;
+                Conf.currentLevel = player.getLevel();
+            }
+        }
     }
 
     public void logout() {

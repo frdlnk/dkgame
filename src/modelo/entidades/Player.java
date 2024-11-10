@@ -16,18 +16,18 @@ import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.input.InputMouse;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
 import utils.Colisionable;
 import utils.Conf;
 import utils.PlayerControls;
 import utils.Tags;
+import utils.arrays.ArrayString;
 import vista.escena.EscenaJuego;
 
-public class Player extends Soldado implements Colisionable{
+public class Player extends Soldado{
 	public final static int speed = 40;
 	public final static int jumpForce = 8;
 	private double yVelocity;
-	public Vector2D direccionDisparo;
+	private Vector2D direccionDisparo;
 	private boolean isGrounded;
 	private PlayerControls controles;
 	private boolean estaAgachado;
@@ -49,10 +49,6 @@ public class Player extends Soldado implements Colisionable{
 		salud = 10;
 	}
 	
-	@Override
-	public void destruir() {
-		super.destruir();
-	}
 
 	@Override
 	public void actualizar() {
@@ -120,8 +116,8 @@ public class Player extends Soldado implements Colisionable{
 			posicion.setX(0);
 			fisica.getVectorMovimiento().setX(0);
 		} 
-		if(posicion.getX() + Conf.PLAYER_WIDHT > Conf.WINDOW_WIDHT){
-			posicion.setX(Conf.WINDOW_WIDHT - Conf.PLAYER_WIDHT);
+		if(posicion.getX() + Conf.WINDOW_WIDTH > Conf.WINDOW_WIDTH){
+			posicion.setX(Conf.WINDOW_WIDTH - Conf.WINDOW_WIDTH);
 			fisica.getVectorMovimiento().setX(0);
 		}
 	}
@@ -130,8 +126,8 @@ public class Player extends Soldado implements Colisionable{
 	public void disparar() {
 		if (InputMouse.isPressed()) {
 			Scene escena = Scene.getEscenaActual();
-			Array<String> targetsIgnore = new Array<>();
-			targetsIgnore.add(Tags.PLAYER.getTag());
+			ArrayString targetsIgnore = new ArrayString();
+			targetsIgnore.add(Tags.PLAYER);
 			Municion disparo = getArma().disparar(getCentro(), direccionDisparo, targetsIgnore);
 			if (escena instanceof EscenaJuego && disparo != null) {
 				((EscenaJuego) escena).addEntidad(disparo);

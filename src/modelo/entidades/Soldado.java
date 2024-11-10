@@ -9,8 +9,9 @@ import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.GifMovible;
 import motor_v1.motor.util.Vector2D;
 import utils.Colisionable;
+import utils.Movible;
 
-public abstract class Soldado extends GifMovible implements Colisionable {
+public abstract class Soldado extends GifMovible implements Colisionable, Movible {
 	protected double salud;
 	private Arma arma;
 	protected Fisica fisica;

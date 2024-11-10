@@ -1,4 +1,4 @@
-package vista.mapas;
+package vista.zonas;
 
 import java.awt.Graphics;
 

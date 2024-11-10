@@ -4,8 +4,8 @@ import motor_v1.motor.GameLoop;
 import motor_v1.motor.component.Physics;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
 import utils.Conf;
+import utils.arrays.ArrayVector2D;
 
 /**
  * Componente encargado del calculo de las fisicas de un objeto con transformar
@@ -29,7 +29,7 @@ public class Fisica extends Physics{
 	private Vector2D ultimaDireccion;
 	private Transform transform;
 	private int masa;
-	private Array<Vector2D> fuerzasAplicadas;
+	private ArrayVector2D fuerzasAplicadas;
 	
 	/**
 	 * Crea una nueva fisica aplicada a un trasnform, con masa =1 y gravedad = 1
@@ -46,7 +46,7 @@ public class Fisica extends Physics{
 		setFriccion(0);
 		vectorMovimiento = Vector2D.ZERO;
 		ultimaDireccion = Vector2D.ZERO;
-		fuerzasAplicadas = new Array<>();
+		fuerzasAplicadas = new ArrayVector2D();
 	}
     
 	public void impulsar(Vector2D vector) {

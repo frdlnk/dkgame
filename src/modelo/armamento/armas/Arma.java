@@ -3,7 +3,7 @@ package modelo.armamento.armas;
 import modelo.armamento.municiones.Municion;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
+import utils.arrays.ArrayString;
 
 /**
  * Esta clase concentra la logica de generacion de municiones
@@ -43,7 +43,7 @@ public abstract class Arma {
 	 * @param targetsIgnored lista de tags que la municion debe ignorar
 	 * @return Municion si cumple la cadencia de tiro, null en caso contrario
 	 */
-	public Municion disparar(Vector2D posicion, Vector2D direccion, Array<String> targetsIgnored) {
+	public Municion disparar(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored) {
 		if(timeToNextShoot <= 0) {
 			timeToNextShoot = shootDelay;
 			return generarBala(posicion, direccion, targetsIgnored);
@@ -58,7 +58,7 @@ public abstract class Arma {
 	 * @param targetsIgnored Lista de tags que la Municion debe ignorar
 	 * @return Municion creada por el arma
 	 */
-	protected abstract Municion generarBala(Vector2D posicion, Vector2D direccion, Array<String> targetsIgnored);
+	protected abstract Municion generarBala(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored);
 	
 	/**
 	 * Se debe llamar cada frame controla la reduccion del tiempo de disparo

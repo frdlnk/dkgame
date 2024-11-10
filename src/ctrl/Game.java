@@ -1,4 +1,4 @@
-package modelo;
+package ctrl;
 
 import java.awt.Graphics;
 
@@ -14,7 +14,7 @@ public class Game extends Entidad{
 	public Game(Scene escena) {
 		escenaActual = escena;
 		Scene.cambiarEscena(escena);
-		lienzo = new Lienzo(Conf.WINDOW_WIDHT, Conf.WINDOW_HEIGT, "Juego");
+		lienzo = new Lienzo(Conf.WINDOW_WIDTH, Conf.WINDOW_HEIGHT, "Juego");
 		lienzo.setResizable(true);
 	}
 	

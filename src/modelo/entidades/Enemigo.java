@@ -12,12 +12,12 @@ import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
 import utils.Tags;
+import utils.arrays.ArrayString;
 import vista.escena.EscenaJuego;
 
 public class Enemigo extends Soldado {
-	private final static double TIEMPO_ENTRE_DISPAROS = 2;
+	public final static double TIEMPO_ENTRE_DISPAROS = 2;
 	private double tiempoParaSiguienteDisparo;
 
 	public Enemigo(String nombre, BufferedImage[] imagenes, Vector2D posicion, double duracionImagen) {
@@ -67,8 +67,8 @@ public class Enemigo extends Soldado {
 	public void disparar() {
 		Scene escena = Scene.getEscenaActual();
 		if (escena instanceof EscenaJuego) {
-			Array<String> targetsIgnore = new Array<>();
-			targetsIgnore.add(Tags.ENEMY.getTag());
+			ArrayString targetsIgnore = new ArrayString();
+			targetsIgnore.add(Tags.ENEMY);
 			Municion disparo = getArma().disparar(getCentro(), Vector2D.LEFT, targetsIgnore);
 			if(disparo != null) {
 				((EscenaJuego) escena).addEntidad(disparo);
@@ -79,6 +79,11 @@ public class Enemigo extends Soldado {
 	@Override
 	public void onColision(Entidad entidad) {
 		
+	}
+
+	@Override
+	public void setFisica(Fisica fisica) {
+		this.fisica = fisica;
 	}
 
 }

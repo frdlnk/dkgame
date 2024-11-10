@@ -3,7 +3,7 @@ package modelo.armamento.armas;
 import modelo.armamento.municiones.Bala;
 import modelo.armamento.municiones.Municion;
 import motor_v1.motor.util.Vector2D;
-import utils.Array;
+import utils.arrays.ArrayString;
 
 /**
  * {@link Arma} que genera Balas
@@ -24,7 +24,7 @@ public class Pistola extends Arma {
 	}
 
 	@Override
-	public Municion generarBala(Vector2D posicion, Vector2D direccion, Array<String> target) {
+	protected Municion generarBala(Vector2D posicion, Vector2D direccion, ArrayString target) {
 		return new Bala(posicion, direccion, target, 2);
 	}
 

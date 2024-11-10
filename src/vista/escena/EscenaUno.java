@@ -5,23 +5,19 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import modelo.armamento.Explosion;
 import modelo.entidades.Enemigo;
 import modelo.entidades.Player;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Renderer;
-import motor_v1.motor.entidades.ListaEntidades;
 import motor_v1.motor.input.InputKeyboard;
 import motor_v1.motor.input.Key;
 import motor_v1.motor.util.Vector2D;
-import utils.ColisionUtils;
 import utils.Colisionable;
 import utils.Tags;
 import vista.mapas.Map;
 import vista.mapas.MapaNivel1;
 
 public class EscenaUno extends EscenaJuego{
-	public static ListaEntidades entidades = new ListaEntidades();
 	private Map mapa;
 	private Player jugador1;
 	
@@ -30,18 +26,18 @@ public class EscenaUno extends EscenaJuego{
 		Color color = new Color(128,128,0);
 		BufferedImage[] image = {Renderer.crearTextura(rect, color)};
 		Vector2D posicionJ = new Vector2D(10,180);
-		this.jugador1 = new Player(Tags.PLAYER.getTag(), image, posicionJ, 10);
+		this.jugador1 = new Player(Tags.PLAYER, image, posicionJ, 10);
 		
 		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
 		Vector2D posicionE = new Vector2D(300,200);
-		Enemigo enemy = new Enemigo(Tags.ENEMY.getTag(), imageE, posicionE, 10);
+		Enemigo enemy = new Enemigo(Tags.ENEMY, imageE, posicionE, 10);
 		
 		mapa = new MapaNivel1();
 		
 		
 		entidades.add(mapa.getNombre(), mapa);
 		entidades.add(jugador1.getNombre(), jugador1);
-		entidades.add(enemy.getNombre(), enemy);
+//		entidades.add(enemy.getNombre(), enemy);
 	}
 	
 	@Override
@@ -53,7 +49,18 @@ public class EscenaUno extends EscenaJuego{
 		if (!mapa.isChangingZone()) {
 			entidades.actualizar();
 			calcularColisiones();
+			calcularColisionesMapa(jugador1, jugador1);
 			entidades.destruir();
+		}
+	}
+
+	@Override
+	public void calcularColisiones() {
+		super.calcularColisiones();
+		for (int i = 0; i < entidades.getSize(); i++) {
+			if (entidades.get(i) instanceof Colisionable) {
+				calcularColisionesMapa((Colisionable)entidades.get(i), entidades.get(i));
+			}
 		}
 	}
 
@@ -75,23 +82,6 @@ public class EscenaUno extends EscenaJuego{
 		}
 	}
 	
-	public void calcularColisiones() {
-		for (int i = 0; i < entidades.getSize(); i++) {
-			if (entidades.get(i) instanceof Colisionable) {
-				Colisionable colisionable1 = (Colisionable) entidades.get(i);
-				calcularColisionesMapa(colisionable1, entidades.get(i));
-				for (int j = i+1; j < entidades.getSize(); j++) {
-					if(entidades.get(j) instanceof Colisionable) {
-						if (entidades.get(j) instanceof Explosion) {
-							System.out.println(entidades.get(i).getNombre());
-						}
-						Colisionable colisionable2 = (Colisionable) entidades.get(j);
-						ColisionUtils.colisionResolve(colisionable1, colisionable2, entidades.get(i), entidades.get(j));
-					}
-				}
-			}
-		}
-	}
 	
 	public void calcularColisionesMapa(Colisionable colisionable, Entidad entidad) {
 		mapa.generarColisiones(colisionable, entidad);
@@ -105,13 +95,6 @@ public class EscenaUno extends EscenaJuego{
 		this.jugador1 = jugador1;
 	}
 	
-	public static void setListaEntidades(ListaEntidades entidades) {
-		EscenaUno.entidades = entidades;
-	}
-
-	public ListaEntidades getEntidades() {
-		return entidades;
-	}
 
 	
 }
