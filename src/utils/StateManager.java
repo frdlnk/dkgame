@@ -5,6 +5,8 @@ import models.Player;
 import java.io.*;
 import java.util.UUID;
 
+import static vista.MenuProvicional.sm;
+import utils.Conf;
 public class StateManager {
 
     private static final String DATA_FILE = "data.json";
@@ -42,18 +44,15 @@ public class StateManager {
     }
 
     public String createPlayer(String username, String password) {
-        // Leemos los jugadores existentes
         readPlayers();
 
-        // Verificamos si el nombre de usuario ya existe
         for (Player player : players) {
             if (player != null && player.getUsername().equals(username)) {
                 System.out.println("Error: El nombre de usuario '" + username + "' ya está en uso. Intenta con otro nombre.");
-                return null; // No creamos el jugador si el nombre ya existe
+                return null;
             }
         }
 
-        // Si no existe, creamos el nuevo jugador
         Player newPlayer = new Player(username, password);
         newPlayer.setId(UUID.randomUUID());
         newPlayer.setLevel(1);
@@ -61,14 +60,13 @@ public class StateManager {
 
         players[playerCount++] = newPlayer;
 
-        writePlayersToFile();
+        writePlayersToFile(players);
         return "Jugador " + username + " creado exitosamente.";
     }
 
-
-    private void writePlayersToFile() {
+    public void writePlayersToFile(Player[] players) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(DATA_FILE))) {
-            oos.writeObject(players);
+            oos.writeObject(StateManager.players);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error al escribir el archivo JSON.");
@@ -89,7 +87,7 @@ public class StateManager {
             if (players[i] != null && players[i].getId().toString().equals(playerId)) {
                 players[i].setScore(newScore);
                 players[i].setLevel(newLevel);
-                writePlayersToFile();
+                writePlayersToFile(sm.players);
                 System.out.println("Datos del jugador " + playerId + " actualizados correctamente.");
                 return;
             }
@@ -102,9 +100,9 @@ public class StateManager {
             if(player != null && player.getId().toString().equals(id)) {
                 currentPlayerOnSession = player;
                 islogged = true;
+                Conf.currentLevel = player.getLevel();
             }
         }
-
     }
 
     public void logout() {
