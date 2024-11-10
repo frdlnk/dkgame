@@ -83,10 +83,10 @@ public class Zona1N1 extends Zona{
 		dead.getColisiona().actualizar();
 		
 		//barrera de movimiento
-		Rectangle rectMB = new Rectangle(Conf.WINDOW_HEIGT, Conf.WINDOW_WIDHT/2);
+		Rectangle rectMB = new Rectangle(Conf.WINDOW_HEIGHT, Conf.WINDOW_WIDTH/2);
 		Color colorMB = new Color(128,200,100,90);
 		BufferedImage imageMB = Renderer.crearTextura(rectMB, colorMB);
-		Vector2D posicionMB = new Vector2D(Conf.WINDOW_WIDHT/2,0);
+		Vector2D posicionMB = new Vector2D(Conf.WINDOW_WIDTH/2,0);
 		MovementBarrier barrier = new MovementBarrier("barrier", imageMB, posicionMB);
 		barrier.getColisiona().actualizar();
 		this.barrier = barrier;

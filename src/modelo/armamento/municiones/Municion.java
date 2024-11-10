@@ -67,10 +67,10 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	 * Calcula los limites de la municion en pantalla
 	 */
 	private void calcularLimites() {
-		if(transformar.getPosicion().getX() > Conf.WINDOW_WIDHT
+		if(transformar.getPosicion().getX() > Conf.WINDOW_WIDTH
 		|| transformar.getPosicion().getX() < 0
 		|| transformar.getPosicion().getY() < 0
-		|| transformar.getPosicion().getY() > Conf.WINDOW_HEIGT)
+		|| transformar.getPosicion().getY() > Conf.WINDOW_HEIGHT)
 		{
 			destruir();
 		}

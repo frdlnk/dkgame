@@ -116,8 +116,8 @@ public class Player extends Soldado{
 			posicion.setX(0);
 			fisica.getVectorMovimiento().setX(0);
 		} 
-		if(posicion.getX() + Conf.PLAYER_WIDHT > Conf.WINDOW_WIDHT){
-			posicion.setX(Conf.WINDOW_WIDHT - Conf.PLAYER_WIDHT);
+		if(posicion.getX() + Conf.WINDOW_WIDTH > Conf.WINDOW_WIDTH){
+			posicion.setX(Conf.WINDOW_WIDTH - Conf.WINDOW_WIDTH);
 			fisica.getVectorMovimiento().setX(0);
 		}
 	}
