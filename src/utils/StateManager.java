@@ -8,8 +8,8 @@ import java.util.UUID;
 public class StateManager {
 
     private static final String DATA_FILE = "data.json";
-    private static Player[] players = new Player[10];
-    private static int playerCount = 0;
+    public static Player[] players = new Player[10];
+    public static int playerCount = 0;
     public static Player currentPlayerOnSession;
     public static boolean islogged = false;
 
@@ -41,7 +41,7 @@ public class StateManager {
         return null;
     }
 
-    public void createPlayer(String username, String password) {
+    public String createPlayer(String username, String password) {
         // Leemos los jugadores existentes
         readPlayers();
 
@@ -49,7 +49,7 @@ public class StateManager {
         for (Player player : players) {
             if (player != null && player.getUsername().equals(username)) {
                 System.out.println("Error: El nombre de usuario '" + username + "' ya está en uso. Intenta con otro nombre.");
-                return; // No creamos el jugador si el nombre ya existe
+                return null; // No creamos el jugador si el nombre ya existe
             }
         }
 
@@ -62,7 +62,7 @@ public class StateManager {
         players[playerCount++] = newPlayer;
 
         writePlayersToFile();
-        System.out.println("Jugador " + username + " creado exitosamente.");
+        return "Jugador " + username + " creado exitosamente.";
     }
 
 
