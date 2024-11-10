@@ -37,7 +37,7 @@ public class EscenaUno extends EscenaJuego{
 		
 		entidades.add(mapa.getNombre(), mapa);
 		entidades.add(jugador1.getNombre(), jugador1);
-		entidades.add(enemy.getNombre(), enemy);
+//		entidades.add(enemy.getNombre(), enemy);
 	}
 	
 	@Override
