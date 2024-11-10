@@ -12,6 +12,9 @@ import utils.Array;
  * de control de disparos
  * 
  * Sus implementaciones se encargan de generar las nuevas instancias de municion
+ * 
+ * @author Joshua Elizondo Vasquez
+ * @version 1.0
  */
 public abstract class Arma {
 	protected double shootDelay;

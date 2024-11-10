@@ -11,7 +11,10 @@ import utils.Array;
 import utils.Colisionable;
 
 /**
- * Objeto encargado de representar una explosion que realice dano
+ * Objeto encargado de representar una explosion que genere dano
+ * 
+ * @author Joshua Elizondo Vasquez
+ * @see TriggerBox
  */
 public class Explosion extends TriggerBox{
 	//private double tiempoDeExplosion;
@@ -36,6 +39,13 @@ public class Explosion extends TriggerBox{
 	}
 	
 
+	/**
+	 * Crea una nueva explosion con los parametros suministrados
+	 * @param nombre	Tag asignado a esta explosion
+	 * @param textura	Imagen que dibujara en pantalla
+	 * @param posicion	Vector2D con la posicion de la explosion
+	 * @param targetsIgnore Lista de tags que ignorara
+	 */
 	public Explosion(String nombre, BufferedImage textura, Vector2D posicion, Array<String> targetsIgnore) {
 		super(nombre, textura, posicion);
 		dano = 10;
@@ -58,6 +68,10 @@ public class Explosion extends TriggerBox{
 		return super.hayColision(entidad);
 	}
 
+	/**
+	 * Aplica el dano generado al soldado que impacta
+	 * @param soldado Soldado al que se hara dano
+	 */
 	private void hitSoldado(Soldado soldado) {
 		//TODO: generar el epicentro y calculo de la explosion para dano dinamico segun distancia
 		//Vector2D epicentroExp = transformar.getPosicion().add(epicentroRelativo);

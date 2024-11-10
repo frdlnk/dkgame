@@ -16,16 +16,19 @@ import vista.escena.EscenaJuego;
 
 /**
  * Choete que explota al impactar con algun objetivo
+ * 
+ * @author Joshua Elizondo Vasquez
+ * @see Municion, Explosivo
  */
 public class Choete extends Municion implements Explosivo{
 
 	/**
 	 * Crea un nuevo cohete
-	 * @param nombre String tag de la entidad
-	 * @param posicion Vector2D posicion inicial
+	 * @param nombre 	String tag de la entidad
+	 * @param posicion 	Vector2D posicion inicial
 	 * @param direccion Vector2D direccion del Cohete
-	 * @param targetsIgnored lista de tags a ignorar
-	 * @param dano double cantidad de dano a realizar a los objeivos
+	 * @param targetsIgnored 	lista de tags a ignorar
+	 * @param dano double 		cantidad de dano a realizar a los objeivos
 	 */
 	public Choete(String nombre, Vector2D posicion, Vector2D direccion, Array<String> targetsIgnored, double dano) {
 		super(nombre, posicion, direccion, targetsIgnored, dano);

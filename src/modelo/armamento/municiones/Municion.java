@@ -21,6 +21,9 @@ import utils.Conf;
  * Clase encargada del funcionamiento de una municion
  * 
  * Filtra las colisiones e implementa los impactos de las municiones
+ * 
+ * @author Joshua Elizondo Vasquez
+ * @see Sprite, Colisionable, Movible
  */
 public abstract class Municion extends Sprite implements Colisionable, Movible{
 	protected Movement movimiento;
@@ -32,11 +35,11 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 
 	/**
 	 * Construye una Municion
-	 * @param nombre String tag que recibe la entidad
-	 * @param posicion Vector2D posicion inicial
+	 * @param nombre 	String tag que recibe la entidad
+	 * @param posicion 	Vector2D posicion inicial
 	 * @param direccion Vector2D direccion a seguir de la Municion
 	 * @param targetsIgnore Lista de tags a ignorar para impactar
-	 * @param dano double cantidad de dano que hace la municion a las entidades objetivo
+	 * @param dano double 	cantidad de dano que hace la municion a las entidades objetivo
 	 */
 	public Municion(String nombre, Vector2D posicion, Vector2D direccion, Array<String> targetsIgnore, double dano) {
 		super(nombre);

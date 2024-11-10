@@ -1,7 +1,11 @@
 package modelo.armamento;
 
 /**
- * Interfaz que define que un objeto puede explotar y generar una explosion
+ * Interfaz que define el comportamiento de un objeto 
+ * puede explotar y generar una explosion
+ * 
+ * @author Joshua Elizondo Vasquez
+ * @see Explosion
  */
 public interface Explosivo {
 	public Explosion generarExplosion();

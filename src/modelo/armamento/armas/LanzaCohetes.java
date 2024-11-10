@@ -6,15 +6,19 @@ import motor_v1.motor.util.Vector2D;
 import utils.Array;
 
 /**
- * Arma que genera choetes
+ * {@link Arma} que genera choetes
+ * 
+ * @author Joshua Elizondo Vasquez
+ * @see Arma
+ * 
  */
 public class LanzaCohetes extends Arma {
-
+	public final static double SHOOT_DELAY = 1.3;
 	/**
-	 * Crea un lanzaCohetes con cadencia de 3 segundos
+	 * Crea un lanzaCohetes con cadencia de {@value #SHOOT_DELAY} segundos
 	 */
 	public LanzaCohetes() {
-		super(3);
+		super(SHOOT_DELAY);
 	}
 	
 	@Override

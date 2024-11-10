@@ -7,6 +7,22 @@ import motor_v1.motor.util.Vector2D;
 import utils.Array;
 import utils.Conf;
 
+/**
+ * Componente encargado del calculo de las fisicas de un objeto con transformar
+ * 
+ * Esta clase se encarga de calcuylar el siguiente movimiento de un 
+ * objeto segun las fuerzas aplicadas, realizando el calculo en base a su masa y escala de gravedad
+ * 
+ * Puede generar friccion y aceleracion
+ * 
+ * @implNote El indice de gravedad es la cantidad de efecto que tiene la constante gravedad sobre un objeto
+ * Para eliminar la gravedad de un objeto setea la gravedad de este objeto a 0
+ * @implNote Si desea una fisica mas realista en objetos complejos use transform relativos
+ *  al transforma asignado al componente
+ *  
+ * @author Joshua Elizondo Vasquez
+ * @see Physics, Transform, Conf 
+ */
 public class Fisica extends Physics{
 	private double gravity;
 	private Vector2D vectorMovimiento;
@@ -15,6 +31,10 @@ public class Fisica extends Physics{
 	private int masa;
 	private Array<Vector2D> fuerzasAplicadas;
 	
+	/**
+	 * Crea una nueva fisica aplicada a un trasnform, con masa =1 y gravedad = 1
+	 * @param transform
+	 */
 	public Fisica(Transform transform) {
 		this(1,1,transform);
 	}

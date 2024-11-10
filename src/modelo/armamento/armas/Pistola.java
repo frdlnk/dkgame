@@ -6,13 +6,18 @@ import motor_v1.motor.util.Vector2D;
 import utils.Array;
 
 /**
- * Arma que genera Balas, arma PREDETERMINADA
+ * {@link Arma} que genera Balas
+ * 
+ * @implNote Arma predeterminada
+ * 
+ * @author Joshua Elizondo Vasquez
+ * @see Arma
  */
 public class Pistola extends Arma {
 	public final static double SHOOT_DELAY = .5;
 	
 	/**
-	 * Construye una pistola con cadencia de .5s
+	 * Construye una pistola con cadencia de {@value #SHOOT_DELAY}s
 	 */
 	public Pistola() {
 		super(SHOOT_DELAY);
