@@ -4,6 +4,7 @@ import models.Player;
 import utils.StateManager;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.UUID;
@@ -12,29 +13,33 @@ public class MenuProvicional {
     public static StateManager sm = new StateManager();
 
     public static void mostrarMenuPrincipal() {
-        while (true) {
-            String[] options = {"Crear Jugador", "Iniciar Sesión", "Buscar Jugadores", "Actualizar Contraseña", "Eliminar Jugador", "Salir"};
-            int choice = JOptionPane.showOptionDialog(null,
-                    "Selecciona una opción:",
-                    "Menú Principal",
-                    JOptionPane.DEFAULT_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE,
-                    null, options, options[0]);
+        JFrame menuFrame = new JFrame("Menú Principal");
+        menuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        menuFrame.setSize(400, 300);
+        menuFrame.setLayout(new FlowLayout());
 
-            if (choice == 0) {
-                crearJugador();
-            } else if (choice == 1) {
-                iniciarSesion();
-            } else if (choice == 2) {
-                buscarYMostrarUsuarios();
-            } else if (choice == 3) {
-                actualizarContraseña();
-            } else if (choice == 4) {
-                eliminarJugador();
-            } else if (choice == 5) {
-                System.exit(0);
-            }
-        }
+        JButton crearJugadorButton = new JButton("Crear Jugador");
+        JButton iniciarSesionButton = new JButton("Iniciar Sesión");
+        JButton buscarJugadoresButton = new JButton("Buscar Jugadores");
+        JButton actualizarContraseñaButton = new JButton("Actualizar Contraseña");
+        JButton eliminarJugadorButton = new JButton("Eliminar Jugador");
+        JButton salirButton = new JButton("Salir");
+
+        crearJugadorButton.addActionListener(e -> crearJugador());
+        iniciarSesionButton.addActionListener(e -> iniciarSesion());
+        buscarJugadoresButton.addActionListener(e -> buscarYMostrarUsuarios());
+        actualizarContraseñaButton.addActionListener(e -> actualizarContraseña());
+        eliminarJugadorButton.addActionListener(e -> eliminarJugador());
+        salirButton.addActionListener(e -> System.exit(0));
+
+        menuFrame.add(crearJugadorButton);
+        menuFrame.add(iniciarSesionButton);
+        menuFrame.add(buscarJugadoresButton);
+        menuFrame.add(actualizarContraseñaButton);
+        menuFrame.add(eliminarJugadorButton);
+        menuFrame.add(salirButton);
+
+        menuFrame.setVisible(true);
     }
 
     public static void mostrarInformacionJugador(Player player) {
@@ -128,37 +133,76 @@ public class MenuProvicional {
     }
 
     public static void crearJugador() {
-        String username = JOptionPane.showInputDialog("Ingrese el nombre de usuario:");
-        if (username == null || username.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El nombre de usuario no puede estar vacío.");
-            return;
-        }
+        JFrame frame = new JFrame("Crear Jugador");
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(3, 2));
 
-        String password = JOptionPane.showInputDialog("Ingrese la contraseña:");
-        if (password == null || password.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "La contraseña no puede estar vacía.");
-            return;
-        }
+        JLabel usernameLabel = new JLabel("Nombre de usuario:");
+        JTextField usernameField = new JTextField();
+        JLabel passwordLabel = new JLabel("Contraseña:");
+        JPasswordField passwordField = new JPasswordField();
 
-        JOptionPane.showMessageDialog(null, sm.createPlayer(username, password));
+        JButton submitButton = new JButton("Crear Jugador");
+        submitButton.addActionListener(e -> {
+            String username = usernameField.getText();
+            String password = new String(passwordField.getPassword());
+
+            if (username == null || username.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "El nombre de usuario no puede estar vacío.");
+                return;
+            }
+
+            if (password == null || password.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La contraseña no puede estar vacía.");
+                return;
+            }
+
+            JOptionPane.showMessageDialog(null, sm.createPlayer(username, password));
+            frame.dispose();
+        });
+
+        panel.add(usernameLabel);
+        panel.add(usernameField);
+        panel.add(passwordLabel);
+        panel.add(passwordField);
+        panel.add(new JLabel()); // empty placeholder
+        panel.add(submitButton);
+
+        frame.add(panel);
+        frame.setSize(400, 200);
+        frame.setVisible(true);
     }
 
     public static void mostrarFormularioActualizarContraseña(Player player) {
-        String newPassword = JOptionPane.showInputDialog(
-                null,
-                "Modificar la contraseña del jugador " + player.getUsername() + ":",
-                "Actualizar Contraseña",
-                JOptionPane.QUESTION_MESSAGE
-        );
+        JFrame frame = new JFrame("Actualizar Contraseña");
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(2, 2));
 
-        if (newPassword == null || newPassword.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "La contraseña no puede estar vacía.");
-            return;
-        }
+        JLabel newPasswordLabel = new JLabel("Nueva Contraseña:");
+        JPasswordField newPasswordField = new JPasswordField();
 
-        player.setPassword(newPassword.trim());
-        sm.writePlayersToFile(sm.players);
-        JOptionPane.showMessageDialog(null, "Contraseña actualizada correctamente.");
+        JButton updateButton = new JButton("Actualizar Contraseña");
+        updateButton.addActionListener(e -> {
+            String newPassword = new String(newPasswordField.getPassword());
+
+            if (newPassword == null || newPassword.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "La contraseña no puede estar vacía.");
+                return;
+            }
+
+            player.setPassword(newPassword.trim());
+            sm.writePlayersToFile(sm.players);
+            JOptionPane.showMessageDialog(null, "Contraseña actualizada correctamente.");
+            frame.dispose();
+        });
+
+        panel.add(newPasswordLabel);
+        panel.add(newPasswordField);
+        panel.add(updateButton);
+
+        frame.add(panel);
+        frame.setSize(400, 150);
+        frame.setVisible(true);
     }
 
     public static void actualizarContraseña() {
@@ -241,9 +285,98 @@ public class MenuProvicional {
         }
     }
 
-    public static void reorganizarIds() {
+    public static void eliminarJugador() {
+        String[] searchCriteria = {"Nombre", "Nivel", "Puntaje"};
+        String selectedCriterion = (String) JOptionPane.showInputDialog(
+                null,
+                "Selecciona el criterio de búsqueda:",
+                "Eliminar Jugador",
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                searchCriteria,
+                searchCriteria[0]
+        );
+
+        if (selectedCriterion == null) {
+            return;
+        }
+
+        String searchQuery = JOptionPane.showInputDialog("Ingresa el valor para buscar por " + selectedCriterion + ":");
+
+        if (searchQuery == null || searchQuery.trim().isEmpty()) {
+            return;
+        }
+
+        StringBuilder results = new StringBuilder("Resultados de la búsqueda por " + selectedCriterion + ":\n");
+        Player[] searchResults = new Player[sm.playerCount];
+        int resultCount = 0;
+
         for (int i = 0; i < sm.playerCount; i++) {
-            sm.players[i].setId(UUID.randomUUID());
+            Player player = sm.players[i];
+            if (player != null) {
+                boolean match = false;
+                switch (selectedCriterion) {
+                    case "Nombre":
+                        if (player.getUsername().toLowerCase().contains(searchQuery.toLowerCase())) {
+                            match = true;
+                        }
+                        break;
+                    case "Nivel":
+                        if (String.valueOf(player.getLevel()).equals(searchQuery.trim())) {
+                            match = true;
+                        }
+                        break;
+                    case "Puntaje":
+                        if (String.valueOf(player.getScore()).equals(searchQuery.trim())) {
+                            match = true;
+                        }
+                        break;
+                }
+                if (match) {
+                    results.append(i + 1).append(". ").append(player.getUsername())
+                            .append(" - Nivel: ").append(player.getLevel())
+                            .append(", Puntaje: ").append(player.getScore()).append("\n");
+                    searchResults[resultCount++] = player;
+                }
+            }
+        }
+
+        if (resultCount == 0) {
+            JOptionPane.showMessageDialog(null, "No se encontraron jugadores que coincidan con la búsqueda.");
+            return;
+        }
+
+        String input = JOptionPane.showInputDialog(results.toString());
+
+        if (input == null || input.trim().isEmpty()) {
+            return;
+        }
+
+        try {
+            int choice = Integer.parseInt(input.trim()) - 1;
+            if (choice >= 0 && choice < resultCount) {
+                Player selectedPlayer = searchResults[choice];
+                mostrarConfirmacionEliminacion(selectedPlayer);
+            } else {
+                JOptionPane.showMessageDialog(null, "Selección no válida.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Entrada inválida.");
+        }
+    }
+
+    public static void mostrarConfirmacionEliminacion(Player player) {
+        int confirm = JOptionPane.showConfirmDialog(
+                null,
+                "¿Estás seguro que deseas eliminar al jugador " + player.getUsername() + "?\n" +
+                        "Nivel: " + player.getLevel() + "\n" +
+                        "Puntaje: " + player.getScore(),
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION
+        );
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            eliminarJugadorDeLista(player);
         }
     }
 
@@ -272,63 +405,9 @@ public class MenuProvicional {
         JOptionPane.showMessageDialog(null, "Jugador eliminado correctamente.");
     }
 
-    public static void mostrarConfirmacionEliminacion(Player player) {
-        int confirm = JOptionPane.showConfirmDialog(
-                null,
-                "¿Estás seguro que deseas eliminar al jugador " + player.getUsername() + "?\n" +
-                        "Nivel: " + player.getLevel() + "\n" +
-                        "Puntaje: " + player.getScore(),
-                "Confirmar Eliminación",
-                JOptionPane.YES_NO_OPTION
-        );
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            eliminarJugadorDeLista(player);
-        }
-    }
-
-    public static void eliminarJugador() {
-        String searchQuery = JOptionPane.showInputDialog("Ingresa el nombre del jugador a eliminar:");
-
-        if (searchQuery == null || searchQuery.trim().isEmpty()) {
-            return;
-        }
-
-        StringBuilder results = new StringBuilder("Resultados de la búsqueda por nombre:\n");
-        Player[] searchResults = new Player[sm.playerCount];
-        int resultCount = 0;
-
+    public static void reorganizarIds() {
         for (int i = 0; i < sm.playerCount; i++) {
-            Player player = sm.players[i];
-            if (player != null && player.getUsername().toLowerCase().contains(searchQuery.toLowerCase())) {
-                results.append(i + 1).append(". ").append(player.getUsername())
-                        .append(" - Nivel: ").append(player.getLevel())
-                        .append(", Puntaje: ").append(player.getScore()).append("\n");
-                searchResults[resultCount++] = player;
-            }
-        }
-
-        if (resultCount == 0) {
-            JOptionPane.showMessageDialog(null, "No se encontraron jugadores que coincidan con la búsqueda.");
-            return;
-        }
-
-        String input = JOptionPane.showInputDialog(results.toString());
-
-        if (input == null || input.trim().isEmpty()) {
-            return;
-        }
-
-        try {
-            int choice = Integer.parseInt(input.trim()) - 1;
-            if (choice >= 0 && choice < resultCount) {
-                Player selectedPlayer = searchResults[choice];
-                mostrarConfirmacionEliminacion(selectedPlayer);
-            } else {
-                JOptionPane.showMessageDialog(null, "Selección no válida.");
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Entrada inválida.");
+            sm.players[i].setId(UUID.randomUUID());
         }
     }
 
