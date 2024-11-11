@@ -11,11 +11,6 @@ public class GameControler {
 	GameLoop loop;
 	Game juego;
 	
-	public static void main(String[] args) {
-		GameControler game = new GameControler();
-		game.iniciarJuego();
-	}
-	
 	public GameControler() {
 		Scene escenaCarga = new EscenaCarga();
 		juego = new Game(escenaCarga);

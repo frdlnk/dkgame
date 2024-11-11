@@ -1,15 +1,12 @@
 package ctrl;
 
-import utils.StateManager;
-
-import static vista.MenuProvicional.mostrarMenuPrincipal;
+import vista.MenuInicio;
 
 
 public class Main {
+	
     public static void main(String[] args) {
-
-        mostrarMenuPrincipal();
+    	MenuInicioControler menuControler = new MenuInicioControler();
     }
-
 
 }
