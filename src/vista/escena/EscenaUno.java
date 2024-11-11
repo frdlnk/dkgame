@@ -23,7 +23,7 @@ public class EscenaUno extends EscenaJuego{
 	
 	public EscenaUno() {
 		Rectangle rect = new Rectangle(50, 80);
-		Color color = new Color(128,128,0);
+		Color color = new Color(128,128,0,0);
 		BufferedImage[] image = {Renderer.crearTextura(rect, color)};
 		Vector2D posicionJ = new Vector2D(10,180);
 		this.jugador1 = new Player(Tags.PLAYER, image, posicionJ, 10);

@@ -20,6 +20,7 @@ public class Game extends Entidad{
 	
 	@Override
 	public void actualizar() {
+		escenaActual = Scene.getEscenaActual();
 		escenaActual.actualizar();
 	}
 
