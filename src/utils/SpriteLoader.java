@@ -57,6 +57,22 @@ public class SpriteLoader{
         return animation;
 
     }
+    public static BufferedImage[] getSubImageArray(int[] coords, BufferedImage image, int[] cuts){
+        BufferedImage[] animation = new BufferedImage[cuts.length];
+        int starter = coords[0];
+        int width;
+        for (int i = 0; i < animation.length; i++) {
+            width = cuts[i] - starter;
+            try {
+                animation[i] = image.getSubimage(starter, coords[1], width, coords[3]);
+            } catch (Exception e) {
+                break;
+            }
+            starter = cuts[i];
+        }
+        return animation;
+
+    }
 
 
 

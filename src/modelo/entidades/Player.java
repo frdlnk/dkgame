@@ -8,6 +8,7 @@ import modelo.armamento.armas.Arma;
 import modelo.armamento.armas.LanzaCohetes;
 import modelo.armamento.municiones.Municion;
 import modelo.componentes.Fisica;
+import modelo.spritesCargados.SpritesPlayer;
 import modelo.worldObjects.Caja;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.GameLoop;
@@ -31,6 +32,7 @@ public class Player extends Soldado{
 	private boolean isGrounded;
 	private PlayerControls controles;
 	private boolean estaAgachado;
+	private SpritesPlayer spritesPlayer;
 
 	public Player(String nombre, BufferedImage[] imagenes, Transform transformar, double duracionImagen) {
 		this(nombre,imagenes,transformar.getPosicion(),duracionImagen);
@@ -38,6 +40,7 @@ public class Player extends Soldado{
 
 	public Player(String nombre, BufferedImage[] imagenes, Vector2D posicion, double duracionImagen) {
 		super(nombre, imagenes, posicion, duracionImagen);
+		spritesPlayer = new SpritesPlayer(this.getTransformar());
 		colisiona.getHitbox().setLocation((int)posicion.getX(), (int)posicion.getY());
 		fisica = new Fisica(1,1.5,transformar);
 		yVelocity = 0;
@@ -67,6 +70,7 @@ public class Player extends Soldado{
 		fisica.actualizar();
 		calcularLimitesHorizontales();
 		colisiona.actualizar();
+		spritesPlayer.actualizar();
 		super.actualizar();
 	}
 	
@@ -140,6 +144,7 @@ public class Player extends Soldado{
 		Rectangle rect = colisiona.getHitbox();
 		Vector2D posicion = new Vector2D(rect.getX(), rect.getY());
 		Renderer.dibujarBordes(g, posicion, rect.getWidth(), rect.getHeight());
+		spritesPlayer.dibujar(g);
 		super.dibujar(g);
 	}
 	
