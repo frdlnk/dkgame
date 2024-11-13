@@ -21,7 +21,10 @@ public class SpritesPlayer extends Animation{
 
     private void loadGifs() {
         Assets.load();
-        Gif gif = new Gif("Test", Assets.gifs.get(Assets.spriteNames[0]), this.getTransformar(), 150);
-        setAnimacionActual(gif);
+        for (int i = 0; i < Assets.gifs.size(); i++) {
+            Gif gif = new Gif(Assets.spriteNames[i], Assets.gifs.get(Assets.spriteNames[i]), this.getTransformar(), 150);
+            this.add(gif.getNombre(), gif);
+        }
+        cambiarAnimacionA(Assets.spriteNames[0]);
     }
 }

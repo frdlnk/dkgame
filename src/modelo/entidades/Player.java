@@ -17,10 +17,7 @@ import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.input.InputMouse;
 import motor_v1.motor.util.Vector2D;
-import utils.Colisionable;
-import utils.Conf;
-import utils.PlayerControls;
-import utils.Tags;
+import utils.*;
 import utils.arrays.ArrayString;
 import vista.escena.EscenaJuego;
 
@@ -30,6 +27,7 @@ public class Player extends Soldado{
 	private double yVelocity;
 	private Vector2D direccionDisparo;
 	private boolean isGrounded;
+	private boolean isMoving;
 	private PlayerControls controles;
 	private boolean estaAgachado;
 	private SpritesPlayer spritesPlayer;
@@ -76,6 +74,8 @@ public class Player extends Soldado{
 	
 	private void movimiento(double direccionHorizontal) {
 		double movimiento = speed;
+		isMoving = true;
+		spritesPlayer.cambiarAnimacionA(Assets.spriteNames[0]);
 		if(controles.getDireccionVertical() == 1 && isGrounded && !estaAgachado) {
 			agacharse();
 		}else if(controles.getDireccionVertical() != 1 && estaAgachado){
@@ -129,6 +129,7 @@ public class Player extends Soldado{
 	
 	public void disparar() {
 		if (InputMouse.isPressed()) {
+			spritesPlayer.cambiarAnimacionA(Assets.spriteNames[1]);
 			Scene escena = Scene.getEscenaActual();
 			ArrayString targetsIgnore = new ArrayString();
 			targetsIgnore.add(Tags.PLAYER);
