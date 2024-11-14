@@ -16,6 +16,7 @@ public abstract class Zona extends Entidad{
 	private Vector2D direccionMovimiento;
 	protected ListaEntidades mapObjects;
 	protected ListaEntidades staticObjects;
+	protected ListaEntidades enemigos;
 	private Vector2D position;
 	
 	public Zona(Vector2D direccionMovimiento, Vector2D posicion) {
@@ -24,37 +25,67 @@ public abstract class Zona extends Entidad{
 		this.direccionMovimiento = direccionMovimiento;
 		this.mapObjects = new ListaEntidades();
 		this.staticObjects = new ListaEntidades();
+		this.enemigos = new ListaEntidades();
 		crearComponentes();
+		generarEnemigos();
 		posicionarZonaEstadoinicial();
 	}
 	
+	public void addMapObjects(Entidad entidad) {
+		mapObjects.add(entidad.getNombre(), entidad);
+	}
+	
 	protected abstract void crearComponentes();
+	protected abstract void generarEnemigos();
 	
 	public void verificarColisiones(Colisionable colisionable, Entidad entidad) {
 		ColisionUtils.entityColisionVerifier(mapObjects, colisionable, entidad);
 		ColisionUtils.entityColisionVerifier(staticObjects, colisionable, entidad);
+		ColisionUtils.entityColisionVerifier(enemigos, colisionable, entidad);
+	}
+	
+	private void colisionesInternas() {
+		verificarColisiones(enemigos);
+		verificarColisiones(mapObjects);
+		verificarColisiones(staticObjects);
+	}
+	
+	private void verificarColisiones(ListaEntidades entidades) {
+		for (int i = 0; i < entidades.getSize(); i++) {
+			Entidad entidad = entidades.get(i);
+			if (entidad instanceof Colisionable) {
+				verificarColisiones((Colisionable) entidad, entidad);
+			}
+		}
 	}
 	
 	@Override
 	public void actualizar() {
 		staticObjects.actualizar();
-		staticObjects.destruir();
 		mapObjects.actualizar();
-		mapObjects.destruir();
+		enemigos.actualizar();
+		colisionesInternas();
+		destruir();
 	}
 	@Override
 	public void destruir() {
 		staticObjects.destruir();
 		mapObjects.destruir();
+		enemigos.destruir();
 	}
 	@Override
 	public void dibujar(Graphics g) {
 		staticObjects.dibujar(g);
 		mapObjects.dibujar(g);
+		enemigos.dibujar(g);
 	}
 	
 	public void moverZona(Vector2D direccion) {
-		Vector2D movimeinto = direccion.normalize().scale(Conf.VELOCIDAD_CAMBIO_DE_ZONAS*GameLoop.dt/1000);
+		moverZona(direccion, Conf.VELOCIDAD_CAMBIO_DE_ZONAS);
+	}
+	
+	public void moverZona(Vector2D direccion, double distancia) {
+		Vector2D movimeinto = direccion.normalize().scale(distancia*GameLoop.dt/1000);
 		
 		Vector2D nuevaPosicionZona = getPosition().add(movimeinto);
 		
@@ -70,12 +101,17 @@ public abstract class Zona extends Entidad{
 		
 		setPosition(nuevaPosicionZona);
 		
-		for (int i = 0; i < mapObjects.getSize(); i++) {
-			Entidad entidad = mapObjects.get(i);
+		moverEntidades(enemigos, movimeinto);
+		moverEntidades(mapObjects, movimeinto);
+	}
+	
+	private void moverEntidades(ListaEntidades entidades, Vector2D movimiento) {
+		for (int i = 0; i < entidades.getSize(); i++) {
+			Entidad entidad = entidades.get(i);
 			if (entidad instanceof Sprite) {
 				Transform transformEntidad = ((Sprite) entidad).getTransformar();
-				Vector2D nuevaPosicion = transformEntidad.getPosicion().add(movimeinto);
-				transformEntidad.setPosicion(nuevaPosicion);
+				Vector2D nuevaPosicion = transformEntidad.getPosicion().add(movimiento);
+				transformEntidad.trasladarloA(nuevaPosicion);
 			}
 		}
 	}

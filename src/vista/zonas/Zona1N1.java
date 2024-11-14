@@ -5,10 +5,14 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import modelo.entidades.Enemigo;
+import modelo.entidades.Soldado;
 import modelo.worldObjects.Caja;
 import modelo.worldObjects.DeadBox;
 import modelo.worldObjects.MovementBarrier;
 import modelo.worldObjects.Plataforma;
+import motor_v1.motor.Entidad;
+import motor_v1.motor.GameLoop;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.input.InputKeyboard;
@@ -19,13 +23,18 @@ import utils.Conf;
 import utils.Tags;
 
 public class Zona1N1 extends Zona{
-	public final static double limit = -100000;
+	public static double limit = -5100;
 	MovementBarrier barrier;
 	Sprite bac;
 	Caja plat1;
+	private MovementBarrier barrierV;
+	int actualPlatform;
+	boolean modoDiseno = true;
+	double changeplatDelay;
 	
 	public Zona1N1() {
 		super(Vector2D.RIGHT, new Vector2D(0,0));
+		changeplatDelay = 0;
 	}
 
 	@Override
@@ -39,7 +48,7 @@ public class Zona1N1 extends Zona{
 		Color colorFloor = new Color(128,0,0,40);
 		BufferedImage imageFloor = Renderer.crearTextura(rectFloor, colorFloor);
 		Vector2D posicionF = new Vector2D(0,343);
-		Caja platform1 = new Caja("floor", imageFloor, posicionF);
+		Caja platform1 = new Caja(Tags.FLOOR, imageFloor, posicionF);
 		platform1.getColisiona().actualizar();
 		
 		//segundo piso despues del puente
@@ -47,7 +56,7 @@ public class Zona1N1 extends Zona{
 		Color colorFloor3 = new Color(128,0,0,40);
 		BufferedImage imageFloor3 = Renderer.crearTextura(rectFloor3, colorFloor3);
 		Vector2D posicionF3 = new Vector2D(1351,420);
-		Caja platform3 = new Caja("floor", imageFloor3, posicionF3);
+		Caja platform3 = new Caja(Tags.FLOOR, imageFloor3, posicionF3);
 		platform3.getColisiona().actualizar();
 		
 		//primera plataforma avion
@@ -137,8 +146,9 @@ public class Zona1N1 extends Zona{
 		createPlatform(posicionPl11Pantano,122,10);
 	
 		Vector2D posicionPl12Pantano = new Vector2D(5778,322);
-		createPlatform(posicionPl12Pantano,122,10);
-	
+		plat1 = createPlatform(posicionPl12Pantano,122,10);
+		
+		actualPlatform = mapObjects.getSize()-1;
 		
 		//barrera de movimiento
 		Rectangle rectMB = new Rectangle(Conf.WINDOW_HEIGHT, Conf.WINDOW_WIDTH/2);
@@ -149,6 +159,14 @@ public class Zona1N1 extends Zona{
 		barrier.getColisiona().actualizar();
 		this.barrier = barrier;
 		
+		Rectangle rectMBV = new Rectangle(Conf.WINDOW_WIDTH, Conf.WINDOW_HEIGHT/2);
+		Color colorMBV = new Color(128,200,100,90);
+		BufferedImage imageMBV = Renderer.crearTextura(rectMBV, colorMBV);
+		Vector2D posicionMBV = new Vector2D(0,-80);
+		MovementBarrier barrierV = new MovementBarrier("barrier", imageMBV, posicionMBV);
+		barrierV.getColisiona().actualizar();
+		this.barrierV = barrierV;
+		barrierV.setTrigger(true);
 		//mapObjects.add(dead.getNombre(), dead);
 		
 		mapObjects.add(pl_1Avion.getNombre(), pl_1Avion);
@@ -160,24 +178,60 @@ public class Zona1N1 extends Zona{
 		mapObjects.add(pl_7Avion.getNombre(), pl_7Avion);
 		//mapObjects.add(caja1.getNombre(), caja1);
 		staticObjects.add(barrier.getNombre(), barrier);
+		staticObjects.add(barrier.getNombre(), barrierV);
 		mapObjects.add(platform1.getNombre(), platform1);
 		mapObjects.add(platform3.getNombre(), platform3);
 	}
 
-	private void createPlatform(Vector2D pos, int width, int height){
+	private Plataforma createPlatform(Vector2D pos, int width, int height){
 		Rectangle dimensiones = new Rectangle(width, height);
 		Color color = new Color(128,50,0);
 		BufferedImage image = Renderer.crearTextura(dimensiones, color);
 		Plataforma platform = new Plataforma(Tags.PLATFORM, image, pos);
 		platform.getColisiona().actualizar();
-		plat1 = platform;
 		mapObjects.add(platform.getNombre(), platform);
+		return platform;
 	}
 
 	private double contx =0;
 	private double conty =0;
+	private Enemigo miniBoss1;
 	@Override
 	public void actualizar() {
+		actualizarModoDiseno();
+		
+		if (!miniBoss1.getViva()) {
+			limit -= 1000;
+		}
+		
+		if (barrier.isPlayerOverlap() && getPosition().getX() > limit) {
+			moverZona(getDireccionMovimiento().scale(-1));
+		}
+		if (getPosition().getX() < limit) {
+			barrier.destruir();
+			staticObjects.destruir();
+		}
+		
+		if (barrierV.isPlayerOverlap()) {
+			moverZona(new Vector2D(0.01, 1),1);
+		}
+		destruirEnemigosResagados();
+		super.actualizar();
+	}
+	
+	private void actualizarModoDiseno() {
+		if (InputKeyboard.isDown(Key.ENTER) && changeplatDelay <= 0) {
+			actualPlatform = actualPlatform+1>= mapObjects.getSize() ? 0 : actualPlatform+1;
+			if (mapObjects.get(actualPlatform) instanceof Caja) {
+				plat1 = (Caja) mapObjects.get(actualPlatform) ;
+			}
+			contx = 0;
+			conty = 0;
+			changeplatDelay = .5;
+		}else {
+			changeplatDelay -= GameLoop.dt/1000;
+		}
+		
 		double distance = 0.5;
 		if (InputKeyboard.isDown(Key.SHIFT)) {
 			distance = 5;
@@ -207,19 +261,38 @@ public class Zona1N1 extends Zona{
 			System.out.println(contx);
 		}
 		plat1.getColisiona().actualizar();
+	}
+	
+	@Override
+	protected void generarEnemigos() {
+		Rectangle rect = new Rectangle(50, 80);
+		Color color = new Color(128,128,0,100);
+		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
+		Vector2D posicionE = new Vector2D(300,200);
+		Enemigo enemy = new Enemigo(Tags.ENEMY, imageE, posicionE, 10);
 		
-		if (barrier.isPlayerOverlap() && getPosition().getX() > limit) {
-			moverZona(getDireccionMovimiento().scale(-1));
-		}
-		if (getPosition().getX() < limit) {
-			barrier.destruir();
-			staticObjects.destruir();
-		}
-		super.actualizar();
+		Vector2D posicionE2 = new Vector2D(6000,200);
+		miniBoss1 = new Enemigo(Tags.ENEMY, imageE, posicionE2, 10);
+		
+		enemigos.add(enemy.getNombre(), enemy);
+		enemigos.add(miniBoss1.getNombre(), miniBoss1);
 	}
 	
 	@Override
 	public void dibujar(Graphics g) {
 		super.dibujar(g);
+		plat1.drawMargins(g);
+	}
+	
+	private void destruirEnemigosResagados() {
+		for (int i = 0; i < enemigos.getSize(); i++) {
+			Entidad enemigo = enemigos.get(i);
+			if (enemigo instanceof Soldado) {
+				Vector2D posicionEnemigo = ((Soldado) enemigo).getTransformar().getPosicion();
+				if (posicionEnemigo.getX() < 0) {
+					enemigo.destruir();
+				}
+			}
+		}
 	}
 }

@@ -16,6 +16,11 @@ public class Zona2N1 extends Zona {
 	public Zona2N1() {
 		super(Vector2D.LEFT, new Vector2D(Conf.WINDOW_WIDTH,0));
 	}
+	@Override
+	protected void generarEnemigos() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	@Override
 	protected void crearComponentes() {
