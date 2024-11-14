@@ -1,5 +1,6 @@
 package modelo.entidades;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import modelo.armamento.armas.Arma;
@@ -31,6 +32,14 @@ public abstract class Soldado extends GifMovible implements Colisionable, Movibl
 	public void actualizar() {
 		arma.actualizar();
 		super.actualizar();
+	}
+
+	@Override
+	public void dibujar(Graphics g) {
+		Vector2D pos = transformar.getPosicion();
+		pos.setY(pos.getY()+.5);
+		super.dibujar(g);
+		pos.setY(pos.getY()-.5);
 	}
 
 	public abstract void recibirDano(double dano);

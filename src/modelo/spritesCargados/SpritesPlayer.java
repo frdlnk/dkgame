@@ -13,10 +13,13 @@ import java.awt.image.BufferedImage;
 
 public class SpritesPlayer extends Animation{
 
+	private double escala;
+	
     public SpritesPlayer( Transform transform) {
         super("");
         this.setTransformar(transform);
         loadGifs();
+        escala = 2;
     }
 
     private void loadGifs() {
@@ -26,5 +29,15 @@ public class SpritesPlayer extends Animation{
             this.add(gif.getNombre(), gif);
         }
         cambiarAnimacionA(Assets.spriteNames[0]);
+    
+    @Override
+    public void dibujar(Graphics g) {
+    	Vector2D pos = getTransformar().getPosicion();
+    	Vector2D escala = getTransformar().getEscala();
+    	getTransformar().setEscala(new Vector2D(this.escala, this.escala));
+		pos.setY(pos.getY()+.5);
+    	super.dibujar(g);
+    	pos.setY(pos.getY()-.5);
+    	getTransformar().setEscala(escala);
     }
 }
