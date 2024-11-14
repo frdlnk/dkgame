@@ -12,6 +12,7 @@ import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.util.Vector2D;
+import utils.Conf;
 import utils.Tags;
 import utils.arrays.ArrayString;
 import vista.escena.EscenaJuego;
@@ -31,14 +32,23 @@ public class Enemigo extends Soldado {
 	
 	@Override
 	public void actualizar() {
-		tiempoParaSiguienteDisparo -= GameLoop.dt/1000;
-		if (tiempoParaSiguienteDisparo <= 0) {
+		if (tiempoParaSiguienteDisparo <= 0 && isInScreen()) {
 			disparar();
 			tiempoParaSiguienteDisparo = TIEMPO_ENTRE_DISPAROS;
+		}else {
+			tiempoParaSiguienteDisparo -= GameLoop.dt/1000;
 		}
 		fisica.actualizar();
 		colisiona.actualizar();
 		super.actualizar();
+	}
+	
+	public boolean isInScreen() {
+		Vector2D pos = transformar.getPosicion();
+		if (pos.getX() > 0 && pos.getX() < Conf.WINDOW_WIDTH) {
+			return true;
+		}
+		return false;
 	}
 	
 	@Override
