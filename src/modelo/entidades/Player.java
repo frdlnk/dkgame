@@ -59,10 +59,10 @@ public class Player extends Soldado{
 		double direccionHorizontal = controles.getDireccionHorizontal();
 		double direccionVertical = controles.getDireccionVertical();
 		
-		calcularDireccionDisparo(direccionHorizontal, direccionVertical);
-		
 		movimiento(direccionHorizontal);
 		
+		
+		calcularDireccionDisparo(direccionHorizontal, direccionVertical);
 		disparar();
 		
 		fisica.actualizar();
@@ -83,7 +83,6 @@ public class Player extends Soldado{
 		}
 		if (estaAgachado) {
 			movimiento *= 0.8;
-			direccionDisparo.setY(0);
 		}
 		if (controles.isJump() && isGrounded) {
 			isGrounded = false;
@@ -94,7 +93,17 @@ public class Player extends Soldado{
 	
 	private void calcularDireccionDisparo(double direccionHorizontal, double direccionVertical) {
 		double y = estaAgachado ? 0 : direccionVertical;
-		double x = y != 0 || direccionHorizontal != 0 ? direccionHorizontal : direccionDisparo.getX(); 
+		double x = direccionHorizontal; 
+		
+		//si la direccion en x es 0 en el input y en la ultima direccion de disparo
+		// su direccion predeterminada sera adelante
+		if(x == 0 && direccionDisparo.getX() == 0) x=1;
+		//sino y la direccion de input es 0 usa la ultima direccion que uso
+		else if(x==0) x = direccionDisparo.getX();
+		//si no se cumplen esas condiciones la direccion sera el nuevo input del jugador(implicito)
+		
+		//si apunta verticalmente sin moverse, dispara solo verticalmente
+		if(y!=0 && direccionHorizontal == 0) x=0;
 		
 		direccionDisparo = new Vector2D(x,y);
 	}
@@ -133,11 +142,23 @@ public class Player extends Soldado{
 			Scene escena = Scene.getEscenaActual();
 			ArrayString targetsIgnore = new ArrayString();
 			targetsIgnore.add(Tags.PLAYER);
-			Municion disparo = getArma().disparar(getCentro(), direccionDisparo, targetsIgnore);
+			Municion disparo = getArma().disparar(posicionDisparo(), direccionDisparo, targetsIgnore);
 			if (escena instanceof EscenaJuego && disparo != null) {
 				((EscenaJuego) escena).addEntidad(disparo);
 			}
 		}
+	}
+	
+	private Vector2D posicionDisparo() {
+		int x = direccionDisparo.getX() > 0 ? 67 : -67;
+		int y = estaAgachado ? 0 : -20;
+		
+		if (direccionDisparo.getX() == 0) {
+			x = 0;
+			y += direccionDisparo.getY() > 0 ? 50 : -50;
+		}
+		Vector2D pos = getCentro().add(new Vector2D(x, y));
+		return pos;
 	}
 	
 	@Override
