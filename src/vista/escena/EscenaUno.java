@@ -76,9 +76,8 @@ public class EscenaUno extends EscenaJuego{
 	}
 	
 	public void addEntidad(Entidad entidad) {
-		System.err.println("add" + entidad.getNombre());
 		if (entidad != null) {
-			entidades.add(entidad.getNombre(), entidad);
+			mapa.getZonaActual().addMapObjects(entidad);
 		}
 	}
 	

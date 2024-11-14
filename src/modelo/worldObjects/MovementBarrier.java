@@ -10,20 +10,30 @@ import utils.Colisionable;
 
 public class MovementBarrier extends Caja {
 	private boolean playerOverlap;
+	private boolean isTrigger;
+	private boolean isEnable;
 
 	public MovementBarrier(String nombre, BufferedImage textura, Transform transformar) {
 		super(nombre, textura, transformar);
+		setTrigger(false);
+		setEnable(true);
 	}
 
 	public MovementBarrier(String nombre, BufferedImage imageMB, Vector2D posicionMB) {
 		super(nombre,imageMB,posicionMB);
+		setTrigger(false);
+		setEnable(true);
 	}
 
 	@Override
 	public void onColision(Entidad entidad) {
-		super.onColision(entidad);
-		if (entidad instanceof Player) {
-			playerOverlap = true;
+		if (isEnable) {
+			if (entidad instanceof Player) {
+				if (!isTrigger) {
+					super.onColision(entidad);
+				}
+				playerOverlap = true;
+			}
 		}
 	}
 	
@@ -47,6 +57,22 @@ public class MovementBarrier extends Caja {
 
 	public void setPlayerOverlap(boolean playerOverlap) {
 		this.playerOverlap = playerOverlap;
+	}
+
+	public boolean isTrigger() {
+		return isTrigger;
+	}
+
+	public void setTrigger(boolean isTrigger) {
+		this.isTrigger = isTrigger;
+	}
+
+	public boolean isEnable() {
+		return isEnable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.isEnable = enable;
 	}
 	
 }

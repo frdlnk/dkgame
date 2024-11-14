@@ -50,7 +50,6 @@ public class Caja extends SpriteSolido implements Colisionable {
 			while(objeto.getColisiona().colisionaCon(colisiona) && !direccionY.isNaN()) {
 				Vector2D nuevaPosiocion = transformarOtro.getPosicion().add(direccion);
 				transformarOtro.setPosicion(nuevaPosiocion);
-				System.out.println(nuevaPosiocion.getY());
 				objeto.getColisiona().actualizar(); 
 			}
 			
@@ -59,7 +58,6 @@ public class Caja extends SpriteSolido implements Colisionable {
 				double pos = transformar.getPosicion().getX();
 				pos += colliderOtro.getMaxX() == thisHitBox.getMinX() ? 0:textura.getWidth();
 				pos -= colliderOtro.getMaxX() == thisHitBox.getMinX() ? colliderOtro.getWidth():0;
-				pos += colliderOtro.getMaxX() == thisHitBox.getMinX() ? -0.5 : 0.5;
 				transformarOtro.getPosicion().setX(pos);
 				fisicaOtro.getVectorMovimiento().setX(0);
 				fisicaOtro.getUltimaDireccion().setX(0);
@@ -68,7 +66,6 @@ public class Caja extends SpriteSolido implements Colisionable {
 				double pos = transformar.getPosicion().getY();
 				pos += colliderOtro.getMaxY() == thisHitBox.getMinY() ? 0:textura.getHeight();
 				pos -= colliderOtro.getMaxY() == thisHitBox.getMinY() ? colliderOtro.getHeight():0;
-				pos += colliderOtro.getMaxY() == thisHitBox.getMinY() ? 0.5 : 0;
 				transformarOtro.getPosicion().setY(pos);
 				fisicaOtro.getVectorMovimiento().setY(0);
 				fisicaOtro.getUltimaDireccion().setY(0);
@@ -85,8 +82,11 @@ public class Caja extends SpriteSolido implements Colisionable {
 	
 	@Override
 	public void dibujar(Graphics g) {
+		super.dibujar(g);
+	}
+	
+	public void drawMargins(Graphics g) {
 		Rectangle tect = colisiona.getHitbox();
 		Renderer.dibujarBordes(g, transformar.getPosicion(), tect.getWidth(), tect.getHeight());
-		super.dibujar(g);
 	}
 }

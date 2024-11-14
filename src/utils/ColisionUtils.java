@@ -19,12 +19,12 @@ public class ColisionUtils {
 	}
 	
 	public static void entityColisionVerifier(
-			ListaEntidades lista, Colisionable colisionable, Entidad entidad )
+			ListaEntidades lista, Colisionable colisionable, Entidad entidad)
 	{
 		for (int i = 0; i < lista.getSize(); i++) {
-			if (lista.get(i) instanceof Colisionable) {
-				ColisionUtils.colisionResolve(colisionable, (Colisionable) lista.get(i),
-												entidad, lista.get(i));
+			Entidad listEntry = lista.get(i);
+			if (listEntry instanceof Colisionable && entidad != listEntry) {
+				colisionResolve(colisionable, (Colisionable) listEntry, entidad, listEntry);
 			}
 		}
 	}
