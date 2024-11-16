@@ -9,27 +9,6 @@ import java.io.InputStream;
 
 public class SpriteLoader{
 
-    public static final String PLAYER_SPRITE = "player_sprites.png";
-    public static final String PRAY = "Walter_Revised.png";
-
-    public static BufferedImage getSpriteAtlas(String fileName){
-        BufferedImage img = null;
-        InputStream in = SpriteLoader.class.getResourceAsStream("/" + fileName);
-        try {
-            img = ImageIO.read(in);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-            try {
-                in.close();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        return img;
-    }
-
     public static BufferedImage[] getSubImageArray(int x, int y, int w, int h, int indent, int amm, BufferedImage img){
         BufferedImage[] animation = new BufferedImage[amm];
         int xVar = x;

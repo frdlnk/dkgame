@@ -5,7 +5,8 @@ import utils.StateManager;
 
 import javax.swing.*;
 
-import static vista.MenuProvicional.mostrarInformacionJugador;
+import static vista.admin.ActualizarJugador.mostrarInformacionJugador;
+
 
 public class BuscarJugadorView {
     public static StateManager sm = new StateManager();
