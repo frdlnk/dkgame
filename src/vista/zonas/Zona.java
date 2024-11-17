@@ -89,16 +89,6 @@ public abstract class Zona extends Entidad{
 		
 		Vector2D nuevaPosicionZona = getPosition().add(movimeinto);
 		
-		if (direccionMovimiento.getX() < 0 && nuevaPosicionZona.getX() < 0) {
-			nuevaPosicionZona.setX(0);
-		}else if (direccionMovimiento.getX() > 0 && nuevaPosicionZona.getX() > 0) {
-			nuevaPosicionZona.setX(0);
-		}if (direccionMovimiento.getY() > 0 && nuevaPosicionZona.getY() > nuevaPosicionZona.getY()) {
-			nuevaPosicionZona.setY(0);
-		}else if(direccionMovimiento.getY() > 0 && nuevaPosicionZona.getY() > nuevaPosicionZona.getY()) {
-			nuevaPosicionZona.setY(0);
-		}
-		
 		setPosition(nuevaPosicionZona);
 		
 		moverEntidades(enemigos, movimeinto);
@@ -126,6 +116,10 @@ public abstract class Zona extends Entidad{
 				transformEntidad.setPosicion(nuevaPosicion);
 			}
 		}
+	}
+	
+	public int enemigosrestantes(){
+		return enemigos.getSize();
 	}
 
 	public Vector2D getDireccionMovimiento() {
