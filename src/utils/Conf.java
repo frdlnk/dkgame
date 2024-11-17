@@ -1,8 +1,8 @@
 package utils;
 
 public final class Conf {
-	public final static int WINDOW_HEIGHT = 448;
-	public final static int WINDOW_WIDTH = 1080;
+	public final static int WINDOW_HEIGHT = 428;
+	public final static int WINDOW_WIDTH = 590;
 
 	public final static int PLAYER_HEIGHT = 80;
 	public final static int PLAYER_WIDTH = 50;
