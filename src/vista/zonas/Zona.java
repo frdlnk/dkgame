@@ -38,10 +38,10 @@ public abstract class Zona extends Entidad{
 	protected abstract void crearComponentes();
 	protected abstract void generarEnemigos();
 	
-	public void verificarColisiones(Colisionable colisionable, Entidad entidad) {
-		ColisionUtils.entityColisionVerifier(mapObjects, colisionable, entidad);
-		ColisionUtils.entityColisionVerifier(staticObjects, colisionable, entidad);
-		ColisionUtils.entityColisionVerifier(enemigos, colisionable, entidad);
+	public void verificarColisiones(Colisionable colisionable) {
+		ColisionUtils.entityColisionVerifier(staticObjects, colisionable);
+		ColisionUtils.entityColisionVerifier(mapObjects, colisionable);
+		ColisionUtils.entityColisionVerifier(enemigos, colisionable);
 	}
 	
 	private void colisionesInternas() {
@@ -50,11 +50,11 @@ public abstract class Zona extends Entidad{
 		verificarColisiones(staticObjects);
 	}
 	
-	private void verificarColisiones(ListaEntidades entidades) {
+	public void verificarColisiones(ListaEntidades entidades) {
 		for (int i = 0; i < entidades.getSize(); i++) {
 			Entidad entidad = entidades.get(i);
 			if (entidad instanceof Colisionable) {
-				verificarColisiones((Colisionable) entidad, entidad);
+				verificarColisiones((Colisionable) entidad);
 			}
 		}
 	}

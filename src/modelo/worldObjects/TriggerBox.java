@@ -2,9 +2,11 @@ package modelo.worldObjects;
 
 import java.awt.image.BufferedImage;
 
+import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.SpriteSolido;
 import motor_v1.motor.util.Vector2D;
+import utils.ColisionInfo;
 import utils.Colisionable;
 
 public abstract class TriggerBox extends SpriteSolido implements Colisionable{
@@ -18,8 +20,19 @@ public abstract class TriggerBox extends SpriteSolido implements Colisionable{
 	}
 
 	@Override
-	public boolean hayColision(Colisionable entidad) {
-		return colisiona.colisionaCon(entidad.getColisiona());
+	public ColisionInfo hayColision(Colisionable entidad) {
+		ColisionInfo colision = new ColisionInfo();
+		Collider[] collidersEntidad = entidad.getColliders();
+		for (int i = 0; i < collidersEntidad.length; i++) {
+			Collider otroCollider = collidersEntidad[i];
+			if (colisiona.colisionaCon(otroCollider)) {
+				colision.setColider(colisiona);
+				colision.setEntidad(this);
+				colision.setColisionable(this);
+				return colision;
+			}
+		}
+		return null;
 	}
 
 	@Override

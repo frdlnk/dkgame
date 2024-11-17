@@ -13,6 +13,7 @@ import modelo.worldObjects.Caja;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
+import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.input.InputMouse;
@@ -98,6 +99,7 @@ public class Player extends Soldado{
 		//si la direccion en x es 0 en el input y en la ultima direccion de disparo
 		// su direccion predeterminada sera adelante
 		if(x == 0 && direccionDisparo.getX() == 0) x=1;
+		
 		//sino y la direccion de input es 0 usa la ultima direccion que uso
 		else if(x==0) x = direccionDisparo.getX();
 		//si no se cumplen esas condiciones la direccion sera el nuevo input del jugador(implicito)
@@ -207,7 +209,8 @@ public class Player extends Soldado{
 	}
 
 	@Override
-	public void onColision(Entidad entidad) {
+	public void onColision(ColisionInfo colision) {
+		Entidad entidad = colision.getEntidad();
 		if (entidad instanceof Recogible) {
 			Object reward = ((Recogible) entidad).getReward();
 			if (reward instanceof Arma) {
@@ -215,7 +218,7 @@ public class Player extends Soldado{
 			}
 		}
 		if(entidad instanceof Caja) {
-			Rectangle otroHitbox = ((Colisionable) entidad).getColisiona().getHitbox();
+			Rectangle otroHitbox = colision.getColider().getHitbox();
 			if(otroHitbox.getMinY() >= colisiona.getHitbox().getMaxY()-1 && fisica.getUltimaDireccion().getY() >= 0) {
 				isGrounded = true;
 			}
@@ -234,6 +237,11 @@ public class Player extends Soldado{
 			salud = 0;
 			morir();
 		}
+	}
+
+	@Override
+	public Collider[] getColliders() {
+		return new Collider[] {colisiona,cuchilloColider};
 	}
 	
 }

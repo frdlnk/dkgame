@@ -229,7 +229,7 @@ public class Zona1N1 extends Zona{
 			conty = 0;
 			changeplatDelay = .5;
 		}else {
-			changeplatDelay -= GameLoop.dt/1000;
+			changeplatDelay -= GameLoop.dt;
 		}
 		
 		double distance = 0.5;

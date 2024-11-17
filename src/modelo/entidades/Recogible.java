@@ -2,9 +2,11 @@ package modelo.entidades;
 
 import java.awt.image.BufferedImage;
 
+import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.SpriteSolido;
 import motor_v1.motor.util.Vector2D;
+import utils.ColisionInfo;
 import utils.Colisionable;
 
 public abstract class Recogible extends SpriteSolido implements Colisionable {
@@ -20,8 +22,15 @@ public abstract class Recogible extends SpriteSolido implements Colisionable {
 	public abstract Object getReward();
 
 	@Override
-	public boolean hayColision(Colisionable entidad) {
-		return colisiona.colisionaCon(entidad.getColisiona());
+	public ColisionInfo hayColision(Colisionable entidad) {
+		ColisionInfo colision = new ColisionInfo(this,this,colisiona);
+		Collider[] collidersEntidad = entidad.getColliders();
+		for (int i = 0; i < collidersEntidad.length; i++) {
+			if (colisiona.colisionaCon(collidersEntidad[i])) {
+				return colision;
+			}
+		}
+		return null;
 	}
 
 	

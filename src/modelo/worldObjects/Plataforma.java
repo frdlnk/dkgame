@@ -7,6 +7,7 @@ import modelo.componentes.Fisica;
 import motor_v1.motor.component.Transform;
 import utils.Movible;
 import motor_v1.motor.util.Vector2D;
+import utils.ColisionInfo;
 import utils.Colisionable;
 
 public class Plataforma extends Caja {
@@ -21,7 +22,7 @@ public class Plataforma extends Caja {
 	}
 
 	@Override
-	public boolean hayColision(Colisionable entidad) {
+	public ColisionInfo hayColision(Colisionable entidad) {
 		if (entidad instanceof Movible ) 
 		{
 			//TODO: tratar de hacer con producto punto de la resta de pos-Jpos y Vector.UP
@@ -32,11 +33,11 @@ public class Plataforma extends Caja {
 			double thisYLevel = thisHitBox.getMaxY();
 			double otroYLevel = otroHitbox.getMaxY();
 			if(fisicaOtro.getUltimaDireccion().getY() >= 0 && otroYLevel <= thisYLevel) {
-				return true;
+				return new ColisionInfo(this,this,colisiona);
 			}
 			
 		}
-		return false;
+		return null;
 	}
 
 }

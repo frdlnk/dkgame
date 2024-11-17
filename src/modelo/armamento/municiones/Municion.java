@@ -10,6 +10,7 @@ import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.util.Vector2D;
+import utils.ColisionInfo;
 import utils.Colisionable;
 import utils.Conf;
 import utils.Movible;
@@ -89,10 +90,10 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	 * Realiza el filtro de objetos a impactar
 	 */
 	@Override
-	public void onColision(Entidad entidad) {
-		if (!targetIgnore.contains(entidad.getNombre())) {
+	public void onColision(ColisionInfo colision) {
+		if (!targetIgnore.contains(colision.getEntidad().getNombre())) {
 			destruir();
-			impacto(entidad);
+			impacto(colision.getEntidad());
 		}
 	}
 
@@ -100,14 +101,30 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	 *Verifica si el objeto se encuentra en colision con otro
 	 */
 	@Override
-	public boolean hayColision(Colisionable entidad) {
+	public ColisionInfo hayColision(Colisionable entidad) {
 		//Si la bala ya a impactado no puede colisionar de nuevo
 		if (!getViva()) {
-			return false;
+			return null;
 		}
 		
-		Collider entidadCollider = entidad.getColisiona();
-		return colisiona.colisionaCon(entidadCollider);
+		ColisionInfo colision = new ColisionInfo();
+		Collider[] collidersEntidad = entidad.getColliders();
+		for (int i = 0; i < collidersEntidad.length; i++) {
+			Collider otroCollider = collidersEntidad[i];
+			if (colisiona.colisionaCon(otroCollider)) {
+				colision.setColider(colisiona);
+				colision.setEntidad(this);
+				colision.setColisionable(this);
+				return colision;
+			}
+		}
+		return null;
+		
+	}
+	
+	@Override
+	public Collider[] getColliders() {
+		return new Collider[]{colisiona};
 	}
 
 	@Override

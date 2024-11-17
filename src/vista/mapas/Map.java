@@ -44,8 +44,8 @@ public abstract class Map extends Entidad{
 	}
 
 	
-	public void generarColisiones(Colisionable colisionable, Entidad entidad) {
-		zonaActual.verificarColisiones(colisionable, entidad);
+	public void generarColisiones(Colisionable colisionable) {
+		zonaActual.verificarColisiones(colisionable);
 	}
 	
 	public void actualizar() {

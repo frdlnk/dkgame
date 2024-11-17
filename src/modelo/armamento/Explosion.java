@@ -5,8 +5,10 @@ import java.awt.image.BufferedImage;
 import modelo.entidades.Soldado;
 import modelo.worldObjects.TriggerBox;
 import motor_v1.motor.Entidad;
+import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
+import utils.ColisionInfo;
 import utils.Colisionable;
 import utils.arrays.ArrayString;
 
@@ -54,16 +56,18 @@ public class Explosion extends TriggerBox{
 	}
 
 	@Override
-	public void onColision(Entidad entidad) {
-		if (entidad instanceof Soldado && !targetsIgnore.contains(entidad.getNombre())) {
-			hitSoldado((Soldado) entidad);
+	public void onColision(ColisionInfo colision) {
+		if (colision.getEntidad() instanceof Soldado 
+			&& !targetsIgnore.contains(colision.getEntidad().getNombre())) 
+		{
+			hitSoldado((Soldado) colision.getEntidad());
 		}
 	}
 	
 	@Override
-	public boolean hayColision(Colisionable entidad) {
+	public ColisionInfo hayColision(Colisionable entidad) {
 		if (!getViva()) {
-			return false;
+			return null;
 		}
 		return super.hayColision(entidad);
 	}
@@ -86,5 +90,11 @@ public class Explosion extends TriggerBox{
 		//solo existe un segundo
 		destruir();
 		super.actualizar();
+	}
+
+
+	@Override
+	public Collider[] getColliders() {
+		return new Collider[]{colisiona};
 	}
 }

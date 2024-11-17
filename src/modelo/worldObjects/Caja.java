@@ -6,11 +6,13 @@ import java.awt.image.BufferedImage;
 
 import modelo.componentes.Fisica;
 import motor_v1.motor.Entidad;
+import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
 import utils.Movible;
 import motor_v1.motor.entidades.SpriteSolido;
 import motor_v1.motor.util.Vector2D;
+import utils.ColisionInfo;
 import utils.Colisionable;
 
 public class Caja extends SpriteSolido implements Colisionable {
@@ -31,26 +33,37 @@ public class Caja extends SpriteSolido implements Colisionable {
 	}
 
 	@Override
-	public boolean hayColision(Colisionable entidad) {
-		return entidad.getColisiona().colisionaCon(colisiona);
+	public ColisionInfo hayColision(Colisionable entidad) {
+		ColisionInfo colision = new ColisionInfo();
+		Collider[] collidersEntidad = entidad.getColliders();
+		for (int i = 0; i < collidersEntidad.length; i++) {
+			Collider otroCollider = collidersEntidad[i];
+			if (colisiona.colisionaCon(otroCollider)) {
+				colision.setColider(colisiona);
+				colision.setEntidad(this);
+				colision.setColisionable(this);
+				return colision;
+			}
+		}
+		return null;
 	}
 
 	@Override
-	public void onColision(Entidad entidad) {
-		if (entidad instanceof Movible) {
-			Movible objeto = (Movible) entidad;
-			Fisica fisicaOtro = objeto.getFisica();
-			Rectangle colliderOtro = objeto.getColisiona().getHitbox();
+	public void onColision(ColisionInfo colision) {
+		if (colision.getEntidad() instanceof Movible) {
+			Movible entidadmovible = (Movible) colision.getEntidad();
+			Fisica fisicaOtro = entidadmovible.getFisica();
+			Rectangle colliderOtro = entidadmovible.getColisiona().getHitbox();
 			Rectangle thisHitBox = colisiona.getHitbox();
 			Vector2D direccion = fisicaOtro.getUltimaDireccion().scale(-1).normalize();
 			Double direccionY = direccion.getY();
 			Transform transformarOtro = fisicaOtro.getTransform();
 			Vector2D ultimaPosicion = fisicaOtro.getTransform().getPosicion();
 			
-			while(objeto.getColisiona().colisionaCon(colisiona) && !direccionY.isNaN()) {
+			while(colision.getColider().colisionaCon(colisiona) && !direccionY.isNaN()) {
 				Vector2D nuevaPosiocion = transformarOtro.getPosicion().add(direccion);
 				transformarOtro.setPosicion(nuevaPosiocion);
-				objeto.getColisiona().actualizar(); 
+				entidadmovible.getColisiona().actualizar(); 
 			}
 			
 			if(colliderOtro.getMaxX() == thisHitBox.getMinX() || colliderOtro.getMinX() == thisHitBox.getMaxX()) {
@@ -70,7 +83,7 @@ public class Caja extends SpriteSolido implements Colisionable {
 				fisicaOtro.getVectorMovimiento().setY(0);
 				fisicaOtro.getUltimaDireccion().setY(0);
 			}
-			objeto.getColisiona().actualizar();
+			entidadmovible.getColisiona().actualizar();
 		}
 	}
 
@@ -88,5 +101,10 @@ public class Caja extends SpriteSolido implements Colisionable {
 	public void drawMargins(Graphics g) {
 		Rectangle tect = colisiona.getHitbox();
 		Renderer.dibujarBordes(g, transformar.getPosicion(), tect.getWidth(), tect.getHeight());
+	}
+
+	@Override
+	public Collider[] getColliders() {
+		return new Collider[] {colisiona};
 	}
 }

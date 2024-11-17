@@ -49,7 +49,7 @@ public class EscenaUno extends EscenaJuego{
 		if (!mapa.isChangingZone()) {
 			entidades.actualizar();
 			calcularColisiones();
-			calcularColisionesMapa(jugador1, jugador1);
+			calcularColisionesMapa(jugador1);
 			entidades.destruir();
 		}
 	}
@@ -59,7 +59,7 @@ public class EscenaUno extends EscenaJuego{
 		super.calcularColisiones();
 		for (int i = 0; i < entidades.getSize(); i++) {
 			if (entidades.get(i) instanceof Colisionable) {
-				calcularColisionesMapa((Colisionable)entidades.get(i), entidades.get(i));
+				calcularColisionesMapa((Colisionable)entidades.get(i));
 			}
 		}
 	}
@@ -82,8 +82,8 @@ public class EscenaUno extends EscenaJuego{
 	}
 	
 	
-	public void calcularColisionesMapa(Colisionable colisionable, Entidad entidad) {
-		mapa.generarColisiones(colisionable, entidad);
+	public void calcularColisionesMapa(Colisionable colisionable) {
+		mapa.generarColisiones(colisionable);
 	}
 	
 	public Player getJugador1() {

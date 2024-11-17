@@ -20,7 +20,7 @@ public abstract class EscenaJuego extends Scene {
 				for (int j = i+1; j < entidades.getSize(); j++) {
 					if(entidades.get(j) instanceof Colisionable) {
 						Colisionable colisionable2 = (Colisionable) entidades.get(j);
-						ColisionUtils.colisionResolve(colisionable1, colisionable2, entidades.get(i), entidades.get(j));
+						ColisionUtils.colisionResolve(colisionable1, colisionable2);
 					}
 				}
 			}

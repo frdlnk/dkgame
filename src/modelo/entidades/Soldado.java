@@ -9,6 +9,7 @@ import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.GifMovible;
 import motor_v1.motor.util.Vector2D;
+import utils.ColisionInfo;
 import utils.Colisionable;
 import utils.Movible;
 
@@ -70,9 +71,19 @@ public abstract class Soldado extends GifMovible implements Colisionable, Movibl
 	}
 	
 	@Override
-	public boolean hayColision(Colisionable entidad) {
-		Collider otroCollider = ((Colisionable) entidad).getColisiona();
-		return colisiona.colisionaCon(otroCollider);
+	public ColisionInfo hayColision(Colisionable entidad) {
+		ColisionInfo colision = new ColisionInfo();
+		Collider[] collidersEntidad = entidad.getColliders();
+		for (int i = 0; i < collidersEntidad.length; i++) {
+			Collider otroCollider = collidersEntidad[i];
+			if (colisiona.colisionaCon(otroCollider)) {
+				colision.setColider(colisiona);
+				colision.setEntidad(this);
+				colision.setColisionable(this);
+				return colision;
+			}
+		}
+		return null;
 	}
 	
 	@Override

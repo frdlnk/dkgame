@@ -10,8 +10,10 @@ import modelo.componentes.Fisica;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
+import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.util.Vector2D;
+import utils.ColisionInfo;
 import utils.Conf;
 import utils.Tags;
 import utils.arrays.ArrayString;
@@ -45,7 +47,7 @@ public class Enemigo extends Soldado {
 	
 	public boolean isInScreen() {
 		Vector2D pos = transformar.getPosicion();
-		if (pos.getX() > 0 && pos.getX() < Conf.WINDOW_WIDTH) {
+		if (pos.getX() + colisiona.getHitbox().getWidth() > 0 && pos.getX() < Conf.WINDOW_WIDTH) {
 			return true;
 		}
 		return false;
@@ -87,13 +89,18 @@ public class Enemigo extends Soldado {
 	}
 
 	@Override
-	public void onColision(Entidad entidad) {
+	public void onColision(ColisionInfo colision) {
 		
 	}
 
 	@Override
 	public void setFisica(Fisica fisica) {
 		this.fisica = fisica;
+	}
+
+	@Override
+	public Collider[] getColliders() {
+		return new Collider[]{colisiona};
 	}
 
 }

@@ -6,10 +6,12 @@ import modelo.entidades.Player;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
+import utils.ColisionInfo;
 import utils.Colisionable;
 
 public class MovementBarrier extends Caja {
 	private boolean playerOverlap;
+	private Player player;
 	private boolean isTrigger;
 	private boolean isEnable;
 
@@ -26,23 +28,25 @@ public class MovementBarrier extends Caja {
 	}
 
 	@Override
-	public void onColision(Entidad entidad) {
-		if (isEnable) {
-			if (entidad instanceof Player) {
-				if (!isTrigger) {
-					super.onColision(entidad);
-				}
-				playerOverlap = true;
+	public void onColision(ColisionInfo colision) {
+		if (isEnable && colision.getEntidad() instanceof Player) {
+			player = (Player) colision.getEntidad();
+			if (!isTrigger) {
+				Vector2D lastP = player.getFisica().getUltimaDireccion();
+				Vector2D copy = lastP.add(0);
+				super.onColision(colision);
+				player.getFisica().setUltimaDireccion(copy);
 			}
+			playerOverlap = true;
 		}
 	}
 	
 	@Override
-	public boolean hayColision(Colisionable entidad) {
+	public ColisionInfo hayColision(Colisionable entidad) {
 		if (entidad instanceof Player) {
 			return super.hayColision(entidad);
 		}
-		return false;
+		return null;
 	}
 	
 	@Override
@@ -50,9 +54,9 @@ public class MovementBarrier extends Caja {
 		playerOverlap = false;
 		super.actualizar();
 	}
-
+	
 	public boolean isPlayerOverlap() {
-		return playerOverlap;
+		return playerOverlap && isEnable;
 	}
 
 	public void setPlayerOverlap(boolean playerOverlap) {
@@ -73,6 +77,14 @@ public class MovementBarrier extends Caja {
 
 	public void setEnable(boolean enable) {
 		this.isEnable = enable;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 	
 }

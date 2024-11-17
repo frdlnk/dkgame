@@ -8,6 +8,7 @@ import modelo.armamento.Explosion;
 import modelo.armamento.Explosivo;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.Scene;
+import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.util.Vector2D;
 import utils.arrays.ArrayString;
