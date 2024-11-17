@@ -1,6 +1,7 @@
 package vista.escena;
 
 
+import modelo.entidades.Player;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.Scene;
 import motor_v1.motor.entidades.ListaEntidades;
@@ -9,7 +10,6 @@ import utils.Colisionable;
 
 public abstract class EscenaJuego extends Scene {
 	public static ListaEntidades entidades = new ListaEntidades();
-	
 
 	public abstract void addEntidad(Entidad entidad);
 	
@@ -26,6 +26,8 @@ public abstract class EscenaJuego extends Scene {
 			}
 		}
 	}
+	
+	public abstract Player getPlayer();
 
 	public static void setListaEntidades(ListaEntidades entidades) {
 		EscenaJuego.entidades = entidades;
