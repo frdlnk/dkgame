@@ -4,8 +4,11 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import modelo.armamento.Explosion;
 import modelo.armamento.armas.Arma;
+import modelo.armamento.armas.HeavyMachineGun;
 import modelo.armamento.armas.LanzaCohetes;
+import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Municion;
 import modelo.componentes.Fisica;
 import modelo.spritesCargados.SpritesPlayer;
@@ -16,6 +19,7 @@ import motor_v1.motor.Scene;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
+import motor_v1.motor.entidades.SpriteSolido;
 import motor_v1.motor.input.InputMouse;
 import motor_v1.motor.util.Vector2D;
 import utils.*;
@@ -23,15 +27,20 @@ import utils.arrays.ArrayString;
 import vista.escena.EscenaJuego;
 
 public class Player extends Soldado{
-	public final static int speed = 40;
+	public final static int speed = 400;
 	public final static int jumpForce = 8;
+	private static final double DELAY_CUCHILLO = .3;
 	private double yVelocity;
 	private Vector2D direccionDisparo;
 	private boolean isGrounded;
+	private boolean isTouchingEnemy;
+	private boolean usaCuchillo;
+	private double cuchilloDelay;
 	private boolean isMoving;
 	private PlayerControls controles;
 	private boolean estaAgachado;
 	private SpritesPlayer spritesPlayer;
+	private Collider cuchilloColider;
 
 	public Player(String nombre, BufferedImage[] imagenes, Transform transformar, double duracionImagen) {
 		this(nombre,imagenes,transformar.getPosicion(),duracionImagen);
@@ -45,10 +54,12 @@ public class Player extends Soldado{
 		yVelocity = 0;
 		direccionDisparo = Vector2D.RIGHT;
 		isGrounded = false;
-		setArma(new LanzaCohetes());
+		setArma(new HeavyMachineGun());
 		controles = new PlayerControls();
 		estaAgachado = false;
-		salud = 10;
+		salud = 100;
+		cuchilloColider = new Collider(transformar, 30, 20);
+		cuchilloDelay = DELAY_CUCHILLO;
 	}
 	
 
@@ -69,7 +80,15 @@ public class Player extends Soldado{
 		fisica.actualizar();
 		calcularLimitesHorizontales();
 		colisiona.actualizar();
+		Vector2D pos = transformar.getPosicion();
+		cuchilloColider.getHitbox().setLocation((int)pos.getX()+Conf.PLAYER_WIDTH, (int)pos.getY()+Conf.PLAYER_HEIGHT/2);
 		spritesPlayer.actualizar();
+		isTouchingEnemy = false;
+		
+		if (cuchilloDelay > 0) {
+			cuchilloDelay -= GameLoop.dt;
+		}
+		
 		super.actualizar();
 	}
 	
@@ -88,6 +107,7 @@ public class Player extends Soldado{
 		if (controles.isJump() && isGrounded) {
 			isGrounded = false;
 			fisica.impulsar(Vector2D.UP.scale(jumpForce));
+			if (estaAgachado) pararse();
 		}
 		fisica.addForce(new Vector2D(direccionHorizontal*movimiento*GameLoop.dt,0));
 	}
@@ -132,21 +152,27 @@ public class Player extends Soldado{
 			fisica.getVectorMovimiento().setX(0);
 		} 
 		if(posicion.getX() + Conf.PLAYER_WIDTH > Conf.WINDOW_WIDTH){
-			posicion.setX(Conf.PLAYER_WIDTH - Conf.WINDOW_WIDTH);
+			posicion.setX(Conf.WINDOW_WIDTH - Conf.PLAYER_WIDTH);
 			fisica.getVectorMovimiento().setX(0);
 		}
 	}
 	
 	
 	public void disparar() {
-		if (InputMouse.isPressed()) {
-			spritesPlayer.cambiarAnimacionA(Assets.spriteNames[1]);
-			Scene escena = Scene.getEscenaActual();
-			ArrayString targetsIgnore = new ArrayString();
-			targetsIgnore.add(Tags.PLAYER);
-			Municion disparo = getArma().disparar(posicionDisparo(), direccionDisparo, targetsIgnore);
-			if (escena instanceof EscenaJuego && disparo != null) {
-				((EscenaJuego) escena).addEntidad(disparo);
+		usaCuchillo = false;
+		if (InputMouse.isPressed() && cuchilloDelay <= 0) {
+			if (isTouchingEnemy) {
+				usaCuchillo = true;
+				cuchilloDelay = DELAY_CUCHILLO;
+			}else {
+				spritesPlayer.cambiarAnimacionA(Assets.spriteNames[1]);
+				Scene escena = Scene.getEscenaActual();
+				ArrayString targetsIgnore = new ArrayString();
+				targetsIgnore.add(Tags.PLAYER);
+				Municion disparo = getArma().disparar(posicionDisparo(), direccionDisparo, targetsIgnore);
+				if (escena instanceof EscenaJuego && disparo != null) {
+					((EscenaJuego) escena).addEntidad(disparo);
+				}
 			}
 		}
 	}
@@ -167,6 +193,9 @@ public class Player extends Soldado{
 	public void dibujar(Graphics g) {
 		Rectangle rect = colisiona.getHitbox();
 		Vector2D posicion = new Vector2D(rect.getX(), rect.getY());
+		Renderer.dibujarBordes(g, posicion, rect.getWidth(), rect.getHeight());
+		rect = cuchilloColider.getHitbox();
+		posicion = new Vector2D(rect.getX(), rect.getY());
 		Renderer.dibujarBordes(g, posicion, rect.getWidth(), rect.getHeight());
 		spritesPlayer.dibujar(g);
 		super.dibujar(g);
@@ -221,6 +250,13 @@ public class Player extends Soldado{
 			Rectangle otroHitbox = colision.getColider().getHitbox();
 			if(otroHitbox.getMinY() >= colisiona.getHitbox().getMaxY()-1 && fisica.getUltimaDireccion().getY() >= 0) {
 				isGrounded = true;
+			}
+		}
+		if (entidad instanceof Enemigo) {
+			isTouchingEnemy = entidad.getViva();
+			if (usaCuchillo && cuchilloColider.colisionaCon(colision.getColider())) {
+				((Enemigo) entidad).recibirDano(50);
+				usaCuchillo = false;
 			}
 		}
 	}
