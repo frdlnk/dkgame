@@ -12,11 +12,11 @@ import motor_v1.motor.component.Transform;
 import utils.Movible;
 import motor_v1.motor.entidades.SpriteSolido;
 import motor_v1.motor.util.Vector2D;
+import utils.BorderDrawAble;
 import utils.ColisionInfo;
 import utils.Colisionable;
 
-public class Caja extends SpriteSolido implements Colisionable {
-
+public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 
 	public Caja(String nombre, BufferedImage textura, Transform transformar) {
 		super(nombre, textura, transformar);
@@ -98,7 +98,7 @@ public class Caja extends SpriteSolido implements Colisionable {
 		super.dibujar(g);
 	}
 	
-	public void drawMargins(Graphics g) {
+	public void drawBorders(Graphics g) {
 		Rectangle tect = colisiona.getHitbox();
 		Renderer.dibujarBordes(g, transformar.getPosicion(), tect.getWidth(), tect.getHeight());
 	}

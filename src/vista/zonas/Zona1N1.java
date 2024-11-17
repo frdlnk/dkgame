@@ -281,8 +281,11 @@ public class Zona1N1 extends Zona{
 	@Override
 	public void dibujar(Graphics g) {
 		super.dibujar(g);
-		plat1.drawMargins(g);
+		if (plat1 instanceof BorderDrawAble) {
+			((BorderDrawAble) plat1).drawBorders(g);
+		}
 	}
+	
 	
 	private void destruirEnemigosResagados() {
 		for (int i = 0; i < enemigos.getSize(); i++) {
