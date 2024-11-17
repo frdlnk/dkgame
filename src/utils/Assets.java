@@ -10,6 +10,8 @@ public class Assets {
 
 	public static BufferedImage MAPA_NIVEL_1;
 	public static BufferedImage PLAYER_SPRITES;
+	public static BufferedImage AVION_CATARATA_M1;
+	public static BufferedImage CATARATA_AVION;
 	public static Dictionary<String, int[]> coord;
 	public static Dictionary<String, int[]> cuts;
 	public static Dictionary<String, BufferedImage[]> gifs;
@@ -18,6 +20,8 @@ public class Assets {
 	public static boolean load() {
 		MAPA_NIVEL_1 = Loader.cargarImagen("/MetalSlug-Mission1.png");
 		PLAYER_SPRITES = Loader.cargarImagen("/Walter_Revised.png");
+		AVION_CATARATA_M1 = Loader.cargarImagen("/avionCatarataM1.png");
+		CATARATA_AVION = Loader.cargarImagen("/catarata.png");
 		coord = new Hashtable<>();
 		cuts = new Hashtable<>();
 		gifs = new Hashtable<>();
