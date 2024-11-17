@@ -17,7 +17,7 @@ public class GameControler {
 	}
 	
 	public void iniciarJuego() {
-		loop = new GameLoop(juego, 0);
+		loop = new GameLoop(juego, 3);
 		if(Assets.load()) {
 			Scene nivel = new EscenaUno();
 			Scene.cambiarEscena(nivel);

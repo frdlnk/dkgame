@@ -88,7 +88,7 @@ public class Player extends Soldado{
 			isGrounded = false;
 			fisica.impulsar(Vector2D.UP.scale(jumpForce));
 		}
-		fisica.addForce(new Vector2D(direccionHorizontal*movimiento*GameLoop.dt/100,0));
+		fisica.addForce(new Vector2D(direccionHorizontal*movimiento*GameLoop.dt,0));
 	}
 	
 	private void calcularDireccionDisparo(double direccionHorizontal, double direccionVertical) {

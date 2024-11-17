@@ -78,7 +78,7 @@ public class Fisica extends Physics{
 		}
 		fuerzasAplicadas.clear();
 		transform.trasladarloA(nuevaPosicion);
-		vectorMovimiento.setY(vectorMovimiento.getY() + (gravity*Conf.GRAVITY*GameLoop.dt/1000));
+		vectorMovimiento.setY(vectorMovimiento.getY() + (gravity*Conf.GRAVITY*GameLoop.dt));
 	}
 
 	public void acelerar() {

@@ -85,7 +85,7 @@ public abstract class Zona extends Entidad{
 	}
 	
 	public void moverZona(Vector2D direccion, double distancia) {
-		Vector2D movimeinto = direccion.normalize().scale(distancia*GameLoop.dt/1000);
+		Vector2D movimeinto = direccion.normalize().scale(distancia*GameLoop.dt);
 		
 		Vector2D nuevaPosicionZona = getPosition().add(movimeinto);
 		

@@ -64,6 +64,6 @@ public abstract class Arma {
 	 * Se debe llamar cada frame controla la reduccion del tiempo de disparo
 	 */
 	public void actualizar() {
-		timeToNextShoot = timeToNextShoot > 0 ? (timeToNextShoot - GameLoop.dt/1000) : 0;
+		timeToNextShoot -= timeToNextShoot > 0 ? GameLoop.dt : 0;
 	}
 }
