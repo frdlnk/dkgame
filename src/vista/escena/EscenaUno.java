@@ -22,29 +22,21 @@ public class EscenaUno extends EscenaJuego{
 	private Player jugador1;
 	
 	public EscenaUno() {
+		
 		Rectangle rect = new Rectangle(50, 80);
 		Color color = new Color(128,128,0,0);
 		BufferedImage[] image = {Renderer.crearTextura(rect, color)};
 		Vector2D posicionJ = new Vector2D(10,180);
 		this.jugador1 = new Player(Tags.PLAYER, image, posicionJ, 10);
 		
-		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
-		Vector2D posicionE = new Vector2D(300,200);
-		Enemigo enemy = new Enemigo(Tags.ENEMY, imageE, posicionE, 10);
-		
 		mapa = new MapaNivel1();
-		
 		
 		entidades.add(mapa.getNombre(), mapa);
 		entidades.add(jugador1.getNombre(), jugador1);
-//		entidades.add(enemy.getNombre(), enemy);
 	}
 	
 	@Override
 	public void actualizar() {
-		if (InputKeyboard.isDown(Key.L)) {
-			mapa.nextZone();
-		}
 		mapa.actualizar();
 		if (!mapa.isChangingZone()) {
 			entidades.actualizar();
@@ -92,6 +84,11 @@ public class EscenaUno extends EscenaJuego{
 
 	public void setJugador1(Player jugador1) {
 		this.jugador1 = jugador1;
+	}
+
+	@Override
+	public Player getPlayer() {
+		return jugador1;
 	}
 	
 
