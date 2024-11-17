@@ -9,6 +9,7 @@ import motor_v1.motor.util.Vector2D;
 import utils.Assets;
 import utils.SpriteLoader;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SpritesPlayer extends Animation{
@@ -29,7 +30,8 @@ public class SpritesPlayer extends Animation{
             this.add(gif.getNombre(), gif);
         }
         cambiarAnimacionA(Assets.spriteNames[0]);
-    
+    }
+
     @Override
     public void dibujar(Graphics g) {
     	Vector2D pos = getTransformar().getPosicion();
