@@ -19,6 +19,7 @@ import utils.arrays.ArrayString;
 public abstract class Arma {
 	protected double shootDelay;
 	private double timeToNextShoot;
+	private int balasRestantes;
 	
 	/**
 	 * Construye un arma con delay predeterminado de 1s
@@ -34,6 +35,7 @@ public abstract class Arma {
 	public Arma(double shootDelay) {
 		this.shootDelay = shootDelay;
 		this.timeToNextShoot = 0;
+		setBalasRestantes(10);
 	}
 	
 	/**
@@ -46,7 +48,9 @@ public abstract class Arma {
 	public Municion disparar(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored) {
 		if(timeToNextShoot <= 0) {
 			timeToNextShoot = shootDelay;
-			return generarBala(posicion, direccion, targetsIgnored);
+			Municion disparo = generarBala(posicion, direccion, targetsIgnored);
+			if (disparo != null) setBalasRestantes(getBalasRestantes() - 1);
+			return disparo;
 		}
 		return null;
 	};
@@ -65,5 +69,17 @@ public abstract class Arma {
 	 */
 	public void actualizar() {
 		timeToNextShoot -= timeToNextShoot > 0 ? GameLoop.dt : 0;
+	}
+	
+	public void anadirBalas(int cantidad) {
+		setBalasRestantes(getBalasRestantes() + cantidad);
+	}
+
+	public int getBalasRestantes() {
+		return balasRestantes;
+	}
+
+	public void setBalasRestantes(int balasRestantes) {
+		this.balasRestantes = balasRestantes;
 	}
 }
