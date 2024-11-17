@@ -19,168 +19,188 @@ import motor_v1.motor.input.InputKeyboard;
 import motor_v1.motor.input.Key;
 import motor_v1.motor.util.Vector2D;
 import utils.Assets;
+import utils.BorderDrawAble;
 import utils.Conf;
 import utils.Tags;
 
+
+/**
+ * Zona correspondiente al nivel 1, cuenta con 3 jefes, y cuenta con movimiento de camara para el avance del escenario
+ * 
+ * Cuenta con modo diseñador para la colocacion de estructuras del mapa;
+ * 
+ * @author Joshua Elizondo Vasquez
+ * 
+ * @see Zona
+ */
 public class Zona1N1 extends Zona{
-	public static double limit = -5100;
-	MovementBarrier barrier;
-	Sprite bac;
-	Caja plat1;
-	private MovementBarrier barrierV;
-	int actualPlatform;
-	boolean modoDiseno = true;
-	double changeplatDelay;
+	//constantes
+	public final static int CANTIDAD_JEFES = 3;
 	
+	//variables de control para el movimiento de pantalla
+	private int[] checkPoints = {-3040,-5650, -6300, -6700, -7225, -7500};
+	private Vector2D[] direccionChecpoints = {
+		Vector2D.LEFT,Vector2D.LEFT, Vector2D.LEFT, 
+		new Vector2D(-1, .25), new Vector2D(-.5,.1), Vector2D.LEFT
+	};
+	private int actualCheckpoint;
+	MovementBarrier barrier;
+	
+	//Variables del modo diseño
+	boolean modoDiseno = true;
+	Sprite plat1;
+	int actualPlatform;
+	private double contx;
+	private double conty;
+	double changeplatDelay;
+
+	//Entidades principales
+	Sprite bac;
+	private Entidad[] jefes;
+	private int jefeActual;
+	
+	
+	/**
+	 * Constructor sin parametros 
+	 */
 	public Zona1N1() {
 		super(Vector2D.RIGHT, new Vector2D(0,0));
 		changeplatDelay = 0;
+		actualCheckpoint = 0;
+		setDireccionMovimiento(Vector2D.LEFT);
 	}
 
 	@Override
 	protected void crearComponentes() {
-		System.out.println(Assets.MAPA_NIVEL_1);
 		bac  = new Sprite(Tags.STATIC_OBJECT, Assets.MAPA_NIVEL_1, new Vector2D(0,-224));
 		bac.getTransformar().escalarloA(2);
 		mapObjects.add(bac.getNombre(), bac);
+		bac  = new Sprite(Tags.STATIC_OBJECT, Assets.AVION_CATARATA_M1, new Vector2D(6511,18));
+		bac.getTransformar().escalarloA(2);
+		mapObjects.add(bac.getNombre(), bac);
+		
+		
 		//plataforma inicial
 		Rectangle rectFloor = new Rectangle(1350, 50);
-		Color colorFloor = new Color(128,0,0,40);
-		BufferedImage imageFloor = Renderer.crearTextura(rectFloor, colorFloor);
 		Vector2D posicionF = new Vector2D(0,343);
-		Caja platform1 = new Caja(Tags.FLOOR, imageFloor, posicionF);
-		platform1.getColisiona().actualizar();
+		createCaja(posicionF, 1350, 50);
 		
 		//segundo piso despues del puente
-		Rectangle rectFloor3 = new Rectangle(6000, 50);
-		Color colorFloor3 = new Color(128,0,0,40);
-		BufferedImage imageFloor3 = Renderer.crearTextura(rectFloor3, colorFloor3);
 		Vector2D posicionF3 = new Vector2D(1351,420);
-		Caja platform3 = new Caja(Tags.FLOOR, imageFloor3, posicionF3);
-		platform3.getColisiona().actualizar();
+		createCaja(posicionF3, 6000, 50);
 		
 		//primera plataforma avion
-		Rectangle rectPl1Avion = new Rectangle(123, 10);
-		Color colorPl1Avion = new Color(128,50,0);
-		BufferedImage imagePl1Avion = Renderer.crearTextura(rectPl1Avion, colorPl1Avion);
 		Vector2D posicionPl1Avion = new Vector2D(1713,330);
-		Plataforma pl_1Avion = new Plataforma(Tags.PLATFORM, imagePl1Avion, posicionPl1Avion);
-		pl_1Avion.getColisiona().actualizar();
+		createPlatform(posicionPl1Avion, 123, 10);
 		
 		//segunda plataforma Avion
-		Rectangle rectPl2Avion = new Rectangle(350, 10);
-		Color colorPl2Avion = new Color(128,50,0);
-		BufferedImage imagePl2Avion = Renderer.crearTextura(rectPl2Avion, colorPl2Avion);
 		Vector2D posicionPl2Avion = new Vector2D(1880,251);
-		Plataforma pl_2Avion = new Plataforma(Tags.PLATFORM, imagePl2Avion, posicionPl2Avion);
-		pl_2Avion.getColisiona().actualizar();
+		createPlatform(posicionPl2Avion, 350, 10);
 		
 		//tercera plataforma avion
-		Rectangle rectPl3Avion = new Rectangle(123, 10);
-		Color colorPl3Avion = new Color(128,50,0);
-		BufferedImage imagePl3Avion = Renderer.crearTextura(rectPl3Avion, colorPl3Avion);
 		Vector2D posicionPl3Avion = new Vector2D(2_225.5,330);
-		Plataforma pl_3Avion = new Plataforma(Tags.PLATFORM, imagePl3Avion, posicionPl3Avion);
-		pl_3Avion.getColisiona().actualizar();
+		createPlatform(posicionPl3Avion, 123, 10);
 		
-		Rectangle rectPl4Avion = new Rectangle(274, 10);
-		Color colorPl4Avion = new Color(128,50,0);
-		BufferedImage imagePl4Avion = Renderer.crearTextura(rectPl4Avion, colorPl4Avion);
+		//Cuarta plataforma Avion
 		Vector2D posicionPl4Avion = new Vector2D(2_350,246);
-		Plataforma pl_4Avion = new Plataforma(Tags.PLATFORM, imagePl4Avion, posicionPl4Avion);
-		pl_4Avion.getColisiona().actualizar();
+		createPlatform(posicionPl4Avion, 274, 10);
 		
-		Rectangle rectPl5Avion = new Rectangle(309, 10);
-		Color colorPl5Avion = new Color(128,50,0);
-		BufferedImage imagePl5Avion = Renderer.crearTextura(rectPl5Avion, colorPl5Avion);
+		// quinta plataforma Avion
 		Vector2D posicionPl5Avion = new Vector2D(2_725,242);
-		Plataforma pl_5Avion = new Plataforma(Tags.PLATFORM, imagePl5Avion, posicionPl5Avion);
-		pl_5Avion.getColisiona().actualizar();
+		createPlatform(posicionPl5Avion, 309, 10);
 		
-		Rectangle rectPl6Avion = new Rectangle(122, 10);
-		Color colorPl6Avion = new Color(128,50,0);
-		BufferedImage imagePl6Avion = Renderer.crearTextura(rectPl6Avion, colorPl6Avion);
+		//Sexta plataforma Avion
 		Vector2D posicionPl6Avion = new Vector2D(3_060,326);
-		Plataforma pl_6Avion = new Plataforma(Tags.PLATFORM, imagePl6Avion, posicionPl6Avion);
-		pl_6Avion.getColisiona().actualizar();
+		createPlatform(posicionPl6Avion, 122, 10);
 		
-		Rectangle rectPl7Avion = new Rectangle(122, 10);
-		Color colorPl7Avion = new Color(128,50,0);
-		BufferedImage imagePl7Avion = Renderer.crearTextura(rectPl7Avion, colorPl7Avion);
+		//Septima Plataforma Avion
 		Vector2D posicionPl7Avion = new Vector2D(3_060,326);
-		Plataforma pl_7Avion = new Plataforma(Tags.PLATFORM, imagePl7Avion, posicionPl7Avion);
-		pl_7Avion.getColisiona().actualizar();
-		plat1 = pl_7Avion;
+		createPlatform(posicionPl7Avion, 122, 10);
 		
+		//Primera plataforma Pantano
 		Vector2D posicionPl1Pantano = new Vector2D(4087,346);
 		createPlatform(posicionPl1Pantano,122,10);
 	
+		//Segunda Plataforma Pantano
 		Vector2D posicionPl2Pantano = new Vector2D(4144,258);
 		createPlatform(posicionPl2Pantano,122,10);
 	
+		//Tercera Plataforma Pantano
 		Vector2D posicionPl3Pantano = new Vector2D(4320,161);
 		createPlatform(posicionPl3Pantano,122,10);
 	
+		//Cuarta Plataforma Pantano
 		Vector2D posicionPl4Pantano = new Vector2D(4528,260);
 		createPlatform(posicionPl4Pantano,122,10);
 	
+		//Quinta plataforma Pantano
 		Vector2D posicionPl5Pantano = new Vector2D(4704,180);
 		createPlatform(posicionPl5Pantano,122,10);
 	
+		//Sexta plataforma Pantano
 		Vector2D posicionPl6Pantano = new Vector2D(4794,161);
 		createPlatform(posicionPl6Pantano,122,10);
 	
+		//Septima plataforma Pantano
 		Vector2D posicionPl7Pantano = new Vector2D(4896,321);
 		createPlatform(posicionPl7Pantano,122,10);
 	
+		//Octava plataforma Pantano
 		Vector2D posicionPl8Pantano = new Vector2D(4929,241);
 		createPlatform(posicionPl8Pantano,122,10);
 	
+		//Novena plataforma Pantano
 		Vector2D posicionPl9Pantano = new Vector2D(5166,243);
 		createPlatform(posicionPl9Pantano,122,10);
 	
+		//Decima plataforma Pantano
 		Vector2D posicionPl10Pantano = new Vector2D(5393,161);
 		createPlatform(posicionPl10Pantano,122,10);
 	
+		//Undecima plataforma Pantano
 		Vector2D posicionPl11Pantano = new Vector2D(5611,291);
 		createPlatform(posicionPl11Pantano,122,10);
 	
+		//Duodecima plataforma Pantano
 		Vector2D posicionPl12Pantano = new Vector2D(5778,322);
-		plat1 = createPlatform(posicionPl12Pantano,122,10);
+		createPlatform(posicionPl12Pantano,122,10);
 		
+		//Primer escalon Avion Catarata
+		Vector2D posicionCaja1Avion2 = new Vector2D(6633, 321);
+		createCaja(posicionCaja1Avion2, 200, 200);
+		
+		//Segundo escalon avion catarata
+		Vector2D posicionCaja2Avion2 = new Vector2D(6803, 261);
+		createCaja(posicionCaja2Avion2, 200, 200);
+		
+		//Tercer escalon Avion Catarata
+		Vector2D posicionCaja3Avion2 = new Vector2D(6957, 200);
+		createCaja(posicionCaja3Avion2, 200, 200);
+		
+		//Piso final catarata
+		Vector2D posicionCaja4Avion2 = new Vector2D(7114, 129);
+		plat1 = createCaja(posicionCaja4Avion2, 2000, 200);
 		actualPlatform = mapObjects.getSize()-1;
 		
-		//barrera de movimiento
-		Rectangle rectMB = new Rectangle(Conf.WINDOW_HEIGHT, Conf.WINDOW_WIDTH/2);
+		//barrera de movimiento, para el avance por pantalla
+		Rectangle rectMB = new Rectangle(Conf.WINDOW_WIDTH/2, Conf.WINDOW_HEIGHT);
 		Color colorMB = new Color(128,200,100,90);
 		BufferedImage imageMB = Renderer.crearTextura(rectMB, colorMB);
 		Vector2D posicionMB = new Vector2D(Conf.WINDOW_WIDTH/2,0);
-		MovementBarrier barrier = new MovementBarrier("barrier", imageMB, posicionMB);
+		barrier = new MovementBarrier("barrier", imageMB, posicionMB);
 		barrier.getColisiona().actualizar();
-		this.barrier = barrier;
+		barrier.setTrigger(false);
 		
-		Rectangle rectMBV = new Rectangle(Conf.WINDOW_WIDTH, Conf.WINDOW_HEIGHT/2);
-		Color colorMBV = new Color(128,200,100,90);
-		BufferedImage imageMBV = Renderer.crearTextura(rectMBV, colorMBV);
-		Vector2D posicionMBV = new Vector2D(0,-80);
-		MovementBarrier barrierV = new MovementBarrier("barrier", imageMBV, posicionMBV);
-		barrierV.getColisiona().actualizar();
-		this.barrierV = barrierV;
-		barrierV.setTrigger(true);
-		//mapObjects.add(dead.getNombre(), dead);
+		//deadBox
+		Rectangle rectDB = new Rectangle(Conf.WINDOW_WIDTH, 1000);
+		Color colorDB = new Color(255,0,0,90);
+		BufferedImage imageDB = Renderer.crearTextura(rectDB, colorDB);
+		Vector2D posicionDB = new Vector2D(0,Conf.WINDOW_HEIGHT+40);
+		DeadBox deadBox = new DeadBox(Tags.DEADbOZ, imageDB, posicionDB);
+		deadBox.getColisiona().actualizar();
 		
-		mapObjects.add(pl_1Avion.getNombre(), pl_1Avion);
-		mapObjects.add(pl_2Avion.getNombre(), pl_2Avion);
-		mapObjects.add(pl_3Avion.getNombre(), pl_3Avion);
-		mapObjects.add(pl_4Avion.getNombre(), pl_4Avion);
-		mapObjects.add(pl_5Avion.getNombre(), pl_5Avion);
-		mapObjects.add(pl_6Avion.getNombre(), pl_6Avion);
-		mapObjects.add(pl_7Avion.getNombre(), pl_7Avion);
-		//mapObjects.add(caja1.getNombre(), caja1);
+		staticObjects.add(deadBox.getNombre(), deadBox);
 		staticObjects.add(barrier.getNombre(), barrier);
-		staticObjects.add(barrier.getNombre(), barrierV);
-		mapObjects.add(platform1.getNombre(), platform1);
-		mapObjects.add(platform3.getNombre(), platform3);
 	}
 
 	private Plataforma createPlatform(Vector2D pos, int width, int height){
@@ -192,37 +212,60 @@ public class Zona1N1 extends Zona{
 		mapObjects.add(platform.getNombre(), platform);
 		return platform;
 	}
+	
+	private Caja createCaja(Vector2D pos, int width, int height){
+		Rectangle dimensiones = new Rectangle(width, height);
+		Color color = new Color(128,50,0, 50);
+		BufferedImage image = Renderer.crearTextura(dimensiones, color);
+		Caja platform = new Caja(Tags.PLATFORM, image, pos);
+		platform.getColisiona().actualizar();
+		mapObjects.add(platform.getNombre(), platform);
+		return platform;
+	}
 
-	private double contx =0;
-	private double conty =0;
-	private Enemigo miniBoss1;
 	@Override
 	public void actualizar() {
 		actualizarModoDiseno();
 		
-		if (!miniBoss1.getViva()) {
-			limit -= 1000;
+		if (jefeActual < jefes.length && !jefes[jefeActual].getViva()) {
+			if (!barrier.isEnable()) {
+				barrier.getTransformar().getPosicion().setX(Conf.WINDOW_WIDTH-1);
+			}
+			
+			if (actualCheckpoint < checkPoints.length-1)actualCheckpoint++;
+			jefeActual++;
 		}
 		
-		if (barrier.isPlayerOverlap() && getPosition().getX() > limit) {
-			moverZona(getDireccionMovimiento().scale(-1));
-		}
-		if (getPosition().getX() < limit) {
-			barrier.destruir();
-			staticObjects.destruir();
+		if (barrier.isPlayerOverlap() && getPosition().getX() > checkPoints[actualCheckpoint]) {
+			moverZona(direccionChecpoints[actualCheckpoint]);
+			if (barrier.getTransformar().getPosicion().getX() > Conf.WINDOW_WIDTH/2) {
+				Vector2D posBarrier = barrier.getTransformar().getPosicion();
+				posBarrier.setX(posBarrier.getX()-6.5);
+			}
 		}
 		
-		if (barrierV.isPlayerOverlap()) {
-			moverZona(new Vector2D(0.01, 1),1);
+		if(getPosition().getX() >= checkPoints[actualCheckpoint]) {
+			barrier.setEnable(true);
+		}else {
+			barrier.setEnable(false);
+			if (actualCheckpoint == 2 || actualCheckpoint == 3 || actualCheckpoint == 4) {
+				actualCheckpoint++;
+			}
 		}
+		
 		destruirEnemigosResagados();
 		super.actualizar();
 	}
 	
 	private void actualizarModoDiseno() {
 		if (InputKeyboard.isDown(Key.ENTER) && changeplatDelay <= 0) {
-			actualPlatform = actualPlatform+1>= mapObjects.getSize() ? 0 : actualPlatform+1;
-			if (mapObjects.get(actualPlatform) instanceof Caja) {
+			if (InputKeyboard.isDown(Key.SHIFT)) {
+				actualPlatform = actualPlatform-1 < 0 ? mapObjects.getSize()-1 : actualPlatform-1;
+			}else {
+				actualPlatform = actualPlatform+1>= mapObjects.getSize() ? 0 : actualPlatform+1;
+			}
+			
+			if (mapObjects.get(actualPlatform) instanceof Sprite) {
 				plat1 = (Caja) mapObjects.get(actualPlatform) ;
 			}
 			contx = 0;
@@ -260,22 +303,34 @@ public class Zona1N1 extends Zona{
 			plat1.getTransformar().setPosicion(newpos);
 			System.out.println(contx);
 		}
-		plat1.getColisiona().actualizar();
+		//plat1.getColisiona().actualizar();
 	}
 	
 	@Override
 	protected void generarEnemigos() {
+		jefes = new Entidad[CANTIDAD_JEFES];
+		
 		Rectangle rect = new Rectangle(50, 80);
 		Color color = new Color(128,128,0,100);
 		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
-		Vector2D posicionE = new Vector2D(300,200);
+		Vector2D posicionE = new Vector2D(700,200);
 		Enemigo enemy = new Enemigo(Tags.ENEMY, imageE, posicionE, 10);
-		
-		Vector2D posicionE2 = new Vector2D(6000,200);
-		miniBoss1 = new Enemigo(Tags.ENEMY, imageE, posicionE2, 10);
-		
 		enemigos.add(enemy.getNombre(), enemy);
-		enemigos.add(miniBoss1.getNombre(), miniBoss1);
+		
+		Vector2D posicionJefe1 = new Vector2D(3100,200);
+		jefes[0] = new Enemigo(Tags.ENEMY, imageE, posicionJefe1, 10);
+		
+		Vector2D posicionJefe2 = new Vector2D(6000,200);
+		jefes[1] = new Enemigo(Tags.ENEMY, imageE, posicionJefe2, 10);
+		
+		Vector2D posicionJefeFinal = new Vector2D(8000,80);
+		jefes[2] = new Enemigo(Tags.ENEMY, imageE, posicionJefeFinal, 10);
+
+		for (int i = 0; i < jefes.length; i++) {
+			enemigos.add(jefes[i].getNombre(), jefes[i]);
+		}
+		
+		jefeActual = 0;
 	}
 	
 	@Override
