@@ -4,6 +4,7 @@ package vista.mapas;
 import java.awt.Graphics;
 
 import motor_v1.motor.Entidad;
+import motor_v1.motor.GameLoop;
 import motor_v1.motor.util.Vector2D;
 import utils.Colisionable;
 import utils.arrays.ArrayZona;
@@ -19,26 +20,21 @@ public abstract class Map extends Entidad{
 	public Map(ArrayZona zonas) {
 		this.zonas = zonas;
 		crearZonas();
-	}
-	
-	public Map() {
-		this.zonas = new ArrayZona();
-		crearZonas();
 		indiceZonaActual = 0;
 		zonaActual = zonas.get(0);
 		isChangingZone = false;
 	}
 	
+	public Map() {
+		this(new ArrayZona());
+	}
+	
 	protected abstract void crearZonas();
 	
-	public void nextZone() {
+	public void nextZone(Zona zone) {
 		if (!isChangingZone) {
-			indiceZonaActual++;
 			zonaAnterior = zonaActual;
-			if (indiceZonaActual >= zonas.getSize()) {
-				indiceZonaActual = 0;
-			}
-			zonaActual = zonas.get(indiceZonaActual);
+			zonaActual = zone;
 			isChangingZone = true;
 		}
 	}
@@ -50,11 +46,10 @@ public abstract class Map extends Entidad{
 	
 	public void actualizar() {
 		if (isChangingZone) {
-			Vector2D direccion = zonaActual.getDireccionMovimiento().normalize();
+			double distancia = zonaActual.getPosition().getX();
+			Vector2D direccion = Vector2D.LEFT.scale(distancia*GameLoop.dt);
 			zonaActual.moverZona(direccion);
 			zonaAnterior.moverZona(direccion);
-			System.out.println(zonaActual.getPosition().getX());
-			System.out.println(zonaActual.getPosition().getY());
 			if (zonaActual.getPosition().getX() == 0) {
 				isChangingZone = false;
 				zonaAnterior = null;
