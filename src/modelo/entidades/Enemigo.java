@@ -20,26 +20,18 @@ import utils.arrays.ArrayString;
 import vista.escena.EscenaJuego;
 
 public class Enemigo extends Soldado {
-	public final static double TIEMPO_ENTRE_DISPAROS = 2;
-	private double tiempoParaSiguienteDisparo;
 
 	public Enemigo(String nombre, BufferedImage[] imagenes, Vector2D posicion, double duracionImagen) {
 		super(nombre, imagenes, posicion, duracionImagen);
 		colisiona.actualizar();
 		setArma(new Pistola());
-		tiempoParaSiguienteDisparo = 0;
 		fisica = new Fisica(1,1,transformar);
 		salud = 20;
 	}
 	
 	@Override
 	public void actualizar() {
-		if (tiempoParaSiguienteDisparo <= 0 && isInScreen()) {
-			disparar();
-			tiempoParaSiguienteDisparo = TIEMPO_ENTRE_DISPAROS;
-		}else {
-			tiempoParaSiguienteDisparo -= GameLoop.dt/1000;
-		}
+		disparar();
 		fisica.actualizar();
 		colisiona.actualizar();
 		super.actualizar();
