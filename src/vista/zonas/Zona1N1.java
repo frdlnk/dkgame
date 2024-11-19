@@ -5,8 +5,11 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
-import modelo.entidades.Enemigo;
 import modelo.entidades.Soldado;
+import modelo.entidades.enemigos.Enemigo;
+import modelo.entidades.enemigos.EnemigoGranada;
+import modelo.entidades.enemigos.EnemigoPistola;
+import modelo.entidades.enemigos.Helicoptero;
 import modelo.worldObjects.Caja;
 import modelo.worldObjects.DeadBox;
 import modelo.worldObjects.MovementBarrier;
@@ -196,7 +199,7 @@ public class Zona1N1 extends Zona{
 		Color colorDB = new Color(255,0,0,90);
 		BufferedImage imageDB = Renderer.crearTextura(rectDB, colorDB);
 		Vector2D posicionDB = new Vector2D(0,Conf.WINDOW_HEIGHT+40);
-		DeadBox deadBox = new DeadBox(Tags.DEADbOZ, imageDB, posicionDB);
+		DeadBox deadBox = new DeadBox(Tags.DEADBOX, imageDB, posicionDB);
 		deadBox.getColisiona().actualizar();
 		
 		staticObjects.add(deadBox.getNombre(), deadBox);
@@ -314,17 +317,22 @@ public class Zona1N1 extends Zona{
 		Color color = new Color(128,128,0,100);
 		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
 		Vector2D posicionE = new Vector2D(700,200);
-		Enemigo enemy = new Enemigo(Tags.ENEMY, imageE, posicionE, 10);
-		enemigos.add(enemy.getNombre(), enemy);
+		Enemigo enemy = new EnemigoPistola(Tags.ENEMY, imageE, posicionE, 10);
 		
-		Vector2D posicionJefe1 = new Vector2D(3100,200);
-		jefes[0] = new Enemigo(Tags.ENEMY, imageE, posicionJefe1, 10);
+		EnemigoGranada enemigo = new EnemigoGranada(Tags.ENEMY, imageE, posicionE, 1);
+		enemigos.add(enemigo.getNombre(), enemigo);
+		
+		
+		Rectangle rectJ1 = new Rectangle(85, 40);
+		BufferedImage[] imageJ1 = {Renderer.crearTextura(rect, color)};
+		Vector2D posicionJefe1 = new Vector2D(3200,0);
+		jefes[0] = new Helicoptero(Tags.ENEMY, imageJ1, posicionJefe1, 10);
 		
 		Vector2D posicionJefe2 = new Vector2D(6000,200);
-		jefes[1] = new Enemigo(Tags.ENEMY, imageE, posicionJefe2, 10);
+		jefes[1] = new EnemigoPistola(Tags.ENEMY, imageE, posicionJefe2, 10);
 		
 		Vector2D posicionJefeFinal = new Vector2D(8000,80);
-		jefes[2] = new Enemigo(Tags.ENEMY, imageE, posicionJefeFinal, 10);
+		jefes[2] = new EnemigoPistola(Tags.ENEMY, imageE, posicionJefeFinal, 10);
 
 		for (int i = 0; i < jefes.length; i++) {
 			enemigos.add(jefes[i].getNombre(), jefes[i]);
@@ -347,7 +355,8 @@ public class Zona1N1 extends Zona{
 			Entidad enemigo = enemigos.get(i);
 			if (enemigo instanceof Soldado) {
 				Vector2D posicionEnemigo = ((Soldado) enemigo).getTransformar().getPosicion();
-				if (posicionEnemigo.getX() < 0) {
+				double widht = ((Soldado) enemigo).getColisiona().getHitbox().getWidth();
+				if (posicionEnemigo.getX() + widht < 0) {
 					enemigo.destruir();
 				}
 			}
