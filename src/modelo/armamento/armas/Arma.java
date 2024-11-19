@@ -46,10 +46,10 @@ public abstract class Arma {
 	 * @return Municion si cumple la cadencia de tiro, null en caso contrario
 	 */
 	public Municion disparar(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored) {
-		if(timeToNextShoot <= 0) {
+		if(timeToNextShoot <= 0 && balasRestantes > 0) {
 			timeToNextShoot = shootDelay;
 			Municion disparo = generarBala(posicion, direccion, targetsIgnored);
-			if (disparo != null) setBalasRestantes(getBalasRestantes() - 1);
+			if (disparo != null) balasRestantes--;
 			return disparo;
 		}
 		return null;
@@ -82,4 +82,21 @@ public abstract class Arma {
 	public void setBalasRestantes(int balasRestantes) {
 		this.balasRestantes = balasRestantes;
 	}
+
+	public double getShootDelay() {
+		return shootDelay;
+	}
+
+	public void setShootDelay(double shootDelay) {
+		this.shootDelay = shootDelay;
+	}
+
+	public double getTimeToNextShoot() {
+		return timeToNextShoot;
+	}
+
+	public void setTimeToNextShoot(double timeToNextShoot) {
+		this.timeToNextShoot = timeToNextShoot;
+	}
+	
 }
