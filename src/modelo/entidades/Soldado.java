@@ -80,14 +80,11 @@ public abstract class Soldado extends GifMovible implements Colisionable, Movibl
 				colision.setColider(colisiona);
 				colision.setEntidad(this);
 				colision.setColisionable(this);
+				colision.setTriger(false);
 				return colision;
 			}
 		}
 		return null;
 	}
 	
-	@Override
-	public boolean isTrigger() {
-		return false;
-	}
 }

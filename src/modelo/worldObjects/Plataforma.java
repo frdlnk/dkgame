@@ -33,7 +33,8 @@ public class Plataforma extends Caja {
 			double thisYLevel = thisHitBox.getMaxY();
 			double otroYLevel = otroHitbox.getMaxY();
 			if(fisicaOtro.getUltimaDireccion().getY() >= 0 && otroYLevel <= thisYLevel) {
-				return new ColisionInfo(this,this,colisiona);
+				boolean trigger = false;
+				return new ColisionInfo(this,this,colisiona, trigger);
 			}
 			
 		}

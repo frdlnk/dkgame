@@ -23,7 +23,8 @@ public abstract class Recogible extends SpriteSolido implements Colisionable {
 
 	@Override
 	public ColisionInfo hayColision(Colisionable entidad) {
-		ColisionInfo colision = new ColisionInfo(this,this,colisiona);
+		boolean trigger = false;
+		ColisionInfo colision = new ColisionInfo(this,this,colisiona, trigger);
 		Collider[] collidersEntidad = entidad.getColliders();
 		for (int i = 0; i < collidersEntidad.length; i++) {
 			if (colisiona.colisionaCon(collidersEntidad[i])) {
@@ -33,9 +34,4 @@ public abstract class Recogible extends SpriteSolido implements Colisionable {
 		return null;
 	}
 
-	
-	@Override
-	public boolean isTrigger() {
-		return false;
-	}
 }

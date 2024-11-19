@@ -29,15 +29,11 @@ public abstract class TriggerBox extends SpriteSolido implements Colisionable{
 				colision.setColider(colisiona);
 				colision.setEntidad(this);
 				colision.setColisionable(this);
+				colision.setTriger(true);
 				return colision;
 			}
 		}
 		return null;
-	}
-
-	@Override
-	public boolean isTrigger() {
-		return true;
 	}
 
 }

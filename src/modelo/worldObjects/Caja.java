@@ -87,11 +87,6 @@ public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 		}
 	}
 
-	@Override
-	public boolean isTrigger() {
-		return false;
-	}
-	
 	
 	@Override
 	public void dibujar(Graphics g) {
