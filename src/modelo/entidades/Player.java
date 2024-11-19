@@ -11,6 +11,7 @@ import modelo.armamento.armas.LanzaCohetes;
 import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Municion;
 import modelo.componentes.Fisica;
+import modelo.entidades.enemigos.Enemigo;
 import modelo.spritesCargados.SpritesPlayer;
 import modelo.worldObjects.Caja;
 import motor_v1.motor.Entidad;
@@ -26,24 +27,42 @@ import utils.*;
 import utils.arrays.ArrayString;
 import vista.escena.EscenaJuego;
 
+/**
+ * Esta clase se encarga de la logica de control para un personaje jugable 
+ * 
+ * @author Joshua Elizondo Vasquez
+ * @see Soldado
+ */
 public class Player extends Soldado{
-	public final static int speed = 400;
-	public final static int jumpForce = 8;
-	private static final double DELAY_CUCHILLO = .3;
-	private double yVelocity;
-	private Vector2D direccionDisparo;
+	//cosntantes
+	public final static int speed = 400;//px/s
+	public final static int jumpForce = 8;//fuerza puntual aplicada
+	public final static double DELAY_CUCHILLO = .3;
+	
+	//variables de posicion y estado
 	private boolean isGrounded;
 	private boolean isTouchingEnemy;
+	private boolean estaAgachado;
+	
+	//variables de direccion
+	private Vector2D direccionDisparo;
+	
+	//variables de cuchillo
 	private boolean usaCuchillo;
 	private double cuchilloDelay;
+	private Collider cuchilloColider;
+	
+	//variables de movimiento
 	private boolean isMoving;
 	private PlayerControls controles;
-	private boolean estaAgachado;
+	
+	//variables de diseño
 	private SpritesPlayer spritesPlayer;
-	private Collider cuchilloColider;
-
+	private int puntaje;
+	
 	public Player(String nombre, BufferedImage[] imagenes, Transform transformar, double duracionImagen) {
 		this(nombre,imagenes,transformar.getPosicion(),duracionImagen);
+		
 	}
 
 	public Player(String nombre, BufferedImage[] imagenes, Vector2D posicion, double duracionImagen) {
@@ -51,15 +70,16 @@ public class Player extends Soldado{
 		spritesPlayer = new SpritesPlayer(this.getTransformar());
 		colisiona.getHitbox().setLocation((int)posicion.getX(), (int)posicion.getY());
 		fisica = new Fisica(1,1.5,transformar);
-		yVelocity = 0;
 		direccionDisparo = Vector2D.RIGHT;
 		isGrounded = false;
 		setArma(new HeavyMachineGun());
+		getArma().setBalasRestantes(1000);
 		controles = new PlayerControls();
 		estaAgachado = false;
 		salud = 100;
 		cuchilloColider = new Collider(transformar, 30, 20);
 		cuchilloDelay = DELAY_CUCHILLO;
+		puntaje = 0;
 	}
 	
 
@@ -87,6 +107,12 @@ public class Player extends Soldado{
 		
 		if (cuchilloDelay > 0) {
 			cuchilloDelay -= GameLoop.dt;
+		}
+		
+		if (getArma().getBalasRestantes() < 1 && !(getArma() instanceof Pistola)) {
+			setArma(new Pistola());
+			getArma().setBalasRestantes(1000);
+			getArma().setShootDelay(.3);
 		}
 		
 		super.actualizar();
@@ -168,7 +194,7 @@ public class Player extends Soldado{
 				spritesPlayer.cambiarAnimacionA(Assets.spriteNames[1]);
 				Scene escena = Scene.getEscenaActual();
 				ArrayString targetsIgnore = new ArrayString();
-				targetsIgnore.add(Tags.PLAYER);
+				targetsIgnore.add(getNombre());
 				Municion disparo = getArma().disparar(posicionDisparo(), direccionDisparo, targetsIgnore);
 				if (escena instanceof EscenaJuego && disparo != null) {
 					((EscenaJuego) escena).addEntidad(disparo);
@@ -177,7 +203,8 @@ public class Player extends Soldado{
 		}
 	}
 	
-	private Vector2D posicionDisparo() {
+	@Override
+	protected Vector2D posicionDisparo() {
 		int x = direccionDisparo.getX() > 0 ? 67 : -67;
 		int y = estaAgachado ? 0 : -20;
 		
@@ -201,16 +228,52 @@ public class Player extends Soldado{
 		super.dibujar(g);
 	}
 	
+	@Override
+	public void onColision(ColisionInfo colision) {
+		Entidad entidad = colision.getEntidad();
+		if (entidad instanceof Recogible) {
+			Object reward = ((Recogible) entidad).getReward();
+			if (reward instanceof Arma) {
+				setArma((Arma) reward);
+			}
+			puntaje += ((Recogible)entidad).getPuntos();
+		}
+		else if(entidad instanceof Caja) {
+			Rectangle otroHitbox = colision.getColider().getHitbox();
+			if(otroHitbox.getMinY() >= colisiona.getHitbox().getMaxY()-1 && fisica.getUltimaDireccion().getY() >= 0) {
+				isGrounded = true;
+			}
+		}
+		else if (entidad instanceof Enemigo) {
+			isTouchingEnemy = entidad.getViva();
+			if (usaCuchillo && cuchilloColider.colisionaCon(colision.getColider())) {
+				((Enemigo) entidad).recibirDano(50);
+				usaCuchillo = false;
+			}
+		}
+	}
+	
+	@Override
+	public void morir() {
+		destruir();
+	}
+
+	@Override
+	public void recibirDano(double dano) {
+		salud -= dano;
+		if (salud <= 0) {
+			salud = 0;
+			morir();
+		}
+	}
+
+	@Override
+	public Collider[] getColliders() {
+		return new Collider[] {colisiona,cuchilloColider};
+	}
+	
 	private void continuaEnSuelo() {
 		isGrounded = isGrounded && fisica.getVectorMovimiento().getY() == 0;
-	}
-
-	public double getyVelocity() {
-		return yVelocity;
-	}
-
-	public void setyVelocity(double yVelocity) {
-		this.yVelocity = yVelocity;
 	}
 
 	public Fisica getFisica() {
@@ -237,47 +300,4 @@ public class Player extends Soldado{
 		this.isGrounded = isGrounded;
 	}
 
-	@Override
-	public void onColision(ColisionInfo colision) {
-		Entidad entidad = colision.getEntidad();
-		if (entidad instanceof Recogible) {
-			Object reward = ((Recogible) entidad).getReward();
-			if (reward instanceof Arma) {
-				setArma((Arma) reward);
-			}
-		}
-		if(entidad instanceof Caja) {
-			Rectangle otroHitbox = colision.getColider().getHitbox();
-			if(otroHitbox.getMinY() >= colisiona.getHitbox().getMaxY()-1 && fisica.getUltimaDireccion().getY() >= 0) {
-				isGrounded = true;
-			}
-		}
-		if (entidad instanceof Enemigo) {
-			isTouchingEnemy = entidad.getViva();
-			if (usaCuchillo && cuchilloColider.colisionaCon(colision.getColider())) {
-				((Enemigo) entidad).recibirDano(50);
-				usaCuchillo = false;
-			}
-		}
-	}
-
-	@Override
-	public void morir() {
-		destruir();
-	}
-
-	@Override
-	public void recibirDano(double dano) {
-		salud -= dano;
-		if (salud <= 0) {
-			salud = 0;
-			morir();
-		}
-	}
-
-	@Override
-	public Collider[] getColliders() {
-		return new Collider[] {colisiona,cuchilloColider};
-	}
-	
 }
