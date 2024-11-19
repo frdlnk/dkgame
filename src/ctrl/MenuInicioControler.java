@@ -20,10 +20,11 @@ public class MenuInicioControler implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(vista.getBtnAdministracion())) {
 			MenuProvicional.mostrarMenuPrincipal();
+			vista.dispose();
 		}else if(e.getSource().equals(vista.getBtnJugar())) {
 			GameControler game = new GameControler();
 			game.iniciarJuego();
-			vista.setVisible(false);
+			vista.dispose();
 		}
 	}
 }
