@@ -20,6 +20,7 @@ public class MapaNivel1 extends Map {
 
 	@Override
 	public void destruir() {
+		setViva(false);
 	}
 
 }

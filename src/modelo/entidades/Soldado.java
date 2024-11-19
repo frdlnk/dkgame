@@ -31,7 +31,9 @@ public abstract class Soldado extends GifMovible implements Colisionable, Movibl
 	
 	@Override
 	public void actualizar() {
-		arma.actualizar();
+		if (arma != null) {
+			arma.actualizar();
+		}
 		super.actualizar();
 	}
 
@@ -48,6 +50,8 @@ public abstract class Soldado extends GifMovible implements Colisionable, Movibl
 	public abstract void morir();
 	
 	public abstract void disparar();
+	
+	protected abstract Vector2D posicionDisparo();
 
 	public Arma getArma() {
 		return arma;
@@ -59,6 +63,11 @@ public abstract class Soldado extends GifMovible implements Colisionable, Movibl
 
 	public Fisica getFisica() {
 		return fisica;
+	}
+	
+	@Override
+	public void setFisica(Fisica fisica) {
+		this.fisica = fisica;
 	}
 	
 	public double getSalud() {

@@ -6,7 +6,7 @@ public class Tags {
 	public final static String REHEN = "REHEN" ;
 	public final static String FLOOR = "FLOOR" ;
 	public final static String PLATFORM = "PLATFORM" ;
-	public final static String DEADbOZ = "DEADBOX" ;
+	public final static String DEADBOX = "DEADBOX" ;
 	public final static String STATIC_OBJECT = "STATIC";
-
+	public final static String EXPLOCION = "EXPLOCION";
 }

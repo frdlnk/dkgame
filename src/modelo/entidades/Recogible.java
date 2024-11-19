@@ -10,7 +10,8 @@ import utils.ColisionInfo;
 import utils.Colisionable;
 
 public abstract class Recogible extends SpriteSolido implements Colisionable {
-
+	private int puntos;
+	
 	public Recogible(String nombre, BufferedImage textura, Vector2D posicion) {
 		super(nombre, textura, posicion);
 	}
@@ -20,6 +21,10 @@ public abstract class Recogible extends SpriteSolido implements Colisionable {
 	}
 	
 	public abstract Object getReward();
+	
+	public int getPuntos() {
+		return puntos;
+	}
 
 	@Override
 	public ColisionInfo hayColision(Colisionable entidad) {

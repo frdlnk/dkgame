@@ -51,7 +51,6 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	    this.colisiona = new Collider(this.transformar, width, height);
 	    this.fisica = new Fisica(1,0,transformar);
 		fisica.impulsar(direccion.scale(this.velocity));
-		fisica.setAceleracion(1);
 		renderer = new Renderer(transformar, textura);
 		this.targetIgnore = targetsIgnore;
 	}
@@ -92,7 +91,6 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	@Override
 	public void onColision(ColisionInfo colision) {
 		if (!targetIgnore.contains(colision.getEntidad().getNombre())) {
-			destruir();
 			impacto(colision.getEntidad());
 		}
 	}
@@ -115,6 +113,7 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 				colision.setColider(colisiona);
 				colision.setEntidad(this);
 				colision.setColisionable(this);
+				colision.setTriger(false);
 				return colision;
 			}
 		}
@@ -130,11 +129,6 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	@Override
 	public Collider getColisiona() {
 		return colisiona;
-	}
-
-	@Override
-	public boolean isTrigger() {
-		return false;
 	}
 
 	public double getDano() {
