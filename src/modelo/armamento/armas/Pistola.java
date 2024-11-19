@@ -14,18 +14,18 @@ import utils.arrays.ArrayString;
  * @see Arma
  */
 public class Pistola extends Arma {
-	public final static double SHOOT_DELAY = .5;
+	public final static double DEFAULT_SHOOT_DELAY = .5;
 	
 	/**
 	 * Construye una pistola con cadencia de {@value #SHOOT_DELAY}s
 	 */
 	public Pistola() {
-		super(SHOOT_DELAY);
+		super(DEFAULT_SHOOT_DELAY);
 	}
 
 	@Override
 	protected Municion generarBala(Vector2D posicion, Vector2D direccion, ArrayString target) {
-		return new Bala(posicion, direccion, target, 2);
+		return new Bala(posicion, direccion, target, 1);
 	}
 
 }
