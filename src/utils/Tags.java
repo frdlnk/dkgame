@@ -9,4 +9,5 @@ public class Tags {
 	public final static String DEADBOX = "DEADBOX" ;
 	public final static String STATIC_OBJECT = "STATIC";
 	public final static String EXPLOCION = "EXPLOCION";
+	public static final String MUNICION = "MUNICION";
 }

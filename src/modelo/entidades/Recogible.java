@@ -6,8 +6,8 @@ import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.SpriteSolido;
 import motor_v1.motor.util.Vector2D;
-import utils.ColisionInfo;
-import utils.Colisionable;
+import utils.colision.ColisionInfo;
+import utils.colision.Colisionable;
 
 public abstract class Recogible extends SpriteSolido implements Colisionable {
 	private int puntos;

@@ -3,6 +3,7 @@ package modelo.armamento.municiones;
 import java.awt.Color;
 import java.awt.Rectangle;
 
+import modelo.arrays.ArrayString;
 import modelo.componentes.Fisica;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Collider;
@@ -10,11 +11,11 @@ import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.util.Vector2D;
-import utils.ColisionInfo;
-import utils.Colisionable;
 import utils.Conf;
 import utils.Movible;
-import utils.arrays.ArrayString;
+import utils.Tags;
+import utils.colision.ColisionInfo;
+import utils.colision.Colisionable;
 
 /**
  * Clase encargada del funcionamiento de una municion

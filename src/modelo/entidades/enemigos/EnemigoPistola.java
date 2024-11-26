@@ -4,13 +4,13 @@ import java.awt.image.BufferedImage;
 
 import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Municion;
+import modelo.arrays.ArrayString;
 import modelo.entidades.Player;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
 import motor_v1.motor.util.Vector2D;
-import utils.ColisionInfo;
 import utils.Conf;
-import utils.arrays.ArrayString;
+import utils.colision.ColisionInfo;
 import vista.escena.EscenaJuego;
 
 public class EnemigoPistola extends Enemigo {

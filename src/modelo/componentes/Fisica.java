@@ -1,11 +1,11 @@
 package modelo.componentes;
 
+import modelo.arrays.ArrayVector2D;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.component.Physics;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
 import utils.Conf;
-import utils.arrays.ArrayVector2D;
 
 /**
  * Componente encargado del calculo de las fisicas de un objeto con transformar

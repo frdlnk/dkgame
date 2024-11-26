@@ -4,8 +4,8 @@ import java.util.Random;
 
 import modelo.armamento.municiones.Bala;
 import modelo.armamento.municiones.Municion;
+import modelo.arrays.ArrayString;
 import motor_v1.motor.util.Vector2D;
-import utils.arrays.ArrayString;
 
 public class HeavyMachineGun extends Arma {
 

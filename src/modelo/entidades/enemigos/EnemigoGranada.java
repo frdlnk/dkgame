@@ -5,14 +5,14 @@ import java.util.Random;
 
 import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Granada;
+import modelo.arrays.ArrayString;
 import modelo.entidades.Player;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
 import motor_v1.motor.util.Vector2D;
-import utils.ColisionInfo;
 import utils.Conf;
 import utils.Tags;
-import utils.arrays.ArrayString;
+import utils.colision.ColisionInfo;
 import vista.escena.EscenaJuego;
 
 public class EnemigoGranada extends Enemigo{

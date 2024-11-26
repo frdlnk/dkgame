@@ -5,17 +5,18 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import modelo.armamento.municiones.Choete;
+import modelo.armamento.municiones.Granada;
+import modelo.arrays.ArrayString;
+import modelo.componentes.RelativeTransform;
 import modelo.entidades.Player;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.util.Vector2D;
-import utils.ColisionInfo;
-import utils.Colisionable;
 import utils.Conf;
-import utils.RelativeTransform;
 import utils.Tags;
-import utils.arrays.ArrayString;
+import utils.colision.ColisionInfo;
+import utils.colision.Colisionable;
 import vista.escena.EscenaJuego;
 
 public class Helicoptero extends Enemigo {

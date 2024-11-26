@@ -3,13 +3,15 @@ package modelo.spritesCargados;
 import motor_v1.motor.component.Animation;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.Gif;
+import motor_v1.motor.entidades.Sprite;
+import motor_v1.motor.util.Loader;
 import motor_v1.motor.util.Vector2D;
 import utils.Assets;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 public class SpritesPlayer extends Animation{
-
 	private double escala;
 	
     public SpritesPlayer( Transform transform) {
@@ -22,7 +24,7 @@ public class SpritesPlayer extends Animation{
     private void loadGifs() {
         Assets.load();
         for (int i = 0; i < Assets.gifs.size(); i++) {
-            Gif gif = new Gif(Assets.spriteNames[i], Assets.gifs.get(Assets.spriteNames[i]), this.getTransformar(), 150);
+            Gif gif = new Gif(Assets.spriteNames[i], Assets.gifs.getImage(Assets.spriteNames[i]), this.getTransformar(), 150);
             this.add(gif.getNombre(), gif);
         }
         cambiarAnimacionA(Assets.spriteNames[0]);

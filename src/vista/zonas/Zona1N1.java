@@ -16,6 +16,7 @@ import modelo.worldObjects.MovementBarrier;
 import modelo.worldObjects.Plataforma;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.GameLoop;
+import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.input.InputKeyboard;
@@ -25,6 +26,9 @@ import utils.Assets;
 import utils.BorderDrawAble;
 import utils.Conf;
 import utils.Tags;
+import utils.colision.ColisionInfo;
+import utils.colision.Colisionable;
+import utils.EnemyTypes;
 
 
 /**
@@ -309,22 +313,61 @@ public class Zona1N1 extends Zona{
 		//plat1.getColisiona().actualizar();
 	}
 	
-	@Override
-	protected void generarEnemigos() {
-		jefes = new Entidad[CANTIDAD_JEFES];
+	private void generarHelicopteros() {
 		
+	}
+	
+	private void generarPistoleros() {
+		Rectangle rect = new Rectangle(50, 80);
+		Color color = new Color(128,128,0,100);
+		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
+		Vector2D posicionE = new Vector2D(1400,200);
+		
+		EnemigoPistola enemigo = new EnemigoPistola(Tags.ENEMY, imageE, posicionE, 1);
+		enemigos.add(enemigo.getNombre(), enemigo);
+		
+	}
+	
+	private void generarGranaderos() {
 		Rectangle rect = new Rectangle(50, 80);
 		Color color = new Color(128,128,0,100);
 		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
 		Vector2D posicionE = new Vector2D(700,200);
-		Enemigo enemy = new EnemigoPistola(Tags.ENEMY, imageE, posicionE, 10);
 		
 		EnemigoGranada enemigo = new EnemigoGranada(Tags.ENEMY, imageE, posicionE, 1);
 		enemigos.add(enemigo.getNombre(), enemigo);
+	}
+	
+	@Override
+	protected void generarEnemigos() {
+		jefes = new Entidad[CANTIDAD_JEFES];
 		
+		for (int i = 0; i < config.getEnemigosActivos().length; i++) {
+			switch (config.getEnemigosActivos()[i]) {
+			case EnemyTypes.HELICOPTERO:
+				generarHelicopteros();
+				break;
+			case EnemyTypes.GRANADERO:
+				generarGranaderos();
+				break;
+			case EnemyTypes.PISTOLERO:
+				generarPistoleros();
+				break;
+			case "all":
+				generarGranaderos();
+				generarHelicopteros();
+				generarPistoleros();
+			}
+		}
+		
+		//jefes
+		
+		Rectangle rect = new Rectangle(50, 80);
+		Color color = new Color(128,128,0,100);
+		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
 		
 		Rectangle rectJ1 = new Rectangle(85, 40);
-		BufferedImage[] imageJ1 = {Renderer.crearTextura(rect, color)};
+		BufferedImage[] imageJ1 = {Renderer.crearTextura(rectJ1, color)};
 		Vector2D posicionJefe1 = new Vector2D(3200,0);
 		jefes[0] = new Helicoptero(Tags.ENEMY, imageJ1, posicionJefe1, 10);
 		
@@ -361,5 +404,21 @@ public class Zona1N1 extends Zona{
 				}
 			}
 		}
+	}
+
+	@Override
+	public void onColision(ColisionInfo colision) {
+		//do Nothing
+	}
+
+	@Override
+	public ColisionInfo hayColision(Colisionable entidad) {
+		verificarColisiones(entidad);
+		return null;
+	}
+
+	@Override
+	public Collider[] getColliders() {
+		return new Collider[0];
 	}
 }

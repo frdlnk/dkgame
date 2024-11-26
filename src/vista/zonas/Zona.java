@@ -2,25 +2,29 @@ package vista.zonas;
 
 import java.awt.Graphics;
 
+import ctrl.gameControlers.Game;
+import modelo.UserConfig;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.ListaEntidades;
 import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.util.Vector2D;
-import utils.ColisionUtils;
-import utils.Colisionable;
 import utils.Conf;
+import utils.colision.ColisionUtils;
+import utils.colision.Colisionable;
 
-public abstract class Zona extends Entidad{
+public abstract class Zona extends Entidad implements Colisionable{
 	private Vector2D direccionMovimiento;
 	protected ListaEntidades mapObjects;
 	protected ListaEntidades staticObjects;
 	protected ListaEntidades enemigos;
 	private Vector2D position;
+	protected UserConfig config; 
 	
 	public Zona(Vector2D direccionMovimiento, Vector2D posicion) {
 		super();
+		config = Game.configuracion;
 		this.position = posicion;
 		this.direccionMovimiento = direccionMovimiento;
 		this.mapObjects = new ListaEntidades();
