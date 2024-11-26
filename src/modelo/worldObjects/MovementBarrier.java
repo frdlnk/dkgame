@@ -6,8 +6,8 @@ import modelo.entidades.Player;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
-import utils.ColisionInfo;
-import utils.Colisionable;
+import utils.colision.ColisionInfo;
+import utils.colision.Colisionable;
 
 public class MovementBarrier extends Caja {
 	private boolean playerOverlap;

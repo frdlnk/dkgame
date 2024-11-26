@@ -1,4 +1,4 @@
-package utils;
+package modelo.componentes;
 
 import  motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;

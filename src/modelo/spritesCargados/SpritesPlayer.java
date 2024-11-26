@@ -4,16 +4,16 @@ import modelo.entidades.Player;
 import motor_v1.motor.component.Animation;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.Gif;
+import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.util.Loader;
 import motor_v1.motor.util.Vector2D;
 import utils.Assets;
 import utils.SpriteLoader;
 
-import java.awt.*;
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public class SpritesPlayer extends Animation{
-
 	private double escala;
 	
     public SpritesPlayer( Transform transform) {

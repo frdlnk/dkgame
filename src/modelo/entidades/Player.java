@@ -10,6 +10,7 @@ import modelo.armamento.armas.HeavyMachineGun;
 import modelo.armamento.armas.LanzaCohetes;
 import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Municion;
+import modelo.arrays.ArrayString;
 import modelo.componentes.Fisica;
 import modelo.entidades.enemigos.Enemigo;
 import modelo.spritesCargados.SpritesPlayer;
@@ -24,7 +25,7 @@ import motor_v1.motor.entidades.SpriteSolido;
 import motor_v1.motor.input.InputMouse;
 import motor_v1.motor.util.Vector2D;
 import utils.*;
-import utils.arrays.ArrayString;
+import utils.colision.ColisionInfo;
 import vista.escena.EscenaJuego;
 
 /**

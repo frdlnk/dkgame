@@ -1,4 +1,4 @@
-package utils;
+package utils.colision;
 
 import motor_v1.motor.Entidad;
 import motor_v1.motor.entidades.ListaEntidades;

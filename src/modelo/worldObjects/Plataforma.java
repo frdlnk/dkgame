@@ -6,9 +6,9 @@ import java.awt.image.BufferedImage;
 import modelo.componentes.Fisica;
 import motor_v1.motor.component.Transform;
 import utils.Movible;
+import utils.colision.ColisionInfo;
+import utils.colision.Colisionable;
 import motor_v1.motor.util.Vector2D;
-import utils.ColisionInfo;
-import utils.Colisionable;
 
 public class Plataforma extends Caja {
 
