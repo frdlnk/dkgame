@@ -1,9 +1,11 @@
 package modelo.armamento.armas;
 
+import java.io.Serializable;
+
 import modelo.armamento.municiones.Municion;
+import modelo.arrays.ArrayString;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.util.Vector2D;
-import utils.arrays.ArrayString;
 
 /**
  * Esta clase concentra la logica de generacion de municiones
@@ -16,7 +18,7 @@ import utils.arrays.ArrayString;
  * @author Joshua Elizondo Vasquez
  * @version 1.0
  */
-public abstract class Arma {
+public abstract class Arma implements Serializable {
 	protected double shootDelay;
 	private double timeToNextShoot;
 	private int balasRestantes;

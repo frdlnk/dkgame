@@ -2,15 +2,15 @@ package modelo.armamento;
 
 import java.awt.image.BufferedImage;
 
+import modelo.arrays.ArrayString;
 import modelo.entidades.Soldado;
 import modelo.worldObjects.TriggerBox;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
-import utils.ColisionInfo;
-import utils.Colisionable;
-import utils.arrays.ArrayString;
+import utils.colision.ColisionInfo;
+import utils.colision.Colisionable;
 
 /**
  * Objeto encargado de representar una explosion que genere dano
