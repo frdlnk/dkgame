@@ -5,6 +5,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 import motor_v1.motor.util.Loader;
+import utils.arrays.ArrayCoords;
 
 public class Assets {
 
@@ -12,9 +13,9 @@ public class Assets {
 	public static BufferedImage PLAYER_SPRITES;
 	public static BufferedImage AVION_CATARATA_M1;
 	public static BufferedImage CATARATA_AVION;
-	public static Dictionary<String, int[]> coord;
-	public static Dictionary<String, int[]> cuts;
-	public static Dictionary<String, BufferedImage[]> gifs;
+	public static ArrayCoords coord;
+	public static ArrayCoords cuts;
+	public static ArrayCoords gifs;
 	public static String[] spriteNames = {"pistol_idle", "pistol_shoot", "pistol_up_shoot", "crouch_pistol_idle"};
 	
 	public static boolean load() {
@@ -22,20 +23,20 @@ public class Assets {
 		PLAYER_SPRITES = Loader.cargarImagen("/Walter_Revised.png");
 		AVION_CATARATA_M1 = Loader.cargarImagen("/avionCatarataM1.png");
 		CATARATA_AVION = Loader.cargarImagen("/catarata.png");
-		coord = new Hashtable<>();
-		cuts = new Hashtable<>();
-		gifs = new Hashtable<>();
+		coord = new ArrayCoords();
+		cuts = new ArrayCoords();
+		gifs = new ArrayCoords();
 		loadCoord();
 		loadCuts();
 		loadGifs(coord, cuts);
 		return true;
 	}
 
-	private static void loadGifs(Dictionary<String, int[]> coord, Dictionary<String, int[]> cuts) {
+	private static void loadGifs(ArrayCoords coord, ArrayCoords cuts) {
 		BufferedImage[] temp;
 		for (int i = 0; i < coord.size(); i++) {
 			temp = SpriteLoader.getSubImageArray(coord.get(spriteNames[i]), PLAYER_SPRITES, cuts.get(spriteNames[i]));
-			gifs.put(spriteNames[i], temp);
+			gifs.putImage(spriteNames[i], temp);
 		}
 	}
 

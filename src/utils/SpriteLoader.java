@@ -1,11 +1,7 @@
 package utils;
 
-import motor_v1.motor.component.Animation;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class SpriteLoader{
 

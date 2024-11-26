@@ -26,7 +26,7 @@ public class SpritesPlayer extends Animation{
     private void loadGifs() {
         Assets.load();
         for (int i = 0; i < Assets.gifs.size(); i++) {
-            Gif gif = new Gif(Assets.spriteNames[i], Assets.gifs.get(Assets.spriteNames[i]), this.getTransformar(), 150);
+            Gif gif = new Gif(Assets.spriteNames[i], Assets.gifs.getImage(Assets.spriteNames[i]), this.getTransformar(), 150);
             this.add(gif.getNombre(), gif);
         }
         cambiarAnimacionA(Assets.spriteNames[0]);
