@@ -4,7 +4,6 @@ import modelo.UserConfig;
 import modelo.Usuario;
 import modelo.Dao.IDAOUserConfigs;
 import modelo.Dao.IDAOUsuario;
-import modelo.armamento.armas.Pistola;
 import vista.admin.VistaCrear;
 
 public class CreateControler {

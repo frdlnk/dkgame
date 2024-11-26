@@ -41,7 +41,6 @@ public class VistaEliminar extends VistaBuscar {
 		deletePanel = new JPanel();
 		deletePanel.setSize(380,240);
 		deletePanel.setLocation(getLocation());
-		changeToDeletePanel();
 		initComponents();
 	}
 

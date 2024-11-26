@@ -4,9 +4,17 @@ import modelo.Usuario;
 import modelo.Dao.IDAOUsuario;
 import vista.admin.VistaActualizar;
 
+/**
+ * Clase encargada de controlar la actualizacion de datos del usuario
+ */
 public class ActualizarControler extends BuscarControler{
 	private VistaActualizar vistaActualizar;
 	
+	/**
+	 * Crea un nuevo controlador de actualizar
+	 * @param vista vista que se va a controlar
+	 * @param modelo Dao de acceso a los datos del usuario
+	 */
 	public ActualizarControler(VistaActualizar vista, IDAOUsuario modelo) {
 		super(vista, modelo);
 		vistaActualizar = vista;
@@ -15,6 +23,9 @@ public class ActualizarControler extends BuscarControler{
 		vista.setVisible(true);
 	}
 
+	/**
+	 * Aqui se atualiza el usuario si los datos son correctos
+	 */
 	private void actualizarUsuario() {
 		Usuario user = vistaActualizar.getListaUsuarios().getSelectedValue();
 		String newPassword = vistaActualizar.getTfPassword().getText();
@@ -25,6 +36,11 @@ public class ActualizarControler extends BuscarControler{
 		}
 	}
 	
+	/**
+	 * Verifica que la contrasena tenga el formato correcto
+	 * @param password la contrasena que se debe verificar
+	 * @return true si la contrasena cumple los reeuisitos., false si no
+	 */
 	private boolean validateData(String password) {
 		boolean isDataValid = true;
 		if (password.isEmpty()) {
@@ -51,6 +67,9 @@ public class ActualizarControler extends BuscarControler{
 		return isDataValid;
 	}
 
+	/**
+	 * Muestra la informacion del usuario sleccionado
+	 */
 	private void mostrarInfoUsuario() {
 		Usuario user = vistaActualizar.getListaUsuarios().getSelectedValue();
 		if (user != null) {

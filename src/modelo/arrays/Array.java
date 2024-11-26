@@ -58,11 +58,11 @@ public abstract class Array {
 	}
 
 	public void remove(int index) {
-		for (int i = index; i < size; i++) {
+		for (int i = index; i < size-1; i++) {
 			arreglo[i] = arreglo[i+1];
 		}
-		arreglo[size] = null;
 		size--;
+		arreglo[size] = null;
 	}
 
 	protected Object get(int index) {

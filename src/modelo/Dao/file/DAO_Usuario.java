@@ -31,10 +31,12 @@ public class DAO_Usuario implements IDAOUsuario {
 		try (ObjectFileWriter writer = new ObjectFileWriter(fileName)){
 			ArrayString recordsArray = new ArrayString();
 			for (Usuario user : lista.getArregloObjetos()) {
-				recordsArray.add(user.crearRegistroTexto());
+				if (user != null) {
+					recordsArray.add(user.crearRegistroTexto());
+				}
 			}
 			writer.replace(recordsArray);
-		} catch (Exception e) {System.err.println("Error al guaradar usuarios");}
+		} catch (Exception e) {e.printStackTrace();}
 	}
 	
 	@Override

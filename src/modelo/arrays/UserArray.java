@@ -156,9 +156,14 @@ public class UserArray extends Array {
 	
 	@Override
 	public void sort() {
-		Usuario[] users = getArregloObjetos();
-		for (int i = 0; i < users.length; i++) {
-			
+		for (int i = 0; i < getSize(); i++) {
+			for (int j = 0; j < getSize()-1; j++) {
+				if (get(j) == null || get(j).getId() > get(j+1).getId()) {
+					Usuario tempUsuario = get(j);
+					set(j,get(j+1));
+					set(j+1, tempUsuario);
+				}
+			}
 		}
 	}
 }
