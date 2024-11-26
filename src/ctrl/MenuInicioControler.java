@@ -1,30 +1,38 @@
 package ctrl;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import ctrl.adminControlers.AdminPanelControler;
+import ctrl.gameControlers.WelcomeGameControler;
+import modelo.Dao.IDAOUserConfigs;
+import modelo.Dao.IDAOUsuario;
+import modelo.Dao.file.DAO_UserConfig;
+import modelo.Dao.file.DAO_Usuario;
 import vista.MenuInicio;
-import vista.MenuProvicional;
+import vista.admin.AdminPanel;
+import vista.game.VistaInicioJuego;
 
-public class MenuInicioControler implements ActionListener{
+public class MenuInicioControler{
 	private MenuInicio vista;
+	private IDAOUsuario modeloUser;
+	private IDAOUserConfigs modeloConfigs;
 	
-	public MenuInicioControler() {
+	public MenuInicioControler(DAO_Usuario modeloUser, DAO_UserConfig modelConfigs) {
+		this.modeloUser = modeloUser;
+		this.modeloConfigs = modelConfigs;
 		vista = new MenuInicio();
-		vista.getBtnAdministracion().addActionListener(this);
-		vista.getBtnJugar().addActionListener(this);
+		vista.getBtnAdministracion().addActionListener(e -> openAdmin());
+		vista.getBtnJugar().addActionListener(e -> initGame());
 		vista.setVisible(true);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(vista.getBtnAdministracion())) {
-			MenuProvicional.mostrarMenuPrincipal();
-			vista.dispose();
-		}else if(e.getSource().equals(vista.getBtnJugar())) {
-			GameControler game = new GameControler();
-			game.iniciarJuego();
-			vista.dispose();
-		}
+	private void openAdmin() {
+		AdminPanel vistaB = new AdminPanel();
+		new AdminPanelControler(vistaB, modeloConfigs, modeloUser);
+		vista.dispose();
+	}
+	
+	private void initGame() {
+		VistaInicioJuego vistaInicioJuego = new VistaInicioJuego();
+		new WelcomeGameControler(vistaInicioJuego, modeloUser, modeloConfigs);
+		vista.dispose();
 	}
 }
