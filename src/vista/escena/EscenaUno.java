@@ -5,20 +5,20 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import ctrl.gameControlers.GameControler;
 import modelo.entidades.Player;
-import modelo.entidades.enemigos.Enemigo;
+import modelo.worldObjects.MovementBarrier;
 import motor_v1.motor.Entidad;
+import motor_v1.motor.Scene;
 import motor_v1.motor.component.Renderer;
-import motor_v1.motor.input.InputKeyboard;
-import motor_v1.motor.input.Key;
 import motor_v1.motor.util.Vector2D;
-import utils.Colisionable;
 import utils.Tags;
-import vista.mapas.Map;
-import vista.mapas.MapaNivel1;
+import utils.colision.ColisionUtils;
+import vista.zonas.Zona;
+import vista.zonas.Zona1N1;
 
 public class EscenaUno extends EscenaJuego{
-	private Map mapa;
+	private Zona zona;
 	private Player jugador1;
 	
 	public EscenaUno() {
@@ -29,31 +29,26 @@ public class EscenaUno extends EscenaJuego{
 		Vector2D posicionJ = new Vector2D(10,180);
 		this.jugador1 = new Player(Tags.PLAYER, image, posicionJ, 10);
 		
-		mapa = new MapaNivel1();
+		zona = new Zona1N1();
 		
-		entidades.add(mapa.getNombre(), mapa);
+		entidades.add(zona.getNombre(), zona);
 		entidades.add(jugador1.getNombre(), jugador1);
 	}
 	
 	@Override
 	public void actualizar() {
-		mapa.actualizar();
-		if (!mapa.isChangingZone()) {
-			entidades.actualizar();
-			calcularColisiones();
-			calcularColisionesMapa(jugador1);
-			entidades.destruir();
+		entidades.actualizar();
+		entidades.destruir();
+		calcularColisiones();
+		if (zona.enemigosrestantes() == 0) {
+			GameControler.detener();
 		}
 	}
 
 	@Override
 	public void calcularColisiones() {
 		super.calcularColisiones();
-		for (int i = 0; i < entidades.getSize(); i++) {
-			if (entidades.get(i) instanceof Colisionable) {
-				calcularColisionesMapa((Colisionable)entidades.get(i));
-			}
-		}
+		ColisionUtils.colisionResolve(jugador1, zona);
 	}
 
 	@Override
@@ -63,19 +58,14 @@ public class EscenaUno extends EscenaJuego{
 
 	@Override
 	public void dibujar(Graphics g) {
-		mapa.dibujar(g);
+		zona.dibujar(g);
 		entidades.dibujar(g);
 	}
 	
 	public void addEntidad(Entidad entidad) {
 		if (entidad != null) {
-			mapa.getZonaActual().addMapObjects(entidad);
+			zona.addMapObjects(entidad);
 		}
-	}
-	
-	
-	public void calcularColisionesMapa(Colisionable colisionable) {
-		mapa.generarColisiones(colisionable);
 	}
 	
 	public Player getJugador1() {

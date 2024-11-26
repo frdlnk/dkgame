@@ -5,8 +5,8 @@ import modelo.entidades.Player;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.Scene;
 import motor_v1.motor.entidades.ListaEntidades;
-import utils.ColisionUtils;
-import utils.Colisionable;
+import utils.colision.ColisionUtils;
+import utils.colision.Colisionable;
 
 public abstract class EscenaJuego extends Scene {
 	public static ListaEntidades entidades = new ListaEntidades();
