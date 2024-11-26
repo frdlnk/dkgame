@@ -1,16 +1,12 @@
 package modelo.spritesCargados;
 
-import modelo.entidades.Player;
 import motor_v1.motor.component.Animation;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.Gif;
-import motor_v1.motor.util.Loader;
 import motor_v1.motor.util.Vector2D;
 import utils.Assets;
-import utils.SpriteLoader;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
+import java.awt.Graphics;
 
 public class SpritesPlayer extends Animation{
 
@@ -31,15 +27,15 @@ public class SpritesPlayer extends Animation{
         }
         cambiarAnimacionA(Assets.spriteNames[0]);
     }
-
+    
     @Override
     public void dibujar(Graphics g) {
     	Vector2D pos = getTransformar().getPosicion();
     	Vector2D escala = getTransformar().getEscala();
     	getTransformar().setEscala(new Vector2D(this.escala, this.escala));
-		pos.setY(pos.getY()+.5);
+		pos.setY(pos.getY()+.6);
     	super.dibujar(g);
-    	pos.setY(pos.getY()-.5);
+    	pos.setY(pos.getY()-.6);
     	getTransformar().setEscala(escala);
     }
 }

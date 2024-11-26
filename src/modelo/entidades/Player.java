@@ -73,7 +73,7 @@ public class Player extends Soldado{
 		direccionDisparo = Vector2D.RIGHT;
 		isGrounded = false;
 		setArma(new HeavyMachineGun());
-		getArma().setBalasRestantes(1000);
+		getArma().setBalasRestantes(10);
 		controles = new PlayerControls();
 		estaAgachado = false;
 		salud = 100;
