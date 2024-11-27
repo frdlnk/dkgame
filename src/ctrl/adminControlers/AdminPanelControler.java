@@ -1,19 +1,22 @@
 package ctrl.adminControlers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import modelo.Dao.IDAOUserConfigs;
 import modelo.Dao.IDAOUsuario;
-import modelo.Dao.file.DAO_UserConfig;
 import vista.admin.AdminPanel;
 import vista.admin.VistaCrear;
 import vista.admin.VistaDetalles;
 import vista.admin.VistaEliminar;
 import vista.admin.VistaActualizar;
-import vista.admin.VistaBuscar;
 
 /**
  * Controlador encargado del panel de administracion
+ * 
+ * @see ActionListener
  */
-public class AdminPanelControler {
+public class AdminPanelControler implements ActionListener{
 	private AdminPanel vista;
 	private IDAOUserConfigs modeloConfigs;
 	private IDAOUsuario modeloUsers;
@@ -28,7 +31,7 @@ public class AdminPanelControler {
 		this.vista = vista;
 		this.modeloConfigs = modeloConfigs;
 		this.modeloUsers = modeloUsers;
-		vista.getBtnActualizar().addActionListener(e -> openActualizar());
+		vista.getBtnActualizar().addActionListener(this);
 		vista.getBtnAgregar().addActionListener(e -> openAgregar());
 		vista.getBtnBuscar().addActionListener(e -> openBuscar());
 		vista.getBtnEliminar().addActionListener(e -> openEliminar());
@@ -42,8 +45,8 @@ public class AdminPanelControler {
 		VistaActualizar vistaActualizar = new VistaActualizar(vista);
 		new ActualizarControler(vistaActualizar, modeloUsers);
 	}
-	/**Abre la vista buscar
-	 * 
+	/**
+	 * Abre la vista buscar
 	 */
 	private void openBuscar() {
 		VistaDetalles vistaBuscar = new VistaDetalles(vista);
@@ -62,5 +65,24 @@ public class AdminPanelControler {
 	private void openAgregar() {
 		VistaCrear vistaAgregar = new VistaCrear(vista);
 		new CreateControler(vistaAgregar, modeloConfigs, modeloUsers);
+	}
+	
+	
+	/** 
+	 * Listener para la asignacion de acciones a los botones de la vista
+	 * @param e evento generado por los componentes de la vista
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e){
+		Object source = e.getSource();
+		if(source.equals(vista.getBtnActualizar())){
+			openActualizar();
+		}else if(source.equals(vista.getBtnAgregar())){
+			openAgregar();
+		}else if (source.equals(vista.getBtnBuscar())) {
+			openBuscar();
+		}else if (source.equals(vista.getBtnEliminar())) {
+			openEliminar();
+		}
 	}
 }

@@ -1,5 +1,8 @@
 package ctrl.adminControlers;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import modelo.Usuario;
 import modelo.Dao.IDAOUsuario;
 import vista.admin.VistaActualizar;
@@ -7,7 +10,7 @@ import vista.admin.VistaActualizar;
 /**
  * Clase encargada de controlar la actualizacion de datos del usuario
  */
-public class ActualizarControler extends BuscarControler{
+public class ActualizarControler extends BuscarControler implements ActionListener{
 	private VistaActualizar vistaActualizar;
 	
 	/**
@@ -18,8 +21,8 @@ public class ActualizarControler extends BuscarControler{
 	public ActualizarControler(VistaActualizar vista, IDAOUsuario modelo) {
 		super(vista, modelo);
 		vistaActualizar = vista;
-		vista.getBtnSelectUser().addActionListener(e -> mostrarInfoUsuario());
-		vista.getBtnActualizar().addActionListener(e -> actualizarUsuario());
+		vista.getBtnSelectUser().addActionListener(this);
+		vista.getBtnActualizar().addActionListener(this);
 		vista.setVisible(true);
 	}
 
@@ -79,5 +82,12 @@ public class ActualizarControler extends BuscarControler{
 		}
 	}
 	
-	
+	public void actionPerformed(ActionEvent e){
+		Object source = e.getSource();
+		if (source.equals(vistaActualizar.getBtnSelectUser())) {
+			mostrarInfoUsuario();
+		}else if(source.equals(vistaActualizar.getBtnActualizar())){
+			actualizarUsuario();
+		}
+	}
 }
