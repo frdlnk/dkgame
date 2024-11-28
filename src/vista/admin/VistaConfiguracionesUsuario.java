@@ -25,7 +25,7 @@ import vista.components.Button;
 public class VistaConfiguracionesUsuario extends VistaBuscar {
 
 	private static final long serialVersionUID = 1L;
-	private final JPanel configPanel;
+	private final JPanel configPanel = new JPanel();
 	private JCheckBox chBoxHelicopteros;
 	private JCheckBox chBoxGranaderos;
 	private JCheckBox chBoxPistoleros;
@@ -47,19 +47,18 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 	 */
 	public VistaConfiguracionesUsuario(JFrame frame) {
 		super(frame);
-		Dimension lastDimension = getSize();
+		Dimension lastDimension = super.getSize();
 		Dimension newDimension = new Dimension(lastDimension.width, lastDimension.height+30);
-		setSize(newDimension);
-		originaBounds = getBounds();
-		configPanel = new JPanel();
+		super.setSize(newDimension);
+		originaBounds = super.getBounds();
 		configPanel.setSize(419, 261);
 		configPanel.setLocation(getLocation());
-		configPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		initComponents();
 	}
 	
 	private void initComponents() {
 		configPanel.setLayout(null);
+		
 		chBoxHelicopteros = new JCheckBox("Helicopteros");
 		chBoxHelicopteros.setBounds(28, 32, 97, 23);
 		configPanel.add(chBoxHelicopteros);
@@ -256,9 +255,4 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 		this.originaBounds = originaBounds;
 	}
 
-	public JPanel getConfigPanel() {
-		return configPanel;
-	}
-	
-	
 }

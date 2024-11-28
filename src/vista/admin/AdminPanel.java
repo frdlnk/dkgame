@@ -20,13 +20,14 @@ public class AdminPanel extends JFrame {
 	private Button btnBuscar;
 	private Button btnActualizar;
 	private Button btnEliminar;
+	private Button btnConfiguraciones;
 
 	/**
 	 * Create the frame.
 	 */
 	public AdminPanel() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 325);
 		contentPane = new JPanel();
 		contentPane.setBounds(100, 100, 450, 300);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -45,7 +46,7 @@ public class AdminPanel extends JFrame {
 		contentPane.add(lblTitulo);
 		
 		btnAgregar = new Button("Agregar");
-		btnAgregar.setBounds(82, 63, 94, 35);
+		btnAgregar.setBounds(82, 45, 94, 35);
 		contentPane.add(btnAgregar);
 		
 		btnBuscar = new Button("Buscar");
@@ -53,12 +54,24 @@ public class AdminPanel extends JFrame {
 		contentPane.add(btnBuscar);
 		
 		btnActualizar = new Button("Actualizar");
-		btnActualizar.setBounds(82, 161, 94, 35);
+		btnActualizar.setBounds(82, 125, 94, 35);
 		contentPane.add(btnActualizar);
 		
 		btnEliminar = new Button("Eliminar");
 		btnEliminar.setBounds(258, 161, 94, 35);
 		contentPane.add(btnEliminar);
+		
+		btnConfiguraciones = new Button("Configuraciones");
+		btnConfiguraciones.setBounds(82, 205, 94, 35);
+		contentPane.add(btnConfiguraciones);
+	}
+	
+	public Button getBtnConfiguraciones() {
+		return btnConfiguraciones;
+	}
+
+	public void setBtnConfiguraciones(Button btnConfiguraciones) {
+		this.btnConfiguraciones = btnConfiguraciones;
 	}
 
 	public JLabel getLblTitulo() {
@@ -100,6 +113,4 @@ public class AdminPanel extends JFrame {
 	public void setBtnEliminar(Button btnEliminar) {
 		this.btnEliminar = btnEliminar;
 	}
-	
-	
 }
