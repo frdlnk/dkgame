@@ -6,12 +6,18 @@ import java.awt.event.ActionListener;
 import modelo.Usuario;
 import modelo.Dao.IDAOUsuario;
 import vista.admin.VistaActualizar;
+import vista.admin.VistaBuscar;
 
 /**
  * Clase encargada de controlar la actualizacion de datos del usuario
+ * 
+ * @see BuscarControler
+ * @see VistaBuscar
+ * @see VistaActualizar
  */
 public class ActualizarControler extends BuscarControler implements ActionListener{
 	private VistaActualizar vistaActualizar;
+	private UserFieldsValidator validator;
 	
 	/**
 	 * Crea un nuevo controlador de actualizar
@@ -21,6 +27,7 @@ public class ActualizarControler extends BuscarControler implements ActionListen
 	public ActualizarControler(VistaActualizar vista, IDAOUsuario modelo) {
 		super(vista, modelo);
 		vistaActualizar = vista;
+		validator = new UserFieldsValidator(modelo);
 		vista.getBtnSelectUser().addActionListener(this);
 		vista.getBtnActualizar().addActionListener(this);
 		vista.setVisible(true);
@@ -41,33 +48,20 @@ public class ActualizarControler extends BuscarControler implements ActionListen
 	
 	/**
 	 * Verifica que la contrasena tenga el formato correcto
+	 * <br> en caso de error muestra el mensaje de error
 	 * @param password la contrasena que se debe verificar
-	 * @return true si la contrasena cumple los reeuisitos., false si no
+	 * @return true si la contrasena cumple los requisitos, false si no
 	 */
 	private boolean validateData(String password) {
-		boolean isDataValid = true;
-		if (password.isEmpty()) {
-			vistaActualizar.getLblPasswordError().setText("Debe ingresar una contrasena");
+		//la setea no visible para que en la siguiente validacion si no hay error desaparesca
+		vistaActualizar.getLblPasswordError().setVisible(false);
+		String validatorResult = validator.validatePassword(password);
+		if (validatorResult != null) {
+			vistaActualizar.getLblPasswordError().setText(validatorResult);
 			vistaActualizar.getLblPasswordError().setVisible(true);
-			isDataValid = false;
-		}else if(password.length() < 4 || password.length() > 10) {
-			vistaActualizar.getLblPasswordError().setText("La contrasena debe tener entre 4 y 10 cracteres");
-			vistaActualizar.getLblPasswordError().setVisible(true);
-			isDataValid = false;
-		}else if(!password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{4,}$")) {
-			vistaActualizar.getLblPasswordError().setText(
-					  "<html>"
-					+ 	"<p>"
-					+ 		"La contrasena debe tener al menos 1 mayuscula, 1 miniscula,"
-					+ 		"<br> 1 numero y 1 caracter especial"
-					+ 	"</p>"
-					+ "</html>"
-			);
-			vistaActualizar.getLblPasswordError().setVisible(true);
-			isDataValid = false;
-			
+			return false;
 		}
-		return isDataValid;
+		return true;
 	}
 
 	/**
@@ -82,6 +76,9 @@ public class ActualizarControler extends BuscarControler implements ActionListen
 		}
 	}
 	
+	/**
+	 *Asignacion de mentodos a los botones
+	 */
 	public void actionPerformed(ActionEvent e){
 		Object source = e.getSource();
 		if (source.equals(vistaActualizar.getBtnSelectUser())) {

@@ -12,26 +12,26 @@ import vista.admin.VistaCrear;
 /**
  * Controlador encargado del guardado de nuevos usuarios
  * 
- * @see IDAOUserConfigs 
- * @see IDAOUsuario 
  * @see VistaCrear
   */
 public class CreateControler implements ActionListener{
 	private VistaCrear vista;
 	private IDAOUserConfigs modeloConfigs;
 	private IDAOUsuario modeloUsers;
+	private UserFieldsValidator validator;
 	
 	/**
 	 * Constructor, crea un nuevo controlador asociado a la vista dada y con los DAO especificados
 	 * @param vista	VistaCrear asociada al controlador para sus eventos
 	 * @param modeloConfigs Dao de configuraciones de juego
-	 * @param modeloUsersIdaoUsuario Dao de usuarios
+	 * @param modeloUsers Dao de usuarios
 	  */
 	public CreateControler(VistaCrear vista, IDAOUserConfigs modeloConfigs,
-			IDAOUsuario modeloUsersIdaoUsuario) {
+			IDAOUsuario modeloUsers) {
 		this.vista = vista;
 		this.modeloConfigs = modeloConfigs;
-		this.modeloUsers = modeloUsersIdaoUsuario;
+		this.modeloUsers = modeloUsers;
+		this.validator = new UserFieldsValidator(modeloUsers);
 		
 		vista.getBtnSave().addActionListener(this);
 		vista.getBtnCancel().addActionListener(this);
@@ -51,7 +51,7 @@ public class CreateControler implements ActionListener{
 	private void saveUser() {
 		String username = vista.getTfUsername().getText().trim();
 		String password = vista.getTfPassword().getText().trim();
-		
+		System.out.println("test");
 		if (validateData(username, password)) {
 			UserConfig config = new UserConfig();
 			int configId = modeloConfigs.insert(config);
@@ -68,12 +68,8 @@ public class CreateControler implements ActionListener{
 	}
 	
 	/** 
-	 * <p>Valida los datos de username y pasword para que se cumplan las siguientes condiciones<p>
-	 * <ul>
-	 * 	<li>Username: no vacio, entre 4 y 50 caracteres, unico en los registros</li>
-	 * 	<li>Password: no vacio, entre 4 y 10 caracteres, al menos una mayuscula, minuscula, numero y caracter especial</li>
-	 * </ul>
-	 * @param username String con el usuario a validar
+	 * Valida los datos del usuario y muestra los errores correspondientes(en caso de haber)
+	 * @param username String con el username a validar
 	 * @param password String contrasena a validar
 	 * @return boolean true si los campos cumplen con las condiciones, false en caso contrario
 	 */
@@ -81,54 +77,28 @@ public class CreateControler implements ActionListener{
 		boolean isDataValid = true;
 		vista.getLblPasswordError().setVisible(false);
 		vista.getLblUsernameError().setVisible(false);
-		//Username validator
-		if (username.isEmpty()) {
-			vista.getLblUsernameError().setText("Debe ingresar un nombre");
-			vista.getLblUsernameError().setVisible(true);
-			isDataValid = false;
-		}else if(username.length() < 4 || username.length() > 50) {
-			vista.getLblUsernameError().setText("El nombre deusuario debe tener entre 4 y 50 caracteres");
-			vista.getLblUsernameError().setVisible(true);
-			isDataValid = false;
-		}else if(modeloUsers.get(username) != null) {
-			vista.getLblUsernameError().setText("El nombre de usuario ya existe");
+		
+		String usernameValidationRe = validator.validateUsername(username);
+		String passwordValidationRe = validator.validatePassword(password);
+		
+		if (usernameValidationRe != null) {
+			vista.getLblUsernameError().setText(usernameValidationRe);;
 			vista.getLblUsernameError().setVisible(true);
 			isDataValid = false;
 		}
-		//Password validator
-		if (password.isEmpty()) {
-			vista.getLblPasswordError().setText("Debe ingresar una contrasena");
+		if (passwordValidationRe != null) {
+			vista.getLblPassword().setText(passwordValidationRe);;
 			vista.getLblPasswordError().setVisible(true);
 			isDataValid = false;
-		}else if(password.length() < 4 || password.length() > 10) {
-			vista.getLblPasswordError().setText("La contrasena debe tener entre 4 y 10 cracteres");
-			vista.getLblPasswordError().setVisible(true);
-			isDataValid = false;
-		}else if(!password.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\\W).{4,}$")) {
-			/* 
-			 * regex valida que hayan al menos una mayuscula, una minuscula, 1 digito, 1 caracter especial
-			 * (?=.*\\d): un digito
-			 * (?=.*[a-z]): una letra minuscula
-			 * (?=.*[A-Z]): una mayuscula
-			 * (?=.*\\W): un caracter especial
-			 * .{4,}: cualquier caracter al menos 4 veces
-			 * ^$: inicio y final de la cadena respectivamente
-			 */
-			vista.getLblPasswordError().setText(
-					  "<html>"
-					+ 	"<p>"
-					+ 		"La contrasena debe tener al menos 1 mayuscula, 1 miniscula,"
-					+ 		"<br> 1 numero y 1 caracter especial"
-					+ 	"</p>"
-					+ "</html>"
-			);
-			vista.getLblPasswordError().setVisible(true);
-			isDataValid = false;
-			
 		}
+		
 		return isDataValid;
 	}
 
+	
+	/**
+	 *Asignacion de funciones a los botones
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
