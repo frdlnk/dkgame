@@ -2,14 +2,16 @@ package vista.components;
 
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-public class Button extends JPanel {
+public class Button extends JPanel implements ActionListener{
 
 	private JButton boton;
+	private ActionListener actionListener;
 
 	public Button(String text) {
 		super();
@@ -17,6 +19,7 @@ public class Button extends JPanel {
 		boton = new JButton(text);
 		boton.setContentAreaFilled(false);
 		boton.setBorder(null);
+		boton.addActionListener(this);
 		add(boton);
 	}
 
@@ -37,7 +40,23 @@ public class Button extends JPanel {
 	}
 	
 	public void addActionListener(ActionListener listener) {
+		actionListener = listener;
 		boton.addActionListener(listener);
 	}
+
+	public JButton getBoton() {
+		return boton;
+	}
+
+	public void setBoton(JButton boton) {
+		this.boton = boton;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		e.setSource(this);
+		actionListener.actionPerformed(e);
+	}
+	
 }
 
