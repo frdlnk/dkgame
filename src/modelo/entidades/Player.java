@@ -91,7 +91,8 @@ public class Player extends Soldado{
 		controles.actualizar();
 		double direccionHorizontal = controles.getDireccionHorizontal();
 		double direccionVertical = controles.getDireccionVertical();
-		
+
+		checkMovementSprites(direccionHorizontal);
 		movimiento(direccionHorizontal);
 		
 		
@@ -122,7 +123,7 @@ public class Player extends Soldado{
 	private void movimiento(double direccionHorizontal) {
 		double movimiento = speed;
 		isMoving = true;
-		spritesPlayer.cambiarAnimacionA(Assets.spriteNames[0]);
+
 		if(controles.getDireccionVertical() == 1 && isGrounded && !estaAgachado) {
 			agacharse();
 		}else if(controles.getDireccionVertical() != 1 && estaAgachado){
@@ -138,7 +139,19 @@ public class Player extends Soldado{
 		}
 		fisica.addForce(new Vector2D(direccionHorizontal*movimiento*GameLoop.dt,0));
 	}
-	
+
+	private void checkMovementSprites(double direccionHorizontal) {
+		if (estaAgachado){
+			spritesPlayer.cambiarAnimacionA(Assets.spriteNames[3]);
+		}
+		if (direccionHorizontal != 0 && estaAgachado){
+			spritesPlayer.cambiarAnimacionA(Assets.spriteNames[5]);
+		}
+		if (!estaAgachado){
+			spritesPlayer.cambiarAnimacionA(Assets.spriteNames[0]);
+		}
+	}
+
 	private void calcularDireccionDisparo(double direccionHorizontal, double direccionVertical) {
 		double y = estaAgachado ? 0 : direccionVertical;
 		double x = direccionHorizontal; 
@@ -169,6 +182,7 @@ public class Player extends Soldado{
 		transformar.escalarloA(Vector2D.ONE);
 		Vector2D posicion = transformar.getPosicion();
 		posicion.setY(posicion.getY()-40);
+		spritesPlayer.cambiarAnimacionA(Assets.spriteNames[0]);
 		estaAgachado = false;
 	}
 
@@ -192,7 +206,11 @@ public class Player extends Soldado{
 				usaCuchillo = true;
 				cuchilloDelay = DELAY_CUCHILLO;
 			}else {
-				spritesPlayer.cambiarAnimacionA(Assets.spriteNames[1]);
+				if (estaAgachado){
+					spritesPlayer.cambiarAnimacionA(Assets.spriteNames[4]);
+				}else {
+					spritesPlayer.cambiarAnimacionA(Assets.spriteNames[1]);
+				}
 				Scene escena = Scene.getEscenaActual();
 				ArrayString targetsIgnore = new ArrayString();
 				targetsIgnore.add(getNombre());
