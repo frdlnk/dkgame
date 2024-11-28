@@ -10,15 +10,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import modelo.Usuario;
-import utils.ComparativeModes;
-import vista.uiConstants.Colors;
+import utils.constants.Colors;
+import utils.constants.ComparativeModes;
+import utils.constants.UserFields;
 
 import javax.swing.JList;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import modelo.Dao.IDAOUsuario.UserFields;
+
 import javax.swing.ListSelectionModel;
 
 public class VistaBuscar extends JDialog {
@@ -29,8 +30,8 @@ public class VistaBuscar extends JDialog {
 	private JLabel lblCriterio;
 	private JLabel lblSearchMode;
 	private JLabel lblBusqueda;
-	private JComboBox<UserFields> comboBoxCriterios;
-	private JComboBox<ComparativeModes> comboBoxSearchModes;
+	private JComboBox<String> comboBoxCriterios;
+	private JComboBox<String> comboBoxSearchModes;
 
 	/**
 	 * Create the dialog.
@@ -97,13 +98,13 @@ public class VistaBuscar extends JDialog {
 		busquedaPanel.add(comboBoxSearchModes);
 	}
 	
-	public ComparativeModes getSearchMode() {
-		ComparativeModes mode = comboBoxSearchModes.getItemAt(comboBoxSearchModes.getSelectedIndex());
+	public String getSearchMode() {
+		String mode = comboBoxSearchModes.getItemAt(comboBoxSearchModes.getSelectedIndex());
 		return mode;
 	}
 	
-	public UserFields getComparativeMode() {
-		UserFields mode = comboBoxCriterios.getItemAt(comboBoxCriterios.getSelectedIndex());
+	public String getComparativeMode() {
+		String mode = comboBoxCriterios.getItemAt(comboBoxCriterios.getSelectedIndex());
 		return mode;
 	}
 	
@@ -153,19 +154,19 @@ public class VistaBuscar extends JDialog {
 		this.searchTextField = searchTextField;
 	}
 
-	public JComboBox<UserFields> getComboBoxCriterios() {
+	public JComboBox<String> getComboBoxCriterios() {
 		return comboBoxCriterios;
 	}
 
-	public void setComboBoxCriterios(JComboBox<UserFields> comboBoxCriterios) {
+	public void setComboBoxCriterios(JComboBox<String> comboBoxCriterios) {
 		this.comboBoxCriterios = comboBoxCriterios;
 	}
 
-	public JComboBox<ComparativeModes> getComboBoxSearchModes() {
+	public JComboBox<String> getComboBoxSearchModes() {
 		return comboBoxSearchModes;
 	}
 
-	public void setComboBoxSearchModes(JComboBox<ComparativeModes> comboBoxSearchModes) {
+	public void setComboBoxSearchModes(JComboBox<String> comboBoxSearchModes) {
 		this.comboBoxSearchModes = comboBoxSearchModes;
 	}
 

@@ -7,7 +7,7 @@ import modelo.arrays.ArrayString;
 import modelo.arrays.UserArray;
 import modelo.db.text.ObjectFileWriter;
 import modelo.db.text.ObjectReadManager;
-import utils.ComparativeModes;
+import utils.constants.ComparativeModes;
 
 public class DAO_Usuario implements IDAOUsuario {
 	
@@ -101,7 +101,7 @@ public class DAO_Usuario implements IDAOUsuario {
 	}
 
 	@Override
-	public UserArray search(Object value, UserFields field, ComparativeModes searchMode) {
+	public UserArray search(Object value, String field, String searchMode) {
 		return lista.search(value, field, searchMode);
 	}
 

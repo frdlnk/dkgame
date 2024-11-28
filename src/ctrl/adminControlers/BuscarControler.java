@@ -1,14 +1,12 @@
 package ctrl.adminControlers;
 
 import modelo.Dao.IDAOUsuario;
-import modelo.Dao.IDAOUsuario.UserFields;
-
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import modelo.arrays.UserArray;
-import utils.ComparativeModes;
+import utils.constants.UserFields;
 import vista.admin.VistaBuscar;
 
 /** 
@@ -46,8 +44,8 @@ public class BuscarControler implements DocumentListener{
 		if (searchedValue.equals("")) {
 			data = modelo.getAll();
 		}else {
-			UserFields criterio = vista.getComparativeMode();
-			ComparativeModes modo = vista.getSearchMode();
+			String criterio = vista.getComparativeMode();
+			String modo = vista.getSearchMode();
 			data = modelo.search(searchedValue, criterio, modo);
 		}
 		
@@ -61,14 +59,16 @@ public class BuscarControler implements DocumentListener{
 	 * @return Object valor ingresado por el usuario con el tipo de objeto correcto
 	 */
 	private Object getSearchValue() {
-		UserFields criterioFields = vista.getComparativeMode();
+		String criterioFields = vista.getComparativeMode();
 		String searchedValue = vista.getSearchTextField().getText();
 
-		if (criterioFields == UserFields.LEVEL || criterioFields == UserFields.SCORE) {
+		//verifica si la busqueda debe ser por entero
+		if (criterioFields == UserFields.FIELD_LEVEL || criterioFields == UserFields.FIELD_SCORE) {
 			if (isInteger(searchedValue)) {
 				return Integer.parseInt(searchedValue);
 			}
-			return -1;
+			//si no es un numero
+			return null;
 		}
 		return searchedValue;
 	}
