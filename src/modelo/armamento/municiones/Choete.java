@@ -12,6 +12,7 @@ import motor_v1.motor.Scene;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.util.Vector2D;
+import utils.constants.Tags;
 import vista.escena.EscenaJuego;
 
 /**
@@ -30,8 +31,8 @@ public class Choete extends Municion implements Explosivo{
 	 * @param targetsIgnored 	lista de tags a ignorar
 	 * @param dano double 		cantidad de dano a realizar a los objeivos
 	 */
-	public Choete(String nombre, Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored, double dano) {
-		super(nombre, posicion, direccion, targetsIgnored, dano, 5);
+	public Choete(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored, double dano) {
+		super(posicion, direccion, targetsIgnored, dano, 5);
 		//asigna gravedad al cohete
 		this.fisica.setGravity(1);
 	}
@@ -58,7 +59,7 @@ public class Choete extends Municion implements Explosivo{
 		BufferedImage texturaExplosion = Renderer.crearTextura(rect, color);
 		//Crea el objeto explosion que realizara la hitbox y dano
 		//correspondiente a la explosion del cohete
-		return new Explosion("Explosion", texturaExplosion, transformar.getPosicion(), targetIgnore);
+		return new Explosion(texturaExplosion, transformar, targetIgnore, (int)getDano());
 	}
 
 	@Override

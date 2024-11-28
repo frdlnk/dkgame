@@ -9,9 +9,11 @@ import modelo.Dao.file.DAO_UserConfig;
 import modelo.Dao.file.DAO_Usuario;
 import modelo.arrays.UserArray;
 import modelo.arrays.UserConfigArray;
+import vista.MenuInicio;
 
 
 public class Main {
+	//datasets
 	public final static UserArray UserDataSet = new UserArray();
 	public final static UserConfigArray UserConfigsSet = new UserConfigArray();
 	
@@ -19,10 +21,9 @@ public class Main {
     	setUIManager();
     	DAO_Usuario modeloUsuario = new DAO_Usuario();
     	DAO_UserConfig modeloConfigs = new DAO_UserConfig();
-    	MenuInicioControler menuControler = new MenuInicioControler(modeloUsuario, modeloConfigs);
-    	for (int i = 0; i < UserDataSet.getSize(); i++) {
-			System.out.println(UserDataSet.get(i));
-		}
+    	MenuInicio menu = new MenuInicio();
+    	//iniciar
+    	new MenuInicioControler(menu,modeloUsuario, modeloConfigs);
     }
 
     public static void setUIManager() {

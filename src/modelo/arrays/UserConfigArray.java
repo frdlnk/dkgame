@@ -6,7 +6,7 @@ import modelo.Usuario;
 public class UserConfigArray extends Array {
 
 	public UserConfigArray() {
-		super(new UserConfig[0]);
+		super();
 	}
 	
 	public UserConfigArray(UserConfig[] arreglo) {
@@ -17,8 +17,14 @@ public class UserConfigArray extends Array {
 		return super.contains(object);
 	}
 
-	public void add(UserConfig object) {
-		super.add(object);
+	/**
+	 * Anade un string al arreglo
+	 * @param String a agregar
+	 */
+	public void add(Object string) {
+		if (string instanceof UserConfig) {
+			super.addInternal(string);
+		}
 	}
 
 	public void remove(UserConfig object) {

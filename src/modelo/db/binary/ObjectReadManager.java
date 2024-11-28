@@ -8,10 +8,19 @@ import java.io.ObjectInputStream;
 
 import modelo.arrays.Array;
 
+/**
+ * Objeto encargado de la lectura de archivos binarios
+ */
 public class ObjectReadManager implements AutoCloseable{
 	private FileInputStream in;
 	private ObjectInputStream reader;
 
+	/**
+	 * Crea un nuevo objeto lector
+	 * <br> si el archivo especificado no existe lo crea
+	 * @param fileName ruta al archivo
+	 * @throws IOException si hay problemas en la creacion o apertura del archivo
+	 */
 	public ObjectReadManager(String fileName) throws IOException {
 		File file = new File(fileName);
 		
@@ -31,6 +40,12 @@ public class ObjectReadManager implements AutoCloseable{
 		reader.close();
 	}
 	
+	/**
+	 * Lee un registro del archivo
+	 * @return el resgistro encontrado
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public Object read() throws ClassNotFoundException, IOException {
 		if (isReaderAvaible()) {
 			try {
@@ -42,6 +57,11 @@ public class ObjectReadManager implements AutoCloseable{
 		return null;
 	} 
 	
+	/**
+	 * Verifica que hay datos disponibles para leer
+	 * @return true si hay datos disponibles
+	 * @throws IOException
+	 */
 	private boolean isReaderAvaible() throws IOException {
 		if (in.available() > 0) {
 			if (reader == null) {
@@ -52,6 +72,12 @@ public class ObjectReadManager implements AutoCloseable{
 		return false;
 	}
 	
+	/**
+	 * lee todos los registros del archivo
+	 * @param arreglo arreglo para agregar los registros
+	 * @throws ClassNotFoundException
+	 * @throws IOException
+	 */
 	public void readAll(Array arreglo) throws ClassNotFoundException, IOException {
 		Object objeto;
 		while ((objeto = read()) != null) {

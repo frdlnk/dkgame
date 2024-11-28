@@ -4,19 +4,21 @@ import motor_v1.motor.util.Vector2D;
 
 public class ArrayVector2D extends Array {
 	public ArrayVector2D() {
-		super(new Vector2D[0]);
+		super();
 	}
 	
 	public ArrayVector2D(Vector2D[] arreglo) {
 		super(arreglo);
 	}
 
-	public boolean contains(Vector2D object) {
-		return super.contains(object);
-	}
-
-	public void add(Vector2D object) {
-		super.add(object);
+	/**
+	 * Anade un string al arreglo
+	 * @param String a agregar
+	 */
+	public void add(Object string) {
+		if (string instanceof Vector2D) {
+			super.addInternal(string);
+		}
 	}
 
 	public void remove(Vector2D object) {
@@ -44,7 +46,5 @@ public class ArrayVector2D extends Array {
 
 	@Override
 	public void sort() {
-		// TODO Auto-generated method stub
-		
 	}
 }

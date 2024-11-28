@@ -6,6 +6,9 @@ import java.util.Arrays;
 import modelo.armamento.armas.Arma;
 import modelo.armamento.armas.Pistola;
 
+/**
+ * Modelo de datos para las configuraciones del usuario
+ */
 public class UserConfig implements Serializable{
 	private int id;
 	private String[] enemigosActivos;
@@ -83,7 +86,7 @@ public class UserConfig implements Serializable{
 
 	@Override
 	public String toString() {
-		return "UserConfig [enemigosActivos=" + Arrays.toString(enemigosActivos) + ", cantEnemigosPorTipo="
+		return "UserConfig [enemigosActivos=" + enemigosActivos + ", cantEnemigosPorTipo="
 				+ ", vidasIniciales=" + vidasIniciales + ", multiplicadorDano="
 				+ multiplicadorDano + ", multiplicadorDanoEnemigo=" + multiplicadorDanoEnemigo + ", armainicial="
 				+ armainicial + "]";

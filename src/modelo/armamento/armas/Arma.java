@@ -19,25 +19,34 @@ import motor_v1.motor.util.Vector2D;
  * @version 1.0
  */
 public abstract class Arma implements Serializable {
+	public final static int BALAS_DEFAULT = 10;
+	public final static int DEFAULT_DELAY = 1;
+	
 	protected double shootDelay;
 	private double timeToNextShoot;
 	private int balasRestantes;
 	
 	/**
-	 * Construye un arma con delay predeterminado de 1s
+	 * Construye un arma con delay predeterminado de {@value #DEFAULT_DELAY}s y {@value #BALAS_DEFAULT} municiones
 	 */
 	public Arma() {
-		this(1);
+		shootDelay = DEFAULT_DELAY;
+		timeToNextShoot = 0;
+		setBalasRestantes(BALAS_DEFAULT);
 	}
 	
 	/**
-	 * Construye un arma con un delay especificado
+	 * Construye un arma con un delay especificado y {@value #BALAS_DEFAULT} municiones
 	 * @param shootDelay tiempo en segundos necesario entre disparos
 	 */
 	public Arma(double shootDelay) {
+		this();
 		this.shootDelay = shootDelay;
-		this.timeToNextShoot = 0;
-		setBalasRestantes(10);
+	}
+	
+	public Arma(Double shotDelay, int municiones) {
+		this(shotDelay);
+		setBalasRestantes(municiones);
 	}
 	
 	/**
@@ -73,10 +82,15 @@ public abstract class Arma implements Serializable {
 		timeToNextShoot -= timeToNextShoot > 0 ? GameLoop.dt : 0;
 	}
 	
+	/**
+	 * Suma balas al cargador
+	 * @param cantidad
+	 */
 	public void anadirBalas(int cantidad) {
 		setBalasRestantes(getBalasRestantes() + cantidad);
 	}
 
+	//getters y setters
 	public int getBalasRestantes() {
 		return balasRestantes;
 	}

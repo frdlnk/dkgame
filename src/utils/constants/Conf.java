@@ -1,5 +1,8 @@
-package utils;
+package utils.constants;
 
+/**
+ * Configuraciones del juego general
+ */
 public final class Conf {
 	public final static int WINDOW_HEIGHT = 428;
 	public final static int WINDOW_WIDTH = 590;

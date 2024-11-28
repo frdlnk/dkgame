@@ -14,7 +14,7 @@ import vista.admin.VistaActualizar;
 /**
  * Controlador encargado del panel de administracion
  * 
- * @see ActionListener
+ * @see AdminPanel
  */
 public class AdminPanelControler implements ActionListener{
 	private AdminPanel vista;

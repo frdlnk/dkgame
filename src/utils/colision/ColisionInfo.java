@@ -3,6 +3,9 @@ package utils.colision;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Collider;
 
+/**
+ * Contiene informacion sobre la colision con un Objeto Colisionable
+ */
 public class ColisionInfo {
 	private Entidad entidad;
 	private Colisionable colisionable;

@@ -8,27 +8,31 @@ import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
+import utils.constants.Tags;
 
+/**
+ * Barrera de movimiento que detecta la colision del jugador para limitar su movimeinto y actuar segun su posicion en el mapa
+ */
 public class MovementBarrier extends Caja {
 	private boolean playerOverlap;
 	private Player player;
 	private boolean isTrigger;
 	private boolean isEnable;
 
-	public MovementBarrier(String nombre, BufferedImage textura, Transform transformar) {
-		super(nombre, textura, transformar);
-		setTrigger(false);
-		setEnable(true);
-	}
-
-	public MovementBarrier(String nombre, BufferedImage imageMB, Vector2D posicionMB) {
-		super(nombre,imageMB,posicionMB);
+	/**
+	 * Crea una nueva barrera de movimiento
+	 * @param textura imagen a mostrar
+	 * @param transformar posicion inicial
+	 */
+	public MovementBarrier(BufferedImage textura, Transform transformar) {
+		super(Tags.STATIC_OBJECT, textura, transformar);
 		setTrigger(false);
 		setEnable(true);
 	}
 
 	@Override
 	public void onColision(ColisionInfo colision) {
+		//verifica si colisiono con el jugador
 		if (isEnable && colision.getEntidad() instanceof Player) {
 			player = (Player) colision.getEntidad();
 			if (!isTrigger) {

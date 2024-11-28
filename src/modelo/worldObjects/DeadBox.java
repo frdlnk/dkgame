@@ -8,20 +8,25 @@ import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
 import utils.colision.ColisionInfo;
+import utils.constants.Tags;
 
+/**
+ * Clase encargada de matar a los soldados que la toquen
+ */
 public class DeadBox extends TriggerBox{
 
-	public DeadBox(String nombre, BufferedImage textura, Transform transformar) {
-		super(nombre, textura, transformar);
-	}
-	
-	public DeadBox(String nombre, BufferedImage textura, Vector2D posicion) {
-		super(nombre, textura, posicion);
+	/**
+	 * Crea una nueva deadBox
+	 * @param textura imagen a mostrar
+	 * @param transformar posicion de la dead Box
+	 */
+	public DeadBox(BufferedImage textura, Transform transformar) {
+		super(Tags.DEADBOX, textura, transformar);
 	}
 
 	@Override
 	public void onColision(ColisionInfo colision) {
-		
+		//mata soldados
 		if (colision.getEntidad() instanceof Soldado) {
 			Soldado soldado = (Soldado) colision.getEntidad();
 			soldado.morir();

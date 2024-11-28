@@ -9,12 +9,17 @@ import motor_v1.motor.util.Vector2D;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
 
+/**
+ * Clase base para objetos trigger en las colisiones
+ */
 public abstract class TriggerBox extends SpriteSolido implements Colisionable{
 
-	public TriggerBox(String nombre, BufferedImage textura, Vector2D posicion) {
-		super(nombre, textura, posicion);
-	}
-
+	/**
+	 * Crea un nuevo triggerBox
+	 * @param nombre tag del objeto
+	 * @param textura imagen a mostrar
+	 * @param transformar posicion inicial
+	 */
 	public TriggerBox(String nombre, BufferedImage textura, Transform transformar) {
 		super(nombre, textura, transformar);
 	}
@@ -29,6 +34,7 @@ public abstract class TriggerBox extends SpriteSolido implements Colisionable{
 				colision.setColider(colisiona);
 				colision.setEntidad(this);
 				colision.setColisionable(this);
+				//trigger default
 				colision.setTriger(true);
 				return colision;
 			}

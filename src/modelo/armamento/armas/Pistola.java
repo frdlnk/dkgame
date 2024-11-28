@@ -6,12 +6,14 @@ import modelo.arrays.ArrayString;
 import motor_v1.motor.util.Vector2D;
 
 /**
- * {@link Arma} que genera Balas
+ * {@link Arma} que genera {@link Bala}s con una 
+ * cadencia de {@value #DEFAULT_SHOOT_DELAY}
  * 
  * @implNote Arma predeterminada
  * 
  * @author Joshua Elizondo Vasquez
  * @see Arma
+ * @see Bala
  */
 public class Pistola extends Arma {
 	public final static double DEFAULT_SHOOT_DELAY = .5;
@@ -21,6 +23,10 @@ public class Pistola extends Arma {
 	 */
 	public Pistola() {
 		super(DEFAULT_SHOOT_DELAY);
+	}
+	
+	public Pistola(Double shotDelay, int municiones) {
+		super(shotDelay, municiones);
 	}
 
 	@Override

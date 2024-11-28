@@ -4,6 +4,9 @@ import modelo.UserConfig;
 import modelo.Usuario;
 import motor_v1.motor.GameLoop;
 
+/**
+ * Esta calse se encarga de crear un nuevo juego y controlar el Loop principal
+ */
 public class GameControler {
 	private static GameLoop loop;
 

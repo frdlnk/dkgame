@@ -9,21 +9,20 @@ import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
-import utils.Movible;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
+import utils.interfaces.BorderDrawAble;
+import utils.interfaces.Movible;
 import motor_v1.motor.entidades.SpriteSolido;
 import motor_v1.motor.util.Vector2D;
-import utils.BorderDrawAble;
 
+/**
+ * Clase encargada de ser un objeto solido 
+ */
 public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 
 	public Caja(String nombre, BufferedImage textura, Transform transformar) {
 		super(nombre, textura, transformar);
-	}
-
-	public Caja(String nombre, BufferedImage textura, Vector2D posicion) {
-		super(nombre, textura, posicion);
 	}
 	
 	@Override
@@ -60,12 +59,14 @@ public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 			Transform transformarOtro = fisicaOtro.getTransform();
 			Vector2D ultimaPosicion = fisicaOtro.getTransform().getPosicion();
 			
+			//mueve el objeto en direccion contraria hasta que deje de colisionar
 			while(colision.getColider().colisionaCon(colisiona) && !direccionY.isNaN()) {
 				Vector2D nuevaPosiocion = transformarOtro.getPosicion().add(direccion);
 				transformarOtro.setPosicion(nuevaPosiocion);
 				entidadmovible.getColisiona().actualizar(); 
 			}
 			
+			//verifica el lado desde donde colisiono para eliminar sus fuerzas correspondientes
 			if(colliderOtro.getMaxX() == thisHitBox.getMinX() || colliderOtro.getMinX() == thisHitBox.getMaxX()) {
 				transformarOtro.getPosicion().setY(ultimaPosicion.getY());
 				double pos = transformar.getPosicion().getX();
@@ -83,6 +84,7 @@ public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 				fisicaOtro.getVectorMovimiento().setY(0);
 				fisicaOtro.getUltimaDireccion().setY(0);
 			}
+			//actualiza la entidad
 			entidadmovible.getColisiona().actualizar();
 		}
 	}
@@ -93,6 +95,7 @@ public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 		super.dibujar(g);
 	}
 	
+	@Override
 	public void drawBorders(Graphics g) {
 		Rectangle tect = colisiona.getHitbox();
 		Renderer.dibujarBordes(g, transformar.getPosicion(), tect.getWidth(), tect.getHeight());

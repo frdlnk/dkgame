@@ -4,27 +4,41 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import ctrl.gameControlers.Game;
 import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Municion;
 import modelo.arrays.ArrayString;
 import modelo.componentes.Fisica;
+import modelo.entidades.Player;
 import modelo.entidades.Soldado;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Renderer;
+import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
-import utils.Conf;
-import utils.Tags;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
+import utils.constants.Conf;
+import utils.constants.Tags;
 import vista.escena.EscenaJuego;
 
+/**
+ * Clase enemigo con funciones basicas para el funcionamiento de un enemigo
+ * 
+ * @see Soldado
+ */
 public abstract class Enemigo extends Soldado {
 
-	public Enemigo(String nombre, BufferedImage[] imagenes, Vector2D posicion, double duracionImagen) {
-		super(nombre, imagenes, posicion, duracionImagen);
+	/**
+	 * Crea un nuevo {@link Enemigo} con el tag {@value Tags#ENEMY}
+	 * @param imagenes imagenes de gif a mostrarse
+	 * @param posicion inicial del enemigo
+	 * @param duracionImagen cantidad en segundos de la duracion del gif
+	 */
+	public Enemigo(BufferedImage[] imagenes, Transform posicion, double duracionImagen, double salud) {
+		super(Tags.ENEMY, imagenes, posicion, duracionImagen, salud);
 		colisiona.actualizar();
 		fisica = new Fisica(1,1,transformar);
 	}
@@ -36,6 +50,10 @@ public abstract class Enemigo extends Soldado {
 		super.actualizar();
 	}
 	
+	/**
+	 * verifica que este dentro de la pantalla
+	 * @return
+	 */
 	public boolean isInScreen() {
 		Vector2D pos = transformar.getPosicion();
 		if (pos.getX() + colisiona.getHitbox().getWidth() > 0 && pos.getX() < Conf.WINDOW_WIDTH) {
@@ -52,6 +70,11 @@ public abstract class Enemigo extends Soldado {
 		}
 	}
 	
+	/**
+	 * Consigue la direccion del jugador desde un punto dado
+	 * @param posicion desde la cual se quiere saber la direccion hasta el jugador
+	 * @return direccion hacia el jugador
+	 */
 	protected Vector2D getDireccionJugador(Vector2D posicion) {
 		Vector2D distancia = getDistanciaJugador(posicion);
 		
@@ -59,20 +82,21 @@ public abstract class Enemigo extends Soldado {
 	}
 	
 	
+	/**
+	 * Calcula la distancia desde un punto dado hasta el jugador
+	 * @param posicion desde la cual se va a calcular la distancia
+	 * @return distancia hasta el jugador
+	 */
 	protected Vector2D getDistanciaJugador(Vector2D posicion) {
-		Scene escenaActual = Scene.getEscenaActual();
-		if (escenaActual instanceof EscenaJuego && ((EscenaJuego) escenaActual).getPlayer() != null) {
-			Vector2D posJugador = ((EscenaJuego)escenaActual).getPlayer().getCentro();
+		Player jugador = Game.getJugador();
+		if (jugador != null) {
+			Vector2D posJugador = jugador.getCentro();
 			Vector2D direccionHaciaJugador = posJugador.subtract(posicion);
 			return direccionHaciaJugador;
 		}
 		return null;
 	}
 	
-	@Override
-	public Collider[] getColliders() {
-		return new Collider[]{colisiona};
-	}
 	
 	@Override
 	public ColisionInfo hayColision(Colisionable entidad) {

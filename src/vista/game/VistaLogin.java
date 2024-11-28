@@ -9,10 +9,12 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import utils.constants.Colors;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import vista.components.Button;
-import vista.uiConstants.Colors;
 
 import javax.swing.JSeparator;
 

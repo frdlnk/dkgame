@@ -9,12 +9,22 @@ import modelo.db.text.ObjectFileWriter;
 import modelo.db.text.ObjectReadManager;
 import utils.constants.ComparativeModes;
 
+/**
+ * DAO de acceso y guarado de usuarios mediante archivos de texto
+ */
 public class DAO_Usuario implements IDAOUsuario {
+	String fileName = "user.txt";
 	
+	/**
+	 * crea un nuevo DAO
+	 */
 	public DAO_Usuario() {
 		load();
 	}
 	
+	/**
+	 * carga los registros al dataset
+	 */
 	public void load() {
 		try (ObjectReadManager reader = new ObjectReadManager(fileName)){
 			ArrayString records = new ArrayString();
@@ -27,6 +37,9 @@ public class DAO_Usuario implements IDAOUsuario {
 		} catch (Exception e) {System.err.println("Error al leer usuarios");}
 	}
 	
+	/**
+	 * Guarda todos los registros en el archivo
+	 */
 	public void saveAll() {
 		try (ObjectFileWriter writer = new ObjectFileWriter(fileName)){
 			ArrayString recordsArray = new ArrayString();
@@ -50,6 +63,11 @@ public class DAO_Usuario implements IDAOUsuario {
 		return -1;
 	}
 	
+	/**
+	 * Verifica que tenga un id valido y l;e asigna uno si no tiene
+	 * @param user usuarios a verificar
+	 * @return true si tiene un id valido
+	 */
 	private boolean isIdValid(Usuario user) {
 		if (user == null)return false;
 		

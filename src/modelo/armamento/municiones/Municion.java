@@ -11,11 +11,11 @@ import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.util.Vector2D;
-import utils.Conf;
-import utils.Movible;
-import utils.Tags;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
+import utils.constants.Conf;
+import utils.constants.Tags;
+import utils.interfaces.Movible;
 
 /**
  * Clase encargada del funcionamiento de una municion
@@ -40,8 +40,8 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	 * @param targetsIgnore Lista de tags a ignorar para impactar
 	 * @param dano double 	cantidad de dano que hace la municion a las entidades objetivo
 	 */
-	public Municion(String nombre, Vector2D posicion, Vector2D direccion, ArrayString targetsIgnore, double dano, double velocity) {
-		super(nombre);
+	public Municion(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnore, double dano, double velocity) {
+		super(Tags.MUNICION);
 		Rectangle rect = new Rectangle(15,10);
 		Color color = new Color(255,153,0);
 		this.textura = Renderer.crearTextura(rect, color);

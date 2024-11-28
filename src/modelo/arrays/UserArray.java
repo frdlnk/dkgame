@@ -1,14 +1,12 @@
 package modelo.arrays;
 
-import java.util.Iterator;
-
 import modelo.Usuario;
-import modelo.Dao.IDAOUsuario.UserFields;
-import utils.ComparativeModes;
+import utils.constants.ComparativeModes;
+import utils.constants.UserFields;
 
 public class UserArray extends Array {
 	public UserArray() {
-		super(new Usuario[0]);
+		super();
 	}
 	
 	public UserArray(Usuario[] arreglo) {
@@ -29,8 +27,14 @@ public class UserArray extends Array {
 		return null;
 	}
 
-	public void add(Usuario object) {
-		super.add(object);
+	/**
+	 * Anade un string al arreglo
+	 * @param String a agregar
+	 */
+	public void add(Object string) {
+		if (string instanceof Usuario) {
+			super.addInternal(string);
+		}
 	}
 
 	public void remove(Usuario object) {
@@ -79,7 +83,7 @@ public class UserArray extends Array {
 		}
 	}
 	
-	public UserArray searchByString(Object value, UserFields field) {
+	public UserArray searchByString(Object value, String field) {
 		UserArray userReturned = new UserArray();
 		if (!(value instanceof String)) return userReturned;
 		Usuario[] users = getArregloObjetos();
@@ -94,7 +98,7 @@ public class UserArray extends Array {
 		return userReturned;
 	}
 
-	public UserArray searchByInt(Object value, ComparativeModes searchMode, UserFields field) {
+	public UserArray searchByInt(Object value, String searchMode, String field) {
 		UserArray userReturned = new UserArray();
 		if (!(value instanceof Integer)) return userReturned;
 		Usuario[] users = getArregloObjetos();
@@ -107,29 +111,29 @@ public class UserArray extends Array {
 		return userReturned;
 	}
 	
-	public UserArray search(Object value, UserFields field, ComparativeModes searchMode) {
+	public UserArray search(Object value, String field, String searchMode) {
 		return switch (field) {
-		case USERNAME -> searchByString(value, UserFields.USERNAME);
-		case LEVEL -> searchByInt(value, searchMode, UserFields.LEVEL);
-		case SCORE -> searchByInt(value, searchMode, UserFields.SCORE);
+		case UserFields.FIELD_USERNAME -> searchByString(value,UserFields.FIELD_USERNAME);
+		case UserFields.FIELD_LEVEL -> searchByInt(value, searchMode, UserFields.FIELD_LEVEL);
+		case UserFields.FIELD_SCORE -> searchByInt(value, searchMode, UserFields.FIELD_SCORE);
 		default -> new UserArray();
 		};
 	}
 	
-	private Object getField(UserFields field, Usuario user) {
+	private Object getField(String field, Usuario user) {
 		return switch (field) {
-		case USERNAME -> user.getUsername();
-		case LEVEL -> user.getLevel();
-		case SCORE -> user.getScore();
+		case UserFields.FIELD_USERNAME -> user.getUsername();
+		case UserFields.FIELD_LEVEL -> user.getLevel();
+		case UserFields.FIELD_SCORE -> user.getScore();
 		default -> null;
 		};
 	}
 	
-	private boolean compareIntByMode(int val1, int val2, ComparativeModes mode) {
+	private boolean compareIntByMode(int val1, int val2, String mode) {
 		return switch (mode) {
-		case MAYOR_QUE -> val1 > val2;
-		case MENOR_QUE -> val1 < val2;
-		case IGUAL -> val1 == val2;
+		case ComparativeModes.MAYOR_QUE -> val1 > val2;
+		case ComparativeModes.MENOR_QUE -> val1 < val2;
+		case ComparativeModes.IGUAL -> val1 == val2;
 		default -> false;
 		};
 	}

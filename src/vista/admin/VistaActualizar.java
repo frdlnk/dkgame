@@ -7,11 +7,16 @@ import java.awt.Rectangle;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import vista.components.Button;
-import vista.uiConstants.Colors;
 
 import javax.swing.JTextField;
+
+import utils.constants.Colors;
+
 import javax.swing.JLabel;
 
+/**
+ * Vista para actualizar usuarios
+ */
 public class VistaActualizar extends VistaBuscar {
 
 	private static final long serialVersionUID = 1L;

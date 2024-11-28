@@ -6,7 +6,7 @@ import motor_v1.motor.entidades.Gif;
 import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.util.Loader;
 import motor_v1.motor.util.Vector2D;
-import utils.Assets;
+import utils.constants.Assets;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;

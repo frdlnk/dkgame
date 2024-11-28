@@ -1,7 +1,10 @@
-package vista.uiConstants;
+package utils.constants;
 
 import java.awt.Color;
 
+/**
+ * Paleta de colores
+ */
 public class Colors {
 	public final static Color COLOR1 = Color.decode("#016c7e");
 	public final static Color COLOR2 = Color.decode("#008c8f");

@@ -9,21 +9,36 @@ import modelo.arrays.ArrayString;
 import modelo.entidades.Player;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
+import motor_v1.motor.component.Collider;
+import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
-import utils.Conf;
-import utils.Tags;
 import utils.colision.ColisionInfo;
+import utils.constants.Conf;
+import utils.constants.Tags;
 import vista.escena.EscenaJuego;
 
+/**
+ * {@link Enemigo} que arroja granadas al jugador
+ */
 public class EnemigoGranada extends Enemigo{
+	//constantes de movimiento
+	public final static int SALUD = 30;
 	public final static int SPEED = 80;
+	
+	//variables de control
 	private double tiempoEntreLanzamientos;
 	private double siguientePosicion;
 	private int siguienteDireccionX;
 	private boolean posicionAlcanzada;
 
-	public EnemigoGranada(String nombre, BufferedImage[] imagenes, Vector2D posicion, double duracionImagen) {
-		super(nombre, imagenes, posicion, duracionImagen);
+	/**
+	 * crea un nuevo Granadero
+	 * @param imagenes gif que se pintara
+	 * @param posicion inicial del enemigo
+	 * @param duracionImagen tiempo de reproducion del gif
+	 */
+	public EnemigoGranada(BufferedImage[] imagenes, Transform posicion, double duracionImagen) {
+		super(imagenes, posicion, duracionImagen, SALUD);
 		setArma(new Pistola());
 		siguientePosicion = 0;
 		siguienteDireccionX = 1;
@@ -73,7 +88,6 @@ public class EnemigoGranada extends Enemigo{
 	@Override
 	public void disparar() {
 		//consigue la distncia al jugador
-		Scene escenaActual = Scene.getEscenaActual();
 		Vector2D posicionJugador = getDistanciaJugador(getCentro());
 		if (posicionJugador != null) {
 			Random random = new Random();
@@ -107,7 +121,8 @@ public class EnemigoGranada extends Enemigo{
 			ArrayString targetsIgnored = new ArrayString();
 			targetsIgnored.add(getNombre());
 			int dano = 10;
-			Granada granada = new Granada(Tags.EXPLOCION, posicionDisparo(), direccionDisparo, targetsIgnored, dano, v0);
+			Granada granada = new Granada(posicionDisparo(), direccionDisparo, targetsIgnored, dano, v0);
+			Scene escenaActual = Scene.getEscenaActual();
 			if (escenaActual instanceof EscenaJuego) {
 				((EscenaJuego) escenaActual).addEntidad(granada);
 			}
@@ -123,5 +138,10 @@ public class EnemigoGranada extends Enemigo{
 			return pos.add(new Vector2D(widht,0));
 		}
 		return pos;
+	}
+
+	@Override
+	public Collider[] getColliders() {
+		return new Collider[] {colisiona};
 	}
 }

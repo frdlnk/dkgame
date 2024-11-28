@@ -11,6 +11,7 @@ import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
+import utils.constants.Tags;
 
 /**
  * Objeto encargado de representar una explosion que genere dano
@@ -24,31 +25,16 @@ public class Explosion extends TriggerBox{
 	
 	
 	/**
-	 * Crea una nueva explosion con dano predeterminado de 10
+	 * Crea una nueva explosion 
 	 * @param nombre
 	 * @param textura
 	 * @param transformar
 	 * @param targetsIgnore
 	 */
-	public Explosion(String nombre, BufferedImage textura, Transform transformar, ArrayString targetsIgnore) {
-		super(nombre, textura, transformar);
+	public Explosion(BufferedImage textura, Transform transformar, ArrayString targetsIgnore, int dano) {
+		super(Tags.EXPLOCION, textura, transformar);
 		colisiona.actualizar();
-		dano = 10;
-		this.targetsIgnore = targetsIgnore;
-	}
-	
-
-	/**
-	 * Crea una nueva explosion con los parametros suministrados
-	 * @param nombre	Tag asignado a esta explosion
-	 * @param textura	Imagen que dibujara en pantalla
-	 * @param posicion	Vector2D con la posicion de la explosion
-	 * @param targetsIgnore Lista de tags que ignorara
-	 */
-	public Explosion(String nombre, BufferedImage textura, Vector2D posicion, ArrayString targetsIgnore) {
-		super(nombre, textura, posicion);
-		dano = 10;
-		colisiona.actualizar();
+		this.dano = dano;
 		this.targetsIgnore = targetsIgnore;
 	}
 

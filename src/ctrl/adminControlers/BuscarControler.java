@@ -12,9 +12,10 @@ import vista.admin.VistaBuscar;
 /** 
  * Controlador encargado de realizar la busqueda de usuarios
  * 
- * implementa DocumentListener para actualizacion en tiempo real de los datos ingresados
+ * <br>Implementa DocumentListener para actualizacion en tiempo real de los datos ingresados
  * 
  * @see DocumentListener
+ * @see VistaBuscar
  */
 public class BuscarControler implements DocumentListener{
 	private VistaBuscar vista;
@@ -30,17 +31,19 @@ public class BuscarControler implements DocumentListener{
 		this.vista = vista;
 		this.modelo = modelo;
 		vista.getSearchTextField().getDocument().addDocumentListener(this);
+		//carga los datos iniciales
 		onTextChanged();
 	}
 	
 	/** 
 	 * Encargado de realizar la busqeuda segun los criterios ingresados en la vista 
-	 * setea los resultados en el Jlist
+	 * <br>setea los resultados en el Jlist
 	 */
 	public void onTextChanged() {
 		Object searchedValue = getSearchValue();
 		UserArray data;
 		
+		//si no hay busqueda definida se crgan todos los datos
 		if (searchedValue.equals("")) {
 			data = modelo.getAll();
 		}else {
@@ -55,7 +58,7 @@ public class BuscarControler implements DocumentListener{
 	
 	/** 
 	 * Se encarga de verificar y convertir el texto a buscar en el valor correspondiente
-	 * ya sea int o string
+	 * <br>ya sea int o string
 	 * @return Object valor ingresado por el usuario con el tipo de objeto correcto
 	 */
 	private Object getSearchValue() {
@@ -88,6 +91,7 @@ public class BuscarControler implements DocumentListener{
 		}
 	}
 
+	// listeners de cambio en el searchInput, todos los cambios en el input desencadenan la actualizacion
 	@Override
 	public void insertUpdate(DocumentEvent e) {
 		onTextChanged();

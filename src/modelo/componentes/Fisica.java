@@ -2,10 +2,11 @@ package modelo.componentes;
 
 import modelo.arrays.ArrayVector2D;
 import motor_v1.motor.GameLoop;
+import motor_v1.motor.component.Movement;
 import motor_v1.motor.component.Physics;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
-import utils.Conf;
+import utils.constants.Conf;
 
 /**
  * Componente encargado del calculo de las fisicas de un objeto con transformar
@@ -32,13 +33,23 @@ public class Fisica extends Physics{
 	private ArrayVector2D fuerzasAplicadas;
 	
 	/**
-	 * Crea una nueva fisica aplicada a un trasnform, con masa =1 y gravedad = 1
-	 * @param transform
+	 * Crea una nueva fisica aplicada a un trasnform, con masa = 1 y gravedad = 1
+	 * @param transform transform asociado
 	 */
 	public Fisica(Transform transform) {
 		this(1,1,transform);
 	}
 
+	/**
+	 * Crea una nueva Fisica con la masa, y gravedad especificadas y el trasnform asociado
+	 * 
+	 * @implNote la escala de gravedad no define la gravedad del mundo si no la magnituid
+	 * <br>en la que la gravedad del mundo {@value Conf#GRAVITY} afecta este objeto
+	 * 
+	 * @param masa		masa del objeto
+	 * @param gravity	escala de gravedad del objeto
+	 * @param transform	transform asociado
+	 */
 	public Fisica(int masa, double gravity, Transform transform) {
 		this.gravity = gravity;
 		this.transform = transform;
@@ -49,25 +60,45 @@ public class Fisica extends Physics{
 		fuerzasAplicadas = new ArrayVector2D();
 	}
     
+	/**
+	 * Anade un impulso instantaneo al objeto
+	 * @param vector impulso vectorial
+	 */
 	public void impulsar(Vector2D vector) {
 		Vector2D newVector = new Vector2D(vector.getX()/masa, vector.getY()/masa);
 		vectorMovimiento = vectorMovimiento.add(newVector);
 	}
 	
+	/**
+	 * Anade un impulso instantaneo al objeto en su direccion actual
+	 * @param force fuerza de impulso 
+	 */
 	public void impulsar(double force) {
 		vectorMovimiento = vectorMovimiento.add(force/masa);
 	}
+	
+	/**
+	 * anade una fuerza continua al objeto
+	 * @param vector fuerza vectorial aplicada
+	 */
 	public void addForce(Vector2D vector) {
 		Vector2D newVector = new Vector2D(vector.getX()/masa, vector.getY()/masa);
 		fuerzasAplicadas.add(newVector);
 		vectorMovimiento = vectorMovimiento.add(newVector);
 	}
 	
+	/**
+	 * anade una fuerza continua al objeto en su direccion actual
+	 * @param force fuerza aplicada
+	 */
 	public void addForce(double force) {
 		fuerzasAplicadas.add(Vector2D.ONE.scale(force/masa));
 		vectorMovimiento = vectorMovimiento.add(force/masa);
 	}
 	
+	/**
+	 * genera el calculo de fuerzas para el movimiento fisico del objeto
+	 */
 	public void actualizar() {
 		vectorMovimiento = vectorMovimiento.scale(1-getFriccion());
 		Vector2D nuevaPosicion = transform.getPosicion().add(vectorMovimiento);
@@ -81,8 +112,38 @@ public class Fisica extends Physics{
 		vectorMovimiento.setY(vectorMovimiento.getY() + (gravity*Conf.GRAVITY*GameLoop.dt));
 	}
 
+	/**
+	 * acelera el objeto en su direccion actual a la aceleracion previamente seteada
+	 */
 	public void acelerar() {
 		vectorMovimiento = vectorMovimiento.scale(getAceleracion());
+	}
+	/**
+	 * acelera el objeto en su direccion actual
+	 * @param factorAceleracion factor de aceleracion a aplicar
+	 */
+	public void acelerar(double factorAceleracion) {
+		vectorMovimiento = vectorMovimiento.scale(factorAceleracion);
+	}
+	
+	/**
+	 *Acelera un objeto con un {@link Movement} asociado
+	 *{@link Deprecated} reemplazado por {@link #acelerar()} 
+	 */
+	@Override
+	@Deprecated
+	public void acelerar(Movement movimiento) {
+		super.acelerar(movimiento);
+	}
+	
+	/**
+	 *Acelera un objeto con la aceleracion dada y un {@link Movement} asociado
+	 *{@link Deprecated} reemplazado por {@link #acelerar(double)}
+	 */
+	@Override
+	@Deprecated
+	public void acelerar(Movement movimiento, double factorAceleracion) {
+		super.acelerar(movimiento, factorAceleracion);
 	}
 	
 	public Vector2D getUltimaDireccion() {

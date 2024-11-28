@@ -27,8 +27,6 @@ public abstract class EscenaJuego extends Scene {
 		}
 	}
 	
-	public abstract Player getPlayer();
-
 	public static void setListaEntidades(ListaEntidades entidades) {
 		EscenaJuego.entidades = entidades;
 	}

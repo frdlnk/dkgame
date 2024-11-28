@@ -1,5 +1,6 @@
 package vista.admin;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -7,6 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import vista.components.Button;
 
+/**
+ * Vista para el panel de administracion
+ */
 public class AdminPanel extends JFrame {
 
 	private static final long serialVersionUID = 1L;

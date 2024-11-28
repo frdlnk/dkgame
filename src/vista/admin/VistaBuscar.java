@@ -2,7 +2,6 @@ package vista.admin;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.color.ColorSpace;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -22,6 +21,9 @@ import javax.swing.DefaultComboBoxModel;
 
 import javax.swing.ListSelectionModel;
 
+/**
+ * vista para buscar usuarios
+ */
 public class VistaBuscar extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel busquedaPanel = new JPanel();

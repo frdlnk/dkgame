@@ -9,8 +9,8 @@ import motor_v1.motor.entidades.SpriteText;
 import motor_v1.motor.input.InputKeyboard;
 import motor_v1.motor.input.Key;
 import motor_v1.motor.util.Vector2D;
-import utils.Assets;
-import utils.Conf;
+import utils.constants.Assets;
+import utils.constants.Conf;
 
 public class EscenaCarga extends Scene {
 	private SpriteText loadingText;

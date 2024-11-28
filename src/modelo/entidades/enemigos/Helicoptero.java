@@ -12,31 +12,44 @@ import modelo.entidades.Player;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Collider;
+import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
-import utils.Conf;
-import utils.Tags;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
+import utils.constants.Conf;
+import utils.constants.Tags;
 import vista.escena.EscenaJuego;
 
+/**
+ * {@link Enemigo} que vuela y bombardea al jugador
+ * 
+ * @see Enemigo
+ * @see Choete
+ */
 public class Helicoptero extends Enemigo {
+	//constantes de control y movimento
+	private final static int SALUD = 150;
 	private final static int SPEED = 80;
 	private final static double TIEMPO_ENTRE_BOMBAS = .4;
 	private final static double TIEMPO_ENTRE_BOMBARDEOS = 1.5;
 	private final static int CANTIDAD_BOMBAS_POR_BOMBARDEO = 3;
+	//propiedades de control
 	private int bombasArrojadas;
 	private boolean bombardear;
 	private double tiempoParaSiguienteBomba;
 	private double tiempoParaSiguienteBombardeo;
 	private Collider triggerBombardeo;
 
-	public Helicoptero(String nombre, BufferedImage[] imagenes, Vector2D posicion, double duracionImagen) {
-		super(nombre, imagenes, posicion, duracionImagen);
+	public Helicoptero(BufferedImage[] imagenes, Transform posicion, double duracionImagen) {
+		super(imagenes, posicion, duracionImagen, SALUD);
+		//sin gravedad porque vuela
 		fisica.setGravity(0);
+		//siempre en la posicion y del aire
 		transformar.getPosicion().setY(80);
 		bombasArrojadas = 0;
 		tiempoParaSiguienteBomba = 0;
 		tiempoParaSiguienteBombardeo = 0;
+		//collider de bombardeo
 		Vector2D posColliderB = new Vector2D(imagenes[0].getWidth()/2-10,imagenes[0].getHeight());
 		RelativeTransform transBomb= new RelativeTransform(posColliderB, transformar);
 		Rectangle hitBoxBombardero = new Rectangle(20,Conf.WINDOW_HEIGHT);
@@ -47,21 +60,9 @@ public class Helicoptero extends Enemigo {
 	public void actualizar() {
 		if (isInScreen()) {
 			
-			if (bombardear) {
-				if (tiempoParaSiguienteBomba < 0) {
-					disparar();
-					bombasArrojadas++;
-					tiempoParaSiguienteBomba = TIEMPO_ENTRE_BOMBAS;
-				}
-				if (bombasArrojadas == CANTIDAD_BOMBAS_POR_BOMBARDEO) {
-					bombardear = false;
-					tiempoParaSiguienteBombardeo = TIEMPO_ENTRE_BOMBARDEOS;
-				}
-				tiempoParaSiguienteBomba -= GameLoop.dt;
-			}else {
-				tiempoParaSiguienteBombardeo -= GameLoop.dt;
-			}
+			bombardeoControl();
 			
+			//se mueve hacia el jugador
 			Vector2D direccionJugador = getDireccionJugador(getCentro());
 			if (direccionJugador != null) {
 				direccionJugador.setY(0);
@@ -73,6 +74,27 @@ public class Helicoptero extends Enemigo {
 		}
 		
 	}
+	
+	/**
+	 * Logica de control para el arrojo de bombvas y cantidad de bombardeos por tiempo
+	 */
+	private void bombardeoControl() {
+		if (bombardear) {
+			if (tiempoParaSiguienteBomba < 0) {
+				disparar();
+				bombasArrojadas++;
+				tiempoParaSiguienteBomba = TIEMPO_ENTRE_BOMBAS;
+			}
+			if (bombasArrojadas == CANTIDAD_BOMBAS_POR_BOMBARDEO) {
+				bombardear = false;
+				tiempoParaSiguienteBombardeo = TIEMPO_ENTRE_BOMBARDEOS;
+			}
+			tiempoParaSiguienteBomba -= GameLoop.dt;
+		}else {
+			tiempoParaSiguienteBombardeo -= GameLoop.dt;
+		}
+	}
+	
 
 	@Override
 	public void onColision(ColisionInfo colision) {
@@ -85,9 +107,11 @@ public class Helicoptero extends Enemigo {
 	@Override
 	public ColisionInfo hayColision(Colisionable entidad) {
 		ColisionInfo colision =  super.hayColision(entidad);
+		//si colisiona con el cuerpo principal no se bombardea y se actua con la colision natural del Enemigo
 		if (colision != null) {
 			return colision;
 		}
+		//si hay una colision con el collider de bombardeo y el jugador emppieza el bombardeo
 		if (entidad instanceof Player && triggerBombardeo.colisionaCon(((Player) entidad).getColisiona())) {
 			return new ColisionInfo(this, this, triggerBombardeo, true);
 		}
@@ -103,13 +127,13 @@ public class Helicoptero extends Enemigo {
 	public void disparar() {
 		Scene escenaActual = Scene.getEscenaActual();
 			
-		//Crea y agrega la granada al escenario
+		//Crea y agrega los cohetes al escenario
 		ArrayString targetsIgnored = new ArrayString();
 		targetsIgnored.add(getNombre());
 		int dano = 30;
-		Choete granada = new Choete(Tags.EXPLOCION, posicionDisparo(), Vector2D.ZERO, targetsIgnored, dano);
+		Choete cohete = new Choete(posicionDisparo(), Vector2D.ZERO, targetsIgnored, dano);
 		if (escenaActual instanceof EscenaJuego) {
-			((EscenaJuego) escenaActual).addEntidad(granada);
+			((EscenaJuego) escenaActual).addEntidad(cohete);
 		}
 	}
 

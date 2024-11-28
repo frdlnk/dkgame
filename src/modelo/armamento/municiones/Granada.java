@@ -12,14 +12,29 @@ import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.util.Vector2D;
-import utils.Tags;
+import utils.constants.Tags;
 import vista.escena.EscenaJuego;
 
+/**
+ * Granada que explota al tocar otros objetos
+ * 
+ * @see Municion
+ * @see Explosivo
+ */
 public class Granada extends Municion implements Explosivo {
 
-	public Granada(String nombre, Vector2D posicion, Vector2D direccion, ArrayString targetsIgnore, double dano,
+	/**
+	 * Crea una nueva Granada
+	 * @param posicion		Posicion inicial de la granada
+	 * @param direccion		Direccion de lanzamiento
+	 * @param targetsIgnore	Objetivos a ignorar
+	 * @param dano			dano causado
+	 * @param velocity		velocidad de movimiento
+	 */
+	public Granada(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnore, double dano,
 			double velocity) {
-		super(nombre, posicion, direccion, targetsIgnore, dano, velocity);
+		super(posicion, direccion, targetsIgnore, dano, velocity);
+		setNombre(Tags.GRANADA);
 		fisica.setGravity(1);
 	}
 
@@ -28,7 +43,7 @@ public class Granada extends Municion implements Explosivo {
 		Rectangle rect = new Rectangle(30,50);
 		Color color = new Color(255,0,0,30);
 		BufferedImage texturaExplosion = Renderer.crearTextura(rect, color);
-		return new Explosion(Tags.DEADBOX, texturaExplosion, transformar, targetIgnore);
+		return new Explosion(texturaExplosion, transformar, targetIgnore, (int)getDano());
 	}
 	
 	@Override

@@ -3,6 +3,9 @@ package modelo;
 import java.io.*;
 import java.util.UUID;
 
+/**
+ * Modelo de datos para la informacion del usuario
+ */
 public class Usuario {
     private int id;
     private String username;
@@ -26,6 +29,10 @@ public class Usuario {
 				+ ", level=" + level +"]";
 	}
     
+    /**
+     * Genera un registro de texto con los datos del usuario
+     * @return registro de texto
+     */
     public String crearRegistroTexto() {
     	String username = this.username.replace("','", "\",\"");
     	String password = this.password.replace("','", "\",\"");
@@ -35,6 +42,11 @@ public class Usuario {
     	return recordString;
     }
     
+    /**
+     * Deserializa un registro de texto para crear de nuevo el objeto 
+     * @param userInfo registro de texto
+     * @return Usuario  deserializado
+     */
     public static Usuario deserializeUsuario(String userInfo) {
     	String[] data = userInfo.replace("\\n", "\n").split("','");
     	Usuario user = new Usuario();

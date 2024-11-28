@@ -9,24 +9,28 @@ import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.GifMovible;
 import motor_v1.motor.util.Vector2D;
-import utils.Movible;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
+import utils.interfaces.Movible;
 
+/**
+ * Entidad base para los personajes del juego
+ */
 public abstract class Soldado extends GifMovible implements Colisionable, Movible {
 	protected double salud;
 	private Arma arma;
 	protected Fisica fisica;
 
-	public Soldado(String nombre, BufferedImage[] imagenes, Transform transformar, double duracionImagen) {
+	/**
+	 * Crea un nuevop soldado
+	 * @param nombre	Tag del soldado	
+	 * @param imagenes	Gif mostrar
+	 * @param transformar posicion inicial del soldado
+	 * @param duracionImagen 
+	 */
+	public Soldado(String nombre, BufferedImage[] imagenes, Transform transformar, double duracionImagen, double salud) {
 		super(nombre, imagenes, transformar, duracionImagen);
-		salud = 100;
-	}
-	
-
-	public Soldado(String nombre, BufferedImage[] imagenes, Vector2D posicion, double duracionImagen) {
-		super(nombre, imagenes, posicion, duracionImagen);
-		salud = 100;
+		this.salud = salud;
 	}
 	
 	@Override
@@ -45,12 +49,26 @@ public abstract class Soldado extends GifMovible implements Colisionable, Movibl
 		pos.setY(pos.getY()-.5);
 	}
 
+	/**
+	 * Recibe dano
+	 * @param dano cantidad de dano recibido
+	 */
 	public abstract void recibirDano(double dano);
 	
+	/**
+	 * Logica para cuando muere el soldado
+	 */
 	public abstract void morir();
 	
+	/**
+	 * Debe generar la logica de disparo
+	 */
 	public abstract void disparar();
 	
+	/**
+	 * calcula la posicion en la que se crea la municion
+	 * @return posicion de la municion
+	 */
 	protected abstract Vector2D posicionDisparo();
 
 	public Arma getArma() {

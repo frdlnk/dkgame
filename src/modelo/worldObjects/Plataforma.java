@@ -5,20 +5,26 @@ import java.awt.image.BufferedImage;
 
 import modelo.componentes.Fisica;
 import motor_v1.motor.component.Transform;
-import utils.Movible;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
+import utils.constants.Tags;
+import utils.interfaces.Movible;
 import motor_v1.motor.util.Vector2D;
 
+/**
+ * Caja que solo se activa desde arriba
+ * @implNote se puede abstraer para crea un objeto colisionable segun angulo de entrada
+ */
 public class Plataforma extends Caja {
 
 
-	public Plataforma(String nombre, BufferedImage textura, Transform transformar) {
-		super(nombre, textura, transformar);
-	}
-
-	public Plataforma(String nombre, BufferedImage textura, Vector2D posicion) {
-		super(nombre, textura, posicion);
+	/**
+	 * Crea una nueva plataforma
+	 * @param textura imagen a mostrar
+	 * @param transformar posicion inicial
+	 */
+	public Plataforma(BufferedImage textura, Transform transformar) {
+		super(Tags.PLATFORM, textura, transformar);
 	}
 
 	@Override

@@ -10,9 +10,11 @@ import javax.swing.JLabel;
 import java.awt.Color;
 
 import vista.components.Button;
-import vista.uiConstants.Colors;
 
 import javax.swing.border.LineBorder;
+
+import utils.constants.Colors;
+
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 

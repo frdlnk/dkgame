@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import modelo.componentes.RelativeTransform;
 import modelo.entidades.Soldado;
 import modelo.entidades.enemigos.Enemigo;
 import modelo.entidades.enemigos.EnemigoGranada;
@@ -18,17 +19,18 @@ import motor_v1.motor.Entidad;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Renderer;
+import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.input.InputKeyboard;
 import motor_v1.motor.input.Key;
 import motor_v1.motor.util.Vector2D;
-import utils.Assets;
-import utils.BorderDrawAble;
-import utils.Conf;
-import utils.Tags;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
-import utils.EnemyTypes;
+import utils.constants.Assets;
+import utils.constants.Conf;
+import utils.constants.EnemyTypes;
+import utils.constants.Tags;
+import utils.interfaces.BorderDrawAble;
 
 
 /**
@@ -62,7 +64,7 @@ public class Zona1N1 extends Zona{
 	double changeplatDelay;
 
 	//Entidades principales
-	Sprite bac;
+	Sprite background;
 	private Entidad[] jefes;
 	private int jefeActual;
 	
@@ -79,16 +81,17 @@ public class Zona1N1 extends Zona{
 
 	@Override
 	protected void crearComponentes() {
-		bac  = new Sprite(Tags.STATIC_OBJECT, Assets.MAPA_NIVEL_1, new Vector2D(0,-224));
-		bac.getTransformar().escalarloA(2);
-		mapObjects.add(bac.getNombre(), bac);
-		bac  = new Sprite(Tags.STATIC_OBJECT, Assets.AVION_CATARATA_M1, new Vector2D(6511,18));
-		bac.getTransformar().escalarloA(2);
-		mapObjects.add(bac.getNombre(), bac);
+		Transform transformBG = new RelativeTransform(new Vector2D(0,-224), transformar);
+		background  = new Sprite(Tags.STATIC_OBJECT, Assets.MAPA_NIVEL_1, transformBG);
+		background.getTransformar().escalarloA(2);
+		mapObjects.add(background.getNombre(), background);
+		Transform transformAV = new RelativeTransform(new Vector2D(6511,18), transformar);
+		Sprite avion  = new Sprite(Tags.STATIC_OBJECT, Assets.AVION_CATARATA_M1, transformAV);
+		avion.getTransformar().escalarloA(2);
+		mapObjects.add(avion.getNombre(), avion);
 		
 		
 		//plataforma inicial
-		Rectangle rectFloor = new Rectangle(1350, 50);
 		Vector2D posicionF = new Vector2D(0,343);
 		createCaja(posicionF, 1350, 50);
 		
@@ -194,7 +197,8 @@ public class Zona1N1 extends Zona{
 		Color colorMB = new Color(128,200,100,90);
 		BufferedImage imageMB = Renderer.crearTextura(rectMB, colorMB);
 		Vector2D posicionMB = new Vector2D(Conf.WINDOW_WIDTH/2,0);
-		barrier = new MovementBarrier("barrier", imageMB, posicionMB);
+		Transform transformMB = new Transform(posicionMB);
+		barrier = new MovementBarrier(imageMB, transformMB);
 		barrier.getColisiona().actualizar();
 		barrier.setTrigger(false);
 		
@@ -203,7 +207,8 @@ public class Zona1N1 extends Zona{
 		Color colorDB = new Color(255,0,0,90);
 		BufferedImage imageDB = Renderer.crearTextura(rectDB, colorDB);
 		Vector2D posicionDB = new Vector2D(0,Conf.WINDOW_HEIGHT+40);
-		DeadBox deadBox = new DeadBox(Tags.DEADBOX, imageDB, posicionDB);
+		Transform transformDb = new Transform(posicionDB);
+		DeadBox deadBox = new DeadBox(imageDB, transformDb);
 		deadBox.getColisiona().actualizar();
 		
 		staticObjects.add(deadBox.getNombre(), deadBox);
@@ -214,7 +219,8 @@ public class Zona1N1 extends Zona{
 		Rectangle dimensiones = new Rectangle(width, height);
 		Color color = new Color(128,50,0);
 		BufferedImage image = Renderer.crearTextura(dimensiones, color);
-		Plataforma platform = new Plataforma(Tags.PLATFORM, image, pos);
+		Transform transform = new RelativeTransform(pos,this.transformar);
+		Plataforma platform = new Plataforma(image, transform);
 		platform.getColisiona().actualizar();
 		mapObjects.add(platform.getNombre(), platform);
 		return platform;
@@ -224,10 +230,11 @@ public class Zona1N1 extends Zona{
 		Rectangle dimensiones = new Rectangle(width, height);
 		Color color = new Color(128,50,0, 50);
 		BufferedImage image = Renderer.crearTextura(dimensiones, color);
-		Caja platform = new Caja(Tags.PLATFORM, image, pos);
-		platform.getColisiona().actualizar();
-		mapObjects.add(platform.getNombre(), platform);
-		return platform;
+		Transform transform = new RelativeTransform(pos,this.transformar);
+		Caja caja = new Caja(Tags.STATIC_OBJECT, image, transform);
+		caja.getColisiona().actualizar();
+		mapObjects.add(caja.getNombre(), caja);
+		return caja;
 	}
 
 	@Override
@@ -243,7 +250,7 @@ public class Zona1N1 extends Zona{
 			jefeActual++;
 		}
 		
-		if (barrier.isPlayerOverlap() && getPosition().getX() > checkPoints[actualCheckpoint]) {
+		if (barrier.isPlayerOverlap() && getTransformar().getPosicion().getX() > checkPoints[actualCheckpoint]) {
 			moverZona(direccionChecpoints[actualCheckpoint]);
 			if (barrier.getTransformar().getPosicion().getX() > Conf.WINDOW_WIDTH/2) {
 				Vector2D posBarrier = barrier.getTransformar().getPosicion();
@@ -251,7 +258,7 @@ public class Zona1N1 extends Zona{
 			}
 		}
 		
-		if(getPosition().getX() >= checkPoints[actualCheckpoint]) {
+		if(getTransformar().getPosicion().getX() >= checkPoints[actualCheckpoint]) {
 			barrier.setEnable(true);
 		}else {
 			barrier.setEnable(false);
@@ -322,8 +329,9 @@ public class Zona1N1 extends Zona{
 		Color color = new Color(128,128,0,100);
 		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
 		Vector2D posicionE = new Vector2D(1400,200);
+		Transform transformE = new RelativeTransform(posicionE, transformar);
 		
-		EnemigoPistola enemigo = new EnemigoPistola(Tags.ENEMY, imageE, posicionE, 1);
+		EnemigoPistola enemigo = new EnemigoPistola(imageE, transformE, 1);
 		enemigos.add(enemigo.getNombre(), enemigo);
 		
 	}
@@ -333,8 +341,9 @@ public class Zona1N1 extends Zona{
 		Color color = new Color(128,128,0,100);
 		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
 		Vector2D posicionE = new Vector2D(700,200);
+		Transform transformE = new RelativeTransform(posicionE, transformar);
 		
-		EnemigoGranada enemigo = new EnemigoGranada(Tags.ENEMY, imageE, posicionE, 1);
+		EnemigoGranada enemigo = new EnemigoGranada(imageE, transformE, 1);
 		enemigos.add(enemigo.getNombre(), enemigo);
 	}
 	
@@ -369,13 +378,16 @@ public class Zona1N1 extends Zona{
 		Rectangle rectJ1 = new Rectangle(85, 40);
 		BufferedImage[] imageJ1 = {Renderer.crearTextura(rectJ1, color)};
 		Vector2D posicionJefe1 = new Vector2D(3200,0);
-		jefes[0] = new Helicoptero(Tags.ENEMY, imageJ1, posicionJefe1, 10);
+		Transform transformJefe1 = new RelativeTransform(posicionJefe1, transformar);
+		jefes[0] = new Helicoptero(imageJ1, transformJefe1, 10);
 		
-		Vector2D posicionJefe2 = new Vector2D(6000,200);
-		jefes[1] = new EnemigoPistola(Tags.ENEMY, imageE, posicionJefe2, 10);
+		Vector2D posicionJefe2 = new Vector2D(5000,200);
+		Transform transformJefe2 = new RelativeTransform(posicionJefe2, transformar);
+		jefes[1] = new EnemigoPistola(imageE, transformJefe2, 10);
 		
 		Vector2D posicionJefeFinal = new Vector2D(8000,80);
-		jefes[2] = new EnemigoPistola(Tags.ENEMY, imageE, posicionJefeFinal, 10);
+		Transform transformJefeFinal = new RelativeTransform(posicionJefeFinal, transformar);
+		jefes[2] = new EnemigoPistola(imageE, transformJefeFinal, 10);
 
 		for (int i = 0; i < jefes.length; i++) {
 			enemigos.add(jefes[i].getNombre(), jefes[i]);

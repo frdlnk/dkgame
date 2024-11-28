@@ -3,7 +3,15 @@ package utils.colision;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.entidades.ListaEntidades;
 
+/**
+ * Funciones utilitarias para la resolucion de colisiones
+ */
 public class ColisionUtils {
+	/**
+	 * Verifica la colision entre 2 objetos y decide cuales deben desencadenar onColision
+	 * @param col1 objeto 1
+	 * @param col2 objeto 2
+	 */
 	public static void colisionResolve(Colisionable col1, Colisionable col2) {
 		ColisionInfo col1Colisiona = col1.hayColision(col2);
 		ColisionInfo col2Colisiona = col2.hayColision(col1);
@@ -21,6 +29,11 @@ public class ColisionUtils {
 		
 	}
 	
+	/**
+	 * verifica la colision de un objeto con una lista de entidades
+	 * @param lista
+	 * @param colisionable
+	 */
 	public static void entityColisionVerifier(
 			ListaEntidades lista, Colisionable colisionable)
 	{

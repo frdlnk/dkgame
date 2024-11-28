@@ -3,6 +3,10 @@ package utils;
 import motor_v1.motor.input.InputKeyboard;
 import motor_v1.motor.input.Key;
 
+/**
+ * Clase utilitaria para facilitar los inputs de control para un jugador
+ * atraves de los ejes funcionales y teclas de funcion especial como salto
+ */
 public class PlayerControls {
 	private double direccionHorizontal;
 	private double direccionVertical;

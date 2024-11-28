@@ -10,22 +10,22 @@ import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.ListaEntidades;
 import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.util.Vector2D;
-import utils.Conf;
 import utils.colision.ColisionUtils;
 import utils.colision.Colisionable;
+import utils.constants.Conf;
 
 public abstract class Zona extends Entidad implements Colisionable{
 	private Vector2D direccionMovimiento;
 	protected ListaEntidades mapObjects;
 	protected ListaEntidades staticObjects;
 	protected ListaEntidades enemigos;
-	private Vector2D position;
+	protected Transform transformar;
 	protected UserConfig config; 
 	
 	public Zona(Vector2D direccionMovimiento, Vector2D posicion) {
 		super();
 		config = Game.configuracion;
-		this.position = posicion;
+		transformar = new Transform(posicion);
 		this.direccionMovimiento = direccionMovimiento;
 		this.mapObjects = new ListaEntidades();
 		this.staticObjects = new ListaEntidades();
@@ -91,31 +91,19 @@ public abstract class Zona extends Entidad implements Colisionable{
 	public void moverZona(Vector2D direccion, double distancia) {
 		Vector2D movimeinto = direccion.normalize().scale(distancia*GameLoop.dt);
 		
-		Vector2D nuevaPosicionZona = getPosition().add(movimeinto);
+		Vector2D nuevaPosicionZona = transformar.getPosicion().add(movimeinto);
 		
-		setPosition(nuevaPosicionZona);
+		transformar.setPosicion(nuevaPosicionZona);
 		
-		moverEntidades(enemigos, movimeinto);
-		moverEntidades(mapObjects, movimeinto);
 	}
 	
-	private void moverEntidades(ListaEntidades entidades, Vector2D movimiento) {
-		for (int i = 0; i < entidades.getSize(); i++) {
-			Entidad entidad = entidades.get(i);
-			if (entidad instanceof Sprite) {
-				Transform transformEntidad = ((Sprite) entidad).getTransformar();
-				Vector2D nuevaPosicion = transformEntidad.getPosicion().add(movimiento);
-				transformEntidad.trasladarloA(nuevaPosicion);
-			}
-		}
-	}
 	
 	public void posicionarZonaEstadoinicial() {
 		for (int i = 0; i < mapObjects.getSize(); i++) {
 			Entidad entidad = mapObjects.get(i);
 			if (mapObjects.get(i) instanceof Sprite) {
 				Transform transformEntidad = ((Sprite) entidad).getTransformar();
-				Vector2D movimiento = getPosition();
+				Vector2D movimiento = transformar.getPosicion();
 				Vector2D nuevaPosicion = transformEntidad.getPosicion().add(movimiento);
 				transformEntidad.setPosicion(nuevaPosicion);
 			}
@@ -142,12 +130,37 @@ public abstract class Zona extends Entidad implements Colisionable{
 		this.mapObjects = mapObjects;
 	}
 
-	public Vector2D getPosition() {
-		return position;
+	public ListaEntidades getStaticObjects() {
+		return staticObjects;
 	}
 
-	public void setPosition(Vector2D position) {
-		this.position = position;
+	public void setStaticObjects(ListaEntidades staticObjects) {
+		this.staticObjects = staticObjects;
 	}
+
+	public ListaEntidades getEnemigos() {
+		return enemigos;
+	}
+
+	public void setEnemigos(ListaEntidades enemigos) {
+		this.enemigos = enemigos;
+	}
+
+	public Transform getTransformar() {
+		return transformar;
+	}
+
+	public void setTransformar(Transform transformar) {
+		this.transformar = transformar;
+	}
+
+	public UserConfig getConfig() {
+		return config;
+	}
+
+	public void setConfig(UserConfig config) {
+		this.config = config;
+	}
+
 	
 }

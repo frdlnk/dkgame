@@ -1,5 +1,8 @@
-package utils;
+package utils.constants;
 
+/**
+ * Tipos de enemigos que pueden aparecer
+ */
 public class EnemyTypes {
 	public final static String HELICOPTERO = "HELICOPTERO";
 	public final static String GRANADERO = "GRANADERO";

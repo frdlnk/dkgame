@@ -1,5 +1,6 @@
 package modelo.entidades.enemigos;
 
+import java.awt.JobAttributes.SidesType;
 import java.awt.image.BufferedImage;
 
 import modelo.armamento.armas.Pistola;
@@ -8,48 +9,78 @@ import modelo.arrays.ArrayString;
 import modelo.entidades.Player;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
+import motor_v1.motor.component.Collider;
+import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
-import utils.Conf;
 import utils.colision.ColisionInfo;
+import utils.constants.Conf;
 import vista.escena.EscenaJuego;
 
+/**
+ * {@link Enemigo} basico que dispara hacia el jugador
+ * 
+ * @see Enemigo
+ */
 public class EnemigoPistola extends Enemigo {
+	//constantes de movimiento
+	public final static int MUNICIONES = 1000;
+	public final static double SHOOT_DELAY = 1.5;
 	public final static int SPEED = 100;
+	public final static int VIDA = 20;
+	public final static int TIEMPO_DISPARANDO = 3;
+	//propiedades de control
 	private boolean huir;
+	private double tiempoDeDisparo;
 
-	public EnemigoPistola(String nombre, BufferedImage[] imagenes, Vector2D posicion, double duracionImagen) {
-		super(nombre, imagenes, posicion, duracionImagen);
-		setArma(new Pistola());
-		getArma().setShootDelay(3);
-		getArma().setBalasRestantes(1000);
-		salud = 20;
+	/**
+	 * Crea un nuevo enemigo con {@value #VIDA} de vida y una pistola con {@value #MUNICIONES} balas
+	 * @param imagenes gif a mostrar
+	 * @param posicion inicial del enemigo
+	 * @param duracionImagen duracion del gif
+	 */
+	public EnemigoPistola(BufferedImage[] imagenes, Transform posicion, double duracionImagen) {
+		super(imagenes, posicion, duracionImagen, VIDA);
+		setArma(new Pistola(SHOOT_DELAY,MUNICIONES));
 		huir = false;
+		tiempoDeDisparo = 2;
 	}
 
 	@Override
 	public void onColision(ColisionInfo colision) {
-		if (colision .getEntidad() instanceof Player) {
+		//si no se encuentra en tiempo de disparo y choca con eljugador huye
+		if (colision .getEntidad() instanceof Player && tiempoDeDisparo < 0) {
 			huir = puedeHuir(getDistanciaJugador(getCentro()));
 		}
 	}
 	
 	@Override
 	public void actualizar() {
+		//si debe huir lo hace
 		if (huir) {
 			Vector2D distanciaJugador = getDistanciaJugador(getCentro());
 			if (distanciaJugador != null) {
+				//huye hasta verificar que se va a salir del mapa o esta los suficientemente lejos de l jugador
 				Vector2D direccion = new Vector2D(distanciaJugador.getX(),0).normalize().scale(-1);
 				fisica.addForce(direccion.scale(SPEED*GameLoop.dt));
 				huir = puedeHuir(distanciaJugador);
+				tiempoDeDisparo = TIEMPO_DISPARANDO;
 			}
 			
 		}else if (isInScreen()) {
+			//si no esta huyendo y esta en pantalla dispara
 			disparar();
 		}
+		tiempoDeDisparo -= GameLoop.dt;
 		super.actualizar();
 	}
 	
+	/**
+	 * verifica si el enemigo pude huir del jugador
+	 * @param distanciaJugador distancia hasta el jugador
+	 * @return si debe huir o no
+	 */
 	private boolean puedeHuir(Vector2D distanciaJugador) {
+		//no se sale de la pantalla y se aleja suficiente del jugador
 		return Math.abs(distanciaJugador.getX()) < 120 
 				&& transformar.getPosicion().getX() > 30
 				&& transformar.getPosicion().getX() < Conf.WINDOW_WIDTH-30;
@@ -86,5 +117,10 @@ public class EnemigoPistola extends Enemigo {
 		
 		Vector2D pos = getCentro().add(new Vector2D(x, y));
 		return pos;
+	}
+	
+	@Override
+	public Collider[] getColliders() {
+		return new Collider[] {colisiona};
 	}
 }

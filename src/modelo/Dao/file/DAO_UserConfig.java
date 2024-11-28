@@ -10,12 +10,25 @@ import modelo.arrays.UserConfigArray;
 import modelo.db.binary.ObjectFileWriter;
 import modelo.db.binary.ObjectReadManager;
 
+/**
+ * DAO de acceso a las configuraciones de usuario, mediante archivo binario
+ */
 public class DAO_UserConfig implements IDAOUserConfigs {
-
+	String fileName = "userConfig.data";
+	/**
+	 * Crea un nuevo DAO
+	 * @throws IOException si el archivo se encuentra corrupto o no se pued3e abrir
+	 * @throws ClassNotFoundException si {@link UserConfig} no se encuentra en los recursos del sistema
+	 */
 	public DAO_UserConfig() throws IOException, ClassNotFoundException {
 		load();
 	}
 	
+	/**
+	 * Carga los datos en el dataset
+	 * @throws ClassNotFoundException si {@link UserConfig} no se encuentra en los recursos del sistema
+	 * @throws IOException si existe problemas con el archivo
+	 */
 	public void load() throws ClassNotFoundException, IOException {
 		try (ObjectReadManager reader = new ObjectReadManager(fileName)){
 			reader.readAll(lista);
@@ -23,6 +36,9 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 		}
 	}
 	
+	/**
+	 * Guarad todos los registros en el archivo
+	 */
 	public void saveAll() {
 		try (ObjectFileWriter writer = new ObjectFileWriter(fileName)){
 			writer.replaceAll(lista.getArregloObjetos());
@@ -44,6 +60,11 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 		return -1;
 	}
 	
+	/**
+	 * verifica que el id no exista y asigna uno consecutivo si no tiene id
+	 * @param config configuracion a verificar
+	 * @return
+	 */
 	private boolean isIdValid(UserConfig config) {
 		//id autoincremetable
 		if (config.getId() == 0) {

@@ -1,4 +1,4 @@
-package utils.arrays;
+package modelo.arrays;
 
 import java.awt.image.BufferedImage;
 

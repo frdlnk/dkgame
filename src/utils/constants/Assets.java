@@ -1,26 +1,47 @@
-package utils;
+package utils.constants;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import java.util.Iterator;
 
+import modelo.arrays.ArrayCoords;
 import motor_v1.motor.util.Loader;
-import utils.arrays.ArrayCoords;
+import utils.SpriteLoader;
 
+/**
+ * Assets del juego
+ */
 public class Assets {
 
 	public static BufferedImage MAPA_NIVEL_1;
 	public static BufferedImage PLAYER_SPRITES;
 	public static BufferedImage AVION_CATARATA_M1;
 	public static BufferedImage CATARATA_AVION;
+
 	public static ArrayCoords coord;
 	public static ArrayCoords cuts;
 	public static ArrayCoords gifs;
-	public static String[] spriteNames = {"pistol_idle", "pistol_shoot", "pistol_up_shoot", "crouch_pistol_idle", "crouch_pistol_shoot", "crouch_pistol_walk", "crouch_ani_pistol"};
+
+	public static BufferedImage[] PLAYER_IDLE = new BufferedImage[1];
+	public static BufferedImage[] PLAYER_IDLE_IZQ = new BufferedImage[2];
+
+	public static String[] spriteNames = {"pistol_idle", "pistol_shoot", "pistol_up_shoot", "crouch_pistol_idle"};
 	
 	public static boolean load() {
 		MAPA_NIVEL_1 = Loader.cargarImagen("/MetalSlug-Mission1.png");
 		PLAYER_SPRITES = Loader.cargarImagen("/Walter_Revised.png");
+		
+		PLAYER_IDLE[0] = Loader.cargarImagen("/PlayerIdle/0.png");
+		//PLAYER_IDLE[1] = Loader.cargarImagen("/PlayerIdle/10.png");
+		PLAYER_IDLE_IZQ[0] = invertir(PLAYER_IDLE[0]);
+		//PLAYER_IDLE_IZQ[1] = invertir(PLAYER_IDLE[1]);
+		//PLAYER_IDLE[2] = Loader.cargarImagen("/PlayerIdle/9.png");
+		
 		AVION_CATARATA_M1 = Loader.cargarImagen("/avionCatarataM1.png");
 		CATARATA_AVION = Loader.cargarImagen("/catarata.png");
 		coord = new ArrayCoords();
@@ -32,7 +53,24 @@ public class Assets {
 		return true;
 	}
 
+	
+	/**
+	 * invierte una imagen
+	 * @param image imagen a invertir
+	 * @return imagen invertida
+	 */
+	private static BufferedImage invertir(BufferedImage image) {
+		AffineTransform at = AffineTransform.getScaleInstance(-1, 1);
+		at.concatenate(AffineTransform.getTranslateInstance(-image.getWidth(), 0));
+		BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
+		Graphics2D g = newImage.createGraphics();
+		g.drawImage(image, at,null);
+		g.dispose();
+		return newImage;
+	}
+	
 	private static void loadGifs(ArrayCoords coord, ArrayCoords cuts) {
+
 		BufferedImage[] temp;
 		for (int i = 0; i < coord.size(); i++) {
 

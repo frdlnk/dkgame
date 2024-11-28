@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import ctrl.gameControlers.Game;
 import modelo.armamento.Explosion;
 import modelo.armamento.armas.Arma;
 import modelo.armamento.armas.HeavyMachineGun;
@@ -12,6 +13,7 @@ import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Municion;
 import modelo.arrays.ArrayString;
 import modelo.componentes.Fisica;
+import modelo.componentes.RelativeTransform;
 import modelo.entidades.enemigos.Enemigo;
 import modelo.spritesCargados.SpritesPlayer;
 import modelo.worldObjects.Caja;
@@ -26,6 +28,9 @@ import motor_v1.motor.input.InputMouse;
 import motor_v1.motor.util.Vector2D;
 import utils.*;
 import utils.colision.ColisionInfo;
+import utils.constants.Assets;
+import utils.constants.Conf;
+import utils.constants.Tags;
 import vista.escena.EscenaJuego;
 
 /**
@@ -36,8 +41,9 @@ import vista.escena.EscenaJuego;
  */
 public class Player extends Soldado{
 	//cosntantes
-	public final static int speed = 400;//px/s
-	public final static int jumpForce = 8;//fuerza puntual aplicada
+	public final static double SALUD = 100.0;//px/s
+	public final static int SPEED = 400;//px/s
+	public final static int JUMP_FORCE = 8;//fuerza puntual aplicada
 	public final static double DELAY_CUCHILLO = .3;
 	
 	//variables de posicion y estado
@@ -61,33 +67,34 @@ public class Player extends Soldado{
 	private SpritesPlayer spritesPlayer;
 	private int puntaje;
 	
-	public Player(String nombre, BufferedImage[] imagenes, Transform transformar, double duracionImagen) {
-		this(nombre,imagenes,transformar.getPosicion(),duracionImagen);
-		
-	}
-
-	public Player(String nombre, BufferedImage[] imagenes, Vector2D posicion, double duracionImagen) {
-		super(nombre, imagenes, posicion, duracionImagen);
+	/**
+	 * Crea un nuevo jugador 
+	 * @param imagenes gif a presentar
+	 * @param transformar inicial del jugador
+	 * @param duracionImagen 
+	 */
+	public Player(BufferedImage[] imagenes, Transform transformar, double duracionImagen) {
+		super(Tags.PLAYER,imagenes,transformar,duracionImagen, SALUD);
 		spritesPlayer = new SpritesPlayer(this.getTransformar());
-		colisiona.getHitbox().setLocation((int)posicion.getX(), (int)posicion.getY());
+		colisiona.actualizar();
 		fisica = new Fisica(1,1.5,transformar);
 		direccionDisparo = Vector2D.RIGHT;
 		isGrounded = false;
-		setArma(new HeavyMachineGun());
-		getArma().setBalasRestantes(10);
+		setArma(Game.getConfiguracion().getArmainicial());
 		controles = new PlayerControls();
 		estaAgachado = false;
-		salud = 100;
-		cuchilloColider = new Collider(transformar, 30, 20);
+		Vector2D posCuchillo = new Vector2D(Conf.PLAYER_WIDTH, Conf.PLAYER_HEIGHT/2);
+		Transform transformChuchillo = new RelativeTransform(posCuchillo, transformar);
+		cuchilloColider = new Collider(transformChuchillo, 30, 20);
 		cuchilloDelay = DELAY_CUCHILLO;
-		puntaje = 0;
+		setPuntaje(0);
 	}
-	
 
 	@Override
 	public void actualizar() {
 		continuaEnSuelo();
 		
+		//conseguir ejes de movimiento
 		controles.actualizar();
 		double direccionHorizontal = controles.getDireccionHorizontal();
 		double direccionVertical = controles.getDireccionVertical();
@@ -102,8 +109,7 @@ public class Player extends Soldado{
 		fisica.actualizar();
 		calcularLimitesHorizontales();
 		colisiona.actualizar();
-		Vector2D pos = transformar.getPosicion();
-		cuchilloColider.getHitbox().setLocation((int)pos.getX()+Conf.PLAYER_WIDTH, (int)pos.getY()+Conf.PLAYER_HEIGHT/2);
+		cuchilloColider.actualizar();
 		spritesPlayer.actualizar();
 		isTouchingEnemy = false;
 		
@@ -111,32 +117,39 @@ public class Player extends Soldado{
 			cuchilloDelay -= GameLoop.dt;
 		}
 		
-		if (getArma().getBalasRestantes() < 1 && !(getArma() instanceof Pistola)) {
-			setArma(new Pistola());
-			getArma().setBalasRestantes(1000);
-			getArma().setShootDelay(.3);
+		//arma default
+		if (getArma().getBalasRestantes() < 1) {
+			setArma(Game.getConfiguracion().getArmainicial());
 		}
 		
 		super.actualizar();
 	}
 	
+	/**
+	 * se encarga del movimiento del personaje
+	 * @param direccionHorizontal eje direcional en x para el movimiento
+	 */
 	private void movimiento(double direccionHorizontal) {
-		double movimiento = speed;
+		double movimiento = SPEED;
 		isMoving = true;
-
+		spritesPlayer.cambiarAnimacionA(Assets.spriteNames[0]);
+		//decide si esta agachado
 		if(controles.getDireccionVertical() == 1 && isGrounded && !estaAgachado) {
 			agacharse();
 		}else if(controles.getDireccionVertical() != 1 && estaAgachado){
 			pararse();
 		}
+		//si esta agachado se mueve mas lento
 		if (estaAgachado) {
 			movimiento *= 0.8;
 		}
+		//solo salta si esta en el suelo t presina la teclka de salto
 		if (controles.isJump() && isGrounded) {
 			isGrounded = false;
-			fisica.impulsar(Vector2D.UP.scale(jumpForce));
+			fisica.impulsar(Vector2D.UP.scale(JUMP_FORCE));
 			if (estaAgachado) pararse();
 		}
+		//anade la fuerza segun la direccion dada
 		fisica.addForce(new Vector2D(direccionHorizontal*movimiento*GameLoop.dt,0));
 	}
 
@@ -152,6 +165,11 @@ public class Player extends Soldado{
 		}
 	}
 
+	/**
+	 * Calcula la direccion en la que esta viendo para disparar
+	 * @param direccionHorizontal eje direccional en x 
+	 * @param direccionVertical eje direccional en y
+	 */
 	private void calcularDireccionDisparo(double direccionHorizontal, double direccionVertical) {
 		double y = estaAgachado ? 0 : direccionVertical;
 		double x = direccionHorizontal; 
@@ -170,6 +188,9 @@ public class Player extends Soldado{
 		direccionDisparo = new Vector2D(x,y);
 	}
 	
+	/**
+	 * Hace agacjarse al jugador
+	 */
 	private void agacharse() {
 		direccionDisparo.setY(0);
 		transformar.escalarloA(new Vector2D(1,.5));
@@ -178,6 +199,9 @@ public class Player extends Soldado{
 		estaAgachado = true;
 	}
 	
+	/**
+	 * Para al jugador 
+	 */
 	private void pararse() {
 		transformar.escalarloA(Vector2D.ONE);
 		Vector2D posicion = transformar.getPosicion();
@@ -186,6 +210,9 @@ public class Player extends Soldado{
 		estaAgachado = false;
 	}
 
+	/**
+	 * Calcula los limites de pantalla
+	 */
 	public void calcularLimitesHorizontales() {
 		Vector2D posicion = transformar.getPosicion();
 		if (posicion.getX() < 0) {
@@ -199,6 +226,9 @@ public class Player extends Soldado{
 	}
 	
 	
+	/**
+	 * dispara con el arma actual del jugador
+	 */
 	public void disparar() {
 		usaCuchillo = false;
 		if (InputMouse.isPressed() && cuchilloDelay <= 0) {
@@ -250,21 +280,26 @@ public class Player extends Soldado{
 	@Override
 	public void onColision(ColisionInfo colision) {
 		Entidad entidad = colision.getEntidad();
+		//si colisiona con un recogible
 		if (entidad instanceof Recogible) {
 			Object reward = ((Recogible) entidad).getReward();
 			if (reward instanceof Arma) {
 				setArma((Arma) reward);
 			}
-			puntaje += ((Recogible)entidad).getPuntos();
+			setPuntaje(getPuntaje() + ((Recogible)entidad).getPuntos());
 		}
+		//si colisiona con una caja
 		else if(entidad instanceof Caja) {
 			Rectangle otroHitbox = colision.getColider().getHitbox();
+			//is grounded
 			if(otroHitbox.getMinY() >= colisiona.getHitbox().getMaxY()-1 && fisica.getUltimaDireccion().getY() >= 0) {
 				isGrounded = true;
 			}
 		}
+		//si colisiona con un enemigo
 		else if (entidad instanceof Enemigo) {
 			isTouchingEnemy = entidad.getViva();
+			//puede usar el cuchillo
 			if (usaCuchillo && cuchilloColider.colisionaCon(colision.getColider())) {
 				((Enemigo) entidad).recibirDano(50);
 				usaCuchillo = false;
@@ -291,6 +326,9 @@ public class Player extends Soldado{
 		return new Collider[] {colisiona,cuchilloColider};
 	}
 	
+	/**
+	 * verifica que aun continue en el suelo
+	 */
 	private void continuaEnSuelo() {
 		isGrounded = isGrounded && fisica.getVectorMovimiento().getY() == 0;
 	}
@@ -317,6 +355,14 @@ public class Player extends Soldado{
 
 	public void setGrounded(boolean isGrounded) {
 		this.isGrounded = isGrounded;
+	}
+
+	public int getPuntaje() {
+		return puntaje;
+	}
+
+	public void setPuntaje(int puntaje) {
+		this.puntaje = puntaje;
 	}
 
 }

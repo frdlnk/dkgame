@@ -12,8 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.LineBorder;
 
+import utils.constants.Colors;
 import vista.components.Button;
-import vista.uiConstants.Colors;
 
 import java.awt.FlowLayout;
 
