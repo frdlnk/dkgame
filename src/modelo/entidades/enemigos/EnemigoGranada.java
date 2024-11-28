@@ -6,15 +6,12 @@ import java.util.Random;
 import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Granada;
 import modelo.arrays.ArrayString;
-import modelo.entidades.Player;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
 import utils.colision.ColisionInfo;
-import utils.constants.Conf;
-import utils.constants.Tags;
 import vista.escena.EscenaJuego;
 
 /**

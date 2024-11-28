@@ -27,9 +27,17 @@ public class EliminarControler extends BuscarControler implements ActionListener
 		vistaEliminar = vista;
 		
 		vista.getBtnDetalles().addActionListener(this);
-		vista.getBtnSave().addActionListener(this);
+		vista.getBtnDelete().addActionListener(this);
+		vista.getBtnCancelar().addActionListener(this);
 		
 		vista.setVisible(true);
+	}
+	
+	/**
+	 * Cambia a la pantalla de busqueda
+	 */
+	private void volverABuscar() {
+		vistaEliminar.changeToBuscarPanel();
 	}
 
 	/**
@@ -63,8 +71,10 @@ public class EliminarControler extends BuscarControler implements ActionListener
 		Object source = e.getSource();
 		if (source.equals(vistaEliminar.getBtnDetalles())) {
 			mostrarDetalles();
-		}else if(source.equals(vistaEliminar.getBtnSave())) {
+		}else if(source.equals(vistaEliminar.getBtnDelete())) {
 			eliminarUsuario();
+		}else if(source.equals(vistaEliminar.getBtnCancelar())) {
+			volverABuscar();
 		}
 	}
 

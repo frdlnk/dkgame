@@ -31,6 +31,7 @@ public class VistaEliminar extends VistaBuscar {
 	private Button btnDetalles;
 	private JTextField tfNivel;
 	private JTextField tfPuntaje;
+	private Button btnCancelar;
 
 	public VistaEliminar(JFrame frame) {
 		super(frame);
@@ -101,8 +102,19 @@ public class VistaEliminar extends VistaBuscar {
 		tfPuntaje.setBounds(93, 123, 261, 20);
 		deletePanel.add(tfPuntaje);
 		tfPuntaje.setColumns(10);
+		
+		btnCancelar = new Button("Cancelar");
+		btnCancelar.setForeground(Color.WHITE);
+		btnCancelar.setBorder(new LineBorder(Colors.COLOR_GRAY));
+		btnCancelar.setBackground(null);
+		btnCancelar.setForeground(Colors.COLOR_GRAY);
+		btnCancelar.setBounds(10, 164, 63, 26);
+		deletePanel.add(btnCancelar);
 	}
 	
+	/**
+	 * Cambia el panel de contenido al de delete
+	 */
 	public void changeToDeletePanel() {
 		setContentPane(deletePanel);
 		setBounds(deletePanel.getBounds());
@@ -161,14 +173,6 @@ public class VistaEliminar extends VistaBuscar {
 		this.tfPassword = tfPassword;
 	}
 
-	public Button getBtnSave() {
-		return btnDelete;
-	}
-
-	public void setBtnSave(Button btnSave) {
-		this.btnDelete = btnSave;
-	}
-
 	public JLabel getLblNivel() {
 		return lblNivel;
 	}
@@ -207,6 +211,30 @@ public class VistaEliminar extends VistaBuscar {
 
 	public void setTfPuntaje(JTextField tfPuntaje) {
 		this.tfPuntaje = tfPuntaje;
+	}
+
+	public JPanel getDeletePanel() {
+		return deletePanel;
+	}
+
+	public void setDeletePanel(JPanel deletePanel) {
+		this.deletePanel = deletePanel;
+	}
+
+	public Button getBtnDelete() {
+		return btnDelete;
+	}
+
+	public void setBtnDelete(Button btnDelete) {
+		this.btnDelete = btnDelete;
+	}
+
+	public Button getBtnCancelar() {
+		return btnCancelar;
+	}
+
+	public void setBtnCancelar(Button btnCancelar) {
+		this.btnCancelar = btnCancelar;
 	}
 	
 	

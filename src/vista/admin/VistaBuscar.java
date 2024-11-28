@@ -50,6 +50,10 @@ public class VistaBuscar extends JDialog {
 		initComponents();
 	}
 	
+	/**
+	 * Carga una lista de usuarios a la lista de la ventana
+	 * @param users
+	 */
 	public void loadUsers(Usuario[] users) {
 		if (users != null) {
 			listaUsuarios.setListData(users);

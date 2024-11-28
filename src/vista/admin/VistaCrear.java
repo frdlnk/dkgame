@@ -33,7 +33,6 @@ public class VistaCrear extends JDialog {
 
 	/**
 	 * Create the dialog.
-	 * @wbp.parser.constructor
 	 */
 	public VistaCrear(JFrame frame) {
 		super(frame, true);
