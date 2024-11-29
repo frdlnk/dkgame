@@ -1,5 +1,7 @@
 package modelo.spritesCargados;
 
+import modelo.componentes.RelativeTransform;
+import modelo.entidades.Player;
 import motor_v1.motor.component.Animation;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.Gif;
@@ -10,21 +12,34 @@ import java.awt.Graphics;
 
 public class SpritesPlayer extends Animation{
 	private double escala;
+    private Animation legs;
+    Player player;
 	
-    public SpritesPlayer( Transform transform) {
-        super("");
-        this.setTransformar(transform);
+    public SpritesPlayer(Player player) {
+        super("torso");
+        this.player = player;
+        this.setTransformar(this.player.getTransformar());
+        legs = new Animation("legs");
         loadGifs();
         escala = 2;
+
+
+
     }
 
     private void loadGifs() {
         Assets.load();
         for (int i = 0; i < Assets.gifs.size(); i++) {
-            Gif gif = new Gif(Assets.spriteNames[i], Assets.gifs.getImage(Assets.spriteNames[i]), this.getTransformar(), 150);
+            Gif gif = new Gif(Assets.spriteNames[i], Assets.gifs.getImages(Assets.spriteNames[i]), this.getTransformar(), 150);
             this.add(gif.getNombre(), gif);
         }
         cambiarAnimacionA(Assets.spriteNames[0]);
+
+        for (int i = 0; i < Assets.gifsL.size(); i++) {
+            Gif gif = new Gif(Assets.legNames[i], Assets.gifsL.getImages(Assets.legNames[i]), this.getTransformar(), 150);
+            legs.add(gif.getNombre(), gif);
+        }
+        legs.cambiarAnimacionA(Assets.legNames[0]);
     }
     
     @Override
@@ -36,5 +51,15 @@ public class SpritesPlayer extends Animation{
     	super.dibujar(g);
     	pos.setY(pos.getY()-.6);
     	getTransformar().setEscala(escala);
+
+
+
+//        Vector2D legPos = new Vector2D(this.getTransformar().getPosicion().getX(),player.getColisiona().getHitbox().height - Assets.gifsL.getImage(legs.getAnimacionActual().getNombre(), 0).getHeight());
+//        Transform transformLeg = new RelativeTransform(legPos, this.getTransformar());
+//        legs.setTransformar(transformLeg);
+//        Vector2D escalaLeg = getTransformar().getEscala();
+//        legs.getTransformar().setEscala(new Vector2D(this.escala, this.escala));
+//        legs.dibujar(g);
+//        legs.getTransformar().setEscala(escalaLeg);
     }
 }

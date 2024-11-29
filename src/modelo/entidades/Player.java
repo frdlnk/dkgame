@@ -71,7 +71,7 @@ public class Player extends Soldado{
 	 */
 	public Player(BufferedImage[] imagenes, Transform transformar, double duracionImagen) {
 		super(Tags.PLAYER,imagenes,transformar,duracionImagen, SALUD);
-		spritesPlayer = new SpritesPlayer(this.getTransformar());
+		spritesPlayer = new SpritesPlayer(this);
 		colisiona.actualizar();
 		fisica = new Fisica(1,1.5,transformar);
 		direccionDisparo = Vector2D.RIGHT;

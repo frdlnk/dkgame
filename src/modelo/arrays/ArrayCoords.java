@@ -66,11 +66,21 @@ public class ArrayCoords {
         return null;
     }
 
-    public BufferedImage[] getImage(String res) {
+    public BufferedImage[] getImages(String res) {
         int i = 0;
         for (Object[] obj: arregloObjetos){
             if (obj[0].toString().equals(res)){
                 return (BufferedImage[]) obj[1];
+            }
+        }
+        return null;
+    }
+    public BufferedImage getImage(String res, int indic) {
+        int i = 0;
+        for (Object[] obj: arregloObjetos){
+            if (obj[0].toString().equals(res)){
+                BufferedImage[] bufferedImages = getImages((String) obj[0]);
+                return bufferedImages[indic];
             }
         }
         return null;
