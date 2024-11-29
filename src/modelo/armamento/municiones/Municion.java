@@ -55,6 +55,7 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 		renderer = new Renderer(transformar, textura);
 		this.targetIgnore = targetsIgnore;
 		targetsIgnore.add(Tags.MUNICION);
+		this.dano = dano;
 	}
 	
 	/**

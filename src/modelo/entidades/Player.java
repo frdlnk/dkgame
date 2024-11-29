@@ -37,7 +37,7 @@ import vista.escena.EscenaJuego;
  */
 public class Player extends Soldado{
 	//cosntantes
-	public final static double SALUD = 100.0;//px/s
+	public final static double SALUD = 30.0;
 	public final static int SPEED = 400;//px/s
 	public final static int JUMP_FORCE = 8;//fuerza puntual aplicada
 	public final static double DELAY_CUCHILLO = .3;
@@ -88,6 +88,7 @@ public class Player extends Soldado{
 		cuchilloColider = new Collider(transformChuchillo, 30, 20);
 		cuchilloDelay = DELAY_CUCHILLO;
 		setPuntaje(0);
+		this.vidasRestantes = vidasRestantes;
 	}
 
 	@Override
@@ -124,6 +125,12 @@ public class Player extends Soldado{
 		}
 		
 		super.actualizar();
+	}
+	
+	private void reaparecer() {
+		Vector2D posReaparicion = new Vector2D(20,200);
+		transformar.trasladarloA(posReaparicion);
+		setSalud(SALUD);
 	}
 	
 	/**
@@ -314,12 +321,17 @@ public class Player extends Soldado{
 	@Override
 	public void morir() {
 		setVidasRestantes(getVidasRestantes() - 1);
-		destruir();
+		if (vidasRestantes <= 0) {
+			destruir();
+		}else {
+			reaparecer();
+		}
 	}
 
 	@Override
 	public void recibirDano(double dano) {
 		salud -= dano;
+		System.out.println(dano);
 		if (salud <= 0) {
 			salud = 0;
 			morir();

@@ -34,6 +34,7 @@ public class EscenaUno extends EscenaJuego{
 		if (!jugador1.getViva() && jugador1.getVidasRestantes() > 0) {
 			Vector2D posReaparicion = new Vector2D(20,200);
 			jugador1.getTransformar().trasladarloA(posReaparicion);
+			jugador1.setViva(true);
 		}
 		if (!jugador1.getViva() && jugador1.getVidasRestantes() < 0) {
 			Scene.cambiarEscena(new EscenaPerder());

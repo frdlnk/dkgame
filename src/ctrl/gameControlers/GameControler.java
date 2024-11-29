@@ -1,6 +1,5 @@
 package ctrl.gameControlers;
 
-import java.io.IOException;
 
 import modelo.UserConfig;
 import modelo.Usuario;
@@ -10,7 +9,6 @@ import modelo.Dao.file.DAO_UserConfig;
 import modelo.Dao.file.DAO_Usuario;
 import motor_v1.motor.GameLoop;
 import vista.game.VistaInicioJuego;
-import vista.game.VistaLogin;
 
 /**
  * Esta calse se encarga de crear un nuevo juego y controlar el Loop principal
@@ -36,6 +34,7 @@ public class GameControler {
 		}
 		
 		modeloUser.update(Game.loggedUser);
+		Game.lienzo.dispose();
 		
 		VistaInicioJuego vista = new VistaInicioJuego();
 		new WelcomeGameControler(vista, modeloUser, modeloConfigs);

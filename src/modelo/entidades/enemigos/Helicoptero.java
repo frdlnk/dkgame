@@ -130,7 +130,7 @@ public class Helicoptero extends Enemigo {
 		//Crea y agrega los cohetes al escenario
 		ArrayString targetsIgnored = new ArrayString();
 		targetsIgnored.add(getNombre());
-		int dano = 30;
+		int dano = 20;
 		Choete cohete = new Choete(posicionDisparo(), Vector2D.ZERO, targetsIgnored, dano);
 		if (escenaActual instanceof EscenaJuego) {
 			((EscenaJuego) escenaActual).addEntidad(cohete);
