@@ -15,7 +15,6 @@ import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
 import utils.constants.Conf;
-import utils.constants.Tags;
 import vista.escena.EscenaCarga;
 
 /**

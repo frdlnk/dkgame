@@ -19,7 +19,7 @@ import vista.admin.VistaBuscar;
  */
 public class BuscarControler implements DocumentListener{
 	private VistaBuscar vista;
-	protected IDAOUsuario modelo;
+	protected IDAOUsuario modeloUsuario;
 	
 	/** 
 	 * Constructor, genera un nuevo controlador con la vista y modelo indicados
@@ -29,7 +29,7 @@ public class BuscarControler implements DocumentListener{
 	 */
 	public BuscarControler(VistaBuscar vista, IDAOUsuario modelo) {
 		this.vista = vista;
-		this.modelo = modelo;
+		this.modeloUsuario = modelo;
 		vista.getSearchTextField().getDocument().addDocumentListener(this);
 		//carga los datos iniciales
 		onTextChanged();
@@ -45,11 +45,11 @@ public class BuscarControler implements DocumentListener{
 		
 		//si no hay busqueda definida se crgan todos los datos
 		if (searchedValue.equals("")) {
-			data = modelo.getAll();
+			data = modeloUsuario.getAll();
 		}else {
 			String criterio = vista.getComparativeMode();
 			String modo = vista.getSearchMode();
-			data = modelo.search(searchedValue, criterio, modo);
+			data = modeloUsuario.search(searchedValue, criterio, modo);
 		}
 		
 		vista.loadUsers(data.getArregloObjetos());

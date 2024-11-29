@@ -4,7 +4,6 @@ import modelo.arrays.ArrayString;
 import modelo.entidades.Soldado;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.util.Vector2D;
-import utils.constants.Tags;
 
 /**
  * {@link Municion} mas comun, crea una bala que viaja en linea recta hasta impactar

@@ -15,8 +15,6 @@ import javax.swing.border.LineBorder;
 
 import utils.constants.Colors;
 
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 
 public class VistaCrear extends JDialog {
 

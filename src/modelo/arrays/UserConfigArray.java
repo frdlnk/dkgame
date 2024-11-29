@@ -1,7 +1,6 @@
 package modelo.arrays;
 
 import modelo.UserConfig;
-import modelo.Usuario;
 
 public class UserConfigArray extends Array {
 

@@ -8,9 +8,15 @@ import modelo.arrays.ArrayString;
 import motor_v1.motor.util.Vector2D;
 
 public class HeavyMachineGun extends Arma {
+	private double dano;
 
-	public HeavyMachineGun() {
-		shootDelay = 0.1;
+	public HeavyMachineGun(){
+		this(100,10);
+	}
+
+	public HeavyMachineGun(int municiones, int dano) {
+		super(0.1,municiones);
+		this.dano = dano;
 	}
 	
 	@Override
@@ -23,7 +29,7 @@ public class HeavyMachineGun extends Arma {
 		else
 			posicion = posicion.add(new Vector2D(0,dispersion));
 		
-		return new Bala(posicion, direccion, targetsIgnored, 10);
+		return new Bala(posicion, direccion, targetsIgnored, dano);
 	}
 
 }

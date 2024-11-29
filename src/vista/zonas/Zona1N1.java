@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 
 import modelo.componentes.RelativeTransform;
 import modelo.entidades.Soldado;
-import modelo.entidades.enemigos.Enemigo;
 import modelo.entidades.enemigos.EnemigoGranada;
 import modelo.entidades.enemigos.EnemigoPistola;
 import modelo.entidades.enemigos.Helicoptero;

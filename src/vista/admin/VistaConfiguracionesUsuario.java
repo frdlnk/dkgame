@@ -5,11 +5,12 @@ import java.awt.Rectangle;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import modelo.UserConfig;
 import utils.constants.ArmasDisponibles;
 import utils.constants.Colors;
+import utils.constants.EnemyTypes;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -41,23 +42,29 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 	private Button btnSave;
 	private Button btnCancelar;
 	private Rectangle originaBounds;
-
-	/**
-	 * Create the dialog.
-	 */
-	public VistaConfiguracionesUsuario(JFrame frame) {
-		super(frame);
-		Dimension lastDimension = super.getSize();
-		Dimension newDimension = new Dimension(lastDimension.width, lastDimension.height+30);
-		super.setSize(newDimension);
-		originaBounds = super.getBounds();
-		configPanel.setSize(419, 261);
-		configPanel.setLocation(getLocation());
-		initComponents();
-	}
+	private Button btnSelecionar;
 	
-	private void initComponents() {
+		/**
+		 * Create the dialog.
+		 */
+		public VistaConfiguracionesUsuario(JFrame frame) {
+			super(frame);
+			Dimension lastDimension = super.getSize();
+			Dimension newDimension = new Dimension(lastDimension.width, lastDimension.height+30);
+			super.setSize(newDimension);
+			originaBounds = super.getBounds();
+			configPanel.setSize(419, 261);
+			configPanel.setLocation(getLocation());
+			initComponents();
+		}
+		
+		private void initComponents() {
 		configPanel.setLayout(null);
+	
+		btnSelecionar = new Button("Selecionar");
+		btnSelecionar.setBounds(448, 408, 80, 20);
+		btnSelecionar.setBackground(Colors.COLOR6);
+		getBusquedaPanel().add(btnSelecionar);
 		
 		chBoxHelicopteros = new JCheckBox("Helicopteros");
 		chBoxHelicopteros.setBounds(28, 32, 97, 23);
@@ -125,7 +132,26 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 
 	}
 	
-	public void changeToConfigPanel() {
+	public void changeToConfigPanel(UserConfig configuracion) {
+		String[] enemies = configuracion.getEnemigosActivos();
+		for (String enemy : enemies) {
+			switch (enemy) {
+				case EnemyTypes.GRANADERO:
+					chBoxGranaderos.setSelected(true);
+					break;
+				case EnemyTypes.HELICOPTERO:
+					chBoxHelicopteros.setSelected(true);
+					break;
+				case EnemyTypes.PISTOLERO:
+					chBoxPistoleros.setSelected(true);
+					break;
+			}
+		}
+
+		spMultiplicadorDanoEnemigos.setValue(configuracion.getMultiplicadorDanoEnemigo());
+		spMultiplicadorDanoJugador.setValue(configuracion.getMultiplicadorDano());
+		spVidasIniciales.setValue(configuracion.getVidasIniciales());
+		cBoxArmaInicial.setSelectedItem(configuracion.getArmainicial());
 		setContentPane(configPanel);
 		setBounds(configPanel.getBounds());
 	}
@@ -255,4 +281,17 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 		this.originaBounds = originaBounds;
 	}
 
+	public JPanel getConfigPanel() {
+		return configPanel;
+	}
+
+	public Button getBtnSelecionar() {
+		return btnSelecionar;
+	}
+
+	public void setBtnSelecionar(Button btnSelecionar) {
+		this.btnSelecionar = btnSelecionar;
+	}
+
+	
 }

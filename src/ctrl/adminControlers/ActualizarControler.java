@@ -41,7 +41,7 @@ public class ActualizarControler extends BuscarControler implements ActionListen
 		String newPassword = vistaActualizar.getTfPassword().getText();
 		if (validateData(newPassword)) {
 			user.setPassword(newPassword);
-			modelo.update(user);
+			modeloUsuario.update(user);
 			vistaActualizar.changeToSearchPanel();
 		}
 	}

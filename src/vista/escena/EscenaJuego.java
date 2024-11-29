@@ -1,7 +1,6 @@
 package vista.escena;
 
 
-import modelo.entidades.Player;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.Scene;
 import motor_v1.motor.entidades.ListaEntidades;

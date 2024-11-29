@@ -1,7 +1,5 @@
 package modelo;
 
-import java.io.*;
-import java.util.UUID;
 
 /**
  * Modelo de datos para la informacion del usuario

@@ -10,6 +10,7 @@ import vista.admin.VistaCrear;
 import vista.admin.VistaDetalles;
 import vista.admin.VistaEliminar;
 import vista.admin.VistaActualizar;
+import vista.admin.VistaConfiguracionesUsuario;
 
 /**
  * Controlador encargado del panel de administracion
@@ -35,9 +36,15 @@ public class AdminPanelControler implements ActionListener{
 		vista.getBtnAgregar().addActionListener(this);
 		vista.getBtnBuscar().addActionListener(this);
 		vista.getBtnEliminar().addActionListener(this);
+		vista.getBtnConfiguraciones().addActionListener(this);
 		vista.setVisible(true);
 	}
 	
+	private void openConfiguraciones(){
+		VistaConfiguracionesUsuario vistaConf = new VistaConfiguracionesUsuario(vista);
+		new ConfiguracionesControler(vistaConf, modeloUsers, modeloConfigs);
+	}
+
 	/**
 	 * Abre la vista actualizar
 	 */
@@ -83,6 +90,8 @@ public class AdminPanelControler implements ActionListener{
 			openBuscar();
 		}else if (source.equals(vista.getBtnEliminar())) {
 			openEliminar();
+		}else if (source.equals(vista.getBtnConfiguraciones())) {
+			openConfiguraciones();
 		}
 	}
 }

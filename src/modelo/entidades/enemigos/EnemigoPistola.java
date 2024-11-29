@@ -1,6 +1,5 @@
 package modelo.entidades.enemigos;
 
-import java.awt.JobAttributes.SidesType;
 import java.awt.image.BufferedImage;
 
 import modelo.armamento.armas.Pistola;

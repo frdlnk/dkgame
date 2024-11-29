@@ -1,14 +1,10 @@
 package vista;
 
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
 
 public class MenuInicio extends JFrame {
 

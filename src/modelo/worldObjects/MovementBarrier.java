@@ -3,7 +3,6 @@ package modelo.worldObjects;
 import java.awt.image.BufferedImage;
 
 import modelo.entidades.Player;
-import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
 import utils.colision.ColisionInfo;

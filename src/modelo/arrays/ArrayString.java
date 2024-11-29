@@ -1,7 +1,5 @@
 package modelo.arrays;
 
-import modelo.Usuario;
-import motor_v1.motor.util.Vector2D;
 
 /**
  * Array que contiene Strings
@@ -59,7 +57,7 @@ public class ArrayString extends Array {
 	/**
 	 *Regresa el arreglo de Strings almacenados
 	 */
-	protected String[] getArregloObjetos() {
+	public String[] getArregloObjetos() {
 		String[] lista = new String[getSize()];
 		Object[] superListObjects = super.getArregloObjetos();
 		for (int i = 0; i < lista.length; i++) {

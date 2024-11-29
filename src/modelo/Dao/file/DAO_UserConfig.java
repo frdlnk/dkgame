@@ -3,9 +3,7 @@ package modelo.Dao.file;
 import java.io.IOException;
 
 import modelo.UserConfig;
-import modelo.Usuario;
 import modelo.Dao.IDAOUserConfigs;
-import modelo.arrays.UserArray;
 import modelo.arrays.UserConfigArray;
 import modelo.db.binary.ObjectFileWriter;
 import modelo.db.binary.ObjectReadManager;

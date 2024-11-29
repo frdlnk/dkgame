@@ -1,10 +1,9 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
-import modelo.armamento.armas.Arma;
-import modelo.armamento.armas.Pistola;
+import utils.constants.ArmasDisponibles;
+import utils.constants.EnemyTypes;
 
 /**
  * Modelo de datos para las configuraciones del usuario
@@ -15,10 +14,10 @@ public class UserConfig implements Serializable{
 	private int vidasIniciales;
 	private double multiplicadorDano;
 	private double multiplicadorDanoEnemigo;
-	private Arma armainicial;
+	private String armainicial;
 	
 	public UserConfig(String[] enemigosActivos, int vidasIniciales, double multiplicadorDano,
-			double multiplicadorDanoEnemigo, Arma armainicial) {
+			double multiplicadorDanoEnemigo, String armainicial) {
 		setId(0);
 		this.enemigosActivos = enemigosActivos;
 		this.vidasIniciales = vidasIniciales;
@@ -29,11 +28,11 @@ public class UserConfig implements Serializable{
 
 	public UserConfig() {
 		setId(0);
-		this.enemigosActivos = new String[]{"all"};
+		this.enemigosActivos = EnemyTypes.values();
 		this.vidasIniciales = 3;
 		this.multiplicadorDano = 1;
 		this.multiplicadorDanoEnemigo = 1;
-		this.armainicial = new Pistola();
+		this.armainicial = ArmasDisponibles.PISTOLA;
 	}
 
 	public String[] getEnemigosActivos() {
@@ -68,11 +67,11 @@ public class UserConfig implements Serializable{
 		this.multiplicadorDanoEnemigo = multiplicadorDanoEnemigo;
 	}
 
-	public Arma getArmainicial() {
+	public String getArmainicial() {
 		return armainicial;
 	}
 
-	public void setArmainicial(Arma armainicial) {
+	public void setArmainicial(String armainicial) {
 		this.armainicial = armainicial;
 	}
 

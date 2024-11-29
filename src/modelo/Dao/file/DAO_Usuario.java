@@ -7,7 +7,6 @@ import modelo.arrays.ArrayString;
 import modelo.arrays.UserArray;
 import modelo.db.text.ObjectFileWriter;
 import modelo.db.text.ObjectReadManager;
-import utils.constants.ComparativeModes;
 
 /**
  * DAO de acceso y guarado de usuarios mediante archivos de texto

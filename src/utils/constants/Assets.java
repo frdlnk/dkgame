@@ -1,13 +1,8 @@
 package utils.constants;
 
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.Iterator;
 
 import modelo.arrays.ArrayCoords;
 import motor_v1.motor.util.Loader;

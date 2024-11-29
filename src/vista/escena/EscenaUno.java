@@ -1,20 +1,11 @@
 package vista.escena;
 
-import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.image.BufferedImage;
 
 import ctrl.gameControlers.Game;
 import ctrl.gameControlers.GameControler;
 import modelo.entidades.Player;
-import modelo.worldObjects.MovementBarrier;
 import motor_v1.motor.Entidad;
-import motor_v1.motor.Scene;
-import motor_v1.motor.component.Renderer;
-import motor_v1.motor.util.Vector2D;
-import utils.colision.ColisionUtils;
-import utils.constants.Tags;
 import vista.zonas.Zona;
 import vista.zonas.Zona1N1;
 

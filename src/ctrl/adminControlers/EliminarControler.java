@@ -45,7 +45,7 @@ public class EliminarControler extends BuscarControler implements ActionListener
 	 */
 	private void eliminarUsuario() {
 		Usuario selectedUser = vistaEliminar.getListaUsuarios().getSelectedValue();
-		modelo.delete(selectedUser);
+		modeloUsuario.delete(selectedUser);
 		vistaEliminar.dispose();
 	}
 

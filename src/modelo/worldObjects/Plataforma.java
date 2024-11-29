@@ -9,7 +9,6 @@ import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
 import utils.constants.Tags;
 import utils.interfaces.Movible;
-import motor_v1.motor.util.Vector2D;
 
 /**
  * Caja que solo se activa desde arriba

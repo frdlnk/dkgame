@@ -7,15 +7,12 @@ import java.awt.Rectangle;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.border.LineBorder;
 
 import utils.constants.Colors;
 import vista.components.Button;
 
-import java.awt.FlowLayout;
 
 public class VistaEliminar extends VistaBuscar {
 

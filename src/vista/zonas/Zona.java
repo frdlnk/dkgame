@@ -8,7 +8,6 @@ import motor_v1.motor.Entidad;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.ListaEntidades;
-import motor_v1.motor.entidades.Sprite;
 import motor_v1.motor.util.Vector2D;
 import utils.colision.ColisionUtils;
 import utils.colision.Colisionable;
@@ -32,7 +31,6 @@ public abstract class Zona extends Entidad implements Colisionable{
 		this.enemigos = new ListaEntidades();
 		crearComponentes();
 		generarEnemigos();
-		posicionarZonaEstadoinicial();
 	}
 	
 	public void addMapObjects(Entidad entidad) {
@@ -95,19 +93,6 @@ public abstract class Zona extends Entidad implements Colisionable{
 		
 		transformar.setPosicion(nuevaPosicionZona);
 		
-	}
-	
-	
-	public void posicionarZonaEstadoinicial() {
-		for (int i = 0; i < mapObjects.getSize(); i++) {
-			Entidad entidad = mapObjects.get(i);
-			if (mapObjects.get(i) instanceof Sprite) {
-				Transform transformEntidad = ((Sprite) entidad).getTransformar();
-				Vector2D movimiento = transformar.getPosicion();
-				Vector2D nuevaPosicion = transformEntidad.getPosicion().add(movimiento);
-				transformEntidad.setPosicion(nuevaPosicion);
-			}
-		}
 	}
 	
 	public int enemigosrestantes(){
