@@ -41,17 +41,18 @@ public class ConfiguracionesControler extends BuscarControler implements ActionL
 		configuracion.setVidasIniciales(getVidasIniciales());
 
 		modeloConfigs.update(configuracion);
+		vistaConf.dispose();
 	}
 
 	private int getVidasIniciales(){
 		return (int)vistaConf.getSpVidasIniciales().getValue();
 	}
 
-	private int getMultiplicadorDanoJugador(){
-		return (int) vistaConf.getSpMultiplicadorDanoJugador().getValue();
+	private double getMultiplicadorDanoJugador(){
+		return (double) vistaConf.getSpMultiplicadorDanoJugador().getValue();
 	}
-	private int getMultiplicadorDanoEnemigo(){
-		return (int) vistaConf.getSpMultiplicadorDanoEnemigos().getValue();
+	private double getMultiplicadorDanoEnemigo(){
+		return (double) vistaConf.getSpMultiplicadorDanoEnemigos().getValue();
 	}
 
 	private String[] getEnemigosActivos(){

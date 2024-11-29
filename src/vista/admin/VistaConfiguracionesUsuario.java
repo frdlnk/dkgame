@@ -88,7 +88,7 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 		
 		spMultiplicadorDanoJugador = new JSpinner();
 		spMultiplicadorDanoJugador.setBounds(150, 70, 246, 20);
-		spMultiplicadorDanoJugador.setModel(new SpinnerNumberModel(Integer.valueOf(1), 1, null, Integer.valueOf(1)));
+		spMultiplicadorDanoJugador.setModel(new SpinnerNumberModel(1.0, 1.0, 99.0, .1));
 		configPanel.add(spMultiplicadorDanoJugador);
 		
 		lblMultiplicadorDanoEnemigos = new JLabel("Multiplicador dano enemigos");
@@ -97,7 +97,7 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 		
 		spMultiplicadorDanoEnemigos = new JSpinner();
 		spMultiplicadorDanoEnemigos.setBounds(150, 98, 246, 20);
-		spMultiplicadorDanoEnemigos.setModel(new SpinnerNumberModel(Integer.valueOf(1), 1, null, Integer.valueOf(1)));
+		spMultiplicadorDanoEnemigos.setModel(new SpinnerNumberModel(1.0, 1.0, 99.0, .1));
 		configPanel.add(spMultiplicadorDanoEnemigos);
 		
 		lblVidasIniciales = new JLabel("Vidas Iniciales");

@@ -31,12 +31,6 @@ public class Assets {
 		MAPA_NIVEL_1 = Loader.cargarImagen("/MetalSlug-Mission1.png");
 		PLAYER_SPRITES = Loader.cargarImagen("/Walter_Revised.png");
 		
-		PLAYER_IDLE[0] = Loader.cargarImagen("/PlayerIdle/0.png");
-		//PLAYER_IDLE[1] = Loader.cargarImagen("/PlayerIdle/10.png");
-		PLAYER_IDLE_IZQ[0] = invertir(PLAYER_IDLE[0]);
-		//PLAYER_IDLE_IZQ[1] = invertir(PLAYER_IDLE[1]);
-		//PLAYER_IDLE[2] = Loader.cargarImagen("/PlayerIdle/9.png");
-		
 		AVION_CATARATA_M1 = Loader.cargarImagen("/avionCatarataM1.png");
 		CATARATA_AVION = Loader.cargarImagen("/catarata.png");
 		coord = new ArrayCoords();

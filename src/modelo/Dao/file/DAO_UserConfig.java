@@ -31,6 +31,7 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 		try (ObjectReadManager reader = new ObjectReadManager(fileName)){
 			reader.readAll(lista);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
