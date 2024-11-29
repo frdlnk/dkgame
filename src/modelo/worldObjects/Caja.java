@@ -5,15 +5,17 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import modelo.componentes.Fisica;
+import modelo.componentes.RelativeTransform;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
+import motor_v1.motor.entidades.SpriteSolido;
+import motor_v1.motor.util.Vector2D;
+import utils.colision.*;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
 import utils.interfaces.BorderDrawAble;
 import utils.interfaces.Movible;
-import motor_v1.motor.entidades.SpriteSolido;
-import motor_v1.motor.util.Vector2D;
 
 /**
  * Clase encargada de ser un objeto solido 
@@ -53,32 +55,38 @@ public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 			Fisica fisicaOtro = entidadmovible.getFisica();
 			Rectangle colliderOtro = entidadmovible.getColisiona().getHitbox();
 			Rectangle thisHitBox = colisiona.getHitbox();
-			Vector2D direccion = fisicaOtro.getUltimaDireccion().scale(-1).normalize();
-			Double direccionY = direccion.getY();
+			Vector2D direccionInversa = fisicaOtro.getUltimaDireccion().scale(-1).normalize();
+			Double direccionY = direccionInversa.getY();
+			Double direccionX = direccionInversa.getX();
 			Transform transformarOtro = fisicaOtro.getTransform();
 			Vector2D ultimaPosicion = fisicaOtro.getTransform().getPosicion();
 			
-			//mueve el objeto en direccion contraria hasta que deje de colisionar
-			while(colision.getColider().colisionaCon(colisiona) && !direccionY.isNaN()) {
-				Vector2D nuevaPosiocion = transformarOtro.getPosicion().add(direccion);
-				transformarOtro.setPosicion(nuevaPosiocion);
-				entidadmovible.getColisiona().actualizar(); 
+			//mueve el objeto en direccion contraria hasta que deje de colisionar, si se puede mover
+			if (!direccionY.isNaN() && !direccionX.isNaN() && (direccionX != 0 || direccionY != 0)) {
+				while(colision.getColider().colisionaCon(colisiona) && !direccionY.isNaN()) {
+					Vector2D nuevaPosiocion;
+					if (transformarOtro instanceof RelativeTransform) {
+						nuevaPosiocion = ((RelativeTransform) transformarOtro).getRelativePosicion().add(direccionInversa);
+					}else {
+						nuevaPosiocion = transformarOtro.getPosicion().add(direccionInversa);
+					}
+					transformarOtro.trasladarloA(nuevaPosiocion);
+					entidadmovible.getColisiona().actualizar(); 
+				}
 			}
 			
 			//verifica el lado desde donde colisiono para eliminar sus fuerzas correspondientes
 			if(colliderOtro.getMaxX() == thisHitBox.getMinX() || colliderOtro.getMinX() == thisHitBox.getMaxX()) {
 				transformarOtro.getPosicion().setY(ultimaPosicion.getY());
 				double pos = transformar.getPosicion().getX();
-				pos += colliderOtro.getMaxX() == thisHitBox.getMinX() ? 0:textura.getWidth();
-				pos -= colliderOtro.getMaxX() == thisHitBox.getMinX() ? colliderOtro.getWidth():0;
+				pos += colliderOtro.getMaxX() == thisHitBox.getMinX() ? -colliderOtro.getWidth():textura.getWidth();
 				transformarOtro.getPosicion().setX(pos);
 				fisicaOtro.getVectorMovimiento().setX(0);
 				fisicaOtro.getUltimaDireccion().setX(0);
 			}else if(colliderOtro.getMaxY() == thisHitBox.getMinY() || colliderOtro.getMinY() == thisHitBox.getMaxY()) {
 				transformarOtro.getPosicion().setX(ultimaPosicion.getX());
 				double pos = transformar.getPosicion().getY();
-				pos += colliderOtro.getMaxY() == thisHitBox.getMinY() ? 0:textura.getHeight();
-				pos -= colliderOtro.getMaxY() == thisHitBox.getMinY() ? colliderOtro.getHeight():0;
+				pos += colliderOtro.getMaxY() == thisHitBox.getMinY() ? -colliderOtro.getHeight():textura.getHeight();
 				transformarOtro.getPosicion().setY(pos);
 				fisicaOtro.getVectorMovimiento().setY(0);
 				fisicaOtro.getUltimaDireccion().setY(0);

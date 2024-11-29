@@ -22,6 +22,7 @@ import vista.escena.EscenaJuego;
  */
 public class EnemigoPistola extends Enemigo {
 	//constantes de movimiento
+	public final static int VALOR_PUNTAJE = 300;
 	public final static int MUNICIONES = 1000;
 	public final static double SHOOT_DELAY = 1.5;
 	public final static int SPEED = 100;
@@ -38,7 +39,7 @@ public class EnemigoPistola extends Enemigo {
 	 * @param duracionImagen duracion del gif
 	 */
 	public EnemigoPistola(BufferedImage[] imagenes, Transform posicion, double duracionImagen) {
-		super(imagenes, posicion, duracionImagen, VIDA);
+		super(imagenes, posicion, duracionImagen, VIDA, VALOR_PUNTAJE);
 		setArma(new Pistola(SHOOT_DELAY,MUNICIONES));
 		huir = false;
 		tiempoDeDisparo = 2;
@@ -55,22 +56,24 @@ public class EnemigoPistola extends Enemigo {
 	@Override
 	public void actualizar() {
 		//si debe huir lo hace
-		if (huir) {
-			Vector2D distanciaJugador = getDistanciaJugador(getCentro());
-			if (distanciaJugador != null) {
-				//huye hasta verificar que se va a salir del mapa o esta los suficientemente lejos de l jugador
-				Vector2D direccion = new Vector2D(distanciaJugador.getX(),0).normalize().scale(-1);
-				fisica.addForce(direccion.scale(SPEED*GameLoop.dt));
-				huir = puedeHuir(distanciaJugador);
-				tiempoDeDisparo = TIEMPO_DISPARANDO;
+		if (isInScreen()) {
+			if (huir) {
+				Vector2D distanciaJugador = getDistanciaJugador(getCentro());
+				if (distanciaJugador != null) {
+					//huye hasta verificar que se va a salir del mapa o esta los suficientemente lejos de l jugador
+					Vector2D direccion = new Vector2D(distanciaJugador.getX(),0).normalize().scale(-1);
+					fisica.addForce(direccion.scale(SPEED*GameLoop.dt));
+					huir = puedeHuir(distanciaJugador);
+					tiempoDeDisparo = TIEMPO_DISPARANDO;
+				}
+				
+			}else{
+				//si no esta huyendo y esta en pantalla dispara
+				disparar();
 			}
-			
-		}else if (isInScreen()) {
-			//si no esta huyendo y esta en pantalla dispara
-			disparar();
+			tiempoDeDisparo -= GameLoop.dt;
+			super.actualizar();
 		}
-		tiempoDeDisparo -= GameLoop.dt;
-		super.actualizar();
 	}
 	
 	/**
@@ -103,6 +106,7 @@ public class EnemigoPistola extends Enemigo {
 
 	@Override
 	public void morir() {
+		super.morir();
 		destruir();
 	}
 

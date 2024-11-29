@@ -122,5 +122,15 @@ public abstract class Arma implements Serializable {
 	public void setTimeToNextShoot(double timeToNextShoot) {
 		this.timeToNextShoot = timeToNextShoot;
 	}
+
+	public double getDano() {
+		return dano;
+	}
+
+	public void setDano(double dano) {
+		this.dano = dano;
+	}
+	
+	
 	
 }

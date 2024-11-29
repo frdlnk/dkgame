@@ -26,6 +26,7 @@ import vista.escena.EscenaJuego;
  */
 public class Helicoptero extends Enemigo {
 	//constantes de control y movimento
+	public final static int VALOR_PUNTAJE = 500;
 	private final static int SALUD = 150;
 	private final static int SPEED = 80;
 	private final static double TIEMPO_ENTRE_BOMBAS = .4;
@@ -39,7 +40,7 @@ public class Helicoptero extends Enemigo {
 	private Collider triggerBombardeo;
 
 	public Helicoptero(BufferedImage[] imagenes, Transform posicion, double duracionImagen) {
-		super(imagenes, posicion, duracionImagen, SALUD);
+		super(imagenes, posicion, duracionImagen, SALUD, VALOR_PUNTAJE);
 		//sin gravedad porque vuela
 		fisica.setGravity(0);
 		//siempre en la posicion y del aire
@@ -118,6 +119,7 @@ public class Helicoptero extends Enemigo {
 
 	@Override
 	public void morir() {
+		super.morir();
 		destruir();
 	}
 

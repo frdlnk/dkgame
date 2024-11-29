@@ -1,5 +1,6 @@
 package utils.constants;
 
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -25,6 +26,8 @@ public class Assets {
 	public static ArrayCoords coordL;
 	public static ArrayCoords cutsL;
 	public static ArrayCoords gifsL;
+	
+	public static Font future;
 
 	public static BufferedImage[] PLAYER_IDLE = new BufferedImage[1];
 	public static BufferedImage[] PLAYER_IDLE_IZQ = new BufferedImage[2];
@@ -35,6 +38,7 @@ public class Assets {
 	public static boolean load() {
 		MAPA_NIVEL_1 = Loader.cargarImagen("/MetalSlug-Mission1.png");
 		PLAYER_SPRITES = Loader.cargarImagen("/Walter_Revised.png");
+		future = Loader.cargarFuente("/font/futureFont.ttf", 20);
 		
 		AVION_CATARATA_M1 = Loader.cargarImagen("/avionCatarataM1.png");
 		CATARATA_AVION = Loader.cargarImagen("/catarata.png");

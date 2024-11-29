@@ -19,21 +19,23 @@ import utils.constants.Tags;
  * @see Soldado
  */
 public abstract class Enemigo extends Soldado {
-
+	private int valorPuntaje;
 	/**
 	 * Crea un nuevo {@link Enemigo} con el tag {@value Tags#ENEMY}
 	 * @param imagenes imagenes de gif a mostrarse
 	 * @param posicion inicial del enemigo
 	 * @param duracionImagen cantidad en segundos de la duracion del gif
 	 */
-	public Enemigo(BufferedImage[] imagenes, Transform posicion, double duracionImagen, double salud) {
+	public Enemigo(BufferedImage[] imagenes, Transform posicion, double duracionImagen, double salud, int valorPuntaje) {
 		super(Tags.ENEMY, imagenes, posicion, duracionImagen, salud);
+		this.valorPuntaje = valorPuntaje;
 		colisiona.actualizar();
 		fisica = new Fisica(1,1,transformar);
 	}
 	
 	@Override
 	public void actualizar() {
+		
 		fisica.actualizar();
 		colisiona.actualizar();
 		super.actualizar();
@@ -57,6 +59,11 @@ public abstract class Enemigo extends Soldado {
 		if (salud <= 0) {
 			morir();
 		}
+	}
+	
+	@Override
+	public void morir() {
+		Game.getJugador().recibirPuntos(valorPuntaje);
 	}
 	
 	/**

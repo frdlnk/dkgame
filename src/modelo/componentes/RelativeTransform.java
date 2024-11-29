@@ -1,5 +1,7 @@
 package modelo.componentes;
 
+import javax.sound.midi.VoiceStatus;
+
 import  motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
 
@@ -43,14 +45,6 @@ public class RelativeTransform extends Transform {
 	}
 	
 	/**
-	 * devuelve la escala del objeto
-	 */
-	@Override
-	public Vector2D getEscala() {
-		return pivot.getEscala();
-	}
-	
-	/**
 	 * mueve el objeto a otr posicion
 	 */
 	@Override
@@ -58,25 +52,6 @@ public class RelativeTransform extends Transform {
 		pos = nuevaPosicion;
 	}
 	
-	@Override
-	public void setEscala(Vector2D escala) {
-		pivot.setEscala(escala);
-	}
-	
-	@Override
-	public void escalarloA(double factorTamano) {
-		pivot.escalarloA(factorTamano);
-	}
-	
-	@Override
-	public double getRotacion() {
-		return pivot.getRotacion();
-	}
-	
-	@Override
-	public void setRotacion(int rotacion) {
-		pivot.setRotacion(rotacion);
-	}
 	
 	public Transform getPivot() {
 		return pivot;

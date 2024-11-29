@@ -12,6 +12,9 @@ import motor_v1.motor.util.Vector2D;
 import utils.constants.Assets;
 import utils.constants.Conf;
 
+/**
+ * Escena encargada de mostrar los controles mientras se cargan los Assets
+ */
 public class EscenaCarga extends Scene {
 	private SpriteText loadingText;
 	private ListaEntidades controlsText;

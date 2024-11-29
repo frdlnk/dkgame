@@ -43,6 +43,7 @@ public class Player extends Soldado{
 	public final static double DELAY_CUCHILLO = .3;
 	
 	//variables de posicion y estado
+	private int vidasRestantes;
 	private boolean isGrounded;
 	private boolean isTouchingEnemy;
 	private boolean estaAgachado;
@@ -69,7 +70,7 @@ public class Player extends Soldado{
 	 * @param transformar inicial del jugador
 	 * @param duracionImagen 
 	 */
-	public Player(BufferedImage[] imagenes, Transform transformar, double duracionImagen) {
+	public Player(BufferedImage[] imagenes, Transform transformar, double duracionImagen, int vidasRestantes) {
 		super(Tags.PLAYER,imagenes,transformar,duracionImagen, SALUD);
 		spritesPlayer = new SpritesPlayer(this);
 		colisiona.actualizar();
@@ -78,6 +79,8 @@ public class Player extends Soldado{
 		isGrounded = false;
 		String tipoArma = Game.getConfiguracion().getArmainicial();
 		setArma(ArmasDisponibles.generarArmaGenerica(tipoArma));
+		double dano = getArma().getDano()* Game.getConfiguracion().getMultiplicadorDano();
+		getArma().setDano(dano);
 		controles = new PlayerControls();
 		estaAgachado = false;
 		Vector2D posCuchillo = new Vector2D(Conf.PLAYER_WIDTH, Conf.PLAYER_HEIGHT/2);
@@ -310,6 +313,7 @@ public class Player extends Soldado{
 	
 	@Override
 	public void morir() {
+		setVidasRestantes(getVidasRestantes() - 1);
 		destruir();
 	}
 
@@ -366,4 +370,15 @@ public class Player extends Soldado{
 		this.puntaje = puntaje;
 	}
 
+	public void recibirPuntos(int puntos) {
+		puntaje += puntos;
+	}
+
+	public int getVidasRestantes() {
+		return vidasRestantes;
+	}
+
+	public void setVidasRestantes(int vidasRestantes) {
+		this.vidasRestantes = vidasRestantes;
+	}
 }

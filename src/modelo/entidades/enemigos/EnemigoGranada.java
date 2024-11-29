@@ -19,6 +19,7 @@ import vista.escena.EscenaJuego;
  */
 public class EnemigoGranada extends Enemigo{
 	//constantes de movimiento
+	public final static int VALOR_PUNTAJE = 300;
 	public final static int SALUD = 30;
 	public final static int SPEED = 80;
 	
@@ -35,7 +36,7 @@ public class EnemigoGranada extends Enemigo{
 	 * @param duracionImagen tiempo de reproducion del gif
 	 */
 	public EnemigoGranada(BufferedImage[] imagenes, Transform posicion, double duracionImagen) {
-		super(imagenes, posicion, duracionImagen, SALUD);
+		super(imagenes, posicion, duracionImagen, SALUD, VALOR_PUNTAJE);
 		setArma(new Pistola());
 		siguientePosicion = 0;
 		siguienteDireccionX = 1;
@@ -49,7 +50,8 @@ public class EnemigoGranada extends Enemigo{
 
 	@Override
 	public void morir() {
-		setViva(false);
+		super.morir();
+		destruir();
 	}
 	
 	@Override

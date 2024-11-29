@@ -6,6 +6,8 @@ import ctrl.gameControlers.Game;
 import ctrl.gameControlers.GameControler;
 import modelo.entidades.Player;
 import motor_v1.motor.Entidad;
+import motor_v1.motor.Scene;
+import motor_v1.motor.util.Vector2D;
 import vista.zonas.Zona;
 import vista.zonas.Zona1N1;
 
@@ -18,6 +20,7 @@ public class EscenaUno extends EscenaJuego{
 		jugador1 = Game.getJugador();
 		
 		zona = new Zona1N1();
+		zona.setModoDiseno(true);
 		
 		entidades.add(zona.getNombre(), zona);
 		entidades.add(jugador1.getNombre(), jugador1);
@@ -28,8 +31,15 @@ public class EscenaUno extends EscenaJuego{
 		entidades.actualizar();
 		entidades.destruir();
 		calcularColisiones();
+		if (!jugador1.getViva() && jugador1.getVidasRestantes() > 0) {
+			Vector2D posReaparicion = new Vector2D(20,200);
+			jugador1.getTransformar().trasladarloA(posReaparicion);
+		}
+		if (!jugador1.getViva() && jugador1.getVidasRestantes() < 0) {
+			Scene.cambiarEscena(new EscenaPerder());
+		}
 		if (zona.enemigosrestantes() == 0) {
-			GameControler.detener();
+			Scene.cambiarEscena(new EscenaGanar());
 		}
 	}
 

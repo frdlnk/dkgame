@@ -28,6 +28,7 @@ public class DAO_Usuario implements IDAOUsuario {
 		try (ObjectReadManager reader = new ObjectReadManager(fileName)){
 			ArrayString records = new ArrayString();
 			reader.readAll(records);
+			lista.clear();
 			for (int i = 0; i < records.getSize(); i++) {
 				Usuario user = Usuario.deserializeUsuario(records.get(i));
 				if (user != null) 

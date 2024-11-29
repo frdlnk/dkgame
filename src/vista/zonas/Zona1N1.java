@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import modelo.componentes.RelativeTransform;
 import modelo.entidades.Soldado;
+import modelo.entidades.enemigos.Enemigo;
 import modelo.entidades.enemigos.EnemigoGranada;
 import modelo.entidades.enemigos.EnemigoPistola;
 import modelo.entidades.enemigos.Helicoptero;
@@ -35,7 +36,6 @@ import utils.interfaces.BorderDrawAble;
 /**
  * Zona correspondiente al nivel 1, cuenta con 3 jefes, y cuenta con movimiento de camara para el avance del escenario
  * 
- * Cuenta con modo diseñador para la colocacion de estructuras del mapa;
  * 
  * @author Joshua Elizondo Vasquez
  * 
@@ -54,17 +54,9 @@ public class Zona1N1 extends Zona{
 	private int actualCheckpoint;
 	MovementBarrier barrier;
 	
-	//Variables del modo diseño
-	boolean modoDiseno = true;
-	Sprite plat1;
-	int actualPlatform;
-	private double contx;
-	private double conty;
-	double changeplatDelay;
-
 	//Entidades principales
 	Sprite background;
-	private Entidad[] jefes;
+	private Enemigo[] jefes;
 	private int jefeActual;
 	
 	
@@ -73,9 +65,8 @@ public class Zona1N1 extends Zona{
 	 */
 	public Zona1N1() {
 		super(Vector2D.RIGHT, new Vector2D(0,0));
-		changeplatDelay = 0;
+		
 		actualCheckpoint = 0;
-		setDireccionMovimiento(Vector2D.LEFT);
 	}
 
 	@Override
@@ -189,7 +180,6 @@ public class Zona1N1 extends Zona{
 		//Piso final catarata
 		Vector2D posicionCaja4Avion2 = new Vector2D(7114, 129);
 		plat1 = createCaja(posicionCaja4Avion2, 2000, 200);
-		actualPlatform = mapObjects.getSize()-1;
 		
 		//barrera de movimiento, para el avance por pantalla
 		Rectangle rectMB = new Rectangle(Conf.WINDOW_WIDTH/2, Conf.WINDOW_HEIGHT);
@@ -214,31 +204,9 @@ public class Zona1N1 extends Zona{
 		staticObjects.add(barrier.getNombre(), barrier);
 	}
 
-	private Plataforma createPlatform(Vector2D pos, int width, int height){
-		Rectangle dimensiones = new Rectangle(width, height);
-		Color color = new Color(128,50,0);
-		BufferedImage image = Renderer.crearTextura(dimensiones, color);
-		Transform transform = new RelativeTransform(pos,this.transformar);
-		Plataforma platform = new Plataforma(image, transform);
-		platform.getColisiona().actualizar();
-		mapObjects.add(platform.getNombre(), platform);
-		return platform;
-	}
 	
-	private Caja createCaja(Vector2D pos, int width, int height){
-		Rectangle dimensiones = new Rectangle(width, height);
-		Color color = new Color(128,50,0, 50);
-		BufferedImage image = Renderer.crearTextura(dimensiones, color);
-		Transform transform = new RelativeTransform(pos,this.transformar);
-		Caja caja = new Caja(Tags.STATIC_OBJECT, image, transform);
-		caja.getColisiona().actualizar();
-		mapObjects.add(caja.getNombre(), caja);
-		return caja;
-	}
-
 	@Override
 	public void actualizar() {
-		actualizarModoDiseno();
 		
 		if (jefeActual < jefes.length && !jefes[jefeActual].getViva()) {
 			if (!barrier.isEnable()) {
@@ -247,6 +215,10 @@ public class Zona1N1 extends Zona{
 			
 			if (actualCheckpoint < checkPoints.length-1)actualCheckpoint++;
 			jefeActual++;
+		}
+		
+		if (!jefes[CANTIDAD_JEFES-1].getViva()) {
+			enemigos.destruirAll();
 		}
 		
 		if (barrier.isPlayerOverlap() && getTransformar().getPosicion().getX() > checkPoints[actualCheckpoint]) {
@@ -270,54 +242,7 @@ public class Zona1N1 extends Zona{
 		super.actualizar();
 	}
 	
-	private void actualizarModoDiseno() {
-		if (InputKeyboard.isDown(Key.ENTER) && changeplatDelay <= 0) {
-			if (InputKeyboard.isDown(Key.SHIFT)) {
-				actualPlatform = actualPlatform-1 < 0 ? mapObjects.getSize()-1 : actualPlatform-1;
-			}else {
-				actualPlatform = actualPlatform+1>= mapObjects.getSize() ? 0 : actualPlatform+1;
-			}
-			
-			if (mapObjects.get(actualPlatform) instanceof Sprite) {
-				plat1 = (Caja) mapObjects.get(actualPlatform) ;
-			}
-			contx = 0;
-			conty = 0;
-			changeplatDelay = .5;
-		}else {
-			changeplatDelay -= GameLoop.dt;
-		}
-		
-		double distance = 0.5;
-		if (InputKeyboard.isDown(Key.SHIFT)) {
-			distance = 5;
-		}
-		if (InputKeyboard.isKeyPressed(Key.UP)) {
-			conty += -distance;
-			Vector2D newpos = plat1.getTransformar().getPosicion().add(new Vector2D(0,-distance));
-			plat1.getTransformar().setPosicion(newpos);
-			System.out.println(conty);
-		}
-		if (InputKeyboard.isKeyPressed(Key.DOWN)) {
-			conty += distance;
-			Vector2D newpos = plat1.getTransformar().getPosicion().add(new Vector2D(0,distance));
-			plat1.getTransformar().setPosicion(newpos);
-			System.out.println(conty);
-		}
-		if (InputKeyboard.isKeyPressed(Key.LEFT)) {
-			contx += -distance;
-			Vector2D newpos = plat1.getTransformar().getPosicion().add(new Vector2D(-distance,0));
-			plat1.getTransformar().setPosicion(newpos);
-			System.out.println(contx);
-		}
-		if (InputKeyboard.isKeyPressed(Key.RIGHT)) {
-			contx += distance;
-			Vector2D newpos = plat1.getTransformar().getPosicion().add(new Vector2D(distance,0));
-			plat1.getTransformar().setPosicion(newpos);
-			System.out.println(contx);
-		}
-		//plat1.getColisiona().actualizar();
-	}
+	
 	
 	private void generarHelicopteros() {
 		
@@ -348,7 +273,7 @@ public class Zona1N1 extends Zona{
 	
 	@Override
 	protected void generarEnemigos() {
-		jefes = new Entidad[CANTIDAD_JEFES];
+		jefes = new Enemigo[CANTIDAD_JEFES];
 		
 		for (int i = 0; i < config.getEnemigosActivos().length; i++) {
 			switch (config.getEnemigosActivos()[i]) {
@@ -361,11 +286,7 @@ public class Zona1N1 extends Zona{
 			case EnemyTypes.PISTOLERO:
 				generarPistoleros();
 				break;
-			case "all":
-				generarGranaderos();
-				generarHelicopteros();
-				generarPistoleros();
-			}
+			};
 		}
 		
 		//jefes
@@ -380,9 +301,11 @@ public class Zona1N1 extends Zona{
 		Transform transformJefe1 = new RelativeTransform(posicionJefe1, transformar);
 		jefes[0] = new Helicoptero(imageJ1, transformJefe1, 10);
 		
-		Vector2D posicionJefe2 = new Vector2D(5000,200);
+		Vector2D posicionJefe2 = new Vector2D(5800,200);
 		Transform transformJefe2 = new RelativeTransform(posicionJefe2, transformar);
 		jefes[1] = new EnemigoPistola(imageE, transformJefe2, 10);
+		jefes[1].setSalud(400);
+		jefes[1].getArma().setShootDelay(.9);
 		
 		Vector2D posicionJefeFinal = new Vector2D(8000,80);
 		Transform transformJefeFinal = new RelativeTransform(posicionJefeFinal, transformar);
@@ -398,9 +321,6 @@ public class Zona1N1 extends Zona{
 	@Override
 	public void dibujar(Graphics g) {
 		super.dibujar(g);
-		if (plat1 instanceof BorderDrawAble) {
-			((BorderDrawAble) plat1).drawBorders(g);
-		}
 	}
 	
 	

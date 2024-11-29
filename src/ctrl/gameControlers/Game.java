@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import modelo.UserConfig;
 import modelo.Usuario;
+import modelo.Dao.IDAOUsuario;
 import modelo.entidades.Player;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.Lienzo;
@@ -21,11 +22,12 @@ import vista.escena.EscenaCarga;
  * Clase encargada de mantener las escenas corriendo e iniciar la ventana
  */
 public class Game extends Entidad{
-	private Scene escenaActual;
 	public static Lienzo lienzo;
 	public static Usuario loggedUser;
 	public static UserConfig configuracion;
 	public static Player jugador;
+	
+	private Scene escenaActual;
 	
 	/**
 	 * Crea un nuevo Juego 
@@ -51,11 +53,12 @@ public class Game extends Entidad{
 		BufferedImage[] image = {Renderer.crearTextura(rect, color)};
 		Vector2D posicionJ = new Vector2D(10,180);
 		Transform transform = new Transform(posicionJ);
-		return new Player(image, transform, 10);
+		return new Player(image, transform, 10, configuracion.getVidasIniciales());
 	}
 	
 	@Override
 	public void actualizar() {
+		loggedUser.setScore(jugador.getPuntaje());
 		escenaActual = Scene.getEscenaActual();
 		escenaActual.actualizar();
 	}

@@ -101,7 +101,12 @@ public class Fisica extends Physics{
 	 */
 	public void actualizar() {
 		vectorMovimiento = vectorMovimiento.scale(1-getFriccion());
-		Vector2D nuevaPosicion = transform.getPosicion().add(vectorMovimiento);
+		Vector2D nuevaPosicion;
+		if (transform instanceof RelativeTransform) {
+			nuevaPosicion = ((RelativeTransform)transform).getRelativePosicion().add(vectorMovimiento);
+		}else {
+			nuevaPosicion = transform.getPosicion().add(vectorMovimiento);
+		}
 		ultimaDireccion = vectorMovimiento;
 		for (int i = 0; i < fuerzasAplicadas.getSize(); i++) {
 			Vector2D fuerzaAplicada = fuerzasAplicadas.get(i);

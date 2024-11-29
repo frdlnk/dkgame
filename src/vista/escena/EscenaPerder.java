@@ -23,43 +23,41 @@ import vista.game.VistaLogin;
 /**
  * Escena para mostrar los resultados al ganar
  */
-public class EscenaGanar extends Scene {
+public class EscenaPerder extends Scene {
 	private Player jugador;
 	private SpriteText resumen;
-	private SpriteText felicitaciones;
+	private SpriteText gameOver;
 	
-	public EscenaGanar() {
+	public EscenaPerder() {
 		jugador = Game.getJugador();
 		String mensaje = "obtuviste un puntaje de " + jugador.getPuntaje();
 		Vector2D posResumen = new Vector2D(30,90);
 		resumen = new SpriteText(mensaje, Color.YELLOW, Assets.future, false);
 		resumen.setPosicion(posResumen);
-		String mensajeF = "Felicidades ganaste";
+		String mensajeF = "Game Over";
 		Vector2D posFelicitacion = new Vector2D(30,50);
-		felicitaciones = new SpriteText(mensajeF, Color.YELLOW, Assets.future, false);
-		felicitaciones.setPosicion(posFelicitacion);
+		gameOver = new SpriteText(mensajeF, Color.RED, Assets.future, false);
+		gameOver.setPosicion(posFelicitacion);
 	}
 	
 	@Override
 	public void actualizar() {
 		resumen.actualizar();
-		felicitaciones.actualizar();
+		gameOver.actualizar();
 		if (InputKeyboard.isDown(Key.SPACE)) {
-			int lastLevel = Game.getLoggedUser().getLevel();
-			Game.getLoggedUser().setLevel(lastLevel+1);
 			GameControler.detener();
 		}
 	}
 
 	@Override
 	public void destruir() {
-		felicitaciones.destruir();
 		resumen.destruir();
+		gameOver.destruir();
 	}
 
 	@Override
 	public void dibujar(Graphics g) {
-		felicitaciones.dibujar(g);
+		gameOver.dibujar(g);
 		resumen.dibujar(g);
 	}
 

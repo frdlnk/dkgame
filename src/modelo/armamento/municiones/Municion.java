@@ -54,6 +54,7 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 		fisica.impulsar(direccion.scale(this.velocity));
 		renderer = new Renderer(transformar, textura);
 		this.targetIgnore = targetsIgnore;
+		targetsIgnore.add(Tags.MUNICION);
 	}
 	
 	/**
@@ -105,7 +106,6 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 		if (!getViva()) {
 			return null;
 		}
-		
 		ColisionInfo colision = new ColisionInfo();
 		Collider[] collidersEntidad = entidad.getColliders();
 		for (int i = 0; i < collidersEntidad.length; i++) {
@@ -114,7 +114,7 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 				colision.setColider(colisiona);
 				colision.setEntidad(this);
 				colision.setColisionable(this);
-				colision.setTriger(false);
+				colision.setTriger(true);
 				return colision;
 			}
 		}
@@ -154,6 +154,13 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	@Override
 	public void setFisica(Fisica fisica) {
 		this.fisica = (Fisica) fisica;
+	}
+	
+	@Override
+	public void setTransformar(Transform transformar) {
+		fisica.setTransform(transformar);
+		super.setTransformar(transformar);
+		colisiona = new Collider(this.transformar, textura.getWidth(), textura.getHeight());
 	}
 
 }
