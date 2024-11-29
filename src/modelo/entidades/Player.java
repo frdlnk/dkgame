@@ -96,7 +96,7 @@ public class Player extends Soldado{
 		double direccionHorizontal = controles.getDireccionHorizontal();
 		double direccionVertical = controles.getDireccionVertical();
 
-		checkMovementSprites(direccionHorizontal);
+		checkMovementSprites(direccionHorizontal, direccionVertical);
 		movimiento(direccionHorizontal);
 		
 		
@@ -130,7 +130,6 @@ public class Player extends Soldado{
 	private void movimiento(double direccionHorizontal) {
 		double movimiento = SPEED;
 		isMoving = true;
-		spritesPlayer.cambiarAnimacionA(Assets.spriteNames[0]);
 		//decide si esta agachado
 		if(controles.getDireccionVertical() == 1 && isGrounded && !estaAgachado) {
 			agacharse();
@@ -151,7 +150,7 @@ public class Player extends Soldado{
 		fisica.addForce(new Vector2D(direccionHorizontal*movimiento*GameLoop.dt,0));
 	}
 
-	private void checkMovementSprites(double direccionHorizontal) {
+	private void checkMovementSprites(double direccionHorizontal, double direccionVertical) {
 		if (estaAgachado){
 			spritesPlayer.cambiarAnimacionA(Assets.spriteNames[3]);
 		}
@@ -160,6 +159,9 @@ public class Player extends Soldado{
 		}
 		if (!estaAgachado){
 			spritesPlayer.cambiarAnimacionA(Assets.spriteNames[0]);
+		}
+		if (direccionVertical < 0){
+			spritesPlayer.cambiarAnimacionA(Assets.spriteNames[6]);
 		}
 	}
 
@@ -204,7 +206,6 @@ public class Player extends Soldado{
 		transformar.escalarloA(Vector2D.ONE);
 		Vector2D posicion = transformar.getPosicion();
 		posicion.setY(posicion.getY()-40);
-		spritesPlayer.cambiarAnimacionA(Assets.spriteNames[0]);
 		estaAgachado = false;
 	}
 
@@ -236,7 +237,9 @@ public class Player extends Soldado{
 			}else {
 				if (estaAgachado){
 					spritesPlayer.cambiarAnimacionA(Assets.spriteNames[4]);
-				}else {
+				} else if (direccionDisparo.getY() < 0) {
+					spritesPlayer.cambiarAnimacionA(Assets.spriteNames[2]);
+				} else {
 					spritesPlayer.cambiarAnimacionA(Assets.spriteNames[1]);
 				}
 				Scene escena = Scene.getEscenaActual();

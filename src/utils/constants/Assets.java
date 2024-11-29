@@ -25,7 +25,7 @@ public class Assets {
 	public static BufferedImage[] PLAYER_IDLE = new BufferedImage[1];
 	public static BufferedImage[] PLAYER_IDLE_IZQ = new BufferedImage[2];
 
-	public static String[] spriteNames = {"pistol_idle", "pistol_shoot", "pistol_up_shoot", "crouch_pistol_idle"};
+	public static String[] spriteNames = {"pistol_idle", "pistol_shoot", "pistol_up_shoot", "crouch_pistol_idle", "crouch_pistol_shoot", "crouch_pistol_walk", "pistol_look_up"};
 	
 	public static boolean load() {
 		MAPA_NIVEL_1 = Loader.cargarImagen("/MetalSlug-Mission1.png");
@@ -76,7 +76,7 @@ public class Assets {
 		coord.put(spriteNames[3], new int[]{573, 37, 107, 26});
 		coord.put(spriteNames[4], new int[]{3, 169, 181, 28});
 		coord.put(spriteNames[5], new int[]{605, 96, 143, 25});
-		coord.put(spriteNames[6], new int[]{478, 38, 91, 43});
+		coord.put(spriteNames[6], new int[]{140, 95, 91, 28});
 
 
 	}
@@ -88,7 +88,7 @@ public class Assets {
 		cuts.put(spriteNames[3], new int[]{609, 645, 678});
 		cuts.put(spriteNames[4], new int[]{55, 108, 147, 184});
 		cuts.put(spriteNames[5], new int[]{641, 677, 713, 748});
-		cuts.put(spriteNames[6], new int[]{509, 540, 569});
+		cuts.put(spriteNames[6], new int[]{171, 202, 231});
 	}
 
 

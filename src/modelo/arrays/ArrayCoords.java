@@ -60,7 +60,7 @@ public class ArrayCoords {
         int i = 0;
         for (Object[] obj: arregloObjetos){
             if (obj[0].toString().equals(index)){
-                return (int[]) obj[i];
+                return (int[]) obj[1];
             }
         }
         return null;
@@ -70,7 +70,7 @@ public class ArrayCoords {
         int i = 0;
         for (Object[] obj: arregloObjetos){
             if (obj[0].toString().equals(res)){
-                return (BufferedImage[]) obj[i];
+                return (BufferedImage[]) obj[1];
             }
         }
         return null;
