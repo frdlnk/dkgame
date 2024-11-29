@@ -1,17 +1,20 @@
 package modelo.entidades.enemigos;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Municion;
 import modelo.arrays.ArrayString;
 import modelo.entidades.Player;
+import modelo.spritesCargados.SpritesEnemy;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
 import utils.colision.ColisionInfo;
+import utils.constants.Assets;
 import utils.constants.Conf;
 import vista.escena.EscenaJuego;
 
@@ -32,6 +35,8 @@ public class EnemigoPistola extends Enemigo {
 	private boolean huir;
 	private double tiempoDeDisparo;
 
+	private SpritesEnemy sprites;
+
 	/**
 	 * Crea un nuevo enemigo con {@value #VIDA} de vida y una pistola con {@value #MUNICIONES} balas
 	 * @param imagenes gif a mostrar
@@ -41,6 +46,8 @@ public class EnemigoPistola extends Enemigo {
 	public EnemigoPistola(BufferedImage[] imagenes, Transform posicion, double duracionImagen) {
 		super(imagenes, posicion, duracionImagen, VIDA, VALOR_PUNTAJE);
 		setArma(new Pistola(SHOOT_DELAY,MUNICIONES));
+		sprites = new SpritesEnemy(this);
+		sprites.cambiarAnimacionA(Assets.enemNames[3]);
 		huir = false;
 		tiempoDeDisparo = 2;
 	}
@@ -57,12 +64,14 @@ public class EnemigoPistola extends Enemigo {
 	public void actualizar() {
 		//si debe huir lo hace
 		if (isInScreen()) {
+			sprites.cambiarAnimacionA(Assets.enemNames[3]);
 			if (huir) {
 				Vector2D distanciaJugador = getDistanciaJugador(getCentro());
 				if (distanciaJugador != null) {
 					//huye hasta verificar que se va a salir del mapa o esta los suficientemente lejos de l jugador
 					Vector2D direccion = new Vector2D(distanciaJugador.getX(),0).normalize().scale(-1);
 					fisica.addForce(direccion.scale(SPEED*GameLoop.dt));
+					sprites.cambiarAnimacionA(Assets.enemNames[4]);
 					huir = puedeHuir(distanciaJugador);
 					tiempoDeDisparo = TIEMPO_DISPARANDO;
 				}
@@ -70,8 +79,10 @@ public class EnemigoPistola extends Enemigo {
 			}else{
 				//si no esta huyendo y esta en pantalla dispara
 				disparar();
+				sprites.cambiarAnimacionA(Assets.enemNames[5]);
 			}
 			tiempoDeDisparo -= GameLoop.dt;
+			sprites.actualizar();
 			super.actualizar();
 		}
 	}
@@ -125,5 +136,10 @@ public class EnemigoPistola extends Enemigo {
 	@Override
 	public Collider[] getColliders() {
 		return new Collider[] {colisiona};
+	}
+
+	@Override
+	public void dibujar(Graphics g){
+		sprites.dibujar(g);
 	}
 }

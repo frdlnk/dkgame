@@ -1,5 +1,6 @@
 package modelo.entidades.enemigos;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import ctrl.gameControlers.Game;
@@ -92,7 +93,6 @@ public abstract class Enemigo extends Soldado {
 		}
 		return null;
 	}
-	
 	
 	@Override
 	public ColisionInfo hayColision(Colisionable entidad) {
