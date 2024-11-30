@@ -243,6 +243,7 @@ public class Player extends Soldado{
 		if (InputMouse.isPressed() && cuchilloDelay <= 0) {
 			if (isTouchingEnemy) {
 				usaCuchillo = true;
+				spritesPlayer.cambiarAnimacionA(Assets.spriteNames[7]);
 				cuchilloDelay = DELAY_CUCHILLO;
 			}else {
 				if (estaAgachado){

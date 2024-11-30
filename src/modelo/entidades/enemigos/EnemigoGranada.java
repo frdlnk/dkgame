@@ -1,17 +1,20 @@
 package modelo.entidades.enemigos;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Granada;
 import modelo.arrays.ArrayString;
+import modelo.spritesCargados.SpritesEnemy;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
 import utils.colision.ColisionInfo;
+import utils.constants.Assets;
 import vista.escena.EscenaJuego;
 
 /**
@@ -29,6 +32,9 @@ public class EnemigoGranada extends Enemigo{
 	private int siguienteDireccionX;
 	private boolean posicionAlcanzada;
 
+	//Sprites
+	private SpritesEnemy sprites;
+
 	/**
 	 * crea un nuevo Granadero
 	 * @param imagenes gif que se pintara
@@ -38,6 +44,7 @@ public class EnemigoGranada extends Enemigo{
 	public EnemigoGranada(BufferedImage[] imagenes, Transform posicion, double duracionImagen) {
 		super(imagenes, posicion, duracionImagen, SALUD, VALOR_PUNTAJE);
 		setArma(new Pistola());
+		sprites = new SpritesEnemy(this);
 		siguientePosicion = 0;
 		siguienteDireccionX = 1;
 		posicionAlcanzada = true;
@@ -58,8 +65,10 @@ public class EnemigoGranada extends Enemigo{
 	public void actualizar() {
 		
 		if (isInScreen()) {
+			sprites.cambiarAnimacionA(Assets.enemNames[0]);
 			if (tiempoEntreLanzamientos < 0 && posicionAlcanzada) {
 				disparar();
+				sprites.cambiarAnimacionA(Assets.enemNames[2]);
 				tiempoEntreLanzamientos = 2;
 				
 				Random random = new Random();
@@ -69,9 +78,11 @@ public class EnemigoGranada extends Enemigo{
 				Vector2D direccion = new Vector2D(siguienteDireccionX,0);
 				fisica.addForce(direccion.scale(SPEED*GameLoop.dt));
 				siguientePosicion -= SPEED*GameLoop.dt;
+				sprites.cambiarAnimacionA(Assets.enemNames[1]);
 			}
 			posicionAlcanzada = siguientePosicion < 0;
 			tiempoEntreLanzamientos -= GameLoop.dt;
+			sprites.actualizar();
 			super.actualizar();
 		}
 		
@@ -142,5 +153,10 @@ public class EnemigoGranada extends Enemigo{
 	@Override
 	public Collider[] getColliders() {
 		return new Collider[] {colisiona};
+	}
+
+	@Override
+	public void dibujar(Graphics g){
+		sprites.dibujar(g);
 	}
 }

@@ -8,6 +8,7 @@ import modelo.armamento.municiones.Choete;
 import modelo.arrays.ArrayString;
 import modelo.componentes.RelativeTransform;
 import modelo.entidades.Player;
+import modelo.spritesCargados.SpritesEnemy;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Collider;
@@ -15,6 +16,7 @@ import motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
+import utils.constants.Assets;
 import utils.constants.Conf;
 import vista.escena.EscenaJuego;
 
@@ -39,6 +41,8 @@ public class Helicoptero extends Enemigo {
 	private double tiempoParaSiguienteBombardeo;
 	private Collider triggerBombardeo;
 
+	private SpritesEnemy sprites;
+
 	public Helicoptero(BufferedImage[] imagenes, Transform posicion, double duracionImagen) {
 		super(imagenes, posicion, duracionImagen, SALUD, VALOR_PUNTAJE);
 		//sin gravedad porque vuela
@@ -53,12 +57,13 @@ public class Helicoptero extends Enemigo {
 		RelativeTransform transBomb= new RelativeTransform(posColliderB, transformar);
 		Rectangle hitBoxBombardero = new Rectangle(20,Conf.WINDOW_HEIGHT);
 		triggerBombardeo = new Collider(transBomb, hitBoxBombardero);
+		sprites = new SpritesEnemy(this);
 	}
 	
 	@Override
 	public void actualizar() {
 		if (isInScreen()) {
-			
+			sprites.cambiarAnimacionA(Assets.enemNames[6]);
 			bombardeoControl();
 			
 			//se mueve hacia el jugador
@@ -69,6 +74,7 @@ public class Helicoptero extends Enemigo {
 			}
 			
 			triggerBombardeo.actualizar();
+			sprites.actualizar();
 			super.actualizar();
 		}
 		
@@ -144,6 +150,7 @@ public class Helicoptero extends Enemigo {
 
 	@Override
 	public void dibujar(Graphics g) {
+		sprites.dibujar(g);
 		super.dibujar(g);
 	}
 	
@@ -151,4 +158,6 @@ public class Helicoptero extends Enemigo {
 	public Collider[] getColliders() {
 		return new Collider[] {colisiona, triggerBombardeo};
 	}
+
+
 }
