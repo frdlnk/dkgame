@@ -28,15 +28,25 @@ public class Granada extends Municion implements Explosivo {
 	 * @param direccion		Direccion de lanzamiento
 	 * @param targetsIgnore	Objetivos a ignorar
 	 * @param dano			dano causado
-	 * @param velocity		velocidad de movimiento
+	 * @param velocidad		velocidad de movimiento
 	 */
 	public Granada(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnore, double dano,
-			double velocity) {
-		super(posicion, direccion, targetsIgnore, dano, velocity);
+			double velocidad) {
+		super(posicion, direccion, targetsIgnore, dano, velocidad);
 		setNombre(Tags.GRANADA);
 		fisica.setGravity(1);
 	}
-
+	
+	/**
+	 * Crea una granada sin movimiento
+	 * Solo cae
+	 */
+	public Granada() {
+		super();
+		setNombre(Tags.GRANADA);
+		fisica.setGravity(1);
+	}
+ 
 	@Override
 	public Explosion generarExplosion() {
 		Rectangle rect = new Rectangle(30,50);

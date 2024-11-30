@@ -2,6 +2,7 @@ package modelo.entidades.enemigos;
 
 import java.awt.image.BufferedImage;
 
+import ctrl.gameControlers.Game;
 import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Municion;
 import modelo.arrays.ArrayString;
@@ -28,6 +29,7 @@ public class EnemigoPistola extends Enemigo {
 	public final static int SPEED = 100;
 	public final static int VIDA = 20;
 	public final static int TIEMPO_DISPARANDO = 3;
+	public final static int DANO_BASE = 10;
 	//propiedades de control
 	private boolean huir;
 	private double tiempoDeDisparo;
@@ -40,7 +42,8 @@ public class EnemigoPistola extends Enemigo {
 	 */
 	public EnemigoPistola(BufferedImage[] imagenes, Transform posicion, double duracionImagen) {
 		super(imagenes, posicion, duracionImagen, VIDA, VALOR_PUNTAJE);
-		setArma(new Pistola(SHOOT_DELAY,MUNICIONES));
+		Double dano = DANO_BASE*Game.getConfiguracion().getMultiplicadorDanoEnemigo();
+		setArma(new Pistola(SHOOT_DELAY,MUNICIONES, dano));
 		huir = false;
 		tiempoDeDisparo = 2;
 	}

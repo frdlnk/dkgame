@@ -58,6 +58,10 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 		this.dano = dano;
 	}
 	
+	public Municion() {
+		super(Tags.MUNICION);
+	}
+	
 	/**
 	 * Actualiza los componentes escenciales y sus limites
 	 */

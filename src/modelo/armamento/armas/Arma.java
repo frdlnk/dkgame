@@ -18,14 +18,15 @@ import motor_v1.motor.util.Vector2D;
  * @author Joshua Elizondo Vasquez
  * @version 1.0
  */
-public abstract class Arma implements Serializable {
+public abstract class Arma {
 	public final static int BALAS_DEFAULT = 100;
 	public final static int DEFAULT_DELAY = 1;
+	public final static int DEFAULT_DANO = 10;
 	
 	protected double shootDelay;
+	protected double dano;
 	private double timeToNextShoot;
 	private int balasRestantes;
-	protected double dano;
 	
 	/**
 	 * Construye un arma con delay predeterminado de {@value #DEFAULT_DELAY}s y {@value #BALAS_DEFAULT} municiones
@@ -33,7 +34,7 @@ public abstract class Arma implements Serializable {
 	public Arma() {
 		shootDelay = DEFAULT_DELAY;
 		timeToNextShoot = 0;
-		dano = 0;
+		dano = DEFAULT_DANO;
 		setBalasRestantes(BALAS_DEFAULT);
 	}
 	
@@ -48,9 +49,9 @@ public abstract class Arma implements Serializable {
 	}
 	/**
 	 * Construye un arma con el delay, dano y cantidad de municiones especificado
-	 * @param shotDelay
-	 * @param municiones
-	 * @param dano
+	 * @param shotDelay cadencia de tiro en segundos, entre disaparos
+	 * @param municiones cantidad de municiones disponibles
+	 * @param dano dano que debe hacer la municion
 	  */
 	public Arma(Double shotDelay, int municiones, double dano) {
 		this(shotDelay, dano);
@@ -129,6 +130,12 @@ public abstract class Arma implements Serializable {
 
 	public void setDano(double dano) {
 		this.dano = dano;
+	}
+
+	@Override
+	public String toString() {
+		return "Arma [shootDelay=" + shootDelay + ", dano=" + dano + ", timeToNextShoot=" + timeToNextShoot
+				+ ", balasRestantes=" + balasRestantes + "]";
 	}
 	
 	

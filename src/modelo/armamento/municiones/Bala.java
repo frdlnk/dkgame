@@ -14,7 +14,7 @@ import motor_v1.motor.util.Vector2D;
 public class Bala extends Municion {
 	
 	/**
-	 * Crea una nueva bala con dano predeterminado 5
+	 * Crea una nueva bala con velocidad de 7 px/s
 	 * @param posicion 			Vector2D posicion inicial de la bala
 	 * @param direccion 		Vector2D direccion de la bala
 	 * @param targetsIgnored 	lista de tags a ignorar
@@ -22,7 +22,10 @@ public class Bala extends Municion {
 	 */
 	public Bala(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored, double dano) {
 		super(posicion, direccion, targetsIgnored, dano, 7);
-		setDano(5);
+	}
+	
+	public Bala() {
+		super();
 	}
 
 

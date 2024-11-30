@@ -22,7 +22,7 @@ import vista.escena.EscenaJuego;
 public class Choete extends Municion implements Explosivo{
 
 	/**
-	 * Crea un nuevo cohete
+	 * Crea un nuevo cohete con velocidad 10 px/s
 	 * @param nombre 	String tag de la entidad
 	 * @param posicion 	Vector2D posicion inicial
 	 * @param direccion Vector2D direccion del Cohete
@@ -30,9 +30,16 @@ public class Choete extends Municion implements Explosivo{
 	 * @param dano double 		cantidad de dano a realizar a los objeivos
 	 */
 	public Choete(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored, double dano) {
-		super(posicion, direccion, targetsIgnored, dano, 5);
+		super(posicion, direccion, targetsIgnored, dano, 10);
 		//asigna gravedad al cohete
 		this.fisica.setGravity(1);
+	}
+	
+	/**
+	 * Crea un choete vacio
+	 */
+	public Choete() {
+		super();
 	}
 
 

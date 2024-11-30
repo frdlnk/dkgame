@@ -11,22 +11,19 @@ import motor_v1.motor.util.Vector2D;
  * Ametralladora se encraga de disparar con alta cadencia y una pequena dispercion
  */
 public class HeavyMachineGun extends Arma {
-	private final static int DEFAULT_DANO = 10;
-	private final static int DEFAULT_MUNICIONES = 100;
-	private final static double SHOT_DELAY = .1;
-	private double dano;
-
+	public final static double SHOT_DELAY = .1;
+	
 	/**
 	 * Crea una nueva Heavy MachineGun con dano de {@value HeavyMachineGun#DEFAULT_DANO}
 	 * cadencia de tiro de {@value #SHOT_DELAY}s y {@value HeavyMachineGun#DEFAULT_MUNICIONES} balas
 	 */
 	public HeavyMachineGun(){
-		this(DEFAULT_MUNICIONES,DEFAULT_DANO);
+		this(BALAS_DEFAULT,DEFAULT_DANO);
 		setShootDelay(SHOT_DELAY);
 	}
 
 	/**
-	 * Crea una nueva Machinegun con cadenmcia de {@value #SHOT_DELAY}s
+	 * Crea una nueva Machinegun con cadencia de {@value #SHOT_DELAY}s
 	 * @param municiones cantidad de balas del cargador
 	 * @param dano dano que haran las balas
 	 */
