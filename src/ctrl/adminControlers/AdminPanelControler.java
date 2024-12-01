@@ -64,7 +64,7 @@ public class AdminPanelControler implements ActionListener{
 	 */
 	private void openEliminar() {
 		VistaEliminar vistaEliminar = new VistaEliminar(vista);
-		new EliminarControler(vistaEliminar, modeloUsers);
+		new EliminarControler(vistaEliminar, modeloUsers, modeloConfigs);
 	}
 	/**
 	 * Abre la vista agregar

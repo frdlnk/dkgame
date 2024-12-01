@@ -11,7 +11,6 @@ import modelo.arrays.ArrayString;
  * Clase encragada de la lectura de registros de un archivo de texto
  */
 public class ObjectReadManager implements AutoCloseable{
-	private FileReader in;
 	private BufferedReader reader;
 
 	/**
@@ -24,13 +23,12 @@ public class ObjectReadManager implements AutoCloseable{
 		File file = new File(fileName);
 		if (!file.exists()) file.createNewFile();
 		
-		in = new FileReader(file);
+		FileReader in = new FileReader(file);
 		reader = new BufferedReader(in);
 	}
 
 	@Override
 	public void close() throws Exception {
-		in.close();
 		reader.close();
 	}
 	

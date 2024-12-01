@@ -50,10 +50,10 @@ public class Game extends Entidad{
 	private Player generarJugador() {
 		Rectangle rect = new Rectangle(50, 80);
 		Color color = new Color(128,128,0,0);
-		BufferedImage[] image = {Renderer.crearTextura(rect, color)};
+		BufferedImage image = Renderer.crearTextura(rect, color);
 		Vector2D posicionJ = new Vector2D(10,180);
 		Transform transform = new Transform(posicionJ);
-		return new Player(image, transform, 10, configuracion.getVidasIniciales());
+		return new Player(image, transform, configuracion.getVidasIniciales());
 	}
 	
 	@Override

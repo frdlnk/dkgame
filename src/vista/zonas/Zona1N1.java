@@ -11,18 +11,13 @@ import modelo.entidades.enemigos.Enemigo;
 import modelo.entidades.enemigos.EnemigoGranada;
 import modelo.entidades.enemigos.EnemigoPistola;
 import modelo.entidades.enemigos.Helicoptero;
-import modelo.worldObjects.Caja;
 import modelo.worldObjects.DeadBox;
-import modelo.worldObjects.MovementBarrier;
-import modelo.worldObjects.Plataforma;
+import modelo.worldObjects.PlayerDetector;
 import motor_v1.motor.Entidad;
-import motor_v1.motor.GameLoop;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.Sprite;
-import motor_v1.motor.input.InputKeyboard;
-import motor_v1.motor.input.Key;
 import motor_v1.motor.util.Vector2D;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
@@ -30,7 +25,6 @@ import utils.constants.Assets;
 import utils.constants.Conf;
 import utils.constants.EnemyTypes;
 import utils.constants.Tags;
-import utils.interfaces.BorderDrawAble;
 
 
 /**
@@ -46,16 +40,17 @@ public class Zona1N1 extends Zona{
 	public final static int CANTIDAD_JEFES = 3;
 	
 	//variables de control para el movimiento de pantalla
-	private int[] checkPoints = {-3040,-5650, -6300, -6700, -7225, -7500};
-	private Vector2D[] direccionChecpoints = {
+	private final int[] checkPoints = {-3040,-5650, -6300, -6700, -7225, -7500};
+	private final Vector2D[] direccionChecpoints = {
 		Vector2D.LEFT,Vector2D.LEFT, Vector2D.LEFT, 
 		new Vector2D(-1, .25), new Vector2D(-.5,.1), Vector2D.LEFT
 	};
+	
 	private int actualCheckpoint;
-	MovementBarrier barrier;
+	private PlayerDetector barrier;
 	
 	//Entidades principales
-	Sprite background;
+	private Sprite background;
 	private Enemigo[] jefes;
 	private int jefeActual;
 	
@@ -63,8 +58,8 @@ public class Zona1N1 extends Zona{
 	/**
 	 * Constructor sin parametros 
 	 */
-	public Zona1N1() {
-		super(Vector2D.RIGHT, new Vector2D(0,0));
+	public Zona1N1(boolean modoDiseno) {
+		super( new Vector2D(0,0), modoDiseno);
 		
 		actualCheckpoint = 0;
 	}
@@ -179,7 +174,7 @@ public class Zona1N1 extends Zona{
 		
 		//Piso final catarata
 		Vector2D posicionCaja4Avion2 = new Vector2D(7114, 129);
-		plat1 = createCaja(posicionCaja4Avion2, 2000, 200);
+		createCaja(posicionCaja4Avion2, 2000, 200);
 		
 		//barrera de movimiento, para el avance por pantalla
 		Rectangle rectMB = new Rectangle(Conf.WINDOW_WIDTH/2, Conf.WINDOW_HEIGHT);
@@ -187,7 +182,7 @@ public class Zona1N1 extends Zona{
 		BufferedImage imageMB = Renderer.crearTextura(rectMB, colorMB);
 		Vector2D posicionMB = new Vector2D(Conf.WINDOW_WIDTH/2,0);
 		Transform transformMB = new Transform(posicionMB);
-		barrier = new MovementBarrier(imageMB, transformMB);
+		barrier = new PlayerDetector(imageMB, transformMB);
 		barrier.getColisiona().actualizar();
 		barrier.setTrigger(false);
 		
@@ -244,30 +239,39 @@ public class Zona1N1 extends Zona{
 	
 	
 	
+	/**
+	 * Genera los enemigos helicoptero
+	 */
 	private void generarHelicopteros() {
 		
 	}
 	
+	/**
+	 * genera enemigos pistoleros
+	 */
 	private void generarPistoleros() {
 		Rectangle rect = new Rectangle(50, 80);
 		Color color = new Color(128,128,0,100);
-		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
+		BufferedImage imageE = Renderer.crearTextura(rect, color);
 		Vector2D posicionE = new Vector2D(1400,200);
 		Transform transformE = new RelativeTransform(posicionE, transformar);
 		
-		EnemigoPistola enemigo = new EnemigoPistola(imageE, transformE, 1);
+		EnemigoPistola enemigo = new EnemigoPistola(imageE, transformE);
 		enemigos.add(enemigo.getNombre(), enemigo);
 		
 	}
 	
+	/**
+	 * genera enemigos granaderos
+	 */
 	private void generarGranaderos() {
 		Rectangle rect = new Rectangle(50, 80);
 		Color color = new Color(128,128,0,100);
-		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
+		BufferedImage imageE = Renderer.crearTextura(rect, color);
 		Vector2D posicionE = new Vector2D(700,200);
 		Transform transformE = new RelativeTransform(posicionE, transformar);
 		
-		EnemigoGranada enemigo = new EnemigoGranada(imageE, transformE, 1);
+		EnemigoGranada enemigo = new EnemigoGranada(imageE, transformE);
 		enemigos.add(enemigo.getNombre(), enemigo);
 	}
 	
@@ -293,23 +297,23 @@ public class Zona1N1 extends Zona{
 		
 		Rectangle rect = new Rectangle(50, 80);
 		Color color = new Color(128,128,0,100);
-		BufferedImage[] imageE = {Renderer.crearTextura(rect, color)};
+		BufferedImage imageE = Renderer.crearTextura(rect, color);
 		
-		Rectangle rectJ1 = new Rectangle(85, 40);
-		BufferedImage[] imageJ1 = {Renderer.crearTextura(rectJ1, color)};
+		Rectangle rectJ1 = new Rectangle(120, 70);
+		BufferedImage imageJ1 = Renderer.crearTextura(rectJ1, color);
 		Vector2D posicionJefe1 = new Vector2D(3200,0);
 		Transform transformJefe1 = new RelativeTransform(posicionJefe1, transformar);
-		jefes[0] = new Helicoptero(imageJ1, transformJefe1, 10);
+		jefes[0] = new Helicoptero(imageJ1, transformJefe1);
 		
 		Vector2D posicionJefe2 = new Vector2D(5800,200);
 		Transform transformJefe2 = new RelativeTransform(posicionJefe2, transformar);
-		jefes[1] = new EnemigoPistola(imageE, transformJefe2, 10);
+		jefes[1] = new EnemigoPistola(imageE, transformJefe2);
 		jefes[1].setSalud(400);
 		jefes[1].getArma().setShootDelay(.9);
 		
 		Vector2D posicionJefeFinal = new Vector2D(8000,80);
 		Transform transformJefeFinal = new RelativeTransform(posicionJefeFinal, transformar);
-		jefes[2] = new EnemigoPistola(imageE, transformJefeFinal, 10);
+		jefes[2] = new EnemigoPistola(imageE, transformJefeFinal);
 
 		for (int i = 0; i < jefes.length; i++) {
 			enemigos.add(jefes[i].getNombre(), jefes[i]);

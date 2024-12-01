@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import modelo.Usuario;
+import modelo.Dao.IDAOUserConfigs;
 import modelo.Dao.IDAOUsuario;
 import vista.admin.VistaEliminar;
 
@@ -13,8 +14,9 @@ import vista.admin.VistaEliminar;
  * @see BuscarControler
  * @see VistaEliminar
  */
-public class EliminarControler extends BuscarControler implements ActionListener{
-	VistaEliminar vistaEliminar;
+public class EliminarControler extends BuscarControler{
+	private VistaEliminar vistaEliminar;
+	private IDAOUserConfigs modeloConfigs;
 	
 	/**
 	 * Construye un nuevo controlador asociado a la vista especificada
@@ -22,9 +24,10 @@ public class EliminarControler extends BuscarControler implements ActionListener
 	 * @param vista Vista asociada al controlador
 	 * @param modelo DAO de acceso a los usuarios
 	 */
-	public EliminarControler(VistaEliminar vista, IDAOUsuario modelo) {
+	public EliminarControler(VistaEliminar vista, IDAOUsuario modelo, IDAOUserConfigs modeloConfigs) {
 		super(vista, modelo);
 		vistaEliminar = vista;
+		this.modeloConfigs = modeloConfigs;
 		
 		vista.getBtnDetalles().addActionListener(this);
 		vista.getBtnDelete().addActionListener(this);
@@ -46,6 +49,7 @@ public class EliminarControler extends BuscarControler implements ActionListener
 	private void eliminarUsuario() {
 		Usuario selectedUser = vistaEliminar.getListaUsuarios().getSelectedValue();
 		modeloUsuario.delete(selectedUser);
+		modeloConfigs.delete(selectedUser.getConfigId());
 		vistaEliminar.dispose();
 	}
 

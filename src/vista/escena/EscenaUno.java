@@ -19,8 +19,7 @@ public class EscenaUno extends EscenaJuego{
 		
 		jugador1 = Game.getJugador();
 		
-		zona = new Zona1N1();
-		zona.setModoDiseno(true);
+		zona = new Zona1N1(true);
 		
 		entidades.add(zona.getNombre(), zona);
 		entidades.add(jugador1.getNombre(), jugador1);

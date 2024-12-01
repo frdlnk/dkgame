@@ -15,7 +15,7 @@ import vista.admin.VistaBuscar;
  * @see VistaBuscar
  * @see VistaActualizar
  */
-public class ActualizarControler extends BuscarControler implements ActionListener{
+public class ActualizarControler extends BuscarControler{
 	private VistaActualizar vistaActualizar;
 	private UserFieldsValidator validator;
 	
@@ -30,6 +30,7 @@ public class ActualizarControler extends BuscarControler implements ActionListen
 		validator = new UserFieldsValidator(modelo);
 		vista.getBtnSelectUser().addActionListener(this);
 		vista.getBtnActualizar().addActionListener(this);
+		vista.getBtnCancelar().addActionListener(this);
 		vista.setVisible(true);
 	}
 
@@ -76,6 +77,10 @@ public class ActualizarControler extends BuscarControler implements ActionListen
 		}
 	}
 	
+	private void mostrarBusqueda() {
+		vistaActualizar.changeToSearchPanel();
+	}
+	
 	/**
 	 *Asignacion de mentodos a los botones
 	 */
@@ -85,6 +90,8 @@ public class ActualizarControler extends BuscarControler implements ActionListen
 			mostrarInfoUsuario();
 		}else if(source.equals(vistaActualizar.getBtnActualizar())){
 			actualizarUsuario();
+		}else if (source.equals(vistaActualizar.getBtnCancelar())) {
+			mostrarBusqueda();
 		}
 	}
 }

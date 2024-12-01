@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
+import ctrl.gameControlers.Game;
 import modelo.armamento.municiones.Choete;
 import modelo.arrays.ArrayString;
 import modelo.componentes.RelativeTransform;
@@ -34,6 +35,7 @@ public class Helicoptero extends Enemigo {
 	private final static double TIEMPO_ENTRE_BOMBAS = .4;
 	private final static double TIEMPO_ENTRE_BOMBARDEOS = 1.5;
 	private final static int CANTIDAD_BOMBAS_POR_BOMBARDEO = 3;
+	private static final double DANO_BASE = 20;
 	//propiedades de control
 	private int bombasArrojadas;
 	private boolean bombardear;
@@ -43,8 +45,13 @@ public class Helicoptero extends Enemigo {
 
 	private SpritesEnemy sprites;
 
-	public Helicoptero(BufferedImage[] imagenes, Transform posicion, double duracionImagen) {
-		super(imagenes, posicion, duracionImagen, SALUD, VALOR_PUNTAJE);
+	/**
+	 * Crea un nuevo Helicoptero con {@value #SALUD} de vida
+	 * @param imagenes
+	 * @param posicion
+	 */
+	public Helicoptero(BufferedImage imagen, Transform posicion) {
+		super(imagen, posicion, SALUD, VALOR_PUNTAJE);
 		//sin gravedad porque vuela
 		fisica.setGravity(0);
 		//siempre en la posicion y del aire
@@ -53,7 +60,7 @@ public class Helicoptero extends Enemigo {
 		tiempoParaSiguienteBomba = 0;
 		tiempoParaSiguienteBombardeo = 0;
 		//collider de bombardeo
-		Vector2D posColliderB = new Vector2D(imagenes[0].getWidth()/2-10,imagenes[0].getHeight());
+		Vector2D posColliderB = new Vector2D(imagen.getWidth()/2-10,imagen.getHeight());
 		RelativeTransform transBomb= new RelativeTransform(posColliderB, transformar);
 		Rectangle hitBoxBombardero = new Rectangle(20,Conf.WINDOW_HEIGHT);
 		triggerBombardeo = new Collider(transBomb, hitBoxBombardero);
@@ -136,7 +143,7 @@ public class Helicoptero extends Enemigo {
 		//Crea y agrega los cohetes al escenario
 		ArrayString targetsIgnored = new ArrayString();
 		targetsIgnored.add(getNombre());
-		int dano = 20;
+		double dano = DANO_BASE * Game.getConfiguracion().getMultiplicadorDanoEnemigo();
 		Choete cohete = new Choete(posicionDisparo(), Vector2D.ZERO, targetsIgnored, dano);
 		if (escenaActual instanceof EscenaJuego) {
 			((EscenaJuego) escenaActual).addEntidad(cohete);

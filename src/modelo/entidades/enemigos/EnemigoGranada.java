@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import ctrl.gameControlers.Game;
 import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Granada;
 import modelo.arrays.ArrayString;
@@ -23,8 +24,9 @@ import vista.escena.EscenaJuego;
 public class EnemigoGranada extends Enemigo{
 	//constantes de movimiento
 	public final static int VALOR_PUNTAJE = 300;
-	public final static int SALUD = 30;
+	public final static int SALUD = 70;
 	public final static int SPEED = 80;
+	public final static int DANO_BASE = 15;
 	
 	//variables de control
 	private double tiempoEntreLanzamientos;
@@ -37,12 +39,12 @@ public class EnemigoGranada extends Enemigo{
 
 	/**
 	 * crea un nuevo Granadero
-	 * @param imagenes gif que se pintara
+	 * @param imagen principal para dimensiones y localizacion
 	 * @param posicion inicial del enemigo
 	 * @param duracionImagen tiempo de reproducion del gif
 	 */
-	public EnemigoGranada(BufferedImage[] imagenes, Transform posicion, double duracionImagen) {
-		super(imagenes, posicion, duracionImagen, SALUD, VALOR_PUNTAJE);
+	public EnemigoGranada(BufferedImage imagenes, Transform posicion) {
+		super(imagenes, posicion, SALUD, VALOR_PUNTAJE);
 		setArma(new Pistola());
 		sprites = new SpritesEnemy(this);
 		siguientePosicion = 0;
@@ -73,11 +75,11 @@ public class EnemigoGranada extends Enemigo{
 				
 				Random random = new Random();
 				siguienteDireccionX = random.nextBoolean() ? 1 : -1;
-				siguientePosicion = random.nextInt(-200,200);
+				siguientePosicion = random.nextInt(0,400);
 			}else if(!posicionAlcanzada){
 				Vector2D direccion = new Vector2D(siguienteDireccionX,0);
 				fisica.addForce(direccion.scale(SPEED*GameLoop.dt));
-				siguientePosicion -= SPEED*GameLoop.dt;
+				siguientePosicion -= fisica.getVectorMovimiento().getX();
 				sprites.cambiarAnimacionA(Assets.enemNames[1]);
 			}
 			posicionAlcanzada = siguientePosicion < 0;
@@ -130,7 +132,7 @@ public class EnemigoGranada extends Enemigo{
 			//Crea y agrega la granada al escenario
 			ArrayString targetsIgnored = new ArrayString();
 			targetsIgnored.add(getNombre());
-			int dano = 10;
+			double dano = DANO_BASE * Game.getConfiguracion().getMultiplicadorDanoEnemigo();
 			Granada granada = new Granada(posicionDisparo(), direccionDisparo, targetsIgnored, dano, v0);
 			Scene escenaActual = Scene.getEscenaActual();
 			if (escenaActual instanceof EscenaJuego) {

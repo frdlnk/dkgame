@@ -9,6 +9,7 @@ import modelo.armamento.armas.Arma;
 import modelo.armamento.municiones.Municion;
 import modelo.arrays.ArrayString;
 import modelo.componentes.Fisica;
+import modelo.componentes.PlayerControls;
 import modelo.componentes.RelativeTransform;
 import modelo.entidades.enemigos.Enemigo;
 import modelo.spritesCargados.SpritesPlayer;
@@ -21,7 +22,6 @@ import motor_v1.motor.component.Renderer;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.input.InputMouse;
 import motor_v1.motor.util.Vector2D;
-import utils.PlayerControls;
 import utils.colision.ColisionInfo;
 import utils.constants.ArmasDisponibles;
 import utils.constants.Assets;
@@ -57,7 +57,6 @@ public class Player extends Soldado{
 	private Collider cuchilloColider;
 	
 	//variables de movimiento
-	private boolean isMoving;
 	private PlayerControls controles;
 	
 	//variables de diseño
@@ -66,12 +65,12 @@ public class Player extends Soldado{
 	
 	/**
 	 * Crea un nuevo jugador 
-	 * @param imagenes gif a presentar
+	 * @param imagen principal de posicion y dimension
 	 * @param transformar inicial del jugador
 	 * @param duracionImagen 
 	 */
-	public Player(BufferedImage[] imagenes, Transform transformar, double duracionImagen, int vidasRestantes) {
-		super(Tags.PLAYER,imagenes,transformar,duracionImagen, SALUD);
+	public Player(BufferedImage imagen, Transform transformar, int vidasRestantes) {
+		super(Tags.PLAYER,imagen,transformar, SALUD);
 		spritesPlayer = new SpritesPlayer(this);
 		colisiona.actualizar();
 		fisica = new Fisica(1,1.5,transformar);
@@ -127,6 +126,9 @@ public class Player extends Soldado{
 		super.actualizar();
 	}
 	
+	/**
+	 * Reaparece en el lugar prvisto despues de morir
+	 */
 	private void reaparecer() {
 		Vector2D posReaparicion = new Vector2D(20,200);
 		transformar.trasladarloA(posReaparicion);
@@ -139,7 +141,6 @@ public class Player extends Soldado{
 	 */
 	private void movimiento(double direccionHorizontal) {
 		double movimiento = SPEED;
-		isMoving = true;
 		//decide si esta agachado
 		if(controles.getDireccionVertical() == 1 && isGrounded && !estaAgachado) {
 			agacharse();
@@ -160,6 +161,11 @@ public class Player extends Soldado{
 		fisica.addForce(new Vector2D(direccionHorizontal*movimiento*GameLoop.dt,0));
 	}
 
+	/**
+	 * Verifica que sprite debe mostrarse segun el movimiento
+	 * @param direccionHorizontal
+	 * @param direccionVertical
+	 */
 	private void checkMovementSprites(double direccionHorizontal, double direccionVertical) {
 		if (estaAgachado){
 			spritesPlayer.cambiarAnimacionA(Assets.spriteNames[3]);
@@ -235,9 +241,7 @@ public class Player extends Soldado{
 	}
 	
 	
-	/**
-	 * dispara con el arma actual del jugador
-	 */
+	@Override
 	public void disparar() {
 		usaCuchillo = false;
 		if (InputMouse.isPressed() && cuchilloDelay <= 0) {
@@ -359,13 +363,6 @@ public class Player extends Soldado{
 		this.fisica = fisica;
 	}
 
-	public Vector2D getUltimaDirecionHorizontal() {
-		return direccionDisparo;
-	}
-
-	public void setUltimaDirecionHorizontal(Vector2D ultimaDirecionHorizontal) {
-		this.direccionDisparo = ultimaDirecionHorizontal;
-	}
 
 	public boolean isGrounded() {
 		return isGrounded;

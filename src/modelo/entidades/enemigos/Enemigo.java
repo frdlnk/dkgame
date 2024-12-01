@@ -23,12 +23,13 @@ public abstract class Enemigo extends Soldado {
 	private int valorPuntaje;
 	/**
 	 * Crea un nuevo {@link Enemigo} con el tag {@value Tags#ENEMY}
-	 * @param imagenes imagenes de gif a mostrarse
+	 * @param imagenes 
 	 * @param posicion inicial del enemigo
-	 * @param duracionImagen cantidad en segundos de la duracion del gif
+	 * @param salud 
+	 * @param valorPuntaje puntos que sumara al jugador al morir
 	 */
-	public Enemigo(BufferedImage[] imagenes, Transform posicion, double duracionImagen, double salud, int valorPuntaje) {
-		super(Tags.ENEMY, imagenes, posicion, duracionImagen, salud);
+	public Enemigo(BufferedImage imagen, Transform posicion, double salud, int valorPuntaje) {
+		super(Tags.ENEMY, imagen, posicion, salud);
 		this.valorPuntaje = valorPuntaje;
 		colisiona.actualizar();
 		fisica = new Fisica(1,1,transformar);

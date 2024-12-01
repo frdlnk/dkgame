@@ -2,6 +2,7 @@ package modelo.Dao.file;
 
 import java.io.IOException;
 
+import ctrl.Main;
 import modelo.UserConfig;
 import modelo.Dao.IDAOUserConfigs;
 import modelo.arrays.UserConfigArray;
@@ -12,7 +13,9 @@ import modelo.db.binary.ObjectReadManager;
  * DAO de acceso a las configuraciones de usuario, mediante archivo binario
  */
 public class DAO_UserConfig implements IDAOUserConfigs {
+	UserConfigArray lista = Main.UserConfigsSet;
 	String fileName = "userConfig.data";
+	
 	/**
 	 * Crea un nuevo DAO
 	 * @throws IOException si el archivo se encuentra corrupto o no se pued3e abrir
@@ -27,7 +30,7 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 	 * @throws ClassNotFoundException si {@link UserConfig} no se encuentra en los recursos del sistema
 	 * @throws IOException si existe problemas con el archivo
 	 */
-	public void load() throws ClassNotFoundException, IOException {
+	private void load() throws ClassNotFoundException, IOException {
 		try (ObjectReadManager reader = new ObjectReadManager(fileName)){
 			reader.readAll(lista);
 		} catch (Exception e) {

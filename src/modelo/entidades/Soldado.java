@@ -8,6 +8,7 @@ import modelo.componentes.Fisica;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.GifMovible;
+import motor_v1.motor.entidades.SpriteMovible;
 import motor_v1.motor.util.Vector2D;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
@@ -16,7 +17,7 @@ import utils.interfaces.Movible;
 /**
  * Entidad base para los personajes del juego
  */
-public abstract class Soldado extends GifMovible implements Colisionable, Movible {
+public abstract class Soldado extends SpriteMovible implements Colisionable, Movible {
 	protected double salud;
 	private Arma arma;
 	protected Fisica fisica;
@@ -28,8 +29,8 @@ public abstract class Soldado extends GifMovible implements Colisionable, Movibl
 	 * @param transformar posicion inicial del soldado
 	 * @param duracionImagen 
 	 */
-	public Soldado(String nombre, BufferedImage[] imagenes, Transform transformar, double duracionImagen, double salud) {
-		super(nombre, imagenes, transformar, duracionImagen);
+	public Soldado(String nombre, BufferedImage imagen, Transform transformar, double salud) {
+		super(nombre, imagen, transformar);
 		this.salud = salud;
 	}
 	
@@ -83,7 +84,6 @@ public abstract class Soldado extends GifMovible implements Colisionable, Movibl
 		return fisica;
 	}
 	
-	@Override
 	public void setFisica(Fisica fisica) {
 		this.fisica = fisica;
 	}

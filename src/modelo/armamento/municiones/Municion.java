@@ -132,11 +132,6 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 		return new Collider[]{colisiona};
 	}
 
-	@Override
-	public Collider getColisiona() {
-		return colisiona;
-	}
-
 	public double getDano() {
 		return dano;
 	}
@@ -151,12 +146,10 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	}
 
 
-	@Override
 	public void setColisiona(Collider colisiona) {
 		this.colisiona = colisiona;
 	}
 
-	@Override
 	public void setFisica(Fisica fisica) {
 		this.fisica = (Fisica) fisica;
 	}

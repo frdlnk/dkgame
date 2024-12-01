@@ -66,15 +66,15 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 		btnSelecionar.setBackground(Colors.COLOR6);
 		getBusquedaPanel().add(btnSelecionar);
 		
-		chBoxHelicopteros = new JCheckBox("Helicopteros");
+		chBoxHelicopteros = new JCheckBox("Helicopteros",false);
 		chBoxHelicopteros.setBounds(28, 32, 97, 23);
 		configPanel.add(chBoxHelicopteros);
 		
-		chBoxGranaderos = new JCheckBox("Granaderos");
+		chBoxGranaderos = new JCheckBox("Granaderos", false);
 		chBoxGranaderos.setBounds(153, 32, 97, 23);
 		configPanel.add(chBoxGranaderos);
 		
-		chBoxPistoleros = new JCheckBox("Pistoleros");
+		chBoxPistoleros = new JCheckBox("Pistoleros", false);
 		chBoxPistoleros.setBounds(278, 32, 97, 23);
 		configPanel.add(chBoxPistoleros);
 		
@@ -157,6 +157,9 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 	}
 	
 	public void changeToBuscarPanel() {
+		chBoxGranaderos.setSelected(false);
+		chBoxHelicopteros.setSelected(false);
+		chBoxPistoleros.setSelected(false);
 		setContentPane(getBusquedaPanel());
 		setBounds(originaBounds);
 	}

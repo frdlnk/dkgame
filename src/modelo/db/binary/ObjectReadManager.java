@@ -36,8 +36,12 @@ public class ObjectReadManager implements AutoCloseable{
 
 	@Override
 	public void close() throws Exception {
-		in.close();
-		reader.close();
+		if (in != null) {
+			in.close();
+		}
+		if (reader != null) {
+			reader.close();
+		}
 	}
 	
 	/**

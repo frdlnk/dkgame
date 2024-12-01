@@ -13,7 +13,7 @@ import java.awt.Graphics;
 public class SpritesPlayer extends Animation{
 	private double escala;
     private Animation legs;
-    Player player;
+    private Player player;
 	
     public SpritesPlayer(Player player) {
         super("torso");
@@ -22,9 +22,6 @@ public class SpritesPlayer extends Animation{
         legs = new Animation("legs");
         loadGifs();
         escala = 2;
-
-
-
     }
 
     private void loadGifs() {
@@ -51,15 +48,5 @@ public class SpritesPlayer extends Animation{
     	super.dibujar(g);
     	pos.setY(pos.getY()-.6);
     	getTransformar().setEscala(escala);
-
-
-
-//        Vector2D legPos = new Vector2D(this.getTransformar().getPosicion().getX(),player.getColisiona().getHitbox().height - Assets.gifsL.getImage(legs.getAnimacionActual().getNombre(), 0).getHeight());
-//        Transform transformLeg = new RelativeTransform(legPos, this.getTransformar());
-//        legs.setTransformar(transformLeg);
-//        Vector2D escalaLeg = getTransformar().getEscala();
-//        legs.getTransformar().setEscala(new Vector2D(this.escala, this.escala));
-//        legs.dibujar(g);
-//        legs.getTransformar().setEscala(escalaLeg);
     }
 }

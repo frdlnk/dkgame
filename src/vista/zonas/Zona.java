@@ -39,24 +39,42 @@ public abstract class Zona extends Entidad implements Colisionable{
 	protected UserConfig config; 
 	
 	//Variables del modo diseño
-	boolean modoDiseno;
-	Sprite plat1;
-	int actualPlatform;
+	private boolean modoDiseno;
+	private Sprite plat1;
+	private int actualPlatform;
 	private double contx;
 	private double conty;
-	double changeplatDelay;
+	private double changeplatDelay;
 	
-	public Zona(Vector2D direccionMovimiento, Vector2D posicion) {
+	public Zona(Vector2D posicion, boolean modoDiseno) {
 		super();
 		config = Game.configuracion;
 		transformar = new Transform(posicion);
 		this.mapObjects = new ListaEntidades();
 		this.staticObjects = new ListaEntidades();
 		this.enemigos = new ListaEntidades();
-		modoDiseno = false;
+		this.modoDiseno = modoDiseno;
 		changeplatDelay = 0;
 		crearComponentes();
 		generarEnemigos();
+		if (modoDiseno) {
+			setFirstDesignPlatform();
+		}
+	}
+	
+	/**
+	 * Busca el primer Elemento que se pueda mover para el modo disenador
+	 */
+	private void setFirstDesignPlatform() {
+		actualPlatform = 0;
+		Entidad entidad = mapObjects.get(actualPlatform);
+		while (mapObjects.getSize() > actualPlatform && !(entidad instanceof Sprite)) {
+			plat1 = (Sprite) entidad;
+			actualPlatform++;
+		}
+		if (plat1 == null) {
+			modoDiseno = false;
+		}
 	}
 	
 	/**

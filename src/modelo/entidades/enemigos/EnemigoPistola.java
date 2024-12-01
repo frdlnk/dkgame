@@ -30,7 +30,7 @@ public class EnemigoPistola extends Enemigo {
 	public final static int MUNICIONES = 1000;
 	public final static double SHOOT_DELAY = 1.5;
 	public final static int SPEED = 100;
-	public final static int VIDA = 20;
+	public final static int VIDA = 50;
 	public final static int TIEMPO_DISPARANDO = 3;
 	public final static int DANO_BASE = 10;
 	//propiedades de control
@@ -41,12 +41,12 @@ public class EnemigoPistola extends Enemigo {
 
 	/**
 	 * Crea un nuevo enemigo con {@value #VIDA} de vida y una pistola con {@value #MUNICIONES} balas
-	 * @param imagenes gif a mostrar
+	 * @param imagen principal de posicion y dimension
 	 * @param posicion inicial del enemigo
 	 * @param duracionImagen duracion del gif
 	 */
-	public EnemigoPistola(BufferedImage[] imagenes, Transform posicion, double duracionImagen) {
-		super(imagenes, posicion, duracionImagen, VIDA, VALOR_PUNTAJE);
+	public EnemigoPistola(BufferedImage imagen, Transform posicion) {
+		super(imagen, posicion, VIDA, VALOR_PUNTAJE);
 		Double dano = DANO_BASE*Game.getConfiguracion().getMultiplicadorDanoEnemigo();
 		setArma(new Pistola(SHOOT_DELAY,MUNICIONES, dano));
 		sprites = new SpritesEnemy(this);

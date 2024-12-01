@@ -10,7 +10,7 @@ import modelo.arrays.ArrayString;
 import utils.constants.EnemyTypes;
 import vista.admin.VistaConfiguracionesUsuario;
 
-public class ConfiguracionesControler extends BuscarControler implements ActionListener{
+public class ConfiguracionesControler extends BuscarControler{
 	private IDAOUserConfigs modeloConfigs;
 	private VistaConfiguracionesUsuario vistaConf;
 

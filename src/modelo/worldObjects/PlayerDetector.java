@@ -12,7 +12,7 @@ import utils.constants.Tags;
 /**
  * Barrera de movimiento que detecta la colision del jugador para limitar su movimeinto y actuar segun su posicion en el mapa
  */
-public class MovementBarrier extends Caja {
+public class PlayerDetector extends Caja {
 	private boolean playerOverlap;
 	private Player player;
 	private boolean isTrigger;
@@ -23,7 +23,7 @@ public class MovementBarrier extends Caja {
 	 * @param textura imagen a mostrar
 	 * @param transformar posicion inicial
 	 */
-	public MovementBarrier(BufferedImage textura, Transform transformar) {
+	public PlayerDetector(BufferedImage textura, Transform transformar) {
 		super(Tags.STATIC_OBJECT, textura, transformar);
 		setTrigger(false);
 		setEnable(true);

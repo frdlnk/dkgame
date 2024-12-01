@@ -53,7 +53,7 @@ public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 		if (colision.getEntidad() instanceof Movible) {
 			Movible entidadmovible = (Movible) colision.getEntidad();
 			Fisica fisicaOtro = entidadmovible.getFisica();
-			Rectangle colliderOtro = entidadmovible.getColisiona().getHitbox();
+			Rectangle colliderOtro = colision.getColider().getHitbox();
 			Rectangle thisHitBox = colisiona.getHitbox();
 			Vector2D direccionInversa = fisicaOtro.getUltimaDireccion().scale(-1).normalize();
 			Double direccionY = direccionInversa.getY();
@@ -71,7 +71,7 @@ public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 						nuevaPosiocion = transformarOtro.getPosicion().add(direccionInversa);
 					}
 					transformarOtro.trasladarloA(nuevaPosiocion);
-					entidadmovible.getColisiona().actualizar(); 
+					colision.getColider().actualizar(); 
 				}
 			}
 			
@@ -92,7 +92,7 @@ public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 				fisicaOtro.getUltimaDireccion().setY(0);
 			}
 			//actualiza la entidad
-			entidadmovible.getColisiona().actualizar();
+			colision.getColider().actualizar();
 		}
 	}
 

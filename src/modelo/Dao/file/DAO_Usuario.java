@@ -1,6 +1,7 @@
 package modelo.Dao.file;
 
 
+import ctrl.Main;
 import modelo.Usuario;
 import modelo.Dao.IDAOUsuario;
 import modelo.arrays.ArrayString;
@@ -12,6 +13,7 @@ import modelo.db.text.ObjectReadManager;
  * DAO de acceso y guarado de usuarios mediante archivos de texto
  */
 public class DAO_Usuario implements IDAOUsuario {
+	UserArray lista = Main.UserDataSet;
 	String fileName = "user.txt";
 	
 	/**
@@ -24,7 +26,7 @@ public class DAO_Usuario implements IDAOUsuario {
 	/**
 	 * carga los registros al dataset
 	 */
-	public void load() {
+	private void load() {
 		try (ObjectReadManager reader = new ObjectReadManager(fileName)){
 			ArrayString records = new ArrayString();
 			reader.readAll(records);
@@ -34,7 +36,9 @@ public class DAO_Usuario implements IDAOUsuario {
 				if (user != null) 
 					lista.add(user);
 			}
-		} catch (Exception e) {System.err.println("Error al leer usuarios");}
+		} catch (Exception e) {
+			System.err.println("Error al leer usuarios");
+		}
 	}
 	
 	/**

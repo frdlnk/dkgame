@@ -7,11 +7,21 @@ import motor_v1.motor.entidades.ListaEntidades;
 import utils.colision.ColisionUtils;
 import utils.colision.Colisionable;
 
+/**
+ * Clase base para las escenas del juego
+ */
 public abstract class EscenaJuego extends Scene {
 	public static ListaEntidades entidades = new ListaEntidades();
 
+	/**
+	 * Anade una entidad a la escena
+	 * @param entidad
+	 */
 	public abstract void addEntidad(Entidad entidad);
 	
+	/**
+	 * Calculo de colisiones entre todos los objetos de la lista de entidades
+	 */
 	public void calcularColisiones() {
 		for (int i = 0; i < entidades.getSize(); i++) {
 			if (entidades.get(i) instanceof Colisionable) {

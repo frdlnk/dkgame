@@ -13,8 +13,6 @@ import utils.constants.UserFields;
  */
 public interface IDAOUsuario {
 	
-	UserArray lista = Main.UserDataSet;
-	
 	/**
 	 * Agrega un nuevo usuario 
 	 * @param usuario Usuario a agregar

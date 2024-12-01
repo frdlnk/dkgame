@@ -13,7 +13,7 @@ import vista.admin.VistaDetalles;
  * @see BuscarControler
  * @see VistaDetalles
  */
-public class DetallesControler extends BuscarControler implements ActionListener{
+public class DetallesControler extends BuscarControler{
 	private VistaDetalles vistaDetails;
 
 	/**

@@ -33,7 +33,7 @@ public class Plataforma extends Caja {
 			//TODO: tratar de hacer con producto punto de la resta de pos-Jpos y Vector.UP
 			Movible objeto = (Movible) entidad;
 			Fisica fisicaOtro = objeto.getFisica();
-			Rectangle otroHitbox = objeto.getColisiona().getHitbox();
+			Rectangle otroHitbox = entidad.getColliders()[0].getHitbox();
 			Rectangle thisHitBox = colisiona.getHitbox();  
 			double thisYLevel = thisHitBox.getMaxY();
 			double otroYLevel = otroHitbox.getMaxY();

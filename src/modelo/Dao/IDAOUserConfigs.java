@@ -10,8 +10,7 @@ import modelo.arrays.UserConfigArray;
  * @see UserConfig
  */
 public interface IDAOUserConfigs {
-	//dataset
-	UserConfigArray lista = Main.UserConfigsSet;
+	
 	/**
 	 * Inserta una nueva Configuracion de usuario
 	 * @param config configuracion a agregar

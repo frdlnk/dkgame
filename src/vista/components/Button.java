@@ -8,6 +8,10 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+/**
+ * Boton personalizado, permite una mejor forma de alterar su forma sin afectar el comportamiento normal
+ * <br> funciona como un wrapper para estilizar el panel con mayor libertad que el boton
+ */
 public class Button extends JPanel implements ActionListener{
 
 	private JButton boton;

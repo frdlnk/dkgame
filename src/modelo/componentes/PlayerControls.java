@@ -1,4 +1,4 @@
-package utils;
+package modelo.componentes;
 
 import motor_v1.motor.input.InputKeyboard;
 import motor_v1.motor.input.Key;

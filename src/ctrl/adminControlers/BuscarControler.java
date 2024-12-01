@@ -2,6 +2,8 @@ package ctrl.adminControlers;
 
 import modelo.Dao.IDAOUsuario;
 
+import java.awt.event.ActionListener;
+
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -17,7 +19,7 @@ import vista.admin.VistaBuscar;
  * @see DocumentListener
  * @see VistaBuscar
  */
-public class BuscarControler implements DocumentListener{
+public abstract class BuscarControler implements DocumentListener, ActionListener{
 	private VistaBuscar vista;
 	protected IDAOUsuario modeloUsuario;
 	
