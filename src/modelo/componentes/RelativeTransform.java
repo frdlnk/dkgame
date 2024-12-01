@@ -16,7 +16,7 @@ import motor_v1.motor.util.Vector2D;
  */
 public class RelativeTransform extends Transform {
 	private Transform pivot;
-	private Vector2D pos;
+	private Vector2D posicion;
 
 	/**
 	 * Crea un nuevo transform relativo a otro y con una posicion inicial
@@ -26,7 +26,7 @@ public class RelativeTransform extends Transform {
 	public RelativeTransform(Vector2D posicion, Transform pivot) {
 		super(posicion);
 		this.pivot = pivot;
-		pos = posicion;
+		this.posicion = posicion;
 	}
 	
 	/**
@@ -34,14 +34,14 @@ public class RelativeTransform extends Transform {
 	 */
 	@Override
 	public Vector2D getPosicion() {
-		return pivot.getPosicion().add(pos);
+		return pivot.getPosicion().add(posicion);
 	}
 	
 	/**
 	 * Devuelve la posicion relativa del objeto
 	 */
 	public Vector2D getRelativePosicion() {
-		return pos;
+		return posicion;
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class RelativeTransform extends Transform {
 	 */
 	@Override
 	public void trasladarloA(Vector2D nuevaPosicion) {
-		pos = nuevaPosicion;
+		posicion = nuevaPosicion;
 	}
 	
 	
@@ -59,5 +59,10 @@ public class RelativeTransform extends Transform {
 	
 	public void setPivot(Transform pivot) {
 		this.pivot = pivot;
+	}
+
+	@Override
+	public String toString() {
+		return "RelativeTransform [pivot=" + pivot + ", posicion=" + posicion + "]";
 	}
 }

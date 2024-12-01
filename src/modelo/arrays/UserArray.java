@@ -31,9 +31,9 @@ public class UserArray extends Array {
 	 * Anade un string al arreglo
 	 * @param String a agregar
 	 */
-	public void add(Object string) {
-		if (string instanceof Usuario) {
-			super.addInternal(string);
+	public void add(Object usuario) {
+		if (usuario instanceof Usuario) {
+			super.addInternal(usuario);
 		}
 	}
 
@@ -83,7 +83,7 @@ public class UserArray extends Array {
 		}
 	}
 	
-	public UserArray searchByString(Object value, String field) {
+	private UserArray searchByString(Object value, String field) {
 		UserArray userReturned = new UserArray();
 		if (!(value instanceof String)) return userReturned;
 		Usuario[] users = getArregloObjetos();
@@ -98,7 +98,7 @@ public class UserArray extends Array {
 		return userReturned;
 	}
 
-	public UserArray searchByInt(Object value, String searchMode, String field) {
+	private UserArray searchByInt(Object value, String searchMode, String field) {
 		UserArray userReturned = new UserArray();
 		if (!(value instanceof Integer)) return userReturned;
 		Usuario[] users = getArregloObjetos();

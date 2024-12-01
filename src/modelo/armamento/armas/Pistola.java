@@ -18,7 +18,7 @@ import motor_v1.motor.util.Vector2D;
 public class Pistola extends Arma {
 	public final static double DEFAULT_SHOOT_DELAY = .5;
 	
-	/** 
+	/**       
 	 * Construye una pistola con cadencia de {@value #DEFAULT_SHOOT_DELAY}s
 	 */
 	public Pistola() {

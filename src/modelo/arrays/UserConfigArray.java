@@ -1,4 +1,4 @@
-package modelo.arrays;
+ package modelo.arrays;
 
 import modelo.UserConfig;
 
