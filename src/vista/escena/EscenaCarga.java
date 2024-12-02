@@ -43,12 +43,12 @@ public class EscenaCarga extends Scene {
 	public void actualizar() {
 		if (!Assets.isAssetsLoaded) {
 			Assets.load();
-			Vector2D posicionLoading = new Vector2D(Conf.WINDOW_WIDTH - 200, Conf.WINDOW_HEIGHT - 20);
-			loadingText.setPosicion(posicionLoading);
 		} else if (InputKeyboard.isDown(Key.SPACE)) {
 			Scene nivel = new EscenaUno();
 			Scene.cambiarEscena(nivel);
 		} else {
+			Vector2D posicionLoading = new Vector2D(Conf.WINDOW_WIDTH - 200, Conf.WINDOW_HEIGHT - 20);
+			loadingText.setPosicion(posicionLoading);
 			loadingText.setMensaje("Presione espacio para continuar");
 		}
 	}
