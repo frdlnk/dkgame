@@ -51,7 +51,6 @@ public class CreateControler implements ActionListener{
 	private void saveUser() {
 		String username = vista.getTfUsername().getText().trim();
 		String password = vista.getTfPassword().getText().trim();
-		System.out.println("test");
 		if (validateData(username, password)) {
 			UserConfig config = new UserConfig();
 			int configId = modeloConfigs.insert(config);
@@ -62,7 +61,6 @@ public class CreateControler implements ActionListener{
 			newUsuario.setConfigId(configId);
 			
 			modeloUsers.insert(newUsuario);
-			System.out.println(modeloUsers.getAll().getSize());
 			vista.dispose();
 		}
 	}

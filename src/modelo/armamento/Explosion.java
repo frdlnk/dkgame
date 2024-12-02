@@ -33,7 +33,6 @@ public class Explosion extends TriggerBox{
 		super(Tags.EXPLOCION, textura, transformar);
 		colisiona.actualizar();
 		this.dano = dano;
-		System.out.println(dano);
 		this.targetsIgnore = targetsIgnore;
 	}
 

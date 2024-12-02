@@ -67,9 +67,6 @@ public class LoginControler implements ActionListener{
 			Usuario user = modeloUser.get(username);
 			if (user != null && user.getPassword().equals(password)) {
 				UserConfig config = modeloConfigs.get(user.getConfigId());
-				for (UserConfig conf : modeloConfigs.getAll().getArregloObjetos()) {
-					System.out.println(conf);
-				}
 				if (config != null) {
 					iniciarJuego(user, config);
 					vista.dispose();

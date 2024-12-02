@@ -4,8 +4,6 @@ import java.io.IOException;
 
 import javax.swing.UIManager;
 
-import modelo.UserConfig;
-import modelo.Usuario;
 import modelo.Dao.file.DAO_UserConfig;
 import modelo.Dao.file.DAO_Usuario;
 import modelo.arrays.UserArray;
@@ -26,12 +24,6 @@ public class Main {
     	//iniciar
     	new MenuInicioControler(menu,modeloUsuario, modeloConfigs);
 
-		for (Usuario user : modeloUsuario.getAll().getArregloObjetos()) {
-			System.out.println(user);
-		}
-		for (UserConfig user : modeloConfigs.getAll().getArregloObjetos()) {
-			System.out.println(user);
-		}
     }
 
     public static void setUIManager() {

@@ -336,7 +336,6 @@ public class Player extends Soldado{
 	@Override
 	public void recibirDano(double dano) {
 		salud -= dano;
-		System.out.println(dano);
 		if (salud <= 0) {
 			salud = 0;
 			morir();

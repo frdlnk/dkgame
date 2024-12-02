@@ -15,7 +15,6 @@ public class Usuario {
     public Usuario(String username, String password) {
         this.username = username;
         this.password = password;
-        System.out.println(username);
     }
     
     public Usuario() {

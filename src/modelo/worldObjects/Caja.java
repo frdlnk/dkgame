@@ -51,9 +51,6 @@ public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 	@Override
 	public void onColision(ColisionInfo colision) {
 		if (colision.getEntidad() instanceof Movible) {
-			if (colision.getEntidad().getNombre().equals(Tags.RECOGIBLE)) {
-				System.out.println("test");
-			}
 			Movible entidadmovible = (Movible) colision.getEntidad();
 			Fisica fisicaOtro = entidadmovible.getFisica();
 			Rectangle colliderOtro = colision.getColider().getHitbox();

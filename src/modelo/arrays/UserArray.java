@@ -89,7 +89,6 @@ public class UserArray extends Array {
 		Usuario[] users = getArregloObjetos();
 		for (int i = 0; i < getSize(); i++) {
 			String userValue = (String) getField(field, users[i]);
-			System.out.println(userValue);
 			if (userValue.equals(value)) {
 				userReturned.add(users[i]);
 				return userReturned;
