@@ -21,7 +21,9 @@ public class Assets {
 	public static BufferedImage AVION_CATARATA_M1;
 	public static BufferedImage CATARATA_AVION;
 	public static BufferedImage LETRA_H;
+	public static BufferedImage LETRA_R;
 	public static Clip HEAVY_MACHINEGUN_SOUND;
+	public static Clip ROCKET_LAUNCHER_SOUND;
 	public static Clip MISSION_COMPLETE_SOUND;
 
 	public static ArrayCoords coord;
@@ -51,9 +53,14 @@ public class Assets {
 		MAPA_NIVEL_1 = Loader.cargarImagen("/MetalSlug-Mission1.png");
 		PLAYER_SPRITES = Loader.cargarImagen("/Walter_Revised.png");
 		ENEMY_SPRITES = Loader.cargarImagen("/SoldierSprites.png");
+		
 		LETRA_H = Loader.cargarImagen("/H.gif");
+		LETRA_R = Loader.cargarImagen("/R.gif");
+		
 		HEAVY_MACHINEGUN_SOUND = Loader.cargarSonido("/heavyMachineGun.wav");
+		ROCKET_LAUNCHER_SOUND = Loader.cargarSonido("/rocket-launcher-sound.wav");
 		MISSION_COMPLETE_SOUND = Loader.cargarSonido("/metal-slug-mission-complete.wav");
+		
 		future = Loader.cargarFuente("/font/futureFont.ttf", 20);
 		
 		AVION_CATARATA_M1 = Loader.cargarImagen("/avionCatarataM1.png");

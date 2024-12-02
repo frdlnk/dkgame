@@ -178,10 +178,13 @@ public class Zona1N1 extends Zona{
 		Vector2D posicionCaja4Avion2 = new Vector2D(7114, 129);
 		createCaja(posicionCaja4Avion2, 2000, 200);
 		
-		Vector2D posHBOXVector2d = new Vector2D(100, 50);
-		Transform transformH = new RelativeTransform(posHBOXVector2d, transformar);
+		Vector2D posHBox = new Vector2D(100, 50);
+		Transform transformH = new RelativeTransform(posHBox, transformar);
 		Recogible hboxRecogible = new HRecogible(transformH, 300);
-		mapObjects.add(hboxRecogible.getNombre(), hboxRecogible);
+		
+		Vector2D posRBOX = new Vector2D(100, 50);
+		Transform transformR = new RelativeTransform(posRBOX, transformar);
+		Recogible RBoxRecogible = new HRecogible(transformR, 300);
 		
 		//barrera de movimiento, para el avance por pantalla
 		Rectangle rectMB = new Rectangle(Conf.WINDOW_WIDTH/2, Conf.WINDOW_HEIGHT);
@@ -204,6 +207,8 @@ public class Zona1N1 extends Zona{
 		
 		staticObjects.add(deadBox.getNombre(), deadBox);
 		staticObjects.add(barrier.getNombre(), barrier);
+		mapObjects.add(hboxRecogible.getNombre(), hboxRecogible);
+		mapObjects.add(RBoxRecogible.getNombre(), RBoxRecogible);
 	}
 
 	

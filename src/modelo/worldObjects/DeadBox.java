@@ -20,6 +20,7 @@ public class DeadBox extends TriggerBox{
 	 */
 	public DeadBox(BufferedImage textura, Transform transformar) {
 		super(Tags.DEADBOX, textura, transformar);
+		colisiona.actualizar();
 	}
 
 	@Override

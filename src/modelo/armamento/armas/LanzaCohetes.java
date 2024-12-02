@@ -24,6 +24,14 @@ public class LanzaCohetes extends Arma {
 		super(SHOOT_DELAY, DEFAULT_DANO);
 	}
 	
+	/**
+	 * Crea un nuevo LanzaChoetes con la municion especificada
+	 * @param municiones cantidad de municiones disponibles
+	 */
+	public LanzaCohetes(int municiones) {
+		super(SHOOT_DELAY, municiones, DEFAULT_DANO);
+	}
+	
 	@Override
 	protected Municion generarBala(Vector2D posicion, Vector2D direccion, ArrayString target) {
 		target.add(Tags.FLOOR);
