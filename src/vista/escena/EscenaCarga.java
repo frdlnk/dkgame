@@ -29,7 +29,7 @@ public class EscenaCarga extends Scene {
 
 		Vector2D posicionControls = new Vector2D(20, 20);
 		String[] controlsText = { "Use A, W, S, D para moverse y apuntar", "Use espacio para saltar",
-				"De click izquierdo para disparar", "Presione ESC para pausa" };
+				"De click izquierdo para disparar"};
 
 		for (int i = 0; i < controlsText.length; i++) {
 			Vector2D posNextLine = posicionControls.add(new Vector2D(0, i * 15));
