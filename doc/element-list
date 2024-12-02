@@ -9,6 +9,7 @@ modelo.arrays
 modelo.componentes
 modelo.Dao
 modelo.Dao.file
+modelo.db
 modelo.db.binary
 modelo.db.text
 modelo.entidades
