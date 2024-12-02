@@ -6,11 +6,13 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import modelo.componentes.RelativeTransform;
+import modelo.entidades.Recogible;
 import modelo.entidades.Soldado;
 import modelo.entidades.enemigos.Enemigo;
 import modelo.entidades.enemigos.EnemigoGranada;
 import modelo.entidades.enemigos.EnemigoPistola;
 import modelo.entidades.enemigos.Helicoptero;
+import modelo.entidades.recogibles.HRecogible;
 import modelo.worldObjects.DeadBox;
 import modelo.worldObjects.PlayerDetector;
 import motor_v1.motor.Entidad;
@@ -175,6 +177,11 @@ public class Zona1N1 extends Zona{
 		//Piso final catarata
 		Vector2D posicionCaja4Avion2 = new Vector2D(7114, 129);
 		createCaja(posicionCaja4Avion2, 2000, 200);
+		
+		Vector2D posHBOXVector2d = new Vector2D(100, 50);
+		Transform transformH = new RelativeTransform(posHBOXVector2d, transformar);
+		Recogible hboxRecogible = new HRecogible(transformH, 300);
+		mapObjects.add(hboxRecogible.getNombre(), hboxRecogible);
 		
 		//barrera de movimiento, para el avance por pantalla
 		Rectangle rectMB = new Rectangle(Conf.WINDOW_WIDTH/2, Conf.WINDOW_HEIGHT);

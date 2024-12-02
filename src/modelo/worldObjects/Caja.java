@@ -14,6 +14,7 @@ import motor_v1.motor.util.Vector2D;
 import utils.colision.*;
 import utils.colision.ColisionInfo;
 import utils.colision.Colisionable;
+import utils.constants.Tags;
 import utils.interfaces.BorderDrawAble;
 import utils.interfaces.Movible;
 
@@ -51,6 +52,9 @@ public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 	@Override
 	public void onColision(ColisionInfo colision) {
 		if (colision.getEntidad() instanceof Movible) {
+			if (colision.getEntidad().getNombre().equals(Tags.RECOGIBLE)) {
+				System.out.println("test");
+			}
 			Movible entidadmovible = (Movible) colision.getEntidad();
 			Fisica fisicaOtro = entidadmovible.getFisica();
 			Rectangle colliderOtro = colision.getColider().getHitbox();

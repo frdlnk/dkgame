@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
+import javax.sound.sampled.Clip;
+
 import modelo.arrays.ArrayCoords;
 import motor_v1.motor.util.Loader;
 import utils.SpriteLoader;
@@ -13,12 +15,15 @@ import utils.SpriteLoader;
  * Assets del juego
  */
 public class Assets {
+	public static boolean isAssetsLoaded = false;
 
 	public static BufferedImage MAPA_NIVEL_1;
 	public static BufferedImage PLAYER_SPRITES;
 	public static BufferedImage ENEMY_SPRITES;
 	public static BufferedImage AVION_CATARATA_M1;
 	public static BufferedImage CATARATA_AVION;
+	public static BufferedImage LETRA_H;
+	public static Clip HEAVY_MACHINEGUN_SOUND;
 
 	public static ArrayCoords coord;
 	public static ArrayCoords cuts;
@@ -34,9 +39,6 @@ public class Assets {
 
 	public static Font future;
 
-	public static BufferedImage[] PLAYER_IDLE = new BufferedImage[1];
-	public static BufferedImage[] PLAYER_IDLE_IZQ = new BufferedImage[2];
-
 	public static String[] spriteNames = {"pistol_idle", "pistol_shoot", "pistol_up_shoot", "crouch_pistol_idle", "crouch_pistol_shoot", "crouch_pistol_walk", "pistol_look_up", "knife_cut"};
 	public static String[] legNames = {"legs_running"};
 
@@ -44,9 +46,14 @@ public class Assets {
 
 	
 	public static boolean load() {
+		if (isAssetsLoaded) {
+			return isAssetsLoaded;
+		}
 		MAPA_NIVEL_1 = Loader.cargarImagen("/MetalSlug-Mission1.png");
 		PLAYER_SPRITES = Loader.cargarImagen("/Walter_Revised.png");
 		ENEMY_SPRITES = Loader.cargarImagen("/SoldierSprites.png");
+		LETRA_H = Loader.cargarImagen("/H.gif");
+		HEAVY_MACHINEGUN_SOUND = Loader.cargarSonido("/heavyMachineGun.wav");
 		future = Loader.cargarFuente("/font/futureFont.ttf", 20);
 		
 		AVION_CATARATA_M1 = Loader.cargarImagen("/avionCatarataM1.png");
