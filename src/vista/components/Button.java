@@ -13,7 +13,7 @@ import javax.swing.JPanel;
  * <br> funciona como un wrapper para estilizar el panel con mayor libertad que el boton
  */
 public class Button extends JPanel implements ActionListener{
-
+	private static final long serialVersionUID = 1L;
 	private JButton boton;
 	private ActionListener actionListener;
 

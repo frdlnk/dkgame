@@ -1,9 +1,7 @@
 package modelo.spritesCargados;
 
-import modelo.componentes.RelativeTransform;
 import modelo.entidades.Player;
 import motor_v1.motor.component.Animation;
-import motor_v1.motor.component.Transform;
 import motor_v1.motor.entidades.Gif;
 import motor_v1.motor.util.Vector2D;
 import utils.constants.Assets;

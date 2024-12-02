@@ -2,15 +2,9 @@ package vista.escena;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.IOException;
 
 import ctrl.gameControlers.GameControler;
-import ctrl.gameControlers.LoginControler;
 import ctrl.gameControlers.Game;
-import modelo.Dao.IDAOUserConfigs;
-import modelo.Dao.IDAOUsuario;
-import modelo.Dao.file.DAO_UserConfig;
-import modelo.Dao.file.DAO_Usuario;
 import modelo.entidades.Player;
 import motor_v1.motor.Scene;
 import motor_v1.motor.entidades.SpriteText;
@@ -18,7 +12,6 @@ import motor_v1.motor.input.InputKeyboard;
 import motor_v1.motor.input.Key;
 import motor_v1.motor.util.Vector2D;
 import utils.constants.Assets;
-import vista.game.VistaLogin;
 
 /**
  * Escena para mostrar los resultados al ganar

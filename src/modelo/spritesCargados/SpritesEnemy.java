@@ -1,13 +1,12 @@
 package modelo.spritesCargados;
 
-import modelo.entidades.Player;
 import modelo.entidades.enemigos.Enemigo;
 import motor_v1.motor.component.Animation;
 import motor_v1.motor.entidades.Gif;
 import motor_v1.motor.util.Vector2D;
 import utils.constants.Assets;
 
-import java.awt.*;
+import java.awt.Graphics;
 
 public class SpritesEnemy extends Animation {
 

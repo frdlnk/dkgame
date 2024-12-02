@@ -1,6 +1,5 @@
 package modelo.Dao;
 
-import ctrl.Main;
 import modelo.Usuario;
 import modelo.arrays.UserArray;
 import utils.constants.ComparativeModes;

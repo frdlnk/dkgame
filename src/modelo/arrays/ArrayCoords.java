@@ -57,7 +57,6 @@ public class ArrayCoords {
     }
 
     public int[] get(String index) {
-        int i = 0;
         for (Object[] obj: arregloObjetos){
             if (obj[0].toString().equals(index)){
                 return (int[]) obj[1];
@@ -67,7 +66,6 @@ public class ArrayCoords {
     }
 
     public BufferedImage[] getImages(String res) {
-        int i = 0;
         for (Object[] obj: arregloObjetos){
             if (obj[0].toString().equals(res)){
                 return (BufferedImage[]) obj[1];
@@ -76,7 +74,6 @@ public class ArrayCoords {
         return null;
     }
     public BufferedImage getImage(String res, int indic) {
-        int i = 0;
         for (Object[] obj: arregloObjetos){
             if (obj[0].toString().equals(res)){
                 BufferedImage[] bufferedImages = getImages((String) obj[0]);

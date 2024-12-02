@@ -1,6 +1,5 @@
 package modelo.entidades.enemigos;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 
 import ctrl.gameControlers.Game;

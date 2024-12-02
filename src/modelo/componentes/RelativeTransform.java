@@ -1,6 +1,5 @@
 package modelo.componentes;
 
-import javax.sound.midi.VoiceStatus;
 
 import  motor_v1.motor.component.Transform;
 import motor_v1.motor.util.Vector2D;

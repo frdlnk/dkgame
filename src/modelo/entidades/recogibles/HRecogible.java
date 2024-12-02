@@ -1,6 +1,5 @@
 package modelo.entidades.recogibles;
 
-import javax.sound.sampled.LineUnavailableException;
 
 import modelo.armamento.armas.HeavyMachineGun;
 import modelo.entidades.Player;

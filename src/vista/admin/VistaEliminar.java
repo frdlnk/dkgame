@@ -15,7 +15,7 @@ import vista.components.Button;
 
 
 public class VistaEliminar extends VistaBuscar {
-
+	private static final long serialVersionUID = 1L;
 	private Rectangle originaBounds;
 	private JPanel deletePanel;
 	private JLabel lblUsername;

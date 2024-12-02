@@ -77,21 +77,6 @@ public class Assets {
 	}
 
 	
-	/**
-	 * invierte una imagen
-	 * @param image imagen a invertir
-	 * @return imagen invertida
-	 */
-	private static BufferedImage invertir(BufferedImage image) {
-		AffineTransform at = AffineTransform.getScaleInstance(-1, 1);
-		at.concatenate(AffineTransform.getTranslateInstance(-image.getWidth(), 0));
-		BufferedImage newImage = new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
-		Graphics2D g = newImage.createGraphics();
-		g.drawImage(image, at,null);
-		g.dispose();
-		return newImage;
-	}
-	
 	private static void loadGifs(ArrayCoords coord, ArrayCoords cuts) {
 
 		BufferedImage[] temp;

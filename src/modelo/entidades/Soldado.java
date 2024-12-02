@@ -7,7 +7,6 @@ import modelo.armamento.armas.Arma;
 import modelo.componentes.Fisica;
 import motor_v1.motor.component.Collider;
 import motor_v1.motor.component.Transform;
-import motor_v1.motor.entidades.GifMovible;
 import motor_v1.motor.entidades.SpriteMovible;
 import motor_v1.motor.util.Vector2D;
 import utils.colision.ColisionInfo;

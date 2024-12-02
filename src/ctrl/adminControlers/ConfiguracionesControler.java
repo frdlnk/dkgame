@@ -1,7 +1,6 @@
 package ctrl.adminControlers;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import modelo.UserConfig;
 import modelo.Dao.IDAOUserConfigs;

@@ -1,6 +1,5 @@
 package modelo.Dao;
 
-import ctrl.Main;
 import modelo.UserConfig;
 import modelo.arrays.UserConfigArray;
 

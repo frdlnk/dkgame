@@ -14,7 +14,7 @@ import vista.components.Button;
 
 
 public class VistaDetalles extends VistaBuscar {
-
+	private static final long serialVersionUID = 1L;
 	private Rectangle busquedaBounds;
 	private JPanel detailsPanel;
 	private JLabel lblUsername;

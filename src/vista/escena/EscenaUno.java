@@ -3,11 +3,9 @@ package vista.escena;
 import java.awt.Graphics;
 
 import ctrl.gameControlers.Game;
-import ctrl.gameControlers.GameControler;
 import modelo.entidades.Player;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.Scene;
-import motor_v1.motor.util.Vector2D;
 import vista.zonas.Zona;
 import vista.zonas.Zona1N1;
 

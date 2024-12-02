@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 
 import modelo.UserConfig;
 import modelo.Usuario;
-import modelo.Dao.IDAOUsuario;
 import modelo.entidades.Player;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.Lienzo;

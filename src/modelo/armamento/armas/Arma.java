@@ -1,6 +1,5 @@
 package modelo.armamento.armas;
 
-import java.io.Serializable;
 
 import modelo.armamento.municiones.Municion;
 import modelo.arrays.ArrayString;
