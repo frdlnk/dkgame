@@ -1,8 +1,6 @@
 package utils.constants;
 
 import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import javax.sound.sampled.Clip;
