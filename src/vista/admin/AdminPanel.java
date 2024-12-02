@@ -32,39 +32,39 @@ public class AdminPanel extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		
+
 		initComponents();
 	}
 
 	private void initComponents() {
 		contentPane.setLayout(null);
-		
+
 		lblTitulo = new JLabel("Panel de Administracion");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setBounds(140, 11, 144, 14);
 		contentPane.add(lblTitulo);
-		
+
 		btnAgregar = new Button("Agregar");
 		btnAgregar.setBounds(82, 45, 94, 35);
 		contentPane.add(btnAgregar);
-		
+
 		btnBuscar = new Button("Buscar");
 		btnBuscar.setBounds(258, 63, 94, 35);
 		contentPane.add(btnBuscar);
-		
+
 		btnActualizar = new Button("Actualizar");
 		btnActualizar.setBounds(82, 125, 94, 35);
 		contentPane.add(btnActualizar);
-		
+
 		btnEliminar = new Button("Eliminar");
 		btnEliminar.setBounds(258, 161, 94, 35);
 		contentPane.add(btnEliminar);
-		
+
 		btnConfiguraciones = new Button("Configuraciones");
 		btnConfiguraciones.setBounds(82, 205, 94, 35);
 		contentPane.add(btnConfiguraciones);
 	}
-	
+
 	public Button getBtnConfiguraciones() {
 		return btnConfiguraciones;
 	}
@@ -119,5 +119,5 @@ public class AdminPanel extends JFrame {
 				+ ", btnBuscar=" + btnBuscar + ", btnActualizar=" + btnActualizar + ", btnEliminar=" + btnEliminar
 				+ ", btnConfiguraciones=" + btnConfiguraciones + "]";
 	}
-	
+
 }

@@ -7,6 +7,6 @@ import modelo.componentes.Fisica;
  */
 public interface Movible {
 
-   Fisica getFisica();
+	Fisica getFisica();
 
 }

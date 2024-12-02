@@ -6,13 +6,14 @@ public class ArrayVector2D extends Array {
 	public ArrayVector2D() {
 		super();
 	}
-	
+
 	public ArrayVector2D(Vector2D[] arreglo) {
 		super(arreglo);
 	}
 
 	/**
 	 * Anade un string al arreglo
+	 * 
 	 * @param String a agregar
 	 */
 	public void add(Object string) {
@@ -24,7 +25,7 @@ public class ArrayVector2D extends Array {
 	public void remove(Vector2D object) {
 		super.remove(object);
 	}
-	
+
 	public Vector2D get(int index) {
 		return (Vector2D) super.get(index);
 	}
@@ -52,6 +53,5 @@ public class ArrayVector2D extends Array {
 	public String toString() {
 		return "ArrayVector2D []";
 	}
-	
-	
+
 }

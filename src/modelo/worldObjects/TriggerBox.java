@@ -11,12 +11,13 @@ import utils.colision.Colisionable;
 /**
  * Clase base para objetos trigger en las colisiones
  */
-public abstract class TriggerBox extends SpriteSolido implements Colisionable{
+public abstract class TriggerBox extends SpriteSolido implements Colisionable {
 
 	/**
 	 * Crea un nuevo triggerBox
-	 * @param nombre tag del objeto
-	 * @param textura imagen a mostrar
+	 * 
+	 * @param nombre      tag del objeto
+	 * @param textura     imagen a mostrar
 	 * @param transformar posicion inicial
 	 */
 	public TriggerBox(String nombre, BufferedImage textura, Transform transformar) {
@@ -33,7 +34,7 @@ public abstract class TriggerBox extends SpriteSolido implements Colisionable{
 				colision.setColider(colisiona);
 				colision.setEntidad(this);
 				colision.setColisionable(this);
-				//trigger default
+				// trigger default
 				colision.setTriger(true);
 				return colision;
 			}
@@ -46,5 +47,4 @@ public abstract class TriggerBox extends SpriteSolido implements Colisionable{
 		return "TriggerBox []";
 	}
 
-	
 }

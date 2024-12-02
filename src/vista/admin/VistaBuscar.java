@@ -46,12 +46,13 @@ public class VistaBuscar extends JDialog {
 		getContentPane().add(busquedaPanel, BorderLayout.CENTER);
 		busquedaPanel.setLayout(null);
 		busquedaPanel.setBackground(Colors.COLOR1);
-		
+
 		initComponents();
 	}
-	
+
 	/**
 	 * Carga una lista de usuarios a la lista de la ventana
+	 * 
 	 * @param users
 	 */
 	public void loadUsers(Usuario[] users) {
@@ -59,14 +60,14 @@ public class VistaBuscar extends JDialog {
 			listaUsuarios.setListData(users);
 		}
 	}
-	
+
 	private void initComponents() {
 
 		searchTextField = new JTextField();
 		searchTextField.setBounds(101, 9, 427, 20);
 		busquedaPanel.add(searchTextField);
 		searchTextField.setColumns(10);
-		
+
 		listaUsuarios = new JList<>();
 		listaUsuarios.setOpaque(false);
 		listaUsuarios.setBackground(Colors.COLOR3);
@@ -76,44 +77,44 @@ public class VistaBuscar extends JDialog {
 		listaUsuarios.setSelectionForeground(Colors.COLOR1);
 		listaUsuarios.setBounds(10, 68, 518, 333);
 		busquedaPanel.add(listaUsuarios);
-		
+
 		lblCriterio = new JLabel("Criterio de Busqueda");
 		lblCriterio.setForeground(Color.WHITE);
 		lblCriterio.setBounds(10, 40, 112, 14);
 		busquedaPanel.add(lblCriterio);
-		
+
 		lblSearchMode = new JLabel("Modo de busqueda");
 		lblSearchMode.setForeground(Color.WHITE);
 		lblSearchMode.setBounds(290, 40, 168, 14);
 		busquedaPanel.add(lblSearchMode);
-		
+
 		lblBusqueda = new JLabel("Busqueda");
 		lblBusqueda.setForeground(Color.WHITE);
 		lblBusqueda.setBounds(10, 12, 71, 14);
 		busquedaPanel.add(lblBusqueda);
-		
+
 		comboBoxCriterios = new JComboBox<>();
 		comboBoxCriterios.setModel(new DefaultComboBoxModel<>(UserFields.values()));
 		comboBoxCriterios.setBounds(184, 35, 96, 22);
 		busquedaPanel.add(comboBoxCriterios);
-		
+
 		comboBoxSearchModes = new JComboBox<>();
-		
+
 		comboBoxSearchModes.setModel(new DefaultComboBoxModel<>(ComparativeModes.values()));
 		comboBoxSearchModes.setBounds(438, 35, 90, 22);
 		busquedaPanel.add(comboBoxSearchModes);
 	}
-	
+
 	public String getSearchMode() {
 		String mode = comboBoxSearchModes.getItemAt(comboBoxSearchModes.getSelectedIndex());
 		return mode;
 	}
-	
+
 	public String getComparativeMode() {
 		String mode = comboBoxCriterios.getItemAt(comboBoxCriterios.getSelectedIndex());
 		return mode;
 	}
-	
+
 	public JList<Usuario> getListaUsuarios() {
 		return listaUsuarios;
 	}
@@ -121,7 +122,6 @@ public class VistaBuscar extends JDialog {
 	public void setListaUsuarios(JList<Usuario> listaUsuarios) {
 		this.listaUsuarios = listaUsuarios;
 	}
-
 
 	public JLabel getLblCriterio() {
 		return lblCriterio;
@@ -138,7 +138,6 @@ public class VistaBuscar extends JDialog {
 	public void setLblSearchMode(JLabel lblSearchMode) {
 		this.lblSearchMode = lblSearchMode;
 	}
-
 
 	public JLabel getLblBusqueda() {
 		return lblBusqueda;
@@ -187,6 +186,5 @@ public class VistaBuscar extends JDialog {
 				+ lblSearchMode + ", lblBusqueda=" + lblBusqueda + ", comboBoxCriterios=" + comboBoxCriterios
 				+ ", comboBoxSearchModes=" + comboBoxSearchModes + "]";
 	}
-	
-	
+
 }

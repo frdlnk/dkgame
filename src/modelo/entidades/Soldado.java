@@ -23,16 +23,17 @@ public abstract class Soldado extends SpriteMovible implements Colisionable, Mov
 
 	/**
 	 * Crea un nuevop soldado
-	 * @param nombre	Tag del soldado	
-	 * @param imagenes	Gif mostrar
-	 * @param transformar posicion inicial del soldado
-	 * @param duracionImagen 
+	 * 
+	 * @param nombre         Tag del soldado
+	 * @param imagenes       Gif mostrar
+	 * @param transformar    posicion inicial del soldado
+	 * @param duracionImagen
 	 */
 	public Soldado(String nombre, BufferedImage imagen, Transform transformar, double salud) {
 		super(nombre, imagen, transformar);
 		this.salud = salud;
 	}
-	
+
 	@Override
 	public void actualizar() {
 		if (arma != null) {
@@ -44,11 +45,11 @@ public abstract class Soldado extends SpriteMovible implements Colisionable, Mov
 	@Override
 	public void dibujar(Graphics g) {
 		Vector2D pos = transformar.getPosicion();
-		pos.setY(pos.getY()+.5);
+		pos.setY(pos.getY() + .5);
 		super.dibujar(g);
-		pos.setY(pos.getY()-.5);
+		pos.setY(pos.getY() - .5);
 	}
-	
+
 	@Override
 	public ColisionInfo hayColision(Colisionable entidad) {
 		ColisionInfo colision = new ColisionInfo();
@@ -68,22 +69,24 @@ public abstract class Soldado extends SpriteMovible implements Colisionable, Mov
 
 	/**
 	 * Recibe dano
+	 * 
 	 * @param dano cantidad de dano recibido
 	 */
 	public abstract void recibirDano(double dano);
-	
+
 	/**
 	 * Logica para cuando muere el soldado
 	 */
 	public abstract void morir();
-	
+
 	/**
 	 * Debe generar la logica de disparo
 	 */
 	public abstract void disparar();
-	
+
 	/**
 	 * calcula la posicion en la que se crea la municion
+	 * 
 	 * @return posicion de la municion
 	 */
 	protected abstract Vector2D posicionDisparo();
@@ -99,15 +102,14 @@ public abstract class Soldado extends SpriteMovible implements Colisionable, Mov
 	public Fisica getFisica() {
 		return fisica;
 	}
-	
+
 	public void setFisica(Fisica fisica) {
 		this.fisica = fisica;
 	}
-	
+
 	public double getSalud() {
 		return salud;
 	}
-
 
 	public void setSalud(double salud) {
 		this.salud = salud;
@@ -117,7 +119,5 @@ public abstract class Soldado extends SpriteMovible implements Colisionable, Mov
 	public String toString() {
 		return "Soldado [salud=" + salud + ", arma=" + arma + ", fisica=" + fisica + "]";
 	}
-	
-	
-	
+
 }

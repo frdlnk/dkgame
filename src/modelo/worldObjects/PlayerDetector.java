@@ -10,7 +10,8 @@ import utils.colision.Colisionable;
 import utils.constants.Tags;
 
 /**
- * Barrera de movimiento que detecta la colision del jugador para limitar su movimeinto y actuar segun su posicion en el mapa
+ * Barrera de movimiento que detecta la colision del jugador para limitar su
+ * movimeinto y actuar segun su posicion en el mapa
  */
 public class PlayerDetector extends Caja {
 	private boolean playerOverlap;
@@ -20,7 +21,8 @@ public class PlayerDetector extends Caja {
 
 	/**
 	 * Crea una nueva barrera de movimiento
-	 * @param textura imagen a mostrar
+	 * 
+	 * @param textura     imagen a mostrar
 	 * @param transformar posicion inicial
 	 */
 	public PlayerDetector(BufferedImage textura, Transform transformar) {
@@ -31,7 +33,7 @@ public class PlayerDetector extends Caja {
 
 	@Override
 	public void onColision(ColisionInfo colision) {
-		//verifica si colisiono con el jugador
+		// verifica si colisiono con el jugador
 		if (isEnable && colision.getEntidad() instanceof Player) {
 			player = (Player) colision.getEntidad();
 			if (!isTrigger) {
@@ -43,7 +45,7 @@ public class PlayerDetector extends Caja {
 			playerOverlap = true;
 		}
 	}
-	
+
 	@Override
 	public ColisionInfo hayColision(Colisionable entidad) {
 		if (entidad instanceof Player) {
@@ -51,13 +53,13 @@ public class PlayerDetector extends Caja {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public void actualizar() {
 		playerOverlap = false;
 		super.actualizar();
 	}
-	
+
 	public boolean isPlayerOverlap() {
 		return playerOverlap && isEnable;
 	}
@@ -95,6 +97,5 @@ public class PlayerDetector extends Caja {
 		return "PlayerDetector [playerOverlap=" + playerOverlap + ", player=" + player + ", isTrigger=" + isTrigger
 				+ ", isEnable=" + isEnable + "]";
 	}
-	
-	
+
 }

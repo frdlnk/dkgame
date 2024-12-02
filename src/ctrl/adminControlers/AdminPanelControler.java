@@ -17,16 +17,17 @@ import vista.admin.VistaConfiguracionesUsuario;
  * 
  * @see AdminPanel
  */
-public class AdminPanelControler implements ActionListener{
+public class AdminPanelControler implements ActionListener {
 	private AdminPanel vista;
 	private IDAOUserConfigs modeloConfigs;
 	private IDAOUsuario modeloUsers;
 
 	/**
 	 * Crea un nuevo controlador para la vista del panel deseada
-	 * @param vista  Admin Panel que sera controlado
+	 * 
+	 * @param vista         Admin Panel que sera controlado
 	 * @param modeloConfigs modelo de datos para las configuraciones del juego
-	 * @param modeloUsers modelo de acceso para los usuarios
+	 * @param modeloUsers   modelo de acceso para los usuarios
 	 */
 	public AdminPanelControler(AdminPanel vista, IDAOUserConfigs modeloConfigs, IDAOUsuario modeloUsers) {
 		this.vista = vista;
@@ -39,8 +40,8 @@ public class AdminPanelControler implements ActionListener{
 		vista.getBtnConfiguraciones().addActionListener(this);
 		vista.setVisible(true);
 	}
-	
-	private void openConfiguraciones(){
+
+	private void openConfiguraciones() {
 		VistaConfiguracionesUsuario vistaConf = new VistaConfiguracionesUsuario(vista);
 		new ConfiguracionesControler(vistaConf, modeloUsers, modeloConfigs);
 	}
@@ -52,6 +53,7 @@ public class AdminPanelControler implements ActionListener{
 		VistaActualizar vistaActualizar = new VistaActualizar(vista);
 		new ActualizarControler(vistaActualizar, modeloUsers);
 	}
+
 	/**
 	 * Abre la vista buscar
 	 */
@@ -59,6 +61,7 @@ public class AdminPanelControler implements ActionListener{
 		VistaDetalles vistaBuscar = new VistaDetalles(vista);
 		new DetallesControler(vistaBuscar, modeloUsers);
 	}
+
 	/**
 	 * Abre la vista eliminar
 	 */
@@ -66,6 +69,7 @@ public class AdminPanelControler implements ActionListener{
 		VistaEliminar vistaEliminar = new VistaEliminar(vista);
 		new EliminarControler(vistaEliminar, modeloUsers, modeloConfigs);
 	}
+
 	/**
 	 * Abre la vista agregar
 	 */
@@ -73,24 +77,24 @@ public class AdminPanelControler implements ActionListener{
 		VistaCrear vistaAgregar = new VistaCrear(vista);
 		new CreateControler(vistaAgregar, modeloConfigs, modeloUsers);
 	}
-	
-	
-	/** 
+
+	/**
 	 * Listener para la asignacion de acciones a los botones de la vista
+	 * 
 	 * @param e evento generado por los componentes de la vista
 	 */
 	@Override
-	public void actionPerformed(ActionEvent e){
+	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
-		if(source.equals(vista.getBtnActualizar())){
+		if (source.equals(vista.getBtnActualizar())) {
 			openActualizar();
-		}else if(source.equals(vista.getBtnAgregar())){
+		} else if (source.equals(vista.getBtnAgregar())) {
 			openAgregar();
-		}else if (source.equals(vista.getBtnBuscar())) {
+		} else if (source.equals(vista.getBtnBuscar())) {
 			openBuscar();
-		}else if (source.equals(vista.getBtnEliminar())) {
+		} else if (source.equals(vista.getBtnEliminar())) {
 			openEliminar();
-		}else if (source.equals(vista.getBtnConfiguraciones())) {
+		} else if (source.equals(vista.getBtnConfiguraciones())) {
 			openConfiguraciones();
 		}
 	}
@@ -124,6 +128,5 @@ public class AdminPanelControler implements ActionListener{
 		return "AdminPanelControler [vista=" + vista + ", modeloConfigs=" + modeloConfigs + ", modeloUsers="
 				+ modeloUsers + "]";
 	}
-	
-	
+
 }

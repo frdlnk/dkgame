@@ -20,17 +20,18 @@ import vista.escena.EscenaCarga;
 /**
  * Clase encargada de mantener las escenas corriendo e iniciar la ventana
  */
-public class Game extends Entidad{
+public class Game extends Entidad {
 	public static Lienzo lienzo;
 	public static Usuario loggedUser;
 	public static UserConfig configuracion;
 	public static Player jugador;
-	
+
 	private Scene escenaActual;
-	
+
 	/**
-	 * Crea un nuevo Juego 
-	 * @param user Usuario logueado 
+	 * Crea un nuevo Juego
+	 * 
+	 * @param user          Usuario logueado
 	 * @param configuracion configuracion asociada al usuario
 	 */
 	public Game(Usuario user, UserConfig configuracion) {
@@ -41,20 +42,21 @@ public class Game extends Entidad{
 		Scene.cambiarEscena(escenaActual);
 		lienzo = new Lienzo(Conf.WINDOW_WIDTH, Conf.WINDOW_HEIGHT, "Metal Slug");
 	}
-	
+
 	/**
 	 * crea un nuevo objetop Player que represente al usuario en el juego
+	 * 
 	 * @return PLayer que se controlara en el juego
 	 */
 	private Player generarJugador() {
 		Rectangle rect = new Rectangle(50, 80);
-		Color color = new Color(128,128,0,0);
+		Color color = new Color(128, 128, 0, 0);
 		BufferedImage image = Renderer.crearTextura(rect, color);
-		Vector2D posicionJ = new Vector2D(10,180);
+		Vector2D posicionJ = new Vector2D(10, 180);
 		Transform transform = new Transform(posicionJ);
 		return new Player(image, transform, configuracion.getVidasIniciales());
 	}
-	
+
 	@Override
 	public void actualizar() {
 		loggedUser.setScore(jugador.getPuntaje());

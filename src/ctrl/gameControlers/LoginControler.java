@@ -17,26 +17,27 @@ import vista.game.VistaLogin;
 /**
  * Clase encargada del inicio de sesion
  */
-public class LoginControler implements ActionListener{
+public class LoginControler implements ActionListener {
 	private VistaLogin vista;
 	private IDAOUsuario modeloUser;
 	private IDAOUserConfigs modeloConfigs;
-	
+
 	/**
 	 * Crea un nuevo controlador con la vista y modelos especificados
-	 * @param vista vista asociada al controlador
-	 * @param modeloUser DAo de acceso a los usuarios
+	 * 
+	 * @param vista         vista asociada al controlador
+	 * @param modeloUser    DAo de acceso a los usuarios
 	 * @param modeloConfigs DAO de acceso a las configuraciones
 	 */
 	public LoginControler(VistaLogin vista, IDAOUsuario modeloUser, IDAOUserConfigs modeloConfigs) {
 		this.vista = vista;
 		this.modeloUser = modeloUser;
 		this.modeloConfigs = modeloConfigs;
-		
+
 		vista.getBtnLogin().addActionListener(this);
 		vista.getBtnRegistrarse().addActionListener(this);
 		vista.getBtnVolver().addActionListener(this);
-		
+
 		vista.setVisible(true);
 	}
 
@@ -71,24 +72,26 @@ public class LoginControler implements ActionListener{
 					iniciarJuego(user, config);
 					vista.dispose();
 				}
-			}else {
+			} else {
 				vista.getLblError().setText("Username o contrasena incorrectos");
 				vista.getLblError().setVisible(true);
 			}
 		}
 	}
-	
+
 	/**
-	 * Inicia el juego 
-	 * @param user Usuario logueado
+	 * Inicia el juego
+	 * 
+	 * @param user   Usuario logueado
 	 * @param config Configuracion asociada al usuario
 	 */
 	private void iniciarJuego(Usuario user, UserConfig config) {
 		new GameControler(user, config);
 	}
-	
+
 	/**
 	 * Valida que se hayan ingresado datos
+	 * 
 	 * @return true si se ingresaron username y password, false si no
 	 */
 	private boolean validateFieldsNotEmpty() {
@@ -106,16 +109,16 @@ public class LoginControler implements ActionListener{
 	}
 
 	/**
-	 *Asignacion de funciones a los botones
+	 * Asignacion de funciones a los botones
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source.equals(vista.getBtnLogin())) {
 			login();
-		}else if (source.equals(vista.getBtnRegistrarse())) {
+		} else if (source.equals(vista.getBtnRegistrarse())) {
 			mostrarRegistrar();
-		}else if (source.equals(vista.getBtnVolver())) {
+		} else if (source.equals(vista.getBtnVolver())) {
 			volver();
 		}
 	}
@@ -149,6 +152,5 @@ public class LoginControler implements ActionListener{
 		return "LoginControler [vista=" + vista + ", modeloUser=" + modeloUser + ", modeloConfigs=" + modeloConfigs
 				+ "]";
 	}
-	
-	
+
 }

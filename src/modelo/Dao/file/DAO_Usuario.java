@@ -1,6 +1,5 @@
 package modelo.Dao.file;
 
-
 import ctrl.Main;
 import modelo.Usuario;
 import modelo.Dao.IDAOUsuario;
@@ -15,37 +14,37 @@ import modelo.db.text.ObjectReadManager;
 public class DAO_Usuario implements IDAOUsuario {
 	UserArray lista = Main.UserDataSet;
 	String fileName = "user.txt";
-	
+
 	/**
 	 * crea un nuevo DAO
 	 */
 	public DAO_Usuario() {
 		load();
 	}
-	
+
 	/**
 	 * carga los registros al dataset
 	 */
 	private void load() {
-		try (ObjectReadManager reader = new ObjectReadManager(fileName)){
+		try (ObjectReadManager reader = new ObjectReadManager(fileName)) {
 			ArrayString records = new ArrayString();
 			reader.readAll(records);
 			lista.clear();
 			for (int i = 0; i < records.getSize(); i++) {
 				Usuario user = Usuario.deserializeUsuario(records.get(i));
-				if (user != null) 
+				if (user != null)
 					lista.add(user);
 			}
 		} catch (Exception e) {
 			System.err.println("Error al leer usuarios");
 		}
 	}
-	
+
 	/**
 	 * Guarda todos los registros en el archivo
 	 */
 	public void saveAll() {
-		try (ObjectFileWriter writer = new ObjectFileWriter(fileName)){
+		try (ObjectFileWriter writer = new ObjectFileWriter(fileName)) {
 			ArrayString recordsArray = new ArrayString();
 			for (Usuario user : lista.getArregloObjetos()) {
 				if (user != null) {
@@ -53,12 +52,14 @@ public class DAO_Usuario implements IDAOUsuario {
 				}
 			}
 			writer.replace(recordsArray);
-		} catch (Exception e) {e.printStackTrace();}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	@Override
 	public int insert(Usuario usuario) {
-		//si tiene id 0 se le asigna un id autoincrementable
+		// si tiene id 0 se le asigna un id autoincrementable
 		if (isIdValid(usuario)) {
 			lista.add(usuario);
 			saveAll();
@@ -66,27 +67,29 @@ public class DAO_Usuario implements IDAOUsuario {
 		}
 		return -1;
 	}
-	
+
 	/**
 	 * Verifica que tenga un id valido y l;e asigna uno si no tiene
+	 * 
 	 * @param user usuarios a verificar
 	 * @return true si tiene un id valido
 	 */
 	private boolean isIdValid(Usuario user) {
-		if (user == null)return false;
-		
-		//id autoincremetable
+		if (user == null)
+			return false;
+
+		// id autoincremetable
 		if (user.getId() == 0) {
 			lista.sort();
 			int nextId = 1;
 			if (lista.getSize() != 0)
-				nextId = lista.get(lista.getSize()-1).getId()+1;
-				
+				nextId = lista.get(lista.getSize() - 1).getId() + 1;
+
 			user.setId(nextId);
 			return true;
 		}
-		
-		//si intenta insertar con un id establecido verifica que no exista
+
+		// si intenta insertar con un id establecido verifica que no exista
 		return lista.getById(user.getId()) != null;
 	}
 
@@ -95,7 +98,7 @@ public class DAO_Usuario implements IDAOUsuario {
 		lista.removeById(id);
 		saveAll();
 	}
-	
+
 	@Override
 	public void delete(Usuario user) {
 		lista.remove(user);
@@ -157,7 +160,5 @@ public class DAO_Usuario implements IDAOUsuario {
 	public String toString() {
 		return "DAO_Usuario [lista=" + lista + ", fileName=" + fileName + "]";
 	}
-
-
 
 }

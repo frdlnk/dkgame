@@ -13,7 +13,6 @@ import javax.swing.border.LineBorder;
 import utils.constants.Colors;
 import vista.components.Button;
 
-
 public class VistaEliminar extends VistaBuscar {
 	private static final long serialVersionUID = 1L;
 	private Rectangle originaBounds;
@@ -33,11 +32,11 @@ public class VistaEliminar extends VistaBuscar {
 	public VistaEliminar(JFrame frame) {
 		super(frame);
 		Dimension lastDimension = getSize();
-		Dimension newDimension = new Dimension(lastDimension.width, lastDimension.height+30);
+		Dimension newDimension = new Dimension(lastDimension.width, lastDimension.height + 30);
 		setSize(newDimension);
 		originaBounds = getBounds();
 		deletePanel = new JPanel();
-		deletePanel.setSize(380,240);
+		deletePanel.setSize(380, 240);
 		deletePanel.setLocation(getLocation());
 		initComponents();
 	}
@@ -45,12 +44,12 @@ public class VistaEliminar extends VistaBuscar {
 	private void initComponents() {
 		deletePanel.setLayout(null);
 		deletePanel.setBackground(Colors.BACKGROUND_COLOR);
-		
+
 		btnDetalles = new Button("Detalles");
 		btnDetalles.setBounds(450, 412, 78, 19);
 		btnDetalles.setBackground(Colors.COLOR6);
 		getContentPanel().add(btnDetalles);
-		
+
 		lblUsername = new JLabel("Username:");
 		lblUsername.setBounds(10, 8, 52, 14);
 		deletePanel.add(lblUsername);
@@ -72,34 +71,35 @@ public class VistaEliminar extends VistaBuscar {
 		deletePanel.add(tfPassword);
 		tfPassword.setColumns(10);
 		lblPassword.setLabelFor(tfPassword);
-		
+
 		btnDelete = new Button("Eliminar");
 		btnDelete.setBounds(291, 164, 63, 26);
 		btnDelete.setBorder(null);
 		btnDelete.setForeground(Color.WHITE);
 		btnDelete.setBackground(Colors.COLOR_DELETE);
-		deletePanel.add(btnDelete);;
-		
+		deletePanel.add(btnDelete);
+		;
+
 		lblNivel = new JLabel("Nivel:");
 		lblNivel.setBounds(10, 84, 27, 14);
 		deletePanel.add(lblNivel);
-		
+
 		lblPuntaje = new JLabel("Puntaje:");
 		lblPuntaje.setBounds(10, 126, 41, 14);
 		deletePanel.add(lblPuntaje);
-		
+
 		tfNivel = new JTextField();
 		tfNivel.setEditable(false);
 		tfNivel.setBounds(93, 81, 261, 20);
 		deletePanel.add(tfNivel);
 		tfNivel.setColumns(10);
-		
+
 		tfPuntaje = new JTextField();
 		tfPuntaje.setEditable(false);
 		tfPuntaje.setBounds(93, 123, 261, 20);
 		deletePanel.add(tfPuntaje);
 		tfPuntaje.setColumns(10);
-		
+
 		btnCancelar = new Button("Cancelar");
 		btnCancelar.setForeground(Color.WHITE);
 		btnCancelar.setBorder(new LineBorder(Colors.COLOR_GRAY));
@@ -108,7 +108,7 @@ public class VistaEliminar extends VistaBuscar {
 		btnCancelar.setBounds(10, 164, 63, 26);
 		deletePanel.add(btnCancelar);
 	}
-	
+
 	/**
 	 * Cambia el panel de contenido al de delete
 	 */
@@ -116,7 +116,7 @@ public class VistaEliminar extends VistaBuscar {
 		setContentPane(deletePanel);
 		setBounds(deletePanel.getBounds());
 	}
-	
+
 	public void changeToBuscarPanel() {
 		setContentPane(getBusquedaPanel());
 		setBounds(originaBounds);
@@ -242,6 +242,5 @@ public class VistaEliminar extends VistaBuscar {
 				+ ", btnDetalles=" + btnDetalles + ", tfNivel=" + tfNivel + ", tfPuntaje=" + tfPuntaje
 				+ ", btnCancelar=" + btnCancelar + "]";
 	}
-	
-	
+
 }

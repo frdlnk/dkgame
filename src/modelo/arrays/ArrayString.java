@@ -1,6 +1,5 @@
 package modelo.arrays;
 
-
 /**
  * Array que contiene Strings
  */
@@ -11,17 +10,19 @@ public class ArrayString extends Array {
 	public ArrayString() {
 		super();
 	}
-	
+
 	/**
 	 * Crea un Array a partir de un arreglo de String
+	 * 
 	 * @param arreglo
 	 */
 	public ArrayString(String[] arreglo) {
 		super(arreglo);
 	}
-	
+
 	/**
 	 * Anade un string al arreglo
+	 * 
 	 * @param String a agregar
 	 */
 	public void add(Object string) {
@@ -32,14 +33,16 @@ public class ArrayString extends Array {
 
 	/**
 	 * elimina el string especificado
+	 * 
 	 * @param object string a eliminar
 	 */
 	public void remove(String object) {
 		super.remove(object);
 	}
-	
+
 	/**
 	 * regresa el String en el indice especificado
+	 * 
 	 * @param index indice buscado
 	 */
 	public String get(int index) {
@@ -48,6 +51,7 @@ public class ArrayString extends Array {
 
 	/**
 	 * Setea un nuevo arreglo de Strings
+	 * 
 	 * @param arregloObjetos arreglo de string
 	 */
 	public void setArregloObjetos(String[] arregloObjetos) {
@@ -55,7 +59,7 @@ public class ArrayString extends Array {
 	}
 
 	/**
-	 *Regresa el arreglo de Strings almacenados
+	 * Regresa el arreglo de Strings almacenados
 	 */
 	public String[] getArregloObjetos() {
 		String[] lista = new String[getSize()];
@@ -70,13 +74,12 @@ public class ArrayString extends Array {
 
 	@Override
 	public void sort() {
-		
+
 	}
 
 	@Override
 	public String toString() {
 		return "ArrayString []";
 	}
-	
-	
+
 }

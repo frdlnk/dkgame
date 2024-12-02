@@ -17,13 +17,13 @@ import utils.constants.Tags;
  * @author Joshua Elizondo Vasquez
  * @see TriggerBox
  */
-public class Explosion extends TriggerBox{
+public class Explosion extends TriggerBox {
 	private double dano;
 	private ArrayString targetsIgnore;
-	
-	
+
 	/**
-	 * Crea una nueva explosion 
+	 * Crea una nueva explosion
+	 * 
 	 * @param nombre
 	 * @param textura
 	 * @param transformar
@@ -38,13 +38,11 @@ public class Explosion extends TriggerBox{
 
 	@Override
 	public void onColision(ColisionInfo colision) {
-		if (colision.getEntidad() instanceof Soldado 
-			&& !targetsIgnore.contains(colision.getEntidad().getNombre())) 
-		{
+		if (colision.getEntidad() instanceof Soldado && !targetsIgnore.contains(colision.getEntidad().getNombre())) {
 			hitSoldado((Soldado) colision.getEntidad());
 		}
 	}
-	
+
 	@Override
 	public ColisionInfo hayColision(Colisionable entidad) {
 		if (!getViva()) {
@@ -55,23 +53,23 @@ public class Explosion extends TriggerBox{
 
 	/**
 	 * Aplica el dano generado al soldado que impacta
+	 * 
 	 * @param soldado Soldado al que se hara dano
 	 */
 	private void hitSoldado(Soldado soldado) {
 		soldado.recibirDano(dano);
 	}
-	
+
 	@Override
 	public void actualizar() {
-		//solo existe un frame
+		// solo existe un frame
 		destruir();
 		super.actualizar();
 	}
 
-
 	@Override
 	public Collider[] getColliders() {
-		return new Collider[]{colisiona};
+		return new Collider[] { colisiona };
 	}
 
 	public double getDano() {
@@ -94,6 +92,5 @@ public class Explosion extends TriggerBox{
 	public String toString() {
 		return "Explosion [dano=" + dano + ", targetsIgnore=" + targetsIgnore + "]";
 	}
-	
-	
+
 }

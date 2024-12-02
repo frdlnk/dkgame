@@ -12,14 +12,16 @@ import utils.interfaces.Movible;
 
 /**
  * Caja que solo se activa desde arriba
- * @implNote se puede abstraer para crea un objeto colisionable segun angulo de entrada
+ * 
+ * @implNote se puede abstraer para crea un objeto colisionable segun angulo de
+ *           entrada
  */
 public class Plataforma extends Caja {
 
-
 	/**
 	 * Crea una nueva plataforma
-	 * @param textura imagen a mostrar
+	 * 
+	 * @param textura     imagen a mostrar
 	 * @param transformar posicion inicial
 	 */
 	public Plataforma(BufferedImage textura, Transform transformar) {
@@ -28,20 +30,19 @@ public class Plataforma extends Caja {
 
 	@Override
 	public ColisionInfo hayColision(Colisionable entidad) {
-		if (entidad instanceof Movible ) 
-		{
-			//TODO: tratar de hacer con producto punto de la resta de pos-Jpos y Vector.UP
+		if (entidad instanceof Movible) {
+			// TODO: tratar de hacer con producto punto de la resta de pos-Jpos y Vector.UP
 			Movible objeto = (Movible) entidad;
 			Fisica fisicaOtro = objeto.getFisica();
 			Rectangle otroHitbox = entidad.getColliders()[0].getHitbox();
-			Rectangle thisHitBox = colisiona.getHitbox();  
+			Rectangle thisHitBox = colisiona.getHitbox();
 			double thisYLevel = thisHitBox.getMaxY();
 			double otroYLevel = otroHitbox.getMaxY();
-			if(fisicaOtro.getUltimaDireccion().getY() >= 0 && otroYLevel <= thisYLevel) {
+			if (fisicaOtro.getUltimaDireccion().getY() >= 0 && otroYLevel <= thisYLevel) {
 				boolean trigger = false;
-				return new ColisionInfo(this,this,colisiona, trigger);
+				return new ColisionInfo(this, this, colisiona, trigger);
 			}
-			
+
 		}
 		return null;
 	}
@@ -51,5 +52,4 @@ public class Plataforma extends Caja {
 		return "Plataforma []";
 	}
 
-	
 }

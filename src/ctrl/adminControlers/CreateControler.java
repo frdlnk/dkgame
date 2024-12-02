@@ -13,39 +13,40 @@ import vista.admin.VistaCrear;
  * Controlador encargado del guardado de nuevos usuarios
  * 
  * @see VistaCrear
-  */
-public class CreateControler implements ActionListener{
+ */
+public class CreateControler implements ActionListener {
 	private VistaCrear vista;
 	private IDAOUserConfigs modeloConfigs;
 	private IDAOUsuario modeloUsers;
 	private UserFieldsValidator validator;
-	
+
 	/**
-	 * Constructor, crea un nuevo controlador asociado a la vista dada y con los DAO especificados
-	 * @param vista	VistaCrear asociada al controlador para sus eventos
+	 * Constructor, crea un nuevo controlador asociado a la vista dada y con los DAO
+	 * especificados
+	 * 
+	 * @param vista         VistaCrear asociada al controlador para sus eventos
 	 * @param modeloConfigs Dao de configuraciones de juego
-	 * @param modeloUsers Dao de usuarios
-	  */
-	public CreateControler(VistaCrear vista, IDAOUserConfigs modeloConfigs,
-			IDAOUsuario modeloUsers) {
+	 * @param modeloUsers   Dao de usuarios
+	 */
+	public CreateControler(VistaCrear vista, IDAOUserConfigs modeloConfigs, IDAOUsuario modeloUsers) {
 		this.vista = vista;
 		this.modeloConfigs = modeloConfigs;
 		this.modeloUsers = modeloUsers;
 		this.validator = new UserFieldsValidator(modeloUsers);
-		
+
 		vista.getBtnSave().addActionListener(this);
 		vista.getBtnCancel().addActionListener(this);
 		vista.setVisible(true);
 	}
-	
-	/** 
+
+	/**
 	 * Cierra la vista cuando cancela la operacion
 	 */
 	private void onCancel() {
 		vista.dispose();
 	}
 
-	/** 
+	/**
 	 * Guarda el usuario si los datos ingresados son validos
 	 */
 	private void saveUser() {
@@ -54,55 +55,59 @@ public class CreateControler implements ActionListener{
 		if (validateData(username, password)) {
 			UserConfig config = new UserConfig();
 			int configId = modeloConfigs.insert(config);
-			
+
 			Usuario newUsuario = new Usuario(username, password);
 			newUsuario.setLevel(0);
 			newUsuario.setScore(0);
 			newUsuario.setConfigId(configId);
-			
+
 			modeloUsers.insert(newUsuario);
 			vista.dispose();
 		}
 	}
-	
-	/** 
-	 * Valida los datos del usuario y muestra los errores correspondientes(en caso de haber)
+
+	/**
+	 * Valida los datos del usuario y muestra los errores correspondientes(en caso
+	 * de haber)
+	 * 
 	 * @param username String con el username a validar
 	 * @param password String contrasena a validar
-	 * @return boolean true si los campos cumplen con las condiciones, false en caso contrario
+	 * @return boolean true si los campos cumplen con las condiciones, false en caso
+	 *         contrario
 	 */
 	private boolean validateData(String username, String password) {
 		boolean isDataValid = true;
 		vista.getLblPasswordError().setVisible(false);
 		vista.getLblUsernameError().setVisible(false);
-		
+
 		String usernameValidationRe = validator.validateUsername(username);
 		String passwordValidationRe = validator.validatePassword(password);
-		
+
 		if (usernameValidationRe != null) {
-			vista.getLblUsernameError().setText(usernameValidationRe);;
+			vista.getLblUsernameError().setText(usernameValidationRe);
+			;
 			vista.getLblUsernameError().setVisible(true);
 			isDataValid = false;
 		}
 		if (passwordValidationRe != null) {
-			vista.getLblPassword().setText(passwordValidationRe);;
+			vista.getLblPassword().setText(passwordValidationRe);
+			;
 			vista.getLblPasswordError().setVisible(true);
 			isDataValid = false;
 		}
-		
+
 		return isDataValid;
 	}
 
-	
 	/**
-	 *Asignacion de funciones a los botones
+	 * Asignacion de funciones a los botones
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source.equals(vista.getBtnCancel())) {
 			onCancel();
-		}else if (source.equals(vista.getBtnSave())) {
+		} else if (source.equals(vista.getBtnSave())) {
 			saveUser();
 		}
 	}
@@ -144,6 +149,5 @@ public class CreateControler implements ActionListener{
 		return "CreateControler [vista=" + vista + ", modeloConfigs=" + modeloConfigs + ", modeloUsers=" + modeloUsers
 				+ ", validator=" + validator + "]";
 	}
-	
-	
+
 }

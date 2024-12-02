@@ -1,11 +1,12 @@
 package modelo.arrays;
 
-
 /**
  * Clase encargada de logica basica para el guaradado de objetos
  * 
  * @implNote esta clase podria ser usada con Genericos<T> para un mejor manejo
- * <br> no se usan por recomendsacion del profesor de no usar sintaxis no vista en clase
+ *           <br>
+ *           no se usan por recomendsacion del profesor de no usar sintaxis no
+ *           vista en clase
  */
 public abstract class Array {
 
@@ -15,14 +16,14 @@ public abstract class Array {
 
 	/**
 	 * Crea un Array apartir de un arreglo cualquiera
+	 * 
 	 * @param arreglo
 	 */
 	public Array(Object[] arreglo) {
 		this.arreglo = arreglo;
 		this.size = arreglo.length;
 	}
-	
-	
+
 	/**
 	 * Crea un nuevo arreglo vacio
 	 */
@@ -41,6 +42,7 @@ public abstract class Array {
 
 	/**
 	 * verifica que el objeto existe dentro del arreglo
+	 * 
 	 * @param object objeto buscado
 	 * @return true si existe en el Array, false si no
 	 */
@@ -57,21 +59,22 @@ public abstract class Array {
 	 * Ordena el arreglo de forma predeterminada al objeto asociado
 	 */
 	public abstract void sort();
-	
+
 	/**
 	 * aumenta el tamano del arreglo fijo para incrementar su capacidad
 	 */
 	private void grow() {
-		//+1 siu el arreglo tiene longitud 0
-		Object[] nuevoArreglo = new Object[arreglo.length*2+1];
+		// +1 siu el arreglo tiene longitud 0
+		Object[] nuevoArreglo = new Object[arreglo.length * 2 + 1];
 		for (int i = 0; i < arreglo.length; i++) {
 			nuevoArreglo[i] = arreglo[i];
 		}
 		arreglo = nuevoArreglo;
 	}
-	
+
 	/**
 	 * agrega un objeto al final del Array
+	 * 
 	 * @param object Objeto a agregar
 	 */
 	protected void addInternal(Object object) {
@@ -81,11 +84,12 @@ public abstract class Array {
 		arreglo[size] = object;
 		size++;
 	}
-	
+
 	public abstract void add(Object object);
-	
+
 	/**
 	 * Setea el indice especificado con el objeto dado
+	 * 
 	 * @param index indice a setear
 	 * @param value objeto a setear
 	 */
@@ -97,6 +101,7 @@ public abstract class Array {
 
 	/**
 	 * elimina el objeto especificado del arreglo
+	 * 
 	 * @param object objeto a eliminar
 	 */
 	public void remove(Object object) {
@@ -109,11 +114,12 @@ public abstract class Array {
 
 	/**
 	 * elimina el objeto en el indice indicado
+	 * 
 	 * @param index indice del objeto a eliminar
 	 */
 	public void remove(int index) {
-		for (int i = index; i < size-1; i++) {
-			arreglo[i] = arreglo[i+1];
+		for (int i = index; i < size - 1; i++) {
+			arreglo[i] = arreglo[i + 1];
 		}
 		size--;
 		arreglo[size] = null;
@@ -121,6 +127,7 @@ public abstract class Array {
 
 	/**
 	 * Regresa el objeto en la posicion dada
+	 * 
 	 * @param index indice buscado
 	 * @return objeto en la posicion especificada
 	 */
@@ -131,7 +138,7 @@ public abstract class Array {
 		return arreglo[index];
 	}
 
-	//getters y setters
+	// getters y setters
 	protected Object[] getArregloObjetos() {
 		return arreglo;
 	}
@@ -153,15 +160,12 @@ public abstract class Array {
 		return "Array [arreglo=" + arreglo + ", size=" + size + "]";
 	}
 
-
 	public Object[] getArreglo() {
 		return arreglo;
 	}
-
 
 	public void setArreglo(Object[] arreglo) {
 		this.arreglo = arreglo;
 	}
 
-	
 }

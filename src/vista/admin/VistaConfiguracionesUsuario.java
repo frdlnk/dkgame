@@ -43,86 +43,86 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 	private Button btnCancelar;
 	private Rectangle originaBounds;
 	private Button btnSelecionar;
-	
-		/**
-		 * Create the dialog.
-		 */
-		public VistaConfiguracionesUsuario(JFrame frame) {
-			super(frame);
-			Dimension lastDimension = super.getSize();
-			Dimension newDimension = new Dimension(lastDimension.width, lastDimension.height+30);
-			super.setSize(newDimension);
-			originaBounds = super.getBounds();
-			configPanel.setSize(419, 261);
-			configPanel.setLocation(getLocation());
-			initComponents();
-		}
-		
-		private void initComponents() {
+
+	/**
+	 * Create the dialog.
+	 */
+	public VistaConfiguracionesUsuario(JFrame frame) {
+		super(frame);
+		Dimension lastDimension = super.getSize();
+		Dimension newDimension = new Dimension(lastDimension.width, lastDimension.height + 30);
+		super.setSize(newDimension);
+		originaBounds = super.getBounds();
+		configPanel.setSize(419, 261);
+		configPanel.setLocation(getLocation());
+		initComponents();
+	}
+
+	private void initComponents() {
 		configPanel.setLayout(null);
-	
+
 		btnSelecionar = new Button("Selecionar");
 		btnSelecionar.setBounds(448, 408, 80, 20);
 		btnSelecionar.setBackground(Colors.COLOR6);
 		getBusquedaPanel().add(btnSelecionar);
-		
-		chBoxHelicopteros = new JCheckBox("Helicopteros",false);
+
+		chBoxHelicopteros = new JCheckBox("Helicopteros", false);
 		chBoxHelicopteros.setBounds(28, 32, 97, 23);
 		configPanel.add(chBoxHelicopteros);
-		
+
 		chBoxGranaderos = new JCheckBox("Granaderos", false);
 		chBoxGranaderos.setBounds(153, 32, 97, 23);
 		configPanel.add(chBoxGranaderos);
-		
+
 		chBoxPistoleros = new JCheckBox("Pistoleros", false);
 		chBoxPistoleros.setBounds(278, 32, 97, 23);
 		configPanel.add(chBoxPistoleros);
-		
+
 		lblEnemigosDisponibles = new JLabel("Enemigos disponibles:");
 		lblEnemigosDisponibles.setBounds(10, 11, 122, 14);
 		configPanel.add(lblEnemigosDisponibles);
-		
+
 		lblMultiplicadorDanoJugador = new JLabel("Multiplicador dano jugador");
 		lblMultiplicadorDanoJugador.setBounds(10, 73, 149, 14);
 		configPanel.add(lblMultiplicadorDanoJugador);
-		
+
 		spMultiplicadorDanoJugador = new JSpinner();
 		spMultiplicadorDanoJugador.setBounds(150, 70, 246, 20);
 		spMultiplicadorDanoJugador.setModel(new SpinnerNumberModel(1.0, 1.0, 99.0, .1));
 		configPanel.add(spMultiplicadorDanoJugador);
-		
+
 		lblMultiplicadorDanoEnemigos = new JLabel("Multiplicador dano enemigos");
 		lblMultiplicadorDanoEnemigos.setBounds(10, 101, 149, 14);
 		configPanel.add(lblMultiplicadorDanoEnemigos);
-		
+
 		spMultiplicadorDanoEnemigos = new JSpinner();
 		spMultiplicadorDanoEnemigos.setBounds(150, 98, 246, 20);
 		spMultiplicadorDanoEnemigos.setModel(new SpinnerNumberModel(1.0, 1.0, 99.0, .1));
 		configPanel.add(spMultiplicadorDanoEnemigos);
-		
+
 		lblVidasIniciales = new JLabel("Vidas Iniciales");
 		lblVidasIniciales.setBounds(10, 129, 149, 14);
 		configPanel.add(lblVidasIniciales);
-		
+
 		spVidasIniciales = new JSpinner();
 		spVidasIniciales.setBounds(150, 126, 246, 20);
 		spVidasIniciales.setModel(new SpinnerNumberModel(Integer.valueOf(1), 1, null, Integer.valueOf(1)));
 		configPanel.add(spVidasIniciales);
-		
+
 		lblArmaInicial = new JLabel("Arma Inicial");
 		lblArmaInicial.setBounds(10, 157, 149, 14);
 		configPanel.add(lblArmaInicial);
-		
+
 		cBoxArmaInicial = new JComboBox<>();
 		cBoxArmaInicial.setBounds(150, 153, 246, 22);
 		cBoxArmaInicial.setModel(new DefaultComboBoxModel<>(ArmasDisponibles.values()));
 		configPanel.add(cBoxArmaInicial);
-		
+
 		btnSave = new Button("Guardar");
 		btnSave.setBackground(Colors.COLOR2);
 		btnSave.setBounds(335, 186, 61, 25);
 		configPanel.add(btnSave);
-		
+
 		btnCancelar = new Button("Cancelar");
 		btnCancelar.setBackground(null);
 		btnCancelar.setBorder(new LineBorder(Colors.COLOR_GRAY));
@@ -131,20 +131,20 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 		configPanel.add(btnCancelar);
 
 	}
-	
+
 	public void changeToConfigPanel(UserConfig configuracion) {
 		String[] enemies = configuracion.getEnemigosActivos();
 		for (String enemy : enemies) {
 			switch (enemy) {
-				case EnemyTypes.GRANADERO:
-					chBoxGranaderos.setSelected(true);
-					break;
-				case EnemyTypes.HELICOPTERO:
-					chBoxHelicopteros.setSelected(true);
-					break;
-				case EnemyTypes.PISTOLERO:
-					chBoxPistoleros.setSelected(true);
-					break;
+			case EnemyTypes.GRANADERO:
+				chBoxGranaderos.setSelected(true);
+				break;
+			case EnemyTypes.HELICOPTERO:
+				chBoxHelicopteros.setSelected(true);
+				break;
+			case EnemyTypes.PISTOLERO:
+				chBoxPistoleros.setSelected(true);
+				break;
 			}
 		}
 
@@ -155,7 +155,7 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 		setContentPane(configPanel);
 		setBounds(configPanel.getBounds());
 	}
-	
+
 	public void changeToBuscarPanel() {
 		chBoxGranaderos.setSelected(false);
 		chBoxHelicopteros.setSelected(false);
@@ -309,5 +309,4 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 				+ ", btnSelecionar=" + btnSelecionar + "]";
 	}
 
-	
 }

@@ -12,37 +12,37 @@ import vista.admin.VistaCrear;
 import vista.game.VistaInicioJuego;
 import vista.game.VistaLogin;
 
-
 /**
  * Controlador de la vista de bienvenida al juego
  */
-public class WelcomeGameControler implements ActionListener{
+public class WelcomeGameControler implements ActionListener {
 	public final static int SCORES_A_MOSTRAR = 5;
 	private VistaInicioJuego vista;
 	private IDAOUsuario modeloUser;
 	private IDAOUserConfigs modeloConfigs;
-	
+
 	/**
-	 * Crea un nuevo controlador con la vista y los DAO's asociados
-	 * <br>carga los mejores puntajes 
-	 * @param vista vista asociada
-	 * @param modeloUser DAO de acceso a los usuarios
+	 * Crea un nuevo controlador con la vista y los DAO's asociados <br>
+	 * carga los mejores puntajes
+	 * 
+	 * @param vista         vista asociada
+	 * @param modeloUser    DAO de acceso a los usuarios
 	 * @param modeloConfigs DAO de acceso a las configuraciones
 	 */
 	public WelcomeGameControler(VistaInicioJuego vista, IDAOUsuario modeloUser, IDAOUserConfigs modeloConfigs) {
 		this.vista = vista;
 		this.modeloConfigs = modeloConfigs;
 		this.modeloUser = modeloUser;
-		
+
 		vista.getBtnSalir().addActionListener(this);
 		vista.getBtnRegistrar().addActionListener(this);
 		vista.getBtnIniciarJuego().addActionListener(this);
-		
+
 		loadBestScores();
-		
+
 		vista.setVisible(true);
 	}
-	
+
 	/**
 	 * Carga los mejores {@value #SCORES_A_MOSTRAR} scores
 	 */
@@ -52,7 +52,7 @@ public class WelcomeGameControler implements ActionListener{
 		for (int i = 0; i < formatedBestScoreStrings.length; i++) {
 			Usuario user = bestScoArray.get(i);
 			if (user != null) {
-				formatedBestScoreStrings[i] = user.getUsername()+": " + user.getScore();
+				formatedBestScoreStrings[i] = user.getUsername() + ": " + user.getScore();
 			}
 		}
 		vista.getListPuntajes().setListData(formatedBestScoreStrings);
@@ -91,12 +91,12 @@ public class WelcomeGameControler implements ActionListener{
 		Object source = e.getSource();
 		if (source == vista.getBtnIniciarJuego()) {
 			mostrarLogin();
-		}else if (source.equals(vista.getBtnRegistrar())) {
+		} else if (source.equals(vista.getBtnRegistrar())) {
 			mostrarVistaRegistrar();
-		}else if (source.equals(vista.getBtnSalir())) {
+		} else if (source.equals(vista.getBtnSalir())) {
 			salir();
 		}
-		
+
 	}
 
 	public VistaInicioJuego getVista() {
@@ -132,6 +132,5 @@ public class WelcomeGameControler implements ActionListener{
 		return "WelcomeGameControler [vista=" + vista + ", modeloUser=" + modeloUser + ", modeloConfigs="
 				+ modeloConfigs + "]";
 	}
-	
-	
+
 }

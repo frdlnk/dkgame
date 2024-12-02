@@ -8,7 +8,7 @@ public class UserArray extends Array {
 	public UserArray() {
 		super();
 	}
-	
+
 	public UserArray(Usuario[] arreglo) {
 		super(arreglo);
 	}
@@ -16,7 +16,7 @@ public class UserArray extends Array {
 	public boolean contains(Usuario object) {
 		return super.contains(object);
 	}
-	
+
 	public Usuario get(String username) {
 		Usuario[] users = getArregloObjetos();
 		for (int i = 0; i < users.length; i++) {
@@ -29,6 +29,7 @@ public class UserArray extends Array {
 
 	/**
 	 * Anade un string al arreglo
+	 * 
 	 * @param String a agregar
 	 */
 	public void add(Object usuario) {
@@ -40,11 +41,11 @@ public class UserArray extends Array {
 	public void remove(Usuario object) {
 		super.remove(object);
 	}
-	
+
 	public Usuario get(int index) {
 		return (Usuario) super.get(index);
 	}
-	
+
 	public Usuario getById(int id) {
 		for (Usuario user : getArregloObjetos()) {
 			if (user.getId() == id) {
@@ -63,7 +64,7 @@ public class UserArray extends Array {
 		if (superListObjects instanceof Usuario[]) {
 			return (Usuario[]) superListObjects;
 		}
-		
+
 		Usuario[] listaUsuario = new Usuario[getSize()];
 		for (int i = 0; i < listaUsuario.length; i++) {
 			if (superListObjects[i] instanceof Usuario) {
@@ -73,7 +74,7 @@ public class UserArray extends Array {
 		setArregloObjetos(listaUsuario);
 		return listaUsuario;
 	}
-	
+
 	public void removeById(int id) {
 		Usuario[] users = getArregloObjetos();
 		for (int i = 0; i < getSize(); i++) {
@@ -82,10 +83,11 @@ public class UserArray extends Array {
 			}
 		}
 	}
-	
+
 	private UserArray searchByString(Object value, String field) {
 		UserArray userReturned = new UserArray();
-		if (!(value instanceof String)) return userReturned;
+		if (!(value instanceof String))
+			return userReturned;
 		Usuario[] users = getArregloObjetos();
 		for (int i = 0; i < getSize(); i++) {
 			String userValue = (String) getField(field, users[i]);
@@ -99,7 +101,8 @@ public class UserArray extends Array {
 
 	private UserArray searchByInt(Object value, String searchMode, String field) {
 		UserArray userReturned = new UserArray();
-		if (!(value instanceof Integer)) return userReturned;
+		if (!(value instanceof Integer))
+			return userReturned;
 		Usuario[] users = getArregloObjetos();
 		for (int i = 0; i < getSize(); i++) {
 			int userValue = (int) getField(field, users[i]);
@@ -109,16 +112,16 @@ public class UserArray extends Array {
 		}
 		return userReturned;
 	}
-	
+
 	public UserArray search(Object value, String field, String searchMode) {
 		return switch (field) {
-		case UserFields.FIELD_USERNAME -> searchByString(value,UserFields.FIELD_USERNAME);
+		case UserFields.FIELD_USERNAME -> searchByString(value, UserFields.FIELD_USERNAME);
 		case UserFields.FIELD_LEVEL -> searchByInt(value, searchMode, UserFields.FIELD_LEVEL);
 		case UserFields.FIELD_SCORE -> searchByInt(value, searchMode, UserFields.FIELD_SCORE);
 		default -> new UserArray();
 		};
 	}
-	
+
 	private Object getField(String field, Usuario user) {
 		return switch (field) {
 		case UserFields.FIELD_USERNAME -> user.getUsername();
@@ -127,7 +130,7 @@ public class UserArray extends Array {
 		default -> null;
 		};
 	}
-	
+
 	private boolean compareIntByMode(int val1, int val2, String mode) {
 		return switch (mode) {
 		case ComparativeModes.MAYOR_QUE -> val1 > val2;
@@ -136,15 +139,15 @@ public class UserArray extends Array {
 		default -> false;
 		};
 	}
-	
+
 	public UserArray getBestScores(int cantidadRegistros) {
 		UserArray returArray = new UserArray();
 		for (int i = 0; i < getSize(); i++) {
-			for (int j = 0; j < getSize()-1; j++) {
-				if (get(j) == null || get(j).getScore() < get(j+1).getScore()) {
+			for (int j = 0; j < getSize() - 1; j++) {
+				if (get(j) == null || get(j).getScore() < get(j + 1).getScore()) {
 					Usuario tempUsuario = get(j);
-					set(j,get(j+1));
-					set(j+1, tempUsuario);
+					set(j, get(j + 1));
+					set(j + 1, tempUsuario);
 				}
 			}
 		}
@@ -156,15 +159,15 @@ public class UserArray extends Array {
 		}
 		return returArray;
 	}
-	
+
 	@Override
 	public void sort() {
 		for (int i = 0; i < getSize(); i++) {
-			for (int j = 0; j < getSize()-1; j++) {
-				if (get(j) == null || get(j).getId() > get(j+1).getId()) {
+			for (int j = 0; j < getSize() - 1; j++) {
+				if (get(j) == null || get(j).getId() > get(j + 1).getId()) {
 					Usuario tempUsuario = get(j);
-					set(j,get(j+1));
-					set(j+1, tempUsuario);
+					set(j, get(j + 1));
+					set(j + 1, tempUsuario);
 				}
 			}
 		}
@@ -174,6 +177,5 @@ public class UserArray extends Array {
 	public String toString() {
 		return "UserArray []";
 	}
-	
-	
+
 }

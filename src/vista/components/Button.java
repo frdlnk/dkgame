@@ -9,17 +9,19 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
- * Boton personalizado, permite una mejor forma de alterar su forma sin afectar el comportamiento normal
- * <br> funciona como un wrapper para estilizar el panel con mayor libertad que el boton
+ * Boton personalizado, permite una mejor forma de alterar su forma sin afectar
+ * el comportamiento normal <br>
+ * funciona como un wrapper para estilizar el panel con mayor libertad que el
+ * boton
  */
-public class Button extends JPanel implements ActionListener{
+public class Button extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JButton boton;
 	private ActionListener actionListener;
 
 	public Button(String text) {
 		super();
-		setLayout(new GridLayout(1,1));
+		setLayout(new GridLayout(1, 1));
 		boton = new JButton(text);
 		boton.setContentAreaFilled(false);
 		boton.setBorder(null);
@@ -34,7 +36,7 @@ public class Button extends JPanel implements ActionListener{
 			boton.setForeground(fg);
 		}
 	}
-	
+
 	@Override
 	public void setBackground(Color bg) {
 		super.setBackground(bg);
@@ -42,7 +44,7 @@ public class Button extends JPanel implements ActionListener{
 			boton.setBackground(bg);
 		}
 	}
-	
+
 	public void addActionListener(ActionListener listener) {
 		actionListener = listener;
 		boton.addActionListener(listener);
@@ -74,7 +76,5 @@ public class Button extends JPanel implements ActionListener{
 	public String toString() {
 		return "Button [boton=" + boton + ", actionListener=" + actionListener + "]";
 	}
-	
-	
-}
 
+}

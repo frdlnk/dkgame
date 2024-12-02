@@ -15,7 +15,6 @@ import javax.swing.border.LineBorder;
 
 import utils.constants.Colors;
 
-
 public class VistaCrear extends JDialog {
 
 	private static final long serialVersionUID = 1L;
@@ -36,6 +35,7 @@ public class VistaCrear extends JDialog {
 		super(frame, true);
 		initComponents();
 	}
+
 	public VistaCrear(JDialog dialog) {
 		super(dialog, true);
 		initComponents();
@@ -68,37 +68,37 @@ public class VistaCrear extends JDialog {
 		contentPanel.add(tfPassword);
 		tfPassword.setColumns(10);
 		lblPassword.setLabelFor(tfPassword);
-		
+
 		btnCancel = new Button("Cancelar");
 		btnCancel.setBounds(10, 112, 89, 23);
 		contentPanel.add(btnCancel);
 		btnCancel.setBackground(Colors.BACKGROUND_COLOR);
 		btnCancel.setBorder(new LineBorder(Colors.COLOR_GRAY));
 		btnCancel.setForeground(Colors.COLOR_GRAY);
-		
+
 		btnSave = new Button("Guardar");
 		btnSave.setBounds(334, 112, 90, 23);
 		btnSave.setBorder(null);
 		btnSave.setForeground(Color.WHITE);
 		btnSave.setBackground(Colors.COLOR2);
 		contentPanel.add(btnSave);
-		
+
 		lblUsernameError = new JLabel("");
 		lblUsernameError.setLabelFor(lblUsername);
 		lblUsernameError.setForeground(Color.RED);
 		lblUsernameError.setBounds(72, 38, 352, 14);
 		lblUsernameError.setVisible(false);
 		contentPanel.add(lblUsernameError);
-		
+
 		lblPasswordError = new JLabel("");
 		lblPasswordError.setBounds(72, 81, 352, 32);
 		lblPasswordError.setForeground(Color.RED);
-		lblPasswordError.setVisible(false);;
+		lblPasswordError.setVisible(false);
+		;
 		contentPanel.add(lblPasswordError);
-		
+
 	}
 
-	
 	public JTextField getTfUsername() {
 		return tfUsername;
 	}
@@ -166,6 +166,7 @@ public class VistaCrear extends JDialog {
 	public void setLblPasswordError(JLabel lblPasswordError) {
 		this.lblPasswordError = lblPasswordError;
 	}
+
 	@Override
 	public String toString() {
 		return "VistaCrear [contentPanel=" + contentPanel + ", tfUsername=" + tfUsername + ", tfPassword=" + tfPassword
@@ -173,6 +174,5 @@ public class VistaCrear extends JDialog {
 				+ ", btnCancel=" + btnCancel + ", lblUsernameError=" + lblUsernameError + ", lblPasswordError="
 				+ lblPasswordError + "]";
 	}
-	
-	
+
 }

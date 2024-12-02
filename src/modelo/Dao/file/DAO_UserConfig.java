@@ -15,70 +15,76 @@ import modelo.db.binary.ObjectReadManager;
 public class DAO_UserConfig implements IDAOUserConfigs {
 	UserConfigArray lista = Main.UserConfigsSet;
 	String fileName = "userConfig.data";
-	
+
 	/**
 	 * Crea un nuevo DAO
-	 * @throws IOException si el archivo se encuentra corrupto o no se pued3e abrir
-	 * @throws ClassNotFoundException si {@link UserConfig} no se encuentra en los recursos del sistema
+	 * 
+	 * @throws IOException            si el archivo se encuentra corrupto o no se
+	 *                                pued3e abrir
+	 * @throws ClassNotFoundException si {@link UserConfig} no se encuentra en los
+	 *                                recursos del sistema
 	 */
 	public DAO_UserConfig() throws IOException, ClassNotFoundException {
 		load();
 	}
-	
+
 	/**
 	 * Carga los datos en el dataset
-	 * @throws ClassNotFoundException si {@link UserConfig} no se encuentra en los recursos del sistema
-	 * @throws IOException si existe problemas con el archivo
+	 * 
+	 * @throws ClassNotFoundException si {@link UserConfig} no se encuentra en los
+	 *                                recursos del sistema
+	 * @throws IOException            si existe problemas con el archivo
 	 */
 	private void load() throws ClassNotFoundException, IOException {
-		try (ObjectReadManager reader = new ObjectReadManager(fileName)){
+		try (ObjectReadManager reader = new ObjectReadManager(fileName)) {
 			reader.readAll(lista);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Guarad todos los registros en el archivo
 	 */
 	public void saveAll() {
-		try (ObjectFileWriter writer = new ObjectFileWriter(fileName)){
+		try (ObjectFileWriter writer = new ObjectFileWriter(fileName)) {
 			writer.replaceAll(lista.getArregloObjetos());
 		} catch (Exception e) {
 		}
-		
+
 	}
-	
+
 	@Override
 	public int insert(UserConfig config) {
-		//si tiene id cero se le asigna un id autoincrementable
+		// si tiene id cero se le asigna un id autoincrementable
 		if (isIdValid(config)) {
 			lista.add(config);
 			saveAll();
 			return config.getId();
-		}else {
+		} else {
 			System.err.println("Id ya existente");
 		}
 		return -1;
 	}
-	
+
 	/**
 	 * verifica que el id no exista y asigna uno consecutivo si no tiene id
+	 * 
 	 * @param config configuracion a verificar
 	 * @return
 	 */
 	private boolean isIdValid(UserConfig config) {
-		//id autoincremetable
+		// id autoincremetable
 		if (config.getId() == 0) {
 			lista.sort();
 			int nextId = 1;
 			if (lista.getSize() != 0)
-				nextId = lista.get(lista.getSize()-1).getId()+1;
-				
+				nextId = lista.get(lista.getSize() - 1).getId() + 1;
+
 			config.setId(nextId);
 			return true;
 		}
-		//si intenta insertar con un id establecido verifica que no exista
+		// si intenta insertar con un id establecido verifica que no exista
 		return lista.getById(config.getId()) != null;
 	}
 
@@ -87,7 +93,7 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 		lista.removeById(id);
 		saveAll();
 	}
-	
+
 	@Override
 	public void delete(UserConfig config) {
 		lista.remove(config);
@@ -136,5 +142,4 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 		return "DAO_UserConfig [lista=" + lista + ", fileName=" + fileName + "]";
 	}
 
-	
 }

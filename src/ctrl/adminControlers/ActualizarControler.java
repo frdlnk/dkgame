@@ -14,13 +14,14 @@ import vista.admin.VistaBuscar;
  * @see VistaBuscar
  * @see VistaActualizar
  */
-public class ActualizarControler extends BuscarControler{
+public class ActualizarControler extends BuscarControler {
 	private VistaActualizar vistaActualizar;
 	private UserFieldsValidator validator;
-	
+
 	/**
 	 * Crea un nuevo controlador de actualizar
-	 * @param vista vista que se va a controlar
+	 * 
+	 * @param vista  vista que se va a controlar
 	 * @param modelo Dao de acceso a los datos del usuario
 	 */
 	public ActualizarControler(VistaActualizar vista, IDAOUsuario modelo) {
@@ -45,15 +46,17 @@ public class ActualizarControler extends BuscarControler{
 			vistaActualizar.changeToSearchPanel();
 		}
 	}
-	
+
 	/**
-	 * Verifica que la contrasena tenga el formato correcto
-	 * <br> en caso de error muestra el mensaje de error
+	 * Verifica que la contrasena tenga el formato correcto <br>
+	 * en caso de error muestra el mensaje de error
+	 * 
 	 * @param password la contrasena que se debe verificar
 	 * @return true si la contrasena cumple los requisitos, false si no
 	 */
 	private boolean validateData(String password) {
-		//la setea no visible para que en la siguiente validacion si no hay error desaparesca
+		// la setea no visible para que en la siguiente validacion si no hay error
+		// desaparesca
 		vistaActualizar.getLblPasswordError().setVisible(false);
 		String validatorResult = validator.validatePassword(password);
 		if (validatorResult != null) {
@@ -75,21 +78,21 @@ public class ActualizarControler extends BuscarControler{
 			vistaActualizar.changeToActualizarPanel();
 		}
 	}
-	
+
 	private void mostrarBusqueda() {
 		vistaActualizar.changeToSearchPanel();
 	}
-	
+
 	/**
-	 *Asignacion de mentodos a los botones
+	 * Asignacion de mentodos a los botones
 	 */
-	public void actionPerformed(ActionEvent e){
+	public void actionPerformed(ActionEvent e) {
 		Object source = e.getSource();
 		if (source.equals(vistaActualizar.getBtnSelectUser())) {
 			mostrarInfoUsuario();
-		}else if(source.equals(vistaActualizar.getBtnActualizar())){
+		} else if (source.equals(vistaActualizar.getBtnActualizar())) {
 			actualizarUsuario();
-		}else if (source.equals(vistaActualizar.getBtnCancelar())) {
+		} else if (source.equals(vistaActualizar.getBtnCancelar())) {
 			mostrarBusqueda();
 		}
 	}
@@ -114,6 +117,5 @@ public class ActualizarControler extends BuscarControler{
 	public String toString() {
 		return "ActualizarControler [vistaActualizar=" + vistaActualizar + ", validator=" + validator + "]";
 	}
-	
-	
+
 }

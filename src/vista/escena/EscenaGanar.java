@@ -20,27 +20,27 @@ public class EscenaGanar extends Scene {
 	private Player jugador;
 	private SpriteText resumen;
 	private SpriteText felicitaciones;
-	
+
 	public EscenaGanar() {
 		jugador = Game.getJugador();
 		String mensaje = "obtuviste un puntaje de " + jugador.getPuntaje();
-		Vector2D posResumen = new Vector2D(30,90);
+		Vector2D posResumen = new Vector2D(30, 90);
 		resumen = new SpriteText(mensaje, Color.YELLOW, Assets.future, false);
 		resumen.setPosicion(posResumen);
 		String mensajeF = "Felicidades ganaste";
-		Vector2D posFelicitacion = new Vector2D(30,50);
+		Vector2D posFelicitacion = new Vector2D(30, 50);
 		felicitaciones = new SpriteText(mensajeF, Color.YELLOW, Assets.future, false);
 		felicitaciones.setPosicion(posFelicitacion);
 		Assets.MISSION_COMPLETE_SOUND.start();
 	}
-	
+
 	@Override
 	public void actualizar() {
 		resumen.actualizar();
 		felicitaciones.actualizar();
 		if (InputKeyboard.isDown(Key.SPACE)) {
 			int lastLevel = Game.getLoggedUser().getLevel();
-			Game.getLoggedUser().setLevel(lastLevel+1);
+			Game.getLoggedUser().setLevel(lastLevel + 1);
 			GameControler.detener();
 		}
 	}

@@ -16,12 +16,12 @@ import vista.game.VistaInicioJuego;
 /**
  * Controlador de inicio para la selecion del programa a evaluar
  */
-public class MenuInicioControler implements ActionListener{
+public class MenuInicioControler implements ActionListener {
 	private MenuInicio vista;
 	private IDAOUsuario modeloUser;
 	private IDAOUserConfigs modeloConfigs;
-	
-	public MenuInicioControler(MenuInicio vista,DAO_Usuario modeloUser, DAO_UserConfig modelConfigs) {
+
+	public MenuInicioControler(MenuInicio vista, DAO_Usuario modeloUser, DAO_UserConfig modelConfigs) {
 		this.modeloUser = modeloUser;
 		this.modeloConfigs = modelConfigs;
 		this.vista = vista;
@@ -38,7 +38,7 @@ public class MenuInicioControler implements ActionListener{
 		new AdminPanelControler(vistaB, modeloConfigs, modeloUser);
 		vista.dispose();
 	}
-	
+
 	/**
 	 * Inicia la bienvenida al juego
 	 */
@@ -56,7 +56,7 @@ public class MenuInicioControler implements ActionListener{
 		Object source = e.getSource();
 		if (source.equals(vista.getBtnAdministracion())) {
 			openAdmin();
-		}else if (source.equals(vista.getBtnJugar())) {
+		} else if (source.equals(vista.getBtnJugar())) {
 			initGame();
 		}
 	}
@@ -90,6 +90,5 @@ public class MenuInicioControler implements ActionListener{
 		return "MenuInicioControler [vista=" + vista + ", modeloUser=" + modeloUser + ", modeloConfigs=" + modeloConfigs
 				+ "]";
 	}
-	
-	
+
 }

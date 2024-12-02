@@ -11,25 +11,26 @@ import modelo.arrays.Array;
 /**
  * Objeto encargado de la lectura de archivos binarios
  */
-public class ObjectReadManager implements AutoCloseable{
+public class ObjectReadManager implements AutoCloseable {
 	private FileInputStream in;
 	private ObjectInputStream reader;
 
 	/**
-	 * Crea un nuevo objeto lector
-	 * <br> si el archivo especificado no existe lo crea
+	 * Crea un nuevo objeto lector <br>
+	 * si el archivo especificado no existe lo crea
+	 * 
 	 * @param fileName ruta al archivo
 	 * @throws IOException si hay problemas en la creacion o apertura del archivo
 	 */
 	public ObjectReadManager(String fileName) throws IOException {
 		File file = new File(fileName);
-		
+
 		if (!file.exists()) {
 			file.createNewFile();
 		}
-		
+
 		in = new FileInputStream(file);
-		if (in.available()>0) {
+		if (in.available() > 0) {
 			reader = new ObjectInputStream(in);
 		}
 	}
@@ -43,9 +44,10 @@ public class ObjectReadManager implements AutoCloseable{
 			reader.close();
 		}
 	}
-	
+
 	/**
 	 * Lee un registro del archivo
+	 * 
 	 * @return el resgistro encontrado
 	 * @throws ClassNotFoundException
 	 * @throws IOException
@@ -59,10 +61,11 @@ public class ObjectReadManager implements AutoCloseable{
 			}
 		}
 		return null;
-	} 
-	
+	}
+
 	/**
 	 * Verifica que hay datos disponibles para leer
+	 * 
 	 * @return true si hay datos disponibles
 	 * @throws IOException
 	 */
@@ -75,9 +78,10 @@ public class ObjectReadManager implements AutoCloseable{
 		}
 		return false;
 	}
-	
+
 	/**
 	 * lee todos los registros del archivo
+	 * 
 	 * @param arreglo arreglo para agregar los registros
 	 * @throws ClassNotFoundException
 	 * @throws IOException
@@ -109,6 +113,5 @@ public class ObjectReadManager implements AutoCloseable{
 	public String toString() {
 		return "ObjectReadManager [in=" + in + ", reader=" + reader + "]";
 	}
-	
-	
+
 }

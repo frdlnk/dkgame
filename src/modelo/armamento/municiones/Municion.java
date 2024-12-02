@@ -25,7 +25,7 @@ import utils.interfaces.Movible;
  * @author Joshua Elizondo Vasquez
  * @see Sprite, Colisionable, Movible
  */
-public abstract class Municion extends Sprite implements Colisionable, Movible{
+public abstract class Municion extends Sprite implements Colisionable, Movible {
 	protected Collider colisiona;
 	protected Fisica fisica;
 	private double velocity;
@@ -34,34 +34,36 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 
 	/**
 	 * Construye una Municion
-	 * @param nombre 	String tag que recibe la entidad
-	 * @param posicion 	Vector2D posicion inicial
-	 * @param direccion Vector2D direccion a seguir de la Municion
+	 * 
+	 * @param nombre        String tag que recibe la entidad
+	 * @param posicion      Vector2D posicion inicial
+	 * @param direccion     Vector2D direccion a seguir de la Municion
 	 * @param targetsIgnore Lista de tags a ignorar para impactar
-	 * @param dano double 	cantidad de dano que hace la municion a las entidades objetivo
+	 * @param dano          double cantidad de dano que hace la municion a las
+	 *                      entidades objetivo
 	 */
 	public Municion(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnore, double dano, double velocity) {
 		super(Tags.MUNICION);
-		Rectangle rect = new Rectangle(15,10);
-		Color color = new Color(255,153,0);
+		Rectangle rect = new Rectangle(15, 10);
+		Color color = new Color(255, 153, 0);
 		this.textura = Renderer.crearTextura(rect, color);
 		this.velocity = velocity;
 		transformar = new Transform(posicion);
-	    int width = this.textura.getWidth();
-	    int height = this.textura.getHeight();
-	    this.colisiona = new Collider(this.transformar, width, height);
-	    this.fisica = new Fisica(1,0,transformar);
+		int width = this.textura.getWidth();
+		int height = this.textura.getHeight();
+		this.colisiona = new Collider(this.transformar, width, height);
+		this.fisica = new Fisica(1, 0, transformar);
 		fisica.impulsar(direccion.scale(this.velocity));
 		renderer = new Renderer(transformar, textura);
 		this.targetIgnore = targetsIgnore;
 		targetsIgnore.add(Tags.MUNICION);
 		this.dano = dano;
 	}
-	
+
 	public Municion() {
 		super(Tags.MUNICION);
 	}
-	
+
 	/**
 	 * Actualiza los componentes escenciales y sus limites
 	 */
@@ -72,26 +74,24 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 		calcularLimites();
 		super.actualizar();
 	}
-	
+
 	/**
 	 * Calcula los limites de la municion en pantalla
 	 */
 	private void calcularLimites() {
-		if(transformar.getPosicion().getX() > Conf.WINDOW_WIDTH
-		|| transformar.getPosicion().getX() < 0
-		|| transformar.getPosicion().getY() < 0
-		|| transformar.getPosicion().getY() > Conf.WINDOW_HEIGHT)
-		{
+		if (transformar.getPosicion().getX() > Conf.WINDOW_WIDTH || transformar.getPosicion().getX() < 0
+				|| transformar.getPosicion().getY() < 0 || transformar.getPosicion().getY() > Conf.WINDOW_HEIGHT) {
 			destruir();
 		}
 	}
-	
+
 	/**
 	 * Logica cuando la bala impacta contra un objetivo
+	 * 
 	 * @param entidad
 	 */
 	protected abstract void impacto(Entidad entidad);
-	
+
 	/**
 	 * Realiza el filtro de objetos a impactar
 	 */
@@ -103,11 +103,11 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	}
 
 	/**
-	 *Verifica si el objeto se encuentra en colision con otro
+	 * Verifica si el objeto se encuentra en colision con otro
 	 */
 	@Override
 	public ColisionInfo hayColision(Colisionable entidad) {
-		//Si la bala ya a impactado no puede colisionar de nuevo
+		// Si la bala ya a impactado no puede colisionar de nuevo
 		if (!getViva()) {
 			return null;
 		}
@@ -124,12 +124,12 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 			}
 		}
 		return null;
-		
+
 	}
-	
+
 	@Override
 	public Collider[] getColliders() {
-		return new Collider[]{colisiona};
+		return new Collider[] { colisiona };
 	}
 
 	public double getDano() {
@@ -145,7 +145,6 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 		return fisica;
 	}
 
-
 	public void setColisiona(Collider colisiona) {
 		this.colisiona = colisiona;
 	}
@@ -153,7 +152,7 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 	public void setFisica(Fisica fisica) {
 		this.fisica = (Fisica) fisica;
 	}
-	
+
 	@Override
 	public void setTransformar(Transform transformar) {
 		fisica.setTransform(transformar);
@@ -187,5 +186,4 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 				+ targetIgnore + ", dano=" + dano + "]";
 	}
 
-	
 }

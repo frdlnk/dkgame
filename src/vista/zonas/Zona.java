@@ -31,21 +31,21 @@ import utils.interfaces.BorderDrawAble;
  * Permite el modo disenador
  * 
  */
-public abstract class Zona extends Entidad implements Colisionable{
+public abstract class Zona extends Entidad implements Colisionable {
 	protected ListaEntidades mapObjects;
 	protected ListaEntidades staticObjects;
 	protected ListaEntidades enemigos;
 	protected Transform transformar;
-	protected UserConfig config; 
-	
-	//Variables del modo diseño
+	protected UserConfig config;
+
+	// Variables del modo diseño
 	private boolean modoDiseno;
 	private Sprite plat1;
 	private int actualPlatform;
 	private double contx;
 	private double conty;
 	private double changeplatDelay;
-	
+
 	public Zona(Vector2D posicion, boolean modoDiseno) {
 		super();
 		config = Game.configuracion;
@@ -61,7 +61,7 @@ public abstract class Zona extends Entidad implements Colisionable{
 			setFirstDesignPlatform();
 		}
 	}
-	
+
 	/**
 	 * Busca el primer Elemento que se pueda mover para el modo disenador
 	 */
@@ -76,45 +76,48 @@ public abstract class Zona extends Entidad implements Colisionable{
 			modoDiseno = false;
 		}
 	}
-	
+
 	/**
 	 * Crea una plataforma en el mapa, y la agrega a los objetos del mapa
-	 * @param pos posicion de la plataforma en la zona
-	 * @param width longitud de la plataforma
+	 * 
+	 * @param pos    posicion de la plataforma en la zona
+	 * @param width  longitud de la plataforma
 	 * @param height altura ed la plataforma
 	 * @return la plataforma creada
 	 */
-	protected Plataforma createPlatform(Vector2D pos, int width, int height){
+	protected Plataforma createPlatform(Vector2D pos, int width, int height) {
 		Rectangle dimensiones = new Rectangle(width, height);
-		Color color = new Color(128,50,0);
+		Color color = new Color(128, 50, 0);
 		BufferedImage image = Renderer.crearTextura(dimensiones, color);
-		Transform transform = new RelativeTransform(pos,this.transformar);
+		Transform transform = new RelativeTransform(pos, this.transformar);
 		Plataforma platform = new Plataforma(image, transform);
 		platform.getColisiona().actualizar();
 		mapObjects.add(platform.getNombre(), platform);
 		return platform;
 	}
+
 	/**
 	 * Crea una caja en el mapa, y la agrega a los objetos del mapa
-	 * @param pos posicion de la caja en la zona
-	 * @param width longitud de la caja
+	 * 
+	 * @param pos    posicion de la caja en la zona
+	 * @param width  longitud de la caja
 	 * @param height altura ed la caja
 	 * @return la caja creada
 	 */
-	protected Caja createCaja(Vector2D pos, int width, int height){
+	protected Caja createCaja(Vector2D pos, int width, int height) {
 		Rectangle dimensiones = new Rectangle(width, height);
-		Color color = new Color(128,50,0, 50);
+		Color color = new Color(128, 50, 0, 50);
 		BufferedImage image = Renderer.crearTextura(dimensiones, color);
-		Transform transform = new RelativeTransform(pos,this.transformar);
+		Transform transform = new RelativeTransform(pos, this.transformar);
 		Caja caja = new Caja(Tags.STATIC_OBJECT, image, transform);
 		caja.getColisiona().actualizar();
 		mapObjects.add(caja.getNombre(), caja);
 		return caja;
 	}
 
-	
 	/**
 	 * Anade entidades al mapa
+	 * 
 	 * @param entidad la entidad a anadir
 	 */
 	public void addMapObjects(Entidad entidad) {
@@ -126,18 +129,20 @@ public abstract class Zona extends Entidad implements Colisionable{
 		}
 		mapObjects.add(entidad.getNombre(), entidad);
 	}
-	
+
 	/**
 	 * Crea e inicializa los objetos iniciales el mapa
 	 */
 	protected abstract void crearComponentes();
+
 	/**
 	 * Crea e inicializa los enemigos iniciales del mapa
 	 */
 	protected abstract void generarEnemigos();
-	
+
 	/**
 	 * Verifica las colisiones de un Colisionable con todos los objetos del mapa
+	 * 
 	 * @param colisionable objeto a verificar
 	 */
 	public void verificarColisiones(Colisionable colisionable) {
@@ -145,7 +150,7 @@ public abstract class Zona extends Entidad implements Colisionable{
 		ColisionUtils.entityColisionVerifier(mapObjects, colisionable);
 		ColisionUtils.entityColisionVerifier(enemigos, colisionable);
 	}
-	
+
 	/**
 	 * Calcula las colisiones de los objetos del mapa
 	 */
@@ -154,9 +159,10 @@ public abstract class Zona extends Entidad implements Colisionable{
 		verificarColisiones(mapObjects);
 		verificarColisiones(staticObjects);
 	}
-	
+
 	/**
 	 * Verifica las colisiones de una lista de entidades con los objetos del mapa
+	 * 
 	 * @param entidades
 	 */
 	public void verificarColisiones(ListaEntidades entidades) {
@@ -167,7 +173,7 @@ public abstract class Zona extends Entidad implements Colisionable{
 			}
 		}
 	}
-	
+
 	@Override
 	public void actualizar() {
 		staticObjects.actualizar();
@@ -179,12 +185,14 @@ public abstract class Zona extends Entidad implements Colisionable{
 		}
 		destruir();
 	}
+
 	@Override
 	public void destruir() {
 		staticObjects.destruir();
 		mapObjects.destruir();
 		enemigos.destruir();
 	}
+
 	@Override
 	public void dibujar(Graphics g) {
 		staticObjects.dibujar(g);
@@ -194,93 +202,96 @@ public abstract class Zona extends Entidad implements Colisionable{
 			((BorderDrawAble) plat1).drawBorders(g);
 		}
 	}
-	
+
 	/**
-	 * Mueve la zona en una direccion a la velocidad de la configuracion {@value Conf#VELOCIDAD_CAMBIO_DE_ZONAS}
+	 * Mueve la zona en una direccion a la velocidad de la configuracion
+	 * {@value Conf#VELOCIDAD_CAMBIO_DE_ZONAS}
+	 * 
 	 * @param direccion direccion de movimiento
 	 */
 	public void moverZona(Vector2D direccion) {
 		moverZona(direccion, Conf.VELOCIDAD_CAMBIO_DE_ZONAS);
 	}
-	
+
 	/**
 	 * Mueve la zona en una direccion especificada y una diatancia especificada
+	 * 
 	 * @param direccion direccion de movimiento
 	 * @param distancia que recorrera en esa direccion
 	 */
 	public void moverZona(Vector2D direccion, double distancia) {
-		Vector2D movimeinto = direccion.normalize().scale(distancia*GameLoop.dt);
-		
+		Vector2D movimeinto = direccion.normalize().scale(distancia * GameLoop.dt);
+
 		Vector2D nuevaPosicionZona = transformar.getPosicion().add(movimeinto);
-		
+
 		transformar.setPosicion(nuevaPosicionZona);
-		
+
 	}
-	
+
 	/**
 	 * Actualizar habilitado para el funcionamiento del modo disenador
 	 */
 	private void actualizarModoDiseno() {
-		//con enter puede cambiar entre la plataforma selecionada
+		// con enter puede cambiar entre la plataforma selecionada
 		if (InputKeyboard.isDown(Key.ENTER) && changeplatDelay <= 0) {
-			//enter mas shift la plataforma anterior
+			// enter mas shift la plataforma anterior
 			if (InputKeyboard.isDown(Key.SHIFT)) {
-				actualPlatform = actualPlatform-1 < 0 ? mapObjects.getSize()-1 : actualPlatform-1;
-			}else {
-				actualPlatform = actualPlatform+1>= mapObjects.getSize() ? 0 : actualPlatform+1;
+				actualPlatform = actualPlatform - 1 < 0 ? mapObjects.getSize() - 1 : actualPlatform - 1;
+			} else {
+				actualPlatform = actualPlatform + 1 >= mapObjects.getSize() ? 0 : actualPlatform + 1;
 			}
-			//setea el nuevo objeto a mover si es de tipo Sprite
+			// setea el nuevo objeto a mover si es de tipo Sprite
 			if (mapObjects.get(actualPlatform) instanceof Sprite) {
 				plat1 = (Sprite) mapObjects.get(actualPlatform);
 			}
-			//resetea los valores de posicionamiento
+			// resetea los valores de posicionamiento
 			contx = 0;
 			conty = 0;
-			//resetea la variable de control para cambiar entre plataformas
+			// resetea la variable de control para cambiar entre plataformas
 			changeplatDelay = .5;
-		}else {
+		} else {
 			changeplatDelay -= GameLoop.dt;
 		}
-		
-		//si apreta shift puede mover los objetos mas rapido
+
+		// si apreta shift puede mover los objetos mas rapido
 		double distance = 0.5;
 		if (InputKeyboard.isDown(Key.SHIFT)) {
 			distance = 5;
 		}
-		//calculo de nueva posicion del objeto
+		// calculo de nueva posicion del objeto
 		Vector2D posicionPlat;
 		if (plat1.getTransformar() instanceof RelativeTransform) {
 			posicionPlat = ((RelativeTransform) plat1.getTransformar()).getRelativePosicion();
-		}else {
+		} else {
 			posicionPlat = transformar.getPosicion();
 		}
 		if (InputKeyboard.isKeyPressed(Key.UP)) {
 			conty -= distance;
-			Vector2D newpos = posicionPlat.add(new Vector2D(0,-distance));
+			Vector2D newpos = posicionPlat.add(new Vector2D(0, -distance));
 			plat1.getTransformar().trasladarloA(newpos);
 			System.out.println(conty);
 		}
 		if (InputKeyboard.isKeyPressed(Key.DOWN)) {
 			conty += distance;
-			Vector2D newpos = posicionPlat.add(new Vector2D(0,distance));
+			Vector2D newpos = posicionPlat.add(new Vector2D(0, distance));
 			plat1.getTransformar().trasladarloA(newpos);
 			System.out.println(conty);
 		}
 		if (InputKeyboard.isKeyPressed(Key.LEFT)) {
 			contx -= distance;
-			Vector2D newpos = posicionPlat.add(new Vector2D(-distance,0));
+			Vector2D newpos = posicionPlat.add(new Vector2D(-distance, 0));
 			plat1.getTransformar().trasladarloA(newpos);
 			System.out.println(contx);
 		}
 		if (InputKeyboard.isKeyPressed(Key.RIGHT)) {
 			contx += distance;
-			Vector2D newpos = posicionPlat.add(new Vector2D(distance,0));
+			Vector2D newpos = posicionPlat.add(new Vector2D(distance, 0));
 			plat1.getTransformar().trasladarloA(newpos);
 			System.out.println(contx);
 		}
 	}
-	
-	public int enemigosrestantes(){
+
+	public int enemigosrestantes() {
 		return enemigos.getSize();
 	}
 

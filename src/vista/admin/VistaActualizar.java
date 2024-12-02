@@ -36,34 +36,33 @@ public class VistaActualizar extends VistaBuscar {
 	public VistaActualizar(JFrame frame) {
 		super(frame);
 		Dimension lastDimension = getSize();
-		Dimension newDimension = new Dimension(lastDimension.width, lastDimension.height+30);
+		Dimension newDimension = new Dimension(lastDimension.width, lastDimension.height + 30);
 		setSize(newDimension);
 		originaBounds = getBounds();
-		actualizarPanel.setSize(380,180);
+		actualizarPanel.setSize(380, 180);
 		actualizarPanel.setLocation(getLocation());
 		initComponents();
 	}
-	
+
 	public void changeToSearchPanel() {
 		setContentPane(getBusquedaPanel());
 		setBounds(originaBounds);
 	}
-	
+
 	private void initComponents() {
 		actualizarPanel.setLayout(null);
-		
+
 		btnSelectUser = new Button("Actualizar");
 		btnSelectUser.setBounds(448, 408, 80, 20);
 		btnSelectUser.setBackground(Colors.COLOR6);
 		getContentPanel().add(btnSelectUser);
-		
-		
+
 		tfUsername = new JTextField();
 		tfUsername.setBounds(78, 5, 279, 20);
 		tfUsername.setToolTipText("");
 		tfUsername.setEditable(false);
 		actualizarPanel.add(tfUsername);
-		
+
 		lblUsername = new JLabel("Username");
 		lblUsername.setBounds(10, 8, 48, 14);
 		lblUsername.setLabelFor(tfUsername);
@@ -72,25 +71,25 @@ public class VistaActualizar extends VistaBuscar {
 		tfPassword = new JTextField();
 		tfPassword.setBounds(78, 36, 279, 20);
 		actualizarPanel.add(tfPassword);
-		
+
 		lblPassword = new JLabel("Contrasena");
 		lblPassword.setBounds(10, 40, 75, 14);
 		actualizarPanel.add(lblPassword);
-		
+
 		btnActualizar = new Button("Actualizar");
 		btnActualizar.setBounds(281, 109, 76, 21);
 		actualizarPanel.add(btnActualizar);
-		
+
 		btnCancelar = new Button("Cancelar");
 		btnCancelar.setBounds(10, 109, 62, 21);
 		actualizarPanel.add(btnCancelar);
-		
+
 		lblPasswordError = new JLabel("");
 		lblPasswordError.setBounds(78, 59, 279, 39);
 		actualizarPanel.add(lblPasswordError);
-		
+
 	}
-	
+
 	public void changeToActualizarPanel() {
 		setContentPane(actualizarPanel);
 		setBounds(actualizarPanel.getBounds());
@@ -179,6 +178,5 @@ public class VistaActualizar extends VistaBuscar {
 				+ ", lblPassword=" + lblPassword + ", btnActualizar=" + btnActualizar + ", btnCancelar=" + btnCancelar
 				+ ", originaBounds=" + originaBounds + ", lblPasswordError=" + lblPasswordError + "]";
 	}
-	
-	
+
 }

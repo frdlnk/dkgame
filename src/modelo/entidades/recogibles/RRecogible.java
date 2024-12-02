@@ -1,6 +1,5 @@
 package modelo.entidades.recogibles;
 
-
 import modelo.armamento.armas.LanzaCohetes;
 import modelo.entidades.Player;
 import modelo.entidades.Recogible;
@@ -15,7 +14,7 @@ import utils.constants.Assets;
  * @see LanzaCohetes
  * @see Recogible
  */
-public class RRecogible extends Recogible{
+public class RRecogible extends Recogible {
 
 	public RRecogible(Transform transformar, int puntos) {
 		super(Assets.LETRA_R, transformar, puntos);
@@ -32,7 +31,7 @@ public class RRecogible extends Recogible{
 
 	@Override
 	public Collider[] getColliders() {
-		return new Collider[] {colisiona};
+		return new Collider[] { colisiona };
 	}
 
 	@Override
@@ -40,5 +39,4 @@ public class RRecogible extends Recogible{
 		return new LanzaCohetes(20);
 	}
 
-	
 }

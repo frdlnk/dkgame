@@ -1,6 +1,5 @@
 package vista;
 
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -13,7 +12,7 @@ public class MenuInicio extends JFrame {
 	private JButton btnJugar;
 	private JLabel lblBienvenida;
 	private JPanel contentPane;
-	
+
 	/**
 	 * Create the frame.
 	 */
@@ -25,26 +24,24 @@ public class MenuInicio extends JFrame {
 		setContentPane(contentPane);
 
 		initComponents();
-		
+
 	}
-	
+
 	private void initComponents() {
 		contentPane.setLayout(null);
 		btnAdministracion = new JButton("Sistema administracion");
 		btnAdministracion.setBounds(44, 145, 176, 23);
 		getContentPane().add(btnAdministracion);
-		
+
 		btnJugar = new JButton("Jugar");
 		btnJugar.setBounds(290, 145, 88, 23);
 		getContentPane().add(btnJugar);
-		
+
 		lblBienvenida = new JLabel("Bienvenido a Metal Slug, que desea hacer");
 		lblBienvenida.setBounds(115, 67, 234, 14);
 		getContentPane().add(lblBienvenida);
-		
-		
-	}
 
+	}
 
 	public JButton getBtnAdministracion() {
 		return btnAdministracion;
@@ -75,6 +72,5 @@ public class MenuInicio extends JFrame {
 		return "MenuInicio [btnAdministracion=" + btnAdministracion + ", btnJugar=" + btnJugar + ", lblBienvenida="
 				+ lblBienvenida + ", contentPane=" + contentPane + "]";
 	}
-	
-	
+
 }

@@ -20,30 +20,33 @@ import utils.constants.Tags;
  */
 public abstract class Enemigo extends Soldado {
 	private int valorPuntaje;
+
 	/**
 	 * Crea un nuevo {@link Enemigo} con el tag {@value Tags#ENEMY}
-	 * @param imagenes 
-	 * @param posicion inicial del enemigo
-	 * @param salud 
+	 * 
+	 * @param imagenes
+	 * @param posicion     inicial del enemigo
+	 * @param salud
 	 * @param valorPuntaje puntos que sumara al jugador al morir
 	 */
 	public Enemigo(BufferedImage imagen, Transform posicion, double salud, int valorPuntaje) {
 		super(Tags.ENEMY, imagen, posicion, salud);
 		this.valorPuntaje = valorPuntaje;
 		colisiona.actualizar();
-		fisica = new Fisica(1,1,transformar);
+		fisica = new Fisica(1, 1, transformar);
 	}
-	
+
 	@Override
 	public void actualizar() {
-		
+
 		fisica.actualizar();
 		colisiona.actualizar();
 		super.actualizar();
 	}
-	
+
 	/**
 	 * verifica que este dentro de la pantalla
+	 * 
 	 * @return
 	 */
 	public boolean isInScreen() {
@@ -53,7 +56,7 @@ public abstract class Enemigo extends Soldado {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public void recibirDano(double dano) {
 		salud -= dano;
@@ -61,26 +64,27 @@ public abstract class Enemigo extends Soldado {
 			morir();
 		}
 	}
-	
+
 	@Override
 	public void morir() {
 		Game.getJugador().recibirPuntos(valorPuntaje);
 	}
-	
+
 	/**
 	 * Consigue la direccion del jugador desde un punto dado
+	 * 
 	 * @param posicion desde la cual se quiere saber la direccion hasta el jugador
 	 * @return direccion hacia el jugador
 	 */
 	protected Vector2D getDireccionJugador(Vector2D posicion) {
 		Vector2D distancia = getDistanciaJugador(posicion);
-		
+
 		return distancia != null ? distancia.normalize() : null;
 	}
-	
-	
+
 	/**
 	 * Calcula la distancia desde un punto dado hasta el jugador
+	 * 
 	 * @param posicion desde la cual se va a calcular la distancia
 	 * @return distancia hasta el jugador
 	 */
@@ -93,7 +97,7 @@ public abstract class Enemigo extends Soldado {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public ColisionInfo hayColision(Colisionable entidad) {
 		if (isInScreen()) {
@@ -115,5 +119,4 @@ public abstract class Enemigo extends Soldado {
 		return "Enemigo [valorPuntaje=" + valorPuntaje + "]";
 	}
 
-	
 }

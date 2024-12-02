@@ -18,14 +18,14 @@ import utils.interfaces.BorderDrawAble;
 import utils.interfaces.Movible;
 
 /**
- * Clase encargada de ser un objeto solido 
+ * Clase encargada de ser un objeto solido
  */
 public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 
 	public Caja(String nombre, BufferedImage textura, Transform transformar) {
 		super(nombre, textura, transformar);
 	}
-	
+
 	@Override
 	public void actualizar() {
 		super.actualizar();
@@ -60,48 +60,51 @@ public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 			Double direccionX = direccionInversa.getX();
 			Transform transformarOtro = fisicaOtro.getTransform();
 			Vector2D ultimaPosicion = fisicaOtro.getTransform().getPosicion();
-			
-			//mueve el objeto en direccion contraria hasta que deje de colisionar, si se puede mover
+
+			// mueve el objeto en direccion contraria hasta que deje de colisionar, si se
+			// puede mover
 			if (!direccionY.isNaN() && !direccionX.isNaN() && (direccionX != 0 || direccionY != 0)) {
-				while(colision.getColider().colisionaCon(colisiona) && !direccionY.isNaN()) {
+				while (colision.getColider().colisionaCon(colisiona) && !direccionY.isNaN()) {
 					Vector2D nuevaPosiocion;
 					if (transformarOtro instanceof RelativeTransform) {
-						nuevaPosiocion = ((RelativeTransform) transformarOtro).getRelativePosicion().add(direccionInversa);
-					}else {
+						nuevaPosiocion = ((RelativeTransform) transformarOtro).getRelativePosicion()
+								.add(direccionInversa);
+					} else {
 						nuevaPosiocion = transformarOtro.getPosicion().add(direccionInversa);
 					}
 					transformarOtro.trasladarloA(nuevaPosiocion);
-					colision.getColider().actualizar(); 
+					colision.getColider().actualizar();
 				}
 			}
-			
-			//verifica el lado desde donde colisiono para eliminar sus fuerzas correspondientes
-			if(colliderOtro.getMaxX() == thisHitBox.getMinX() || colliderOtro.getMinX() == thisHitBox.getMaxX()) {
+
+			// verifica el lado desde donde colisiono para eliminar sus fuerzas
+			// correspondientes
+			if (colliderOtro.getMaxX() == thisHitBox.getMinX() || colliderOtro.getMinX() == thisHitBox.getMaxX()) {
 				transformarOtro.getPosicion().setY(ultimaPosicion.getY());
 				double pos = transformar.getPosicion().getX();
-				pos += colliderOtro.getMaxX() == thisHitBox.getMinX() ? -colliderOtro.getWidth():textura.getWidth();
+				pos += colliderOtro.getMaxX() == thisHitBox.getMinX() ? -colliderOtro.getWidth() : textura.getWidth();
 				transformarOtro.getPosicion().setX(pos);
 				fisicaOtro.getVectorMovimiento().setX(0);
 				fisicaOtro.getUltimaDireccion().setX(0);
-			}else if(colliderOtro.getMaxY() == thisHitBox.getMinY() || colliderOtro.getMinY() == thisHitBox.getMaxY()) {
+			} else if (colliderOtro.getMaxY() == thisHitBox.getMinY()
+					|| colliderOtro.getMinY() == thisHitBox.getMaxY()) {
 				transformarOtro.getPosicion().setX(ultimaPosicion.getX());
 				double pos = transformar.getPosicion().getY();
-				pos += colliderOtro.getMaxY() == thisHitBox.getMinY() ? -colliderOtro.getHeight():textura.getHeight();
+				pos += colliderOtro.getMaxY() == thisHitBox.getMinY() ? -colliderOtro.getHeight() : textura.getHeight();
 				transformarOtro.getPosicion().setY(pos);
 				fisicaOtro.getVectorMovimiento().setY(0);
 				fisicaOtro.getUltimaDireccion().setY(0);
 			}
-			//actualiza la entidad
+			// actualiza la entidad
 			colision.getColider().actualizar();
 		}
 	}
 
-	
 	@Override
 	public void dibujar(Graphics g) {
 		super.dibujar(g);
 	}
-	
+
 	@Override
 	public void drawBorders(Graphics g) {
 		Rectangle tect = colisiona.getHitbox();
@@ -110,13 +113,12 @@ public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 
 	@Override
 	public Collider[] getColliders() {
-		return new Collider[] {colisiona};
+		return new Collider[] { colisiona };
 	}
 
 	@Override
 	public String toString() {
 		return "Caja []";
 	}
-	
-	
+
 }

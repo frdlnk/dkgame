@@ -1,6 +1,5 @@
 package modelo.entidades.recogibles;
 
-
 import modelo.armamento.armas.HeavyMachineGun;
 import modelo.entidades.Player;
 import modelo.entidades.Recogible;
@@ -32,12 +31,12 @@ public class HRecogible extends Recogible {
 
 	@Override
 	public Collider[] getColliders() {
-		return new Collider[] {colisiona};
+		return new Collider[] { colisiona };
 	}
 
 	@Override
 	public Object getReward() {
-		return new HeavyMachineGun(300,HeavyMachineGun.DEFAULT_DANO);
+		return new HeavyMachineGun(300, HeavyMachineGun.DEFAULT_DANO);
 	}
 
 	@Override

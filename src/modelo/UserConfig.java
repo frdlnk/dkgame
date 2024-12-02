@@ -8,7 +8,7 @@ import utils.constants.EnemyTypes;
 /**
  * Modelo de datos para las configuraciones del usuario
  */
-public class UserConfig implements Serializable{
+public class UserConfig implements Serializable {
 	/**
 	 * 
 	 */
@@ -19,7 +19,7 @@ public class UserConfig implements Serializable{
 	private double multiplicadorDano;
 	private double multiplicadorDanoEnemigo;
 	private String armainicial;
-	
+
 	public UserConfig(String[] enemigosActivos, int vidasIniciales, double multiplicadorDano,
 			double multiplicadorDanoEnemigo, String armainicial) {
 		setId(0);
@@ -89,14 +89,13 @@ public class UserConfig implements Serializable{
 
 	@Override
 	public String toString() {
-		return "UserConfig [id=" + id + ", enemigosActivos=" + enemigosActivos + ", vidasIniciales="
-				+ vidasIniciales + ", multiplicadorDano=" + multiplicadorDano + ", multiplicadorDanoEnemigo="
-				+ multiplicadorDanoEnemigo + ", armainicial=" + armainicial + "]";
+		return "UserConfig [id=" + id + ", enemigosActivos=" + enemigosActivos + ", vidasIniciales=" + vidasIniciales
+				+ ", multiplicadorDano=" + multiplicadorDano + ", multiplicadorDanoEnemigo=" + multiplicadorDanoEnemigo
+				+ ", armainicial=" + armainicial + "]";
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
-	
 }

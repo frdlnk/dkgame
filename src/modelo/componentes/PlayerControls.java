@@ -4,24 +4,24 @@ import motor_v1.motor.input.InputKeyboard;
 import motor_v1.motor.input.Key;
 
 /**
- * Clase utilitaria para facilitar los inputs de control para un jugador
- * atraves de los ejes funcionales y teclas de funcion especial como salto
+ * Clase utilitaria para facilitar los inputs de control para un jugador atraves
+ * de los ejes funcionales y teclas de funcion especial como salto
  */
 public class PlayerControls {
 	private double direccionHorizontal;
 	private double direccionVertical;
 	private boolean isJump;
-	
+
 	private int leftKey;
 	private int rightKey;
 	private int upKey;
 	private int downKey;
 	private int jumpKey;
-	
+
 	public PlayerControls() {
-		this(Key.A,Key.D, Key.W,Key.S,Key.SPACE);
+		this(Key.A, Key.D, Key.W, Key.S, Key.SPACE);
 	}
-	
+
 	public PlayerControls(int leftKey, int rightKey, int upKey, int downKey, int jumpKey) {
 		this.leftKey = leftKey;
 		this.rightKey = rightKey;
@@ -36,19 +36,19 @@ public class PlayerControls {
 	public void actualizar() {
 		if (InputKeyboard.isKeyPressed(rightKey)) {
 			direccionHorizontal = 1;
-		}else if(InputKeyboard.isKeyPressed(leftKey)) {
+		} else if (InputKeyboard.isKeyPressed(leftKey)) {
 			direccionHorizontal = -1;
-		}else {
+		} else {
 			direccionHorizontal = 0;
 		}
 		if (InputKeyboard.isKeyPressed(upKey)) {
 			direccionVertical = -1;
-		}else if(InputKeyboard.isKeyPressed(downKey)) {
+		} else if (InputKeyboard.isKeyPressed(downKey)) {
 			direccionVertical = 1;
-		}else {
+		} else {
 			direccionVertical = 0;
 		}
-		
+
 		isJump = InputKeyboard.isDown(jumpKey);
 	}
 
@@ -122,5 +122,5 @@ public class PlayerControls {
 				+ ", isJump=" + isJump + ", leftKey=" + leftKey + ", rightKey=" + rightKey + ", upKey=" + upKey
 				+ ", downKey=" + downKey + ", jumpKey=" + jumpKey + "]";
 	}
-	
+
 }

@@ -9,27 +9,28 @@ import modelo.arrays.ArrayString;
 import utils.constants.EnemyTypes;
 import vista.admin.VistaConfiguracionesUsuario;
 
-public class ConfiguracionesControler extends BuscarControler{
+public class ConfiguracionesControler extends BuscarControler {
 	private IDAOUserConfigs modeloConfigs;
 	private VistaConfiguracionesUsuario vistaConf;
 
-	public ConfiguracionesControler(VistaConfiguracionesUsuario vista, IDAOUsuario modelo, IDAOUserConfigs modeloConfigs) {
+	public ConfiguracionesControler(VistaConfiguracionesUsuario vista, IDAOUsuario modelo,
+			IDAOUserConfigs modeloConfigs) {
 		super(vista, modelo);
 		this.modeloConfigs = modeloConfigs;
 		vistaConf = vista;
-		
+
 		vista.getBtnSave().addActionListener(this);
 		vista.getBtnCancelar().addActionListener(this);
 		vista.getBtnSelecionar().addActionListener(this);
-		
+
 		vista.setVisible(true);
 	}
 
-	private void mostrarBusquedaPanel(){
+	private void mostrarBusquedaPanel() {
 		vistaConf.changeToBuscarPanel();
 	}
 
-	private void guardarConfiguracion(){
+	private void guardarConfiguracion() {
 		int idConfig = vistaConf.getListaUsuarios().getSelectedValue().getConfigId();
 		UserConfig configuracion = modeloConfigs.get(idConfig);
 
@@ -43,18 +44,19 @@ public class ConfiguracionesControler extends BuscarControler{
 		vistaConf.dispose();
 	}
 
-	private int getVidasIniciales(){
-		return (int)vistaConf.getSpVidasIniciales().getValue();
+	private int getVidasIniciales() {
+		return (int) vistaConf.getSpVidasIniciales().getValue();
 	}
 
-	private double getMultiplicadorDanoJugador(){
+	private double getMultiplicadorDanoJugador() {
 		return (double) vistaConf.getSpMultiplicadorDanoJugador().getValue();
 	}
-	private double getMultiplicadorDanoEnemigo(){
+
+	private double getMultiplicadorDanoEnemigo() {
 		return (double) vistaConf.getSpMultiplicadorDanoEnemigos().getValue();
 	}
 
-	private String[] getEnemigosActivos(){
+	private String[] getEnemigosActivos() {
 		ArrayString enemiesActive = new ArrayString();
 		boolean helicopterActive = vistaConf.getChBoxHelicopteros().isSelected();
 		boolean granaderoActive = vistaConf.getChBoxGranaderos().isSelected();
@@ -71,11 +73,11 @@ public class ConfiguracionesControler extends BuscarControler{
 		return enemiesActive.getArregloObjetos();
 	}
 
-	private String getArmaInicial(){
+	private String getArmaInicial() {
 		return vistaConf.getcBoxArmaInicial().getSelectedItem().toString();
 	}
 
-	private void mostrarConfigPanel(){
+	private void mostrarConfigPanel() {
 		int id = vistaConf.getListaUsuarios().getSelectedValue().getConfigId();
 		UserConfig configuracion = modeloConfigs.get(id);
 
@@ -87,9 +89,9 @@ public class ConfiguracionesControler extends BuscarControler{
 		Object source = e.getSource();
 		if (source.equals(vistaConf.getBtnCancelar())) {
 			mostrarBusquedaPanel();
-		}else if(source.equals(vistaConf.getBtnSave())){
+		} else if (source.equals(vistaConf.getBtnSave())) {
 			guardarConfiguracion();
-		}else if (source.equals(vistaConf.getBtnSelecionar())) {
+		} else if (source.equals(vistaConf.getBtnSelecionar())) {
 			mostrarConfigPanel();
 		}
 	}
@@ -115,5 +117,4 @@ public class ConfiguracionesControler extends BuscarControler{
 		return "ConfiguracionesControler [modeloConfigs=" + modeloConfigs + ", vistaConf=" + vistaConf + "]";
 	}
 
-	
 }

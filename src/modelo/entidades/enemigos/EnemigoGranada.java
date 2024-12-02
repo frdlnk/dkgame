@@ -21,26 +21,27 @@ import vista.escena.EscenaJuego;
 /**
  * {@link Enemigo} que arroja granadas al jugador
  */
-public class EnemigoGranada extends Enemigo{
-	//constantes de movimiento
+public class EnemigoGranada extends Enemigo {
+	// constantes de movimiento
 	public final static int VALOR_PUNTAJE = 300;
 	public final static int SALUD = 70;
 	public final static int SPEED = 80;
 	public final static int DANO_BASE = 15;
-	
-	//variables de control
+
+	// variables de control
 	private double tiempoEntreLanzamientos;
 	private double siguientePosicion;
 	private int siguienteDireccionX;
 	private boolean posicionAlcanzada;
 
-	//Sprites
+	// Sprites
 	private SpritesEnemy sprites;
 
 	/**
 	 * crea un nuevo Granadero
-	 * @param imagen principal para dimensiones y localizacion
-	 * @param posicion inicial del enemigo
+	 * 
+	 * @param imagen         principal para dimensiones y localizacion
+	 * @param posicion       inicial del enemigo
 	 * @param duracionImagen tiempo de reproducion del gif
 	 */
 	public EnemigoGranada(BufferedImage imagenes, Transform posicion) {
@@ -62,23 +63,23 @@ public class EnemigoGranada extends Enemigo{
 		super.morir();
 		destruir();
 	}
-	
+
 	@Override
 	public void actualizar() {
-		
+
 		if (isInScreen()) {
 			sprites.cambiarAnimacionA(Assets.enemNames[0]);
 			if (tiempoEntreLanzamientos < 0 && posicionAlcanzada) {
 				disparar();
 				sprites.cambiarAnimacionA(Assets.enemNames[2]);
 				tiempoEntreLanzamientos = 2;
-				
+
 				Random random = new Random();
 				siguienteDireccionX = random.nextBoolean() ? 1 : -1;
-				siguientePosicion = random.nextInt(0,400);
-			}else if(!posicionAlcanzada){
-				Vector2D direccion = new Vector2D(siguienteDireccionX,0);
-				fisica.addForce(direccion.scale(SPEED*GameLoop.dt));
+				siguientePosicion = random.nextInt(0, 400);
+			} else if (!posicionAlcanzada) {
+				Vector2D direccion = new Vector2D(siguienteDireccionX, 0);
+				fisica.addForce(direccion.scale(SPEED * GameLoop.dt));
 				siguientePosicion -= fisica.getVectorMovimiento().getX();
 				sprites.cambiarAnimacionA(Assets.enemNames[1]);
 			}
@@ -87,49 +88,50 @@ public class EnemigoGranada extends Enemigo{
 			sprites.actualizar();
 			super.actualizar();
 		}
-		
+
 	}
 
 	/**
-	 * Genera un lanzamiento de una granada con velocidades variadas
-	 * en base a la distancia hacia el jugador
+	 * Genera un lanzamiento de una granada con velocidades variadas en base a la
+	 * distancia hacia el jugador
 	 * 
-	 * @implNote El calculo de velocidad y angulo no es exacto hacia el jugador
-	 * este tiene una variacion, aveces tira la granada mas lejos o mas cerca del jugador
+	 * @implNote El calculo de velocidad y angulo no es exacto hacia el jugador este
+	 *           tiene una variacion, aveces tira la granada mas lejos o mas cerca
+	 *           del jugador
 	 */
 	@Override
 	public void disparar() {
-		//consigue la distncia al jugador
+		// consigue la distncia al jugador
 		Vector2D posicionJugador = getDistanciaJugador(getCentro());
 		if (posicionJugador != null) {
 			Random random = new Random();
-			
-			//divide la distancia en sus componentes
+
+			// divide la distancia en sus componentes
 			double xf = posicionJugador.getX();
 			double yf = posicionJugador.getY();
-			
-			double varianzaAngulo = random.nextDouble(0.7,1.3);
-			
-			//Cuando el enemigo esta muy cerca del jugador 
-			//aumenta su distancia para un calculo de disparo mas acertado
+
+			double varianzaAngulo = random.nextDouble(0.7, 1.3);
+
+			// Cuando el enemigo esta muy cerca del jugador
+			// aumenta su distancia para un calculo de disparo mas acertado
 			if (Math.abs(xf) < 70) {
-				xf += xf<0 ? -50 : 50;
+				xf += xf < 0 ? -50 : 50;
 			}
-			
-			//calculo de velocidad de la granada
-			double v0 = (xf+yf)*varianzaAngulo*GameLoop.dt;
+
+			// calculo de velocidad de la granada
+			double v0 = (xf + yf) * varianzaAngulo * GameLoop.dt;
 			int direccionX = 1;
-			
-			//verifica la direccion horizontal de lanzamiento
+
+			// verifica la direccion horizontal de lanzamiento
 			if (v0 < 0) {
 				direccionX = -1;
 				v0 = -v0;
 			}
-			
-			//la direccion de disparo de la granada siempre son 45 o 135 grados
-			Vector2D direccionDisparo = new Vector2D(direccionX,-1);
-			
-			//Crea y agrega la granada al escenario
+
+			// la direccion de disparo de la granada siempre son 45 o 135 grados
+			Vector2D direccionDisparo = new Vector2D(direccionX, -1);
+
+			// Crea y agrega la granada al escenario
 			ArrayString targetsIgnored = new ArrayString();
 			targetsIgnored.add(getNombre());
 			double dano = DANO_BASE * Game.getConfiguracion().getMultiplicadorDanoEnemigo();
@@ -147,18 +149,18 @@ public class EnemigoGranada extends Enemigo{
 		Vector2D pos = transformar.getPosicion();
 		if (direccionJugadorX < 0) {
 			double widht = colisiona.getHitbox().getWidth();
-			return pos.add(new Vector2D(widht,0));
+			return pos.add(new Vector2D(widht, 0));
 		}
 		return pos;
 	}
 
 	@Override
 	public Collider[] getColliders() {
-		return new Collider[] {colisiona};
+		return new Collider[] { colisiona };
 	}
 
 	@Override
-	public void dibujar(Graphics g){
+	public void dibujar(Graphics g) {
 		sprites.dibujar(g);
 	}
 
@@ -208,6 +210,5 @@ public class EnemigoGranada extends Enemigo{
 				+ siguientePosicion + ", siguienteDireccionX=" + siguienteDireccionX + ", posicionAlcanzada="
 				+ posicionAlcanzada + ", sprites=" + sprites + "]";
 	}
-	
-	
+
 }

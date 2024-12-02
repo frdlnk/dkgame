@@ -1,6 +1,5 @@
 package vista.game;
 
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -31,7 +30,7 @@ public class VistaInicioJuego extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		initComponents();
 	}
 
@@ -40,27 +39,27 @@ public class VistaInicioJuego extends JFrame {
 		lblBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
 		lblBienvenida.setBounds(10, 11, 165, 14);
 		contentPane.add(lblBienvenida);
-		
+
 		listPuntajes = new JList<>();
 		listPuntajes.setBounds(210, 40, 99, 164);
 		contentPane.add(listPuntajes);
-		
+
 		lblPuntajes = new JLabel("Mejores Puntajes");
 		lblPuntajes.setBounds(210, 11, 99, 14);
 		contentPane.add(lblPuntajes);
-		
+
 		btnRegistrar = new Button("Registrarse");
 		btnRegistrar.setBounds(49, 100, 87, 31);
 		contentPane.add(btnRegistrar);
-		
+
 		btnIniciarJuego = new Button("Iniciar Juego");
 		btnIniciarJuego.setBounds(49, 58, 87, 31);
 		contentPane.add(btnIniciarJuego);
-		
+
 		btnSalir = new Button("Salir");
 		btnSalir.setBounds(49, 142, 87, 31);
 		contentPane.add(btnSalir);
-		
+
 	}
 
 	public JLabel getLblBienvenida() {
@@ -117,6 +116,5 @@ public class VistaInicioJuego extends JFrame {
 				+ listPuntajes + ", lblPuntajes=" + lblPuntajes + ", btnRegistrar=" + btnRegistrar
 				+ ", btnIniciarJuego=" + btnIniciarJuego + ", btnSalir=" + btnSalir + "]";
 	}
-	
-	
+
 }

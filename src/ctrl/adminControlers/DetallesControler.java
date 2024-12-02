@@ -12,13 +12,14 @@ import vista.admin.VistaDetalles;
  * @see BuscarControler
  * @see VistaDetalles
  */
-public class DetallesControler extends BuscarControler{
+public class DetallesControler extends BuscarControler {
 	private VistaDetalles vistaDetails;
 
 	/**
-	 * Construye un controlador asociado a la vista especificada
-	 * <br> y con el Dao especificado 
-	 * @param vista Vista a controlar
+	 * Construye un controlador asociado a la vista especificada <br>
+	 * y con el Dao especificado
+	 * 
+	 * @param vista  Vista a controlar
 	 * @param modelo Dao de acceso a los usuarios
 	 */
 	public DetallesControler(VistaDetalles vista, IDAOUsuario modelo) {
@@ -36,7 +37,6 @@ public class DetallesControler extends BuscarControler{
 		vistaDetails.changeToBuscarPanel();
 	}
 
-	
 	/**
 	 * Muestra los detalles del usuario selecionado
 	 */
@@ -59,7 +59,7 @@ public class DetallesControler extends BuscarControler{
 		Object source = e.getSource();
 		if (source.equals(vistaDetails.getBtnDetalles())) {
 			mostrarDetalles();
-		}else if(source.equals(vistaDetails.getBtnVolver())) {
+		} else if (source.equals(vistaDetails.getBtnVolver())) {
 			mostrarBusqueda();
 		}
 	}
@@ -77,5 +77,4 @@ public class DetallesControler extends BuscarControler{
 		return "DetallesControler [vistaDetails=" + vistaDetails + "]";
 	}
 
-	
 }

@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 import utils.constants.Colors;
 import vista.components.Button;
 
-
 public class VistaDetalles extends VistaBuscar {
 	private static final long serialVersionUID = 1L;
 	private Rectangle busquedaBounds;
@@ -32,11 +31,11 @@ public class VistaDetalles extends VistaBuscar {
 	public VistaDetalles(JFrame frame) {
 		super(frame);
 		Dimension lastDimension = getSize();
-		Dimension newDimension = new Dimension(lastDimension.width, lastDimension.height+30);
+		Dimension newDimension = new Dimension(lastDimension.width, lastDimension.height + 30);
 		setSize(newDimension);
 		busquedaBounds = getBounds();
 		detailsPanel = new JPanel();
-		detailsPanel.setSize(380,240);
+		detailsPanel.setSize(380, 240);
 		detailsPanel.setLocation(getLocation());
 		detailsBounds = detailsPanel.getBounds();
 		initComponents();
@@ -44,12 +43,12 @@ public class VistaDetalles extends VistaBuscar {
 
 	private void initComponents() {
 		detailsPanel.setLayout(null);
-		
+
 		btnDetalles = new Button("Detalles");
 		btnDetalles.setBounds(450, 412, 78, 19);
 		btnDetalles.setBackground(Colors.COLOR6);
 		getContentPanel().add(btnDetalles);
-		
+
 		lblUsername = new JLabel("Username:");
 		lblUsername.setBounds(10, 8, 52, 14);
 		detailsPanel.add(lblUsername);
@@ -71,40 +70,41 @@ public class VistaDetalles extends VistaBuscar {
 		detailsPanel.add(tfPassword);
 		tfPassword.setColumns(10);
 		lblPassword.setLabelFor(tfPassword);
-		
+
 		btnVolver = new Button("Volver");
 		btnVolver.setBounds(291, 164, 63, 26);
 		btnVolver.setBorder(null);
 		btnVolver.setForeground(Color.WHITE);
 		btnVolver.setBackground(Colors.COLOR2);
-		detailsPanel.add(btnVolver);;
-		
+		detailsPanel.add(btnVolver);
+		;
+
 		lblNivel = new JLabel("Nivel:");
 		lblNivel.setBounds(10, 84, 27, 14);
 		detailsPanel.add(lblNivel);
-		
+
 		lblPuntaje = new JLabel("Puntaje:");
 		lblPuntaje.setBounds(10, 126, 41, 14);
 		detailsPanel.add(lblPuntaje);
-		
+
 		tfNivel = new JTextField();
 		tfNivel.setEditable(false);
 		tfNivel.setBounds(93, 81, 261, 20);
 		detailsPanel.add(tfNivel);
 		tfNivel.setColumns(10);
-		
+
 		tfPuntaje = new JTextField();
 		tfPuntaje.setEditable(false);
 		tfPuntaje.setBounds(93, 123, 261, 20);
 		detailsPanel.add(tfPuntaje);
 		tfPuntaje.setColumns(10);
 	}
-	
+
 	public void changeToDetailsPanel() {
 		setContentPane(detailsPanel);
 		setBounds(detailsBounds);
 	}
-	
+
 	public void changeToBuscarPanel() {
 		setContentPane(getBusquedaPanel());
 		setBounds(busquedaBounds);
@@ -230,6 +230,5 @@ public class VistaDetalles extends VistaBuscar {
 				+ ", btnDetalles=" + btnDetalles + ", tfNivel=" + tfNivel + ", tfPuntaje=" + tfPuntaje
 				+ ", detailsBounds=" + detailsBounds + "]";
 	}
-	
-	
+
 }

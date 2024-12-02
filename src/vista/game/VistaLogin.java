@@ -26,7 +26,6 @@ public class VistaLogin extends JFrame {
 	private JLabel lblError;
 	private Button btnVolver;
 
-
 	/**
 	 * Create the dialog.
 	 */
@@ -36,7 +35,7 @@ public class VistaLogin extends JFrame {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
-		
+
 		initComponents();
 	}
 
@@ -44,45 +43,45 @@ public class VistaLogin extends JFrame {
 		lblUsername = new JLabel("Username");
 		lblUsername.setBounds(10, 39, 85, 14);
 		contentPanel.add(lblUsername);
-		
+
 		tfUsername = new JTextField();
 		tfUsername.setBounds(80, 36, 208, 20);
 		contentPanel.add(tfUsername);
 		tfUsername.setColumns(10);
-		
+
 		lblPassword = new JLabel("Contrasena");
 		lblPassword.setBounds(10, 84, 85, 14);
 		contentPanel.add(lblPassword);
-		
+
 		tfPassword = new JTextField();
 		tfPassword.setColumns(10);
 		tfPassword.setBounds(80, 81, 208, 20);
 		contentPanel.add(tfPassword);
-		
+
 		btnLogin = new Button("Iniciar Sesion");
 		btnLogin.setBounds(10, 128, 278, 26);
 		contentPanel.add(btnLogin);
-		
+
 		separatorButtons = new JSeparator();
 		separatorButtons.setBounds(10, 165, 278, 2);
 		contentPanel.add(separatorButtons);
-		
+
 		btnRegistrarse = new Button("Registrarse");
 		btnRegistrarse.setBounds(10, 178, 278, 26);
 		contentPanel.add(btnRegistrarse);
-		
+
 		lblError = new JLabel("");
 		lblError.setForeground(Color.RED);
 		lblError.setVisible(false);
 		lblError.setBounds(10, 95, 278, 14);
 		contentPanel.add(lblError);
-		
+
 		btnVolver = new Button("<-");
 		btnVolver.setBounds(10, 11, 43, 14);
 		contentPanel.add(btnVolver);
-		
+
 	}
-	
+
 	public Button getBtnVolver() {
 		return btnVolver;
 	}
@@ -166,6 +165,5 @@ public class VistaLogin extends JFrame {
 				+ ", separatorButtons=" + separatorButtons + ", btnRegistrarse=" + btnRegistrarse + ", lblError="
 				+ lblError + ", btnVolver=" + btnVolver + "]";
 	}
-	
-	
+
 }

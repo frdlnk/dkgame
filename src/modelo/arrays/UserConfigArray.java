@@ -1,4 +1,4 @@
- package modelo.arrays;
+package modelo.arrays;
 
 import modelo.UserConfig;
 
@@ -7,7 +7,7 @@ public class UserConfigArray extends Array {
 	public UserConfigArray() {
 		super();
 	}
-	
+
 	public UserConfigArray(UserConfig[] arreglo) {
 		super(arreglo);
 	}
@@ -18,6 +18,7 @@ public class UserConfigArray extends Array {
 
 	/**
 	 * Anade un string al arreglo
+	 * 
 	 * @param String a agregar
 	 */
 	public void add(Object string) {
@@ -29,7 +30,7 @@ public class UserConfigArray extends Array {
 	public void remove(UserConfig object) {
 		super.remove(object);
 	}
-	
+
 	public UserConfig get(int index) {
 		return (UserConfig) super.get(index);
 	}
@@ -48,7 +49,7 @@ public class UserConfigArray extends Array {
 		}
 		return lista;
 	}
-	
+
 	public UserConfig getById(int id) {
 		for (UserConfig userConfig : getArregloObjetos()) {
 			if (userConfig.getId() == id) {
@@ -57,7 +58,7 @@ public class UserConfigArray extends Array {
 		}
 		return null;
 	}
-	
+
 	public void removeById(int id) {
 		UserConfig[] userConfigs = getArregloObjetos();
 		for (int i = 0; i < getSize(); i++) {
@@ -66,7 +67,7 @@ public class UserConfigArray extends Array {
 			}
 		}
 	}
-	
+
 	@Override
 	public void sort() {
 
@@ -77,5 +78,4 @@ public class UserConfigArray extends Array {
 		return "UserConfigArray []";
 	}
 
-	
 }

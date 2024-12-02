@@ -9,24 +9,26 @@ import modelo.arrays.ArrayString;
 /**
  * Clase escritura de objetos en archivos de texto
  */
-public class ObjectFileWriter implements AutoCloseable{
-	
+public class ObjectFileWriter implements AutoCloseable {
+
 	private BufferedWriter writer;
 	private String filename;
 
 	/**
 	 * Crea un nuevo escritor en el archivo especificado
+	 * 
 	 * @param fileName ruta al archivo de datos
 	 * @throws IOException
 	 */
 	public ObjectFileWriter(String fileName) throws IOException {
 		this.filename = fileName;
-		FileWriter out = new FileWriter(fileName,true);
+		FileWriter out = new FileWriter(fileName, true);
 		writer = new BufferedWriter(out);
 	}
-	
+
 	/**
 	 * escribe un registro(linea) en el archivo
+	 * 
 	 * @param registro linea a agregar
 	 * @throws IOException
 	 */
@@ -36,9 +38,10 @@ public class ObjectFileWriter implements AutoCloseable{
 		writer.write(registro);
 		writer.flush();
 	}
-	
+
 	/**
 	 * Escribe multiples registros(lineas) en el archivo
+	 * 
 	 * @param registros
 	 * @throws IOException
 	 */
@@ -49,9 +52,10 @@ public class ObjectFileWriter implements AutoCloseable{
 				write(registro);
 		}
 	}
-	
+
 	/**
 	 * Reemplaza todos los resgistros(lineas) del archivo con nuevas
+	 * 
 	 * @param registros registros a insertar
 	 * @throws IOException
 	 */
@@ -86,6 +90,5 @@ public class ObjectFileWriter implements AutoCloseable{
 	public String toString() {
 		return "ObjectFileWriter [writer=" + writer + ", filename=" + filename + "]";
 	}
-	
-	
+
 }

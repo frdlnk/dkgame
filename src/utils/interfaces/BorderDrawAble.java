@@ -9,6 +9,7 @@ import java.awt.Graphics;
 public interface BorderDrawAble {
 	/**
 	 * Dibuja sus bordes
+	 * 
 	 * @param g graficos para dibujar
 	 */
 	void drawBorders(Graphics g);

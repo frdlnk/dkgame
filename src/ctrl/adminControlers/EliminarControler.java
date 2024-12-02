@@ -13,28 +13,29 @@ import vista.admin.VistaEliminar;
  * @see BuscarControler
  * @see VistaEliminar
  */
-public class EliminarControler extends BuscarControler{
+public class EliminarControler extends BuscarControler {
 	private VistaEliminar vistaEliminar;
 	private IDAOUserConfigs modeloConfigs;
-	
+
 	/**
-	 * Construye un nuevo controlador asociado a la vista especificada
-	 * <br>y con el DAO especificado 
-	 * @param vista Vista asociada al controlador
+	 * Construye un nuevo controlador asociado a la vista especificada <br>
+	 * y con el DAO especificado
+	 * 
+	 * @param vista  Vista asociada al controlador
 	 * @param modelo DAO de acceso a los usuarios
 	 */
 	public EliminarControler(VistaEliminar vista, IDAOUsuario modelo, IDAOUserConfigs modeloConfigs) {
 		super(vista, modelo);
 		vistaEliminar = vista;
 		this.modeloConfigs = modeloConfigs;
-		
+
 		vista.getBtnDetalles().addActionListener(this);
 		vista.getBtnDelete().addActionListener(this);
 		vista.getBtnCancelar().addActionListener(this);
-		
+
 		vista.setVisible(true);
 	}
-	
+
 	/**
 	 * Cambia a la pantalla de busqueda
 	 */
@@ -74,9 +75,9 @@ public class EliminarControler extends BuscarControler{
 		Object source = e.getSource();
 		if (source.equals(vistaEliminar.getBtnDetalles())) {
 			mostrarDetalles();
-		}else if(source.equals(vistaEliminar.getBtnDelete())) {
+		} else if (source.equals(vistaEliminar.getBtnDelete())) {
 			eliminarUsuario();
-		}else if(source.equals(vistaEliminar.getBtnCancelar())) {
+		} else if (source.equals(vistaEliminar.getBtnCancelar())) {
 			volverABuscar();
 		}
 	}
@@ -102,5 +103,4 @@ public class EliminarControler extends BuscarControler{
 		return "EliminarControler [vistaEliminar=" + vistaEliminar + ", modeloConfigs=" + modeloConfigs + "]";
 	}
 
-	
 }

@@ -20,19 +20,19 @@ public class EscenaPerder extends Scene {
 	private Player jugador;
 	private SpriteText resumen;
 	private SpriteText gameOver;
-	
+
 	public EscenaPerder() {
 		jugador = Game.getJugador();
 		String mensaje = "obtuviste un puntaje de " + jugador.getPuntaje();
-		Vector2D posResumen = new Vector2D(30,90);
+		Vector2D posResumen = new Vector2D(30, 90);
 		resumen = new SpriteText(mensaje, Color.YELLOW, Assets.future, false);
 		resumen.setPosicion(posResumen);
 		String mensajeF = "Game Over";
-		Vector2D posFelicitacion = new Vector2D(30,50);
+		Vector2D posFelicitacion = new Vector2D(30, 50);
 		gameOver = new SpriteText(mensajeF, Color.RED, Assets.future, false);
 		gameOver.setPosicion(posFelicitacion);
 	}
-	
+
 	@Override
 	public void actualizar() {
 		resumen.actualizar();
@@ -83,5 +83,4 @@ public class EscenaPerder extends Scene {
 		return "EscenaPerder [jugador=" + jugador + ", resumen=" + resumen + ", gameOver=" + gameOver + "]";
 	}
 
-	
 }

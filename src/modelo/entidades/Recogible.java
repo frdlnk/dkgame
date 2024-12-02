@@ -17,34 +17,37 @@ import utils.interfaces.Movible;
 public abstract class Recogible extends SpriteSolido implements Colisionable, Movible {
 	private Fisica fisica;
 	private int puntos;
-	
+
 	/**
 	 * Crea un nuevo recogible
-	 * @param textura imagen a mostrar
+	 * 
+	 * @param textura     imagen a mostrar
 	 * @param transformar posicion del objeto
 	 */
 	public Recogible(BufferedImage textura, Transform transformar, int puntos) {
-		super(Tags.RECOGIBLE,textura, transformar);
+		super(Tags.RECOGIBLE, textura, transformar);
 		this.puntos = puntos;
-		fisica = new Fisica(1,1,transformar);
+		fisica = new Fisica(1, 1, transformar);
 		colisiona.actualizar();
 	}
-	
+
 	@Override
 	public void actualizar() {
 		fisica.actualizar();
 		colisiona.actualizar();
 		super.actualizar();
 	}
-	
+
 	/**
 	 * regresa el objeto contenido por este objeto
+	 * 
 	 * @return recompensa del recogible
 	 */
 	public abstract Object getReward();
-	
+
 	/**
 	 * los puntos que vale este recogible
+	 * 
 	 * @return
 	 */
 	public int getPuntos() {
@@ -57,7 +60,7 @@ public abstract class Recogible extends SpriteSolido implements Colisionable, Mo
 			return null;
 		}
 		boolean trigger = false;
-		ColisionInfo colision = new ColisionInfo(this,this,colisiona, trigger);
+		ColisionInfo colision = new ColisionInfo(this, this, colisiona, trigger);
 		Collider[] collidersEntidad = entidad.getColliders();
 		for (int i = 0; i < collidersEntidad.length; i++) {
 			if (colisiona.colisionaCon(collidersEntidad[i])) {

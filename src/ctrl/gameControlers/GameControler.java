@@ -1,6 +1,5 @@
 package ctrl.gameControlers;
 
-
 import modelo.UserConfig;
 import modelo.Usuario;
 import modelo.Dao.IDAOUserConfigs;
@@ -20,7 +19,7 @@ public class GameControler {
 		Game game = new Game(user, config);
 		loop = new GameLoop(game, 3);
 	}
-	
+
 	public static void detener() {
 		if (loop != null) {
 			loop.detener();
@@ -32,10 +31,10 @@ public class GameControler {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		modeloUser.update(Game.loggedUser);
 		Game.lienzo.dispose();
-		
+
 		VistaInicioJuego vista = new VistaInicioJuego();
 		new WelcomeGameControler(vista, modeloUser, modeloConfigs);
 	}
@@ -52,6 +51,5 @@ public class GameControler {
 	public String toString() {
 		return "GameControler []";
 	}
-	
-	
+
 }
