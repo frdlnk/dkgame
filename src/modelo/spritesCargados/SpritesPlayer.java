@@ -47,4 +47,35 @@ public class SpritesPlayer extends Animation{
     	pos.setY(pos.getY()-.6);
     	getTransformar().setEscala(escala);
     }
+
+	public double getEscala() {
+		return escala;
+	}
+
+	public void setEscala(double escala) {
+		this.escala = escala;
+	}
+
+	public Animation getLegs() {
+		return legs;
+	}
+
+	public void setLegs(Animation legs) {
+		this.legs = legs;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	@Override
+	public String toString() {
+		return "SpritesPlayer [escala=" + escala + ", legs=" + legs + ", player=" + player + "]";
+	}
+    
+    
 }

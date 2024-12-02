@@ -76,4 +76,10 @@ public class Granada extends Municion implements Explosivo {
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "Granada []";
+	}
+
+	
 }

@@ -110,6 +110,13 @@ public class VistaInicioJuego extends JFrame {
 	public void setBtnSalir(Button btnSalir) {
 		this.btnSalir = btnSalir;
 	}
+
+	@Override
+	public String toString() {
+		return "VistaInicioJuego [contentPane=" + contentPane + ", lblBienvenida=" + lblBienvenida + ", listPuntajes="
+				+ listPuntajes + ", lblPuntajes=" + lblPuntajes + ", btnRegistrar=" + btnRegistrar
+				+ ", btnIniciarJuego=" + btnIniciarJuego + ", btnSalir=" + btnSalir + "]";
+	}
 	
 	
 }

@@ -166,5 +166,61 @@ public class Helicoptero extends Enemigo {
 		return new Collider[] {colisiona, triggerBombardeo};
 	}
 
+	public int getBombasArrojadas() {
+		return bombasArrojadas;
+	}
+
+	public void setBombasArrojadas(int bombasArrojadas) {
+		this.bombasArrojadas = bombasArrojadas;
+	}
+
+	public boolean isBombardear() {
+		return bombardear;
+	}
+
+	public void setBombardear(boolean bombardear) {
+		this.bombardear = bombardear;
+	}
+
+	public double getTiempoParaSiguienteBomba() {
+		return tiempoParaSiguienteBomba;
+	}
+
+	public void setTiempoParaSiguienteBomba(double tiempoParaSiguienteBomba) {
+		this.tiempoParaSiguienteBomba = tiempoParaSiguienteBomba;
+	}
+
+	public double getTiempoParaSiguienteBombardeo() {
+		return tiempoParaSiguienteBombardeo;
+	}
+
+	public void setTiempoParaSiguienteBombardeo(double tiempoParaSiguienteBombardeo) {
+		this.tiempoParaSiguienteBombardeo = tiempoParaSiguienteBombardeo;
+	}
+
+	public Collider getTriggerBombardeo() {
+		return triggerBombardeo;
+	}
+
+	public void setTriggerBombardeo(Collider triggerBombardeo) {
+		this.triggerBombardeo = triggerBombardeo;
+	}
+
+	public SpritesEnemy getSprites() {
+		return sprites;
+	}
+
+	public void setSprites(SpritesEnemy sprites) {
+		this.sprites = sprites;
+	}
+
+	@Override
+	public String toString() {
+		return "Helicoptero [bombasArrojadas=" + bombasArrojadas + ", bombardear=" + bombardear
+				+ ", tiempoParaSiguienteBomba=" + tiempoParaSiguienteBomba + ", tiempoParaSiguienteBombardeo="
+				+ tiempoParaSiguienteBombardeo + ", triggerBombardeo=" + triggerBombardeo + ", sprites=" + sprites
+				+ "]";
+	}
+
 
 }

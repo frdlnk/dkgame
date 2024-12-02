@@ -115,5 +115,12 @@ public class PlayerControls {
 	public void setJumpKey(int jumpKey) {
 		this.jumpKey = jumpKey;
 	}
+
+	@Override
+	public String toString() {
+		return "PlayerControls [direccionHorizontal=" + direccionHorizontal + ", direccionVertical=" + direccionVertical
+				+ ", isJump=" + isJump + ", leftKey=" + leftKey + ", rightKey=" + rightKey + ", upKey=" + upKey
+				+ ", downKey=" + downKey + ", jumpKey=" + jumpKey + "]";
+	}
 	
 }

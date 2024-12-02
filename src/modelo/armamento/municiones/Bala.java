@@ -39,4 +39,10 @@ public class Bala extends Municion {
 		destruir();
 	}
 
+	@Override
+	public String toString() {
+		return "Bala []";
+	}
+
+	
 }

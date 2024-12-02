@@ -41,4 +41,10 @@ public abstract class TriggerBox extends SpriteSolido implements Colisionable{
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "TriggerBox []";
+	}
+
+	
 }

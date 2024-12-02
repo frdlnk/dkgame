@@ -89,5 +89,12 @@ public class PlayerDetector extends Caja {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
+
+	@Override
+	public String toString() {
+		return "PlayerDetector [playerOverlap=" + playerOverlap + ", player=" + player + ", isTrigger=" + isTrigger
+				+ ", isEnable=" + isEnable + "]";
+	}
+	
 	
 }

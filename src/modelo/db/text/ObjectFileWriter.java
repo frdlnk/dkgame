@@ -65,4 +65,27 @@ public class ObjectFileWriter implements AutoCloseable{
 	public void close() throws IOException {
 		writer.close();
 	}
+
+	public BufferedWriter getWriter() {
+		return writer;
+	}
+
+	public void setWriter(BufferedWriter writer) {
+		this.writer = writer;
+	}
+
+	public String getFilename() {
+		return filename;
+	}
+
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+
+	@Override
+	public String toString() {
+		return "ObjectFileWriter [writer=" + writer + ", filename=" + filename + "]";
+	}
+	
+	
 }

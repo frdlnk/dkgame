@@ -47,4 +47,11 @@ public class ArrayVector2D extends Array {
 	@Override
 	public void sort() {
 	}
+
+	@Override
+	public String toString() {
+		return "ArrayVector2D []";
+	}
+	
+	
 }

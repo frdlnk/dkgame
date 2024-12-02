@@ -112,4 +112,9 @@ public class Game extends Entidad{
 		Game.jugador = jugador;
 	}
 
+	@Override
+	public String toString() {
+		return "Game [escenaActual=" + escenaActual + "]";
+	}
+
 }

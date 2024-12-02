@@ -64,4 +64,18 @@ public class DetallesControler extends BuscarControler{
 		}
 	}
 
+	public VistaDetalles getVistaDetails() {
+		return vistaDetails;
+	}
+
+	public void setVistaDetails(VistaDetalles vistaDetails) {
+		this.vistaDetails = vistaDetails;
+	}
+
+	@Override
+	public String toString() {
+		return "DetallesControler [vistaDetails=" + vistaDetails + "]";
+	}
+
+	
 }

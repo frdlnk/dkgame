@@ -60,4 +60,36 @@ public class MenuInicioControler implements ActionListener{
 			initGame();
 		}
 	}
+
+	public MenuInicio getVista() {
+		return vista;
+	}
+
+	public void setVista(MenuInicio vista) {
+		this.vista = vista;
+	}
+
+	public IDAOUsuario getModeloUser() {
+		return modeloUser;
+	}
+
+	public void setModeloUser(IDAOUsuario modeloUser) {
+		this.modeloUser = modeloUser;
+	}
+
+	public IDAOUserConfigs getModeloConfigs() {
+		return modeloConfigs;
+	}
+
+	public void setModeloConfigs(IDAOUserConfigs modeloConfigs) {
+		this.modeloConfigs = modeloConfigs;
+	}
+
+	@Override
+	public String toString() {
+		return "MenuInicioControler [vista=" + vista + ", modeloUser=" + modeloUser + ", modeloConfigs=" + modeloConfigs
+				+ "]";
+	}
+	
+	
 }

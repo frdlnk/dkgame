@@ -44,4 +44,11 @@ public class ColisionUtils {
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "ColisionUtils []";
+	}
+	
+	
 }

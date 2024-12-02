@@ -1,5 +1,6 @@
 package modelo.arrays;
 
+
 /**
  * Clase encargada de logica basica para el guaradado de objetos
  * 
@@ -149,7 +150,18 @@ public abstract class Array {
 
 	@Override
 	public String toString() {
-		return "Array [arregloObjetos=" + arreglo + ", size=" + size + "]";
+		return "Array [arreglo=" + arreglo + ", size=" + size + "]";
 	}
 
+
+	public Object[] getArreglo() {
+		return arreglo;
+	}
+
+
+	public void setArreglo(Object[] arreglo) {
+		this.arreglo = arreglo;
+	}
+
+	
 }

@@ -18,7 +18,6 @@ import utils.constants.Conf;
 public class EscenaCarga extends Scene {
 	private SpriteText loadingText;
 	private ListaEntidades controlsText;
-	private boolean assetsCargados;
 	
 	public EscenaCarga() {
 		Color color = new Color(255,255,255);
@@ -44,12 +43,11 @@ public class EscenaCarga extends Scene {
 	
 	@Override
 	public void actualizar() {
-		if (!assetsCargados) {
+		if (!Assets.isAssetsLoaded) {
 			Assets.load();
 			loadingText.setMensaje("Presione espacio para continuar");
 			Vector2D posicionLoading = new Vector2D(Conf.WINDOW_WIDTH-200, Conf.WINDOW_HEIGHT-20);
 			loadingText.setPosicion(posicionLoading);
-			assetsCargados = true;
 		}else if (InputKeyboard.isDown(Key.SPACE)) {
 			Scene nivel = new EscenaUno();
 			Scene.cambiarEscena(nivel);
@@ -68,4 +66,26 @@ public class EscenaCarga extends Scene {
 		controlsText.dibujar(g);
 	}
 
+	public SpriteText getLoadingText() {
+		return loadingText;
+	}
+
+	public void setLoadingText(SpriteText loadingText) {
+		this.loadingText = loadingText;
+	}
+
+	public ListaEntidades getControlsText() {
+		return controlsText;
+	}
+
+	public void setControlsText(ListaEntidades controlsText) {
+		this.controlsText = controlsText;
+	}
+
+	@Override
+	public String toString() {
+		return "EscenaCarga [loadingText=" + loadingText + ", controlsText=" + controlsText + "]";
+	}
+
+	
 }

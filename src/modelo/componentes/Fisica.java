@@ -192,5 +192,20 @@ public class Fisica extends Physics{
 		this.transform = transform;
 	}
 
+	public ArrayVector2D getFuerzasAplicadas() {
+		return fuerzasAplicadas;
+	}
 
+	public void setFuerzasAplicadas(ArrayVector2D fuerzasAplicadas) {
+		this.fuerzasAplicadas = fuerzasAplicadas;
+	}
+
+	@Override
+	public String toString() {
+		return "Fisica [gravity=" + gravity + ", vectorMovimiento=" + vectorMovimiento + ", ultimaDireccion="
+				+ ultimaDireccion + ", transform=" + transform + ", masa=" + masa + ", fuerzasAplicadas="
+				+ fuerzasAplicadas + "]";
+	}
+
+	
 }

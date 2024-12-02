@@ -363,4 +363,66 @@ public class Zona1N1 extends Zona{
 	public Collider[] getColliders() {
 		return new Collider[0];
 	}
+
+	public int getActualCheckpoint() {
+		return actualCheckpoint;
+	}
+
+	public void setActualCheckpoint(int actualCheckpoint) {
+		this.actualCheckpoint = actualCheckpoint;
+	}
+
+	public PlayerDetector getBarrier() {
+		return barrier;
+	}
+
+	public void setBarrier(PlayerDetector barrier) {
+		this.barrier = barrier;
+	}
+
+	public Sprite getBackground() {
+		return background;
+	}
+
+	public void setBackground(Sprite background) {
+		this.background = background;
+	}
+
+	public Enemigo[] getJefes() {
+		return jefes;
+	}
+
+	public void setJefes(Enemigo[] jefes) {
+		this.jefes = jefes;
+	}
+
+	public int getJefeActual() {
+		return jefeActual;
+	}
+
+	public void setJefeActual(int jefeActual) {
+		this.jefeActual = jefeActual;
+	}
+
+	public static int getCantidadJefes() {
+		return CANTIDAD_JEFES;
+	}
+
+	public int[] getCheckPoints() {
+		return checkPoints;
+	}
+
+	public Vector2D[] getDireccionChecpoints() {
+		return direccionChecpoints;
+	}
+
+	@Override
+	public String toString() {
+		return "Zona1N1 [checkPoints=" + (checkPoints) + ", direccionChecpoints="
+				+ (direccionChecpoints) + ", actualCheckpoint=" + actualCheckpoint + ", barrier="
+				+ barrier + ", background=" + background + ", jefes=" + (jefes) + ", jefeActual="
+				+ jefeActual + "]";
+	}
+	
+	
 }

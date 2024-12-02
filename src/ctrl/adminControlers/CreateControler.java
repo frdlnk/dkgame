@@ -108,5 +108,44 @@ public class CreateControler implements ActionListener{
 			saveUser();
 		}
 	}
+
+	public VistaCrear getVista() {
+		return vista;
+	}
+
+	public void setVista(VistaCrear vista) {
+		this.vista = vista;
+	}
+
+	public IDAOUserConfigs getModeloConfigs() {
+		return modeloConfigs;
+	}
+
+	public void setModeloConfigs(IDAOUserConfigs modeloConfigs) {
+		this.modeloConfigs = modeloConfigs;
+	}
+
+	public IDAOUsuario getModeloUsers() {
+		return modeloUsers;
+	}
+
+	public void setModeloUsers(IDAOUsuario modeloUsers) {
+		this.modeloUsers = modeloUsers;
+	}
+
+	public UserFieldsValidator getValidator() {
+		return validator;
+	}
+
+	public void setValidator(UserFieldsValidator validator) {
+		this.validator = validator;
+	}
+
+	@Override
+	public String toString() {
+		return "CreateControler [vista=" + vista + ", modeloConfigs=" + modeloConfigs + ", modeloUsers=" + modeloUsers
+				+ ", validator=" + validator + "]";
+	}
+	
 	
 }

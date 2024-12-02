@@ -31,6 +31,7 @@ public class EscenaGanar extends Scene {
 		Vector2D posFelicitacion = new Vector2D(30,50);
 		felicitaciones = new SpriteText(mensajeF, Color.YELLOW, Assets.future, false);
 		felicitaciones.setPosicion(posFelicitacion);
+		Assets.MISSION_COMPLETE_SOUND.start();
 	}
 	
 	@Override

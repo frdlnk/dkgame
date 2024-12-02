@@ -36,4 +36,10 @@ public class DeadBox extends TriggerBox{
 		return new Collider[] {colisiona};
 	}
 
+	@Override
+	public String toString() {
+		return "DeadBox []";
+	}
+
+	
 }

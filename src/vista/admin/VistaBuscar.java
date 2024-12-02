@@ -179,4 +179,14 @@ public class VistaBuscar extends JDialog {
 	public JPanel getBusquedaPanel() {
 		return busquedaPanel;
 	}
+
+	@Override
+	public String toString() {
+		return "VistaBuscar [busquedaPanel=" + busquedaPanel + ", searchTextField=" + searchTextField
+				+ ", listaUsuarios=" + listaUsuarios + ", lblCriterio=" + lblCriterio + ", lblSearchMode="
+				+ lblSearchMode + ", lblBusqueda=" + lblBusqueda + ", comboBoxCriterios=" + comboBoxCriterios
+				+ ", comboBoxSearchModes=" + comboBoxSearchModes + "]";
+	}
+	
+	
 }

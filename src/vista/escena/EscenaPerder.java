@@ -54,4 +54,34 @@ public class EscenaPerder extends Scene {
 		resumen.dibujar(g);
 	}
 
+	public Player getJugador() {
+		return jugador;
+	}
+
+	public void setJugador(Player jugador) {
+		this.jugador = jugador;
+	}
+
+	public SpriteText getResumen() {
+		return resumen;
+	}
+
+	public void setResumen(SpriteText resumen) {
+		this.resumen = resumen;
+	}
+
+	public SpriteText getGameOver() {
+		return gameOver;
+	}
+
+	public void setGameOver(SpriteText gameOver) {
+		this.gameOver = gameOver;
+	}
+
+	@Override
+	public String toString() {
+		return "EscenaPerder [jugador=" + jugador + ", resumen=" + resumen + ", gameOver=" + gameOver + "]";
+	}
+
+	
 }

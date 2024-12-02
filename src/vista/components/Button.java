@@ -61,6 +61,20 @@ public class Button extends JPanel implements ActionListener{
 		e.setSource(this);
 		actionListener.actionPerformed(e);
 	}
+
+	public ActionListener getActionListener() {
+		return actionListener;
+	}
+
+	public void setActionListener(ActionListener actionListener) {
+		this.actionListener = actionListener;
+	}
+
+	@Override
+	public String toString() {
+		return "Button [boton=" + boton + ", actionListener=" + actionListener + "]";
+	}
+	
 	
 }
 

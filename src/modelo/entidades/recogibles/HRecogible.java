@@ -34,4 +34,9 @@ public class HRecogible extends Recogible {
 		return new HeavyMachineGun(300,HeavyMachineGun.DEFAULT_DANO);
 	}
 
+	@Override
+	public String toString() {
+		return "HRecogible []";
+	}
+
 }

@@ -69,4 +69,12 @@ public class MenuInicio extends JFrame {
 	public void setLblBienvenida(JLabel lblBienvenida) {
 		this.lblBienvenida = lblBienvenida;
 	}
+
+	@Override
+	public String toString() {
+		return "MenuInicio [btnAdministracion=" + btnAdministracion + ", btnJugar=" + btnJugar + ", lblBienvenida="
+				+ lblBienvenida + ", contentPane=" + contentPane + "]";
+	}
+	
+	
 }

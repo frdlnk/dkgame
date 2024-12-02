@@ -98,4 +98,40 @@ public class WelcomeGameControler implements ActionListener{
 		}
 		
 	}
+
+	public VistaInicioJuego getVista() {
+		return vista;
+	}
+
+	public void setVista(VistaInicioJuego vista) {
+		this.vista = vista;
+	}
+
+	public IDAOUsuario getModeloUser() {
+		return modeloUser;
+	}
+
+	public void setModeloUser(IDAOUsuario modeloUser) {
+		this.modeloUser = modeloUser;
+	}
+
+	public IDAOUserConfigs getModeloConfigs() {
+		return modeloConfigs;
+	}
+
+	public void setModeloConfigs(IDAOUserConfigs modeloConfigs) {
+		this.modeloConfigs = modeloConfigs;
+	}
+
+	public static int getScoresAMostrar() {
+		return SCORES_A_MOSTRAR;
+	}
+
+	@Override
+	public String toString() {
+		return "WelcomeGameControler [vista=" + vista + ", modeloUser=" + modeloUser + ", modeloConfigs="
+				+ modeloConfigs + "]";
+	}
+	
+	
 }

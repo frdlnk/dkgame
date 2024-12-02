@@ -102,4 +102,18 @@ public abstract class Enemigo extends Soldado {
 		return null;
 	}
 
+	public int getValorPuntaje() {
+		return valorPuntaje;
+	}
+
+	public void setValorPuntaje(int valorPuntaje) {
+		this.valorPuntaje = valorPuntaje;
+	}
+
+	@Override
+	public String toString() {
+		return "Enemigo [valorPuntaje=" + valorPuntaje + "]";
+	}
+
+	
 }

@@ -161,4 +161,53 @@ public class EnemigoGranada extends Enemigo{
 	public void dibujar(Graphics g){
 		sprites.dibujar(g);
 	}
+
+	public double getTiempoEntreLanzamientos() {
+		return tiempoEntreLanzamientos;
+	}
+
+	public void setTiempoEntreLanzamientos(double tiempoEntreLanzamientos) {
+		this.tiempoEntreLanzamientos = tiempoEntreLanzamientos;
+	}
+
+	public double getSiguientePosicion() {
+		return siguientePosicion;
+	}
+
+	public void setSiguientePosicion(double siguientePosicion) {
+		this.siguientePosicion = siguientePosicion;
+	}
+
+	public int getSiguienteDireccionX() {
+		return siguienteDireccionX;
+	}
+
+	public void setSiguienteDireccionX(int siguienteDireccionX) {
+		this.siguienteDireccionX = siguienteDireccionX;
+	}
+
+	public boolean isPosicionAlcanzada() {
+		return posicionAlcanzada;
+	}
+
+	public void setPosicionAlcanzada(boolean posicionAlcanzada) {
+		this.posicionAlcanzada = posicionAlcanzada;
+	}
+
+	public SpritesEnemy getSprites() {
+		return sprites;
+	}
+
+	public void setSprites(SpritesEnemy sprites) {
+		this.sprites = sprites;
+	}
+
+	@Override
+	public String toString() {
+		return "EnemigoGranada [tiempoEntreLanzamientos=" + tiempoEntreLanzamientos + ", siguientePosicion="
+				+ siguientePosicion + ", siguienteDireccionX=" + siguienteDireccionX + ", posicionAlcanzada="
+				+ posicionAlcanzada + ", sprites=" + sprites + "]";
+	}
+	
+	
 }

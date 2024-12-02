@@ -82,4 +82,27 @@ public class ArrayCoords {
         }
         return null;
     }
+
+	public Object[][] getArregloObjetos() {
+		return arregloObjetos;
+	}
+
+	public void setArregloObjetos(Object[][] arregloObjetos) {
+		this.arregloObjetos = arregloObjetos;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	@Override
+	public String toString() {
+		return "ArrayCoords [arregloObjetos=" + arregloObjetos + ", size=" + size + "]";
+	}
+    
+    
 }

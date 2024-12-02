@@ -94,4 +94,26 @@ public class ConfiguracionesControler extends BuscarControler{
 		}
 	}
 
+	public IDAOUserConfigs getModeloConfigs() {
+		return modeloConfigs;
+	}
+
+	public void setModeloConfigs(IDAOUserConfigs modeloConfigs) {
+		this.modeloConfigs = modeloConfigs;
+	}
+
+	public VistaConfiguracionesUsuario getVistaConf() {
+		return vistaConf;
+	}
+
+	public void setVistaConf(VistaConfiguracionesUsuario vistaConf) {
+		this.vistaConf = vistaConf;
+	}
+
+	@Override
+	public String toString() {
+		return "ConfiguracionesControler [modeloConfigs=" + modeloConfigs + ", vistaConf=" + vistaConf + "]";
+	}
+
+	
 }

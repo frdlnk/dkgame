@@ -30,4 +30,10 @@ public class LanzaCohetes extends Arma {
 		return new Choete(posicion, direccion, target, 20);
 	}
 
+	@Override
+	public String toString() {
+		return "LanzaCohetes []";
+	}
+
+	
 }

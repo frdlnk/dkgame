@@ -52,5 +52,27 @@ public class EscenaUno extends EscenaJuego{
 			zona.addMapObjects(entidad);
 		}
 	}
+
+	public Zona getZona() {
+		return zona;
+	}
+
+	public void setZona(Zona zona) {
+		this.zona = zona;
+	}
+
+	public Player getJugador1() {
+		return jugador1;
+	}
+
+	public void setJugador1(Player jugador1) {
+		this.jugador1 = jugador1;
+	}
+
+	@Override
+	public String toString() {
+		return "EscenaUno [zona=" + zona + ", jugador1=" + jugador1 + "]";
+	}
+	
 	
 }

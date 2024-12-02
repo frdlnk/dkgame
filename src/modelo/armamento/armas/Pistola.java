@@ -34,4 +34,10 @@ public class Pistola extends Arma {
 		return new Bala(posicion, direccion, target, 10);
 	}
 
+	@Override
+	public String toString() {
+		return "Pistola []";
+	}
+
+	
 }

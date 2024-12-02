@@ -158,4 +158,14 @@ public class VistaLogin extends JFrame {
 	public JPanel getContentPanel() {
 		return contentPanel;
 	}
+
+	@Override
+	public String toString() {
+		return "VistaLogin [contentPanel=" + contentPanel + ", tfUsername=" + tfUsername + ", tfPassword=" + tfPassword
+				+ ", lblUsername=" + lblUsername + ", lblPassword=" + lblPassword + ", btnLogin=" + btnLogin
+				+ ", separatorButtons=" + separatorButtons + ", btnRegistrarse=" + btnRegistrarse + ", lblError="
+				+ lblError + ", btnVolver=" + btnVolver + "]";
+	}
+	
+	
 }

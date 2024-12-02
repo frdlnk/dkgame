@@ -166,4 +166,13 @@ public class VistaCrear extends JDialog {
 	public void setLblPasswordError(JLabel lblPasswordError) {
 		this.lblPasswordError = lblPasswordError;
 	}
+	@Override
+	public String toString() {
+		return "VistaCrear [contentPanel=" + contentPanel + ", tfUsername=" + tfUsername + ", tfPassword=" + tfPassword
+				+ ", btnSave=" + btnSave + ", lblPassword=" + lblPassword + ", lblUsername=" + lblUsername
+				+ ", btnCancel=" + btnCancel + ", lblUsernameError=" + lblUsernameError + ", lblPasswordError="
+				+ lblPasswordError + "]";
+	}
+	
+	
 }

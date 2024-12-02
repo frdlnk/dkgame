@@ -115,4 +115,11 @@ public class Caja extends SpriteSolido implements Colisionable, BorderDrawAble {
 	public Collider[] getColliders() {
 		return new Collider[] {colisiona};
 	}
+
+	@Override
+	public String toString() {
+		return "Caja []";
+	}
+	
+	
 }

@@ -171,6 +171,14 @@ public class VistaActualizar extends VistaBuscar {
 	public void setLblPasswordError(JLabel lblPasswordError) {
 		this.lblPasswordError = lblPasswordError;
 	}
+
+	@Override
+	public String toString() {
+		return "VistaActualizar [actualizarPanel=" + actualizarPanel + ", btnSelectUser=" + btnSelectUser
+				+ ", tfUsername=" + tfUsername + ", tfPassword=" + tfPassword + ", lblUsername=" + lblUsername
+				+ ", lblPassword=" + lblPassword + ", btnActualizar=" + btnActualizar + ", btnCancelar=" + btnCancelar
+				+ ", originaBounds=" + originaBounds + ", lblPasswordError=" + lblPasswordError + "]";
+	}
 	
 	
 }

@@ -19,9 +19,6 @@ public class SpritesEnemy extends Animation {
         this.setTransformar(this.enemy.getTransformar());
         loadGifs();
         escala = 2;
-
-
-
     }
 
     private void loadGifs() {
@@ -43,4 +40,27 @@ public class SpritesEnemy extends Animation {
         pos.setY(pos.getY()-.6);
         getTransformar().setEscala(escala);
     }
+
+	public double getEscala() {
+		return escala;
+	}
+
+	public void setEscala(double escala) {
+		this.escala = escala;
+	}
+
+	public Enemigo getEnemy() {
+		return enemy;
+	}
+
+	public void setEnemy(Enemigo enemy) {
+		this.enemy = enemy;
+	}
+
+	@Override
+	public String toString() {
+		return "SpritesEnemy [escala=" + escala + ", enemy=" + enemy + "]";
+	}
+    
+    
 }

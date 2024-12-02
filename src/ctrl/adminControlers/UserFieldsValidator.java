@@ -88,4 +88,19 @@ public class UserFieldsValidator {
 		}
 		return null;
 	}
+
+	public IDAOUsuario getModeloUsuario() {
+		return modeloUsuario;
+	}
+
+	public void setModeloUsuario(IDAOUsuario modeloUsuario) {
+		this.modeloUsuario = modeloUsuario;
+	}
+
+	@Override
+	public String toString() {
+		return "UserFieldsValidator [modeloUsuario=" + modeloUsuario + "]";
+	}
+	
+	
 }

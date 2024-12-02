@@ -64,4 +64,9 @@ public class RelativeTransform extends Transform {
 	public String toString() {
 		return "RelativeTransform [pivot=" + pivot + ", posicion=" + posicion + "]";
 	}
+
+	public void setPosicion(Vector2D posicion) {
+		this.posicion = posicion;
+	}
+	
 }

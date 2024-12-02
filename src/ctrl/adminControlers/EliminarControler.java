@@ -81,4 +81,26 @@ public class EliminarControler extends BuscarControler{
 		}
 	}
 
+	public VistaEliminar getVistaEliminar() {
+		return vistaEliminar;
+	}
+
+	public void setVistaEliminar(VistaEliminar vistaEliminar) {
+		this.vistaEliminar = vistaEliminar;
+	}
+
+	public IDAOUserConfigs getModeloConfigs() {
+		return modeloConfigs;
+	}
+
+	public void setModeloConfigs(IDAOUserConfigs modeloConfigs) {
+		this.modeloConfigs = modeloConfigs;
+	}
+
+	@Override
+	public String toString() {
+		return "EliminarControler [vistaEliminar=" + vistaEliminar + ", modeloConfigs=" + modeloConfigs + "]";
+	}
+
+	
 }

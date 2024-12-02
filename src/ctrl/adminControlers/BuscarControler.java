@@ -109,4 +109,26 @@ public abstract class BuscarControler implements DocumentListener, ActionListene
 		onTextChanged();
 	}
 
+	public VistaBuscar getVista() {
+		return vista;
+	}
+
+	public void setVista(VistaBuscar vista) {
+		this.vista = vista;
+	}
+
+	public IDAOUsuario getModeloUsuario() {
+		return modeloUsuario;
+	}
+
+	public void setModeloUsuario(IDAOUsuario modeloUsuario) {
+		this.modeloUsuario = modeloUsuario;
+	}
+
+	@Override
+	public String toString() {
+		return "BuscarControler [vista=" + vista + ", modeloUsuario=" + modeloUsuario + "]";
+	}
+
+	
 }

@@ -233,6 +233,15 @@ public class VistaEliminar extends VistaBuscar {
 	public void setBtnCancelar(Button btnCancelar) {
 		this.btnCancelar = btnCancelar;
 	}
+
+	@Override
+	public String toString() {
+		return "VistaEliminar [originaBounds=" + originaBounds + ", deletePanel=" + deletePanel + ", lblUsername="
+				+ lblUsername + ", tfUsername=" + tfUsername + ", lblPassword=" + lblPassword + ", tfPassword="
+				+ tfPassword + ", btnDelete=" + btnDelete + ", lblNivel=" + lblNivel + ", lblPuntaje=" + lblPuntaje
+				+ ", btnDetalles=" + btnDetalles + ", tfNivel=" + tfNivel + ", tfPuntaje=" + tfPuntaje
+				+ ", btnCancelar=" + btnCancelar + "]";
+	}
 	
 	
 }

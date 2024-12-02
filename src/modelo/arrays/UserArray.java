@@ -170,4 +170,11 @@ public class UserArray extends Array {
 			}
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "UserArray []";
+	}
+	
+	
 }

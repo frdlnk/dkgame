@@ -205,6 +205,31 @@ public class VistaDetalles extends VistaBuscar {
 	public void setTfPuntaje(JTextField tfPuntaje) {
 		this.tfPuntaje = tfPuntaje;
 	}
+
+	public Rectangle getBusquedaBounds() {
+		return busquedaBounds;
+	}
+
+	public void setBusquedaBounds(Rectangle busquedaBounds) {
+		this.busquedaBounds = busquedaBounds;
+	}
+
+	public Rectangle getDetailsBounds() {
+		return detailsBounds;
+	}
+
+	public void setDetailsBounds(Rectangle detailsBounds) {
+		this.detailsBounds = detailsBounds;
+	}
+
+	@Override
+	public String toString() {
+		return "VistaDetalles [busquedaBounds=" + busquedaBounds + ", detailsPanel=" + detailsPanel + ", lblUsername="
+				+ lblUsername + ", tfUsername=" + tfUsername + ", lblPassword=" + lblPassword + ", tfPassword="
+				+ tfPassword + ", btnVolver=" + btnVolver + ", lblNivel=" + lblNivel + ", lblPuntaje=" + lblPuntaje
+				+ ", btnDetalles=" + btnDetalles + ", tfNivel=" + tfNivel + ", tfPuntaje=" + tfPuntaje
+				+ ", detailsBounds=" + detailsBounds + "]";
+	}
 	
 	
 }

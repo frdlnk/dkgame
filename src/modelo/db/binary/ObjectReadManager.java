@@ -88,4 +88,27 @@ public class ObjectReadManager implements AutoCloseable{
 			arreglo.add(objeto);
 		}
 	}
+
+	public FileInputStream getIn() {
+		return in;
+	}
+
+	public void setIn(FileInputStream in) {
+		this.in = in;
+	}
+
+	public ObjectInputStream getReader() {
+		return reader;
+	}
+
+	public void setReader(ObjectInputStream reader) {
+		this.reader = reader;
+	}
+
+	@Override
+	public String toString() {
+		return "ObjectReadManager [in=" + in + ", reader=" + reader + "]";
+	}
+	
+	
 }

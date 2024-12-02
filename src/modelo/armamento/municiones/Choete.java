@@ -81,4 +81,10 @@ public class Choete extends Municion implements Explosivo{
 		}
 	}
 
+	@Override
+	public String toString() {
+		return "Choete []";
+	}
+
+	
 }

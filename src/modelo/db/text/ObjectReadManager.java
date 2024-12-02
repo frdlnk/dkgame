@@ -54,4 +54,19 @@ public class ObjectReadManager implements AutoCloseable{
 			arreglo.add(objeto);
 		}
 	}
+
+	public BufferedReader getReader() {
+		return reader;
+	}
+
+	public void setReader(BufferedReader reader) {
+		this.reader = reader;
+	}
+
+	@Override
+	public String toString() {
+		return "ObjectReadManager [reader=" + reader + "]";
+	}
+	
+	
 }

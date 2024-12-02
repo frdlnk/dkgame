@@ -44,4 +44,14 @@ public abstract class EscenaJuego extends Scene {
 		return entidades;
 	}
 
+	public static void setEntidades(ListaEntidades entidades) {
+		EscenaJuego.entidades = entidades;
+	}
+
+	@Override
+	public String toString() {
+		return "EscenaJuego []";
+	}
+
+	
 }

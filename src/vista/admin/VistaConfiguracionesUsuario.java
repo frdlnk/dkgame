@@ -296,5 +296,18 @@ public class VistaConfiguracionesUsuario extends VistaBuscar {
 		this.btnSelecionar = btnSelecionar;
 	}
 
+	@Override
+	public String toString() {
+		return "VistaConfiguracionesUsuario [configPanel=" + configPanel + ", chBoxHelicopteros=" + chBoxHelicopteros
+				+ ", chBoxGranaderos=" + chBoxGranaderos + ", chBoxPistoleros=" + chBoxPistoleros
+				+ ", lblEnemigosDisponibles=" + lblEnemigosDisponibles + ", lblMultiplicadorDanoJugador="
+				+ lblMultiplicadorDanoJugador + ", spMultiplicadorDanoJugador=" + spMultiplicadorDanoJugador
+				+ ", lblMultiplicadorDanoEnemigos=" + lblMultiplicadorDanoEnemigos + ", spMultiplicadorDanoEnemigos="
+				+ spMultiplicadorDanoEnemigos + ", lblVidasIniciales=" + lblVidasIniciales + ", spVidasIniciales="
+				+ spVidasIniciales + ", lblArmaInicial=" + lblArmaInicial + ", cBoxArmaInicial=" + cBoxArmaInicial
+				+ ", btnSave=" + btnSave + ", btnCancelar=" + btnCancelar + ", originaBounds=" + originaBounds
+				+ ", btnSelecionar=" + btnSelecionar + "]";
+	}
+
 	
 }

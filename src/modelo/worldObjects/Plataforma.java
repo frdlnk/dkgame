@@ -46,4 +46,10 @@ public class Plataforma extends Caja {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "Plataforma []";
+	}
+
+	
 }

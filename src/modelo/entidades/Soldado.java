@@ -48,6 +48,23 @@ public abstract class Soldado extends SpriteMovible implements Colisionable, Mov
 		super.dibujar(g);
 		pos.setY(pos.getY()-.5);
 	}
+	
+	@Override
+	public ColisionInfo hayColision(Colisionable entidad) {
+		ColisionInfo colision = new ColisionInfo();
+		Collider[] collidersEntidad = entidad.getColliders();
+		for (int i = 0; i < collidersEntidad.length; i++) {
+			Collider otroCollider = collidersEntidad[i];
+			if (colisiona.colisionaCon(otroCollider)) {
+				colision.setColider(colisiona);
+				colision.setEntidad(this);
+				colision.setColisionable(this);
+				colision.setTriger(false);
+				return colision;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * Recibe dano
@@ -95,22 +112,12 @@ public abstract class Soldado extends SpriteMovible implements Colisionable, Mov
 	public void setSalud(double salud) {
 		this.salud = salud;
 	}
-	
+
 	@Override
-	public ColisionInfo hayColision(Colisionable entidad) {
-		ColisionInfo colision = new ColisionInfo();
-		Collider[] collidersEntidad = entidad.getColliders();
-		for (int i = 0; i < collidersEntidad.length; i++) {
-			Collider otroCollider = collidersEntidad[i];
-			if (colisiona.colisionaCon(otroCollider)) {
-				colision.setColider(colisiona);
-				colision.setEntidad(this);
-				colision.setColisionable(this);
-				colision.setTriger(false);
-				return colision;
-			}
-		}
-		return null;
+	public String toString() {
+		return "Soldado [salud=" + salud + ", arma=" + arma + ", fisica=" + fisica + "]";
 	}
+	
+	
 	
 }

@@ -145,4 +145,35 @@ public class EnemigoPistola extends Enemigo {
 	public void dibujar(Graphics g){
 		sprites.dibujar(g);
 	}
+
+	public boolean isHuir() {
+		return huir;
+	}
+
+	public void setHuir(boolean huir) {
+		this.huir = huir;
+	}
+
+	public double getTiempoDeDisparo() {
+		return tiempoDeDisparo;
+	}
+
+	public void setTiempoDeDisparo(double tiempoDeDisparo) {
+		this.tiempoDeDisparo = tiempoDeDisparo;
+	}
+
+	public SpritesEnemy getSprites() {
+		return sprites;
+	}
+
+	public void setSprites(SpritesEnemy sprites) {
+		this.sprites = sprites;
+	}
+
+	@Override
+	public String toString() {
+		return "EnemigoPistola [huir=" + huir + ", tiempoDeDisparo=" + tiempoDeDisparo + ", sprites=" + sprites + "]";
+	}
+	
+	
 }

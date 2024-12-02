@@ -74,4 +74,27 @@ public class Explosion extends TriggerBox{
 	public Collider[] getColliders() {
 		return new Collider[]{colisiona};
 	}
+
+	public double getDano() {
+		return dano;
+	}
+
+	public void setDano(double dano) {
+		this.dano = dano;
+	}
+
+	public ArrayString getTargetsIgnore() {
+		return targetsIgnore;
+	}
+
+	public void setTargetsIgnore(ArrayString targetsIgnore) {
+		this.targetsIgnore = targetsIgnore;
+	}
+
+	@Override
+	public String toString() {
+		return "Explosion [dano=" + dano + ", targetsIgnore=" + targetsIgnore + "]";
+	}
+	
+	
 }

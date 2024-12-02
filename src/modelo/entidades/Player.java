@@ -151,7 +151,7 @@ public class Player extends Soldado{
 		if (estaAgachado) {
 			movimiento *= 0.8;
 		}
-		//solo salta si esta en el suelo t presina la teclka de salto
+		//solo salta si esta en el suelo y presina la teclka de salto
 		if (controles.isJump() && isGrounded) {
 			isGrounded = false;
 			fisica.impulsar(Vector2D.UP.scale(JUMP_FORCE));
@@ -205,7 +205,7 @@ public class Player extends Soldado{
 	}
 	
 	/**
-	 * Hace agacjarse al jugador
+	 * Hace agacharse al jugador
 	 */
 	private void agacharse() {
 		direccionDisparo.setY(0);
@@ -390,5 +390,78 @@ public class Player extends Soldado{
 
 	public void setVidasRestantes(int vidasRestantes) {
 		this.vidasRestantes = vidasRestantes;
+	}
+
+	public boolean isTouchingEnemy() {
+		return isTouchingEnemy;
+	}
+
+	public void setTouchingEnemy(boolean isTouchingEnemy) {
+		this.isTouchingEnemy = isTouchingEnemy;
+	}
+
+	public boolean isEstaAgachado() {
+		return estaAgachado;
+	}
+
+	public void setEstaAgachado(boolean estaAgachado) {
+		this.estaAgachado = estaAgachado;
+	}
+
+	public Vector2D getDireccionDisparo() {
+		return direccionDisparo;
+	}
+
+	public void setDireccionDisparo(Vector2D direccionDisparo) {
+		this.direccionDisparo = direccionDisparo;
+	}
+
+	public boolean isUsaCuchillo() {
+		return usaCuchillo;
+	}
+
+	public void setUsaCuchillo(boolean usaCuchillo) {
+		this.usaCuchillo = usaCuchillo;
+	}
+
+	public double getCuchilloDelay() {
+		return cuchilloDelay;
+	}
+
+	public void setCuchilloDelay(double cuchilloDelay) {
+		this.cuchilloDelay = cuchilloDelay;
+	}
+
+	public Collider getCuchilloColider() {
+		return cuchilloColider;
+	}
+
+	public void setCuchilloColider(Collider cuchilloColider) {
+		this.cuchilloColider = cuchilloColider;
+	}
+
+	public PlayerControls getControles() {
+		return controles;
+	}
+
+	public void setControles(PlayerControls controles) {
+		this.controles = controles;
+	}
+
+	public SpritesPlayer getSpritesPlayer() {
+		return spritesPlayer;
+	}
+
+	public void setSpritesPlayer(SpritesPlayer spritesPlayer) {
+		this.spritesPlayer = spritesPlayer;
+	}
+
+	@Override
+	public String toString() {
+		return "Player [vidasRestantes=" + vidasRestantes + ", isGrounded=" + isGrounded + ", isTouchingEnemy="
+				+ isTouchingEnemy + ", estaAgachado=" + estaAgachado + ", direccionDisparo=" + direccionDisparo
+				+ ", usaCuchillo=" + usaCuchillo + ", cuchilloDelay=" + cuchilloDelay + ", cuchilloColider="
+				+ cuchilloColider + ", controles=" + controles + ", spritesPlayer=" + spritesPlayer + ", puntaje="
+				+ puntaje + "]";
 	}
 }

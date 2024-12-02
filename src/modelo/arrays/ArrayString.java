@@ -72,4 +72,11 @@ public class ArrayString extends Array {
 	public void sort() {
 		
 	}
+
+	@Override
+	public String toString() {
+		return "ArrayString []";
+	}
+	
+	
 }

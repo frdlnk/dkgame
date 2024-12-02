@@ -112,4 +112,12 @@ public class AdminPanel extends JFrame {
 	public void setBtnEliminar(Button btnEliminar) {
 		this.btnEliminar = btnEliminar;
 	}
+
+	@Override
+	public String toString() {
+		return "AdminPanel [contentPane=" + contentPane + ", lblTitulo=" + lblTitulo + ", btnAgregar=" + btnAgregar
+				+ ", btnBuscar=" + btnBuscar + ", btnActualizar=" + btnActualizar + ", btnEliminar=" + btnEliminar
+				+ ", btnConfiguraciones=" + btnConfiguraciones + "]";
+	}
+	
 }

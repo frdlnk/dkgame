@@ -136,6 +136,18 @@ public abstract class Arma {
 		return "Arma [shootDelay=" + shootDelay + ", dano=" + dano + ", timeToNextShoot=" + timeToNextShoot
 				+ ", balasRestantes=" + balasRestantes + "]";
 	}
+
+	public static int getBalasDefault() {
+		return BALAS_DEFAULT;
+	}
+
+	public static int getDefaultDelay() {
+		return DEFAULT_DELAY;
+	}
+
+	public static int getDefaultDano() {
+		return DEFAULT_DANO;
+	}
 	
 	
 	

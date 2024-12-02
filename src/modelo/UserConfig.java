@@ -89,10 +89,13 @@ public class UserConfig implements Serializable{
 
 	@Override
 	public String toString() {
-		return "UserConfig [enemigosActivos=" + enemigosActivos + ", cantEnemigosPorTipo="
-				+ ", vidasIniciales=" + vidasIniciales + ", multiplicadorDano="
-				+ multiplicadorDano + ", multiplicadorDanoEnemigo=" + multiplicadorDanoEnemigo + ", armainicial="
-				+ armainicial + "]";
+		return "UserConfig [id=" + id + ", enemigosActivos=" + enemigosActivos + ", vidasIniciales="
+				+ vidasIniciales + ", multiplicadorDano=" + multiplicadorDano + ", multiplicadorDanoEnemigo="
+				+ multiplicadorDanoEnemigo + ", armainicial=" + armainicial + "]";
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	

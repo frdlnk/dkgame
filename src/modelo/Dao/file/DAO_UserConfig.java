@@ -115,5 +115,26 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 		return lista;
 	}
 
+	public UserConfigArray getLista() {
+		return lista;
+	}
+
+	public void setLista(UserConfigArray lista) {
+		this.lista = lista;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	@Override
+	public String toString() {
+		return "DAO_UserConfig [lista=" + lista + ", fileName=" + fileName + "]";
+	}
+
 	
 }

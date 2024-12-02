@@ -137,6 +137,27 @@ public class DAO_Usuario implements IDAOUsuario {
 		return lista.getBestScores(cantidadRegistros);
 	}
 
+	public UserArray getLista() {
+		return lista;
+	}
+
+	public void setLista(UserArray lista) {
+		this.lista = lista;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	@Override
+	public String toString() {
+		return "DAO_Usuario [lista=" + lista + ", fileName=" + fileName + "]";
+	}
+
 
 
 }

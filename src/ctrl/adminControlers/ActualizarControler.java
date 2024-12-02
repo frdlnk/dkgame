@@ -93,4 +93,27 @@ public class ActualizarControler extends BuscarControler{
 			mostrarBusqueda();
 		}
 	}
+
+	public VistaActualizar getVistaActualizar() {
+		return vistaActualizar;
+	}
+
+	public void setVistaActualizar(VistaActualizar vistaActualizar) {
+		this.vistaActualizar = vistaActualizar;
+	}
+
+	public UserFieldsValidator getValidator() {
+		return validator;
+	}
+
+	public void setValidator(UserFieldsValidator validator) {
+		this.validator = validator;
+	}
+
+	@Override
+	public String toString() {
+		return "ActualizarControler [vistaActualizar=" + vistaActualizar + ", validator=" + validator + "]";
+	}
+	
+	
 }

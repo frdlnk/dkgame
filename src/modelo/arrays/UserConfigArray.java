@@ -72,4 +72,10 @@ public class UserConfigArray extends Array {
 
 	}
 
+	@Override
+	public String toString() {
+		return "UserConfigArray []";
+	}
+
+	
 }

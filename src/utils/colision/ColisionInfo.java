@@ -46,6 +46,12 @@ public class ColisionInfo {
 	public void setTriger(boolean isTriger) {
 		this.isTriger = isTriger;
 	}
+
+	@Override
+	public String toString() {
+		return "ColisionInfo [entidad=" + entidad + ", colisionable=" + colisionable + ", colider=" + colider
+				+ ", isTriger=" + isTriger + "]";
+	}
 	
 	
 }

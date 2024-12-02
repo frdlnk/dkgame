@@ -161,4 +161,31 @@ public abstract class Municion extends Sprite implements Colisionable, Movible{
 		colisiona = new Collider(this.transformar, textura.getWidth(), textura.getHeight());
 	}
 
+	public double getVelocity() {
+		return velocity;
+	}
+
+	public void setVelocity(double velocity) {
+		this.velocity = velocity;
+	}
+
+	public ArrayString getTargetIgnore() {
+		return targetIgnore;
+	}
+
+	public void setTargetIgnore(ArrayString targetIgnore) {
+		this.targetIgnore = targetIgnore;
+	}
+
+	public Collider getColisiona() {
+		return colisiona;
+	}
+
+	@Override
+	public String toString() {
+		return "Municion [colisiona=" + colisiona + ", fisica=" + fisica + ", velocity=" + velocity + ", targetIgnore="
+				+ targetIgnore + ", dano=" + dano + "]";
+	}
+
+	
 }

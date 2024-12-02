@@ -94,4 +94,36 @@ public class AdminPanelControler implements ActionListener{
 			openConfiguraciones();
 		}
 	}
+
+	public AdminPanel getVista() {
+		return vista;
+	}
+
+	public void setVista(AdminPanel vista) {
+		this.vista = vista;
+	}
+
+	public IDAOUserConfigs getModeloConfigs() {
+		return modeloConfigs;
+	}
+
+	public void setModeloConfigs(IDAOUserConfigs modeloConfigs) {
+		this.modeloConfigs = modeloConfigs;
+	}
+
+	public IDAOUsuario getModeloUsers() {
+		return modeloUsers;
+	}
+
+	public void setModeloUsers(IDAOUsuario modeloUsers) {
+		this.modeloUsers = modeloUsers;
+	}
+
+	@Override
+	public String toString() {
+		return "AdminPanelControler [vista=" + vista + ", modeloConfigs=" + modeloConfigs + ", modeloUsers="
+				+ modeloUsers + "]";
+	}
+	
+	
 }

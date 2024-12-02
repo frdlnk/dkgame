@@ -46,4 +46,10 @@ public class HeavyMachineGun extends Arma {
 		return new Bala(posicion, direccion, targetsIgnored, dano);
 	}
 
+	@Override
+	public String toString() {
+		return "HeavyMachineGun []";
+	}
+
+	
 }

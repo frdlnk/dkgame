@@ -39,6 +39,19 @@ public class GameControler {
 		VistaInicioJuego vista = new VistaInicioJuego();
 		new WelcomeGameControler(vista, modeloUser, modeloConfigs);
 	}
+
+	public static GameLoop getLoop() {
+		return loop;
+	}
+
+	public static void setLoop(GameLoop loop) {
+		GameControler.loop = loop;
+	}
+
+	@Override
+	public String toString() {
+		return "GameControler []";
+	}
 	
 	
 }

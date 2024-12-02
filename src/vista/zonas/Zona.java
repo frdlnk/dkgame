@@ -372,4 +372,12 @@ public abstract class Zona extends Entidad implements Colisionable{
 		this.changeplatDelay = changeplatDelay;
 	}
 
+	@Override
+	public String toString() {
+		return "Zona [mapObjects=" + mapObjects + ", staticObjects=" + staticObjects + ", enemigos=" + enemigos
+				+ ", transformar=" + transformar + ", config=" + config + ", modoDiseno=" + modoDiseno + ", plat1="
+				+ plat1 + ", actualPlatform=" + actualPlatform + ", contx=" + contx + ", conty=" + conty
+				+ ", changeplatDelay=" + changeplatDelay + "]";
+	}
+
 }

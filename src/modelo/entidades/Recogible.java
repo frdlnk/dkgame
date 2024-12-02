@@ -71,4 +71,17 @@ public abstract class Recogible extends SpriteSolido implements Colisionable, Mo
 	public Fisica getFisica() {
 		return this.fisica;
 	}
+
+	public void setFisica(Fisica fisica) {
+		this.fisica = fisica;
+	}
+
+	public void setPuntos(int puntos) {
+		this.puntos = puntos;
+	}
+
+	@Override
+	public String toString() {
+		return "Recogible [fisica=" + fisica + ", puntos=" + puntos + "]";
+	}
 }
