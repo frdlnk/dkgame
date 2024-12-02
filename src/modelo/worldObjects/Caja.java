@@ -13,7 +13,6 @@ import motor_v1.motor.entidades.SpriteSolido;
 import motor_v1.motor.util.Vector2D;
 import utils.colision.Colisionable;
 import utils.colision.ColisionInfo;
-import utils.constants.Tags;
 import utils.interfaces.BorderDrawAble;
 import utils.interfaces.Movible;
 
