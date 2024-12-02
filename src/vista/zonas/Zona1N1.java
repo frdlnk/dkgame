@@ -13,6 +13,7 @@ import modelo.entidades.enemigos.EnemigoGranada;
 import modelo.entidades.enemigos.EnemigoPistola;
 import modelo.entidades.enemigos.Helicoptero;
 import modelo.entidades.recogibles.HRecogible;
+import modelo.entidades.recogibles.RRecogible;
 import modelo.worldObjects.DeadBox;
 import modelo.worldObjects.PlayerDetector;
 import motor_v1.motor.Entidad;
@@ -182,9 +183,9 @@ public class Zona1N1 extends Zona{
 		Transform transformH = new RelativeTransform(posHBox, transformar);
 		Recogible hboxRecogible = new HRecogible(transformH, 300);
 		
-		Vector2D posRBOX = new Vector2D(100, 50);
+		Vector2D posRBOX = new Vector2D(300, 50);
 		Transform transformR = new RelativeTransform(posRBOX, transformar);
-		Recogible RBoxRecogible = new HRecogible(transformR, 300);
+		Recogible RBoxRecogible = new RRecogible(transformR, 500);
 		
 		//barrera de movimiento, para el avance por pantalla
 		Rectangle rectMB = new Rectangle(Conf.WINDOW_WIDTH/2, Conf.WINDOW_HEIGHT);
@@ -203,7 +204,6 @@ public class Zona1N1 extends Zona{
 		Vector2D posicionDB = new Vector2D(0,Conf.WINDOW_HEIGHT+40);
 		Transform transformDb = new Transform(posicionDB);
 		DeadBox deadBox = new DeadBox(imageDB, transformDb);
-		deadBox.getColisiona().actualizar();
 		
 		staticObjects.add(deadBox.getNombre(), deadBox);
 		staticObjects.add(barrier.getNombre(), barrier);

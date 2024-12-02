@@ -80,6 +80,7 @@ public class Assets {
 		loadCoord();
 		loadCuts();
 		loadGifs(coord, cuts);
+		isAssetsLoaded = true;
 		return true;
 	}
 

@@ -302,7 +302,7 @@ public class Player extends Soldado{
 			if (reward instanceof Arma) {
 				setArma((Arma) reward);
 			}
-			setPuntaje(getPuntaje() + ((Recogible)entidad).getPuntos());
+			recibirPuntos(((Recogible)entidad).getPuntos());
 		}
 		//si colisiona con una caja
 		else if(entidad instanceof Caja) {

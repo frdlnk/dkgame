@@ -24,7 +24,7 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return "Usuario [id=" + id + ", username=" + username + ", password=" + password + ", score=" + score
-				+ ", level=" + level +"]";
+				+ ", level=" + level + ", configId=" + configId + "]";
 	}
     
     /**
