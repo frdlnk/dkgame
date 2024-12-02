@@ -10,7 +10,7 @@ import utils.colision.Colisionable;
  * Clase base para las escenas del juego
  */
 public abstract class EscenaJuego extends Scene {
-	public static ListaEntidades entidades = new ListaEntidades();
+	protected ListaEntidades entidades = new ListaEntidades();
 
 	/**
 	 * Anade una entidad a la escena
@@ -36,16 +36,16 @@ public abstract class EscenaJuego extends Scene {
 		}
 	}
 
-	public static void setListaEntidades(ListaEntidades entidades) {
-		EscenaJuego.entidades = entidades;
+	public void setListaEntidades(ListaEntidades entidades) {
+		this.entidades = entidades;
 	}
 
 	public ListaEntidades getEntidades() {
 		return entidades;
 	}
 
-	public static void setEntidades(ListaEntidades entidades) {
-		EscenaJuego.entidades = entidades;
+	public void setEntidades(ListaEntidades entidades) {
+		this.entidades = entidades;
 	}
 
 	@Override
