@@ -1,8 +1,8 @@
 package modelo.armamento;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
-import modelo.arrays.ArrayString;
 import modelo.entidades.Soldado;
 import modelo.worldObjects.TriggerBox;
 import motor_v1.motor.component.Collider;
@@ -19,7 +19,7 @@ import utils.constants.Tags;
  */
 public class Explosion extends TriggerBox {
 	private double dano;
-	private ArrayString targetsIgnore;
+	private ArrayList<String> targetsIgnore;
 
 	/**
 	 * Crea una nueva explosion
@@ -29,7 +29,7 @@ public class Explosion extends TriggerBox {
 	 * @param transformar
 	 * @param targetsIgnore
 	 */
-	public Explosion(BufferedImage textura, Transform transformar, ArrayString targetsIgnore, int dano) {
+	public Explosion(BufferedImage textura, Transform transformar, ArrayList<String> targetsIgnore, int dano) {
 		super(Tags.EXPLOCION, textura, transformar);
 		colisiona.actualizar();
 		this.dano = dano;
@@ -80,11 +80,11 @@ public class Explosion extends TriggerBox {
 		this.dano = dano;
 	}
 
-	public ArrayString getTargetsIgnore() {
+	public ArrayList<String> getTargetsIgnore() {
 		return targetsIgnore;
 	}
 
-	public void setTargetsIgnore(ArrayString targetsIgnore) {
+	public void setTargetsIgnore(ArrayList<String> targetsIgnore) {
 		this.targetsIgnore = targetsIgnore;
 	}
 

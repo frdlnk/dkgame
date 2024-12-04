@@ -1,7 +1,8 @@
 package modelo.Dao;
 
+import java.util.ArrayList;
+
 import modelo.Usuario;
-import modelo.arrays.UserArray;
 import utils.constants.ComparativeModes;
 import utils.constants.UserFields;
 
@@ -55,7 +56,7 @@ public interface IDAOUsuario {
 	 * 
 	 * @return Array de usuarios con todos los usuarios
 	 */
-	public UserArray getAll();
+	public ArrayList<Usuario> getAll();
 
 	/**
 	 * REaliza una busaqueda de usuarios segun los criterios especificados
@@ -67,7 +68,7 @@ public interface IDAOUsuario {
 	 * @see UserFields
 	 * @see ComparativeModes
 	 */
-	public UserArray search(Object value, String field, String searchMode);
+	public ArrayList<Usuario> search(Object value, String field, String searchMode);
 
 	/**
 	 * actualiza un usuario existente <br>
@@ -86,5 +87,5 @@ public interface IDAOUsuario {
 	 * @param cantidadRegistros cantidad de registros a traer
 	 * @return Array de Usuarios con los mejores Scores
 	 */
-	public UserArray getBestScores(int cantidadRegistros);
+	public ArrayList<Usuario> getBestScores(int cantidadRegistros);
 }

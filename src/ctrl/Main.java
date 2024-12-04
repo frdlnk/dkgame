@@ -1,19 +1,20 @@
 package ctrl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.UIManager;
 
+import modelo.UserConfig;
+import modelo.Usuario;
 import modelo.Dao.file.DAO_UserConfig;
 import modelo.Dao.file.DAO_Usuario;
-import modelo.arrays.UserArray;
-import modelo.arrays.UserConfigArray;
 import vista.MenuInicio;
 
 public class Main {
 	// datasets
-	public final static UserArray UserDataSet = new UserArray();
-	public final static UserConfigArray UserConfigsSet = new UserConfigArray();
+	public final static ArrayList<Usuario> UserDataSet = new ArrayList<>();
+	public final static ArrayList<UserConfig> UserConfigsSet = new ArrayList<>();
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		setUIManager();

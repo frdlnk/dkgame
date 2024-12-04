@@ -1,13 +1,14 @@
 package ctrl.adminControlers;
 
+import modelo.Usuario;
 import modelo.Dao.IDAOUsuario;
 
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import modelo.arrays.UserArray;
 import utils.constants.UserFields;
 import vista.admin.VistaBuscar;
 
@@ -46,7 +47,7 @@ public abstract class BuscarControler implements DocumentListener, ActionListene
 	 */
 	public void onTextChanged() {
 		Object searchedValue = getSearchValue();
-		UserArray data;
+		ArrayList<Usuario> data;
 
 		// si no hay busqueda definida se crgan todos los datos
 		if (searchedValue.equals("")) {
@@ -57,7 +58,7 @@ public abstract class BuscarControler implements DocumentListener, ActionListene
 			data = modeloUsuario.search(searchedValue, criterio, modo);
 		}
 
-		vista.loadUsers(data.getArregloObjetos());
+		vista.loadUsers(data);
 	}
 
 	/**

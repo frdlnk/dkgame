@@ -3,10 +3,10 @@ package modelo.armamento.municiones;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import modelo.armamento.Explosion;
 import modelo.armamento.Explosivo;
-import modelo.arrays.ArrayString;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Renderer;
@@ -30,7 +30,7 @@ public class Choete extends Municion implements Explosivo {
 	 * @param targetsIgnored lista de tags a ignorar
 	 * @param dano           double cantidad de dano a realizar a los objeivos
 	 */
-	public Choete(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored, double dano) {
+	public Choete(Vector2D posicion, Vector2D direccion, ArrayList<String> targetsIgnored, double dano) {
 		super(posicion, direccion, targetsIgnored, dano, 10);
 		// asigna gravedad al cohete
 		this.fisica.setGravity(1);

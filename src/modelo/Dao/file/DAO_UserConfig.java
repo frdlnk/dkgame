@@ -1,9 +1,11 @@
 package modelo.Dao.file;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import ctrl.Main;
 import modelo.UserConfig;
+import modelo.Usuario;
 import modelo.Dao.IDAOUserConfigs;
 import modelo.arrays.UserConfigArray;
 import modelo.db.binary.ObjectFileWriter;
@@ -13,7 +15,7 @@ import modelo.db.binary.ObjectReadManager;
  * DAO de acceso a las configuraciones de usuario, mediante archivo binario
  */
 public class DAO_UserConfig implements IDAOUserConfigs {
-	UserConfigArray lista = Main.UserConfigsSet;
+	ArrayList<UserConfig> lista = Main.UserConfigsSet;
 	String fileName = "userConfig.data";
 
 	/**
@@ -48,7 +50,7 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 	 */
 	public void saveAll() {
 		try (ObjectFileWriter writer = new ObjectFileWriter(fileName)) {
-			writer.replaceAll(lista.getArregloObjetos());
+			writer.replaceAll(lista);
 		} catch (Exception e) {
 		}
 
@@ -75,22 +77,15 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 	 */
 	private boolean isIdValid(UserConfig config) {
 		// id autoincremetable
-		if (config.getId() == 0) {
-			lista.sort();
-			int nextId = 1;
-			if (lista.getSize() != 0)
-				nextId = lista.get(lista.getSize() - 1).getId() + 1;
-
-			config.setId(nextId);
-			return true;
-		}
-		// si intenta insertar con un id establecido verifica que no exista
-		return lista.getById(config.getId()) != null;
+		lista.sort((conf, config2) -> {return conf.getId() <= conf.getId() ? 1 : -1;});
+		
+		config.setId(lista.getLast().getId()+1);
+		return true;
 	}
 
 	@Override
 	public void delete(int id) {
-		lista.removeById(id);
+		lista.removeIf(config -> config.getId() == id);
 		saveAll();
 	}
 
@@ -102,12 +97,17 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 
 	@Override
 	public UserConfig get(int id) {
-		return lista.getById(id);
+		for (UserConfig userConfig : lista) {
+			if (userConfig.getId() == id) {
+				return userConfig;
+			}
+		}
+		return null;
 	}
 
 	@Override
 	public void update(UserConfig config) {
-		UserConfig configToUpdate = lista.getById(config.getId());
+		UserConfig configToUpdate = get(config.getId());
 		configToUpdate.setArmainicial(config.getArmainicial());
 		configToUpdate.setEnemigosActivos(config.getEnemigosActivos());
 		configToUpdate.setMultiplicadorDano(config.getMultiplicadorDano());
@@ -117,15 +117,15 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 	}
 
 	@Override
-	public UserConfigArray getAll() {
+	public ArrayList<UserConfig> getAll() {
 		return lista;
 	}
 
-	public UserConfigArray getLista() {
+	public ArrayList<UserConfig> getLista() {
 		return lista;
 	}
 
-	public void setLista(UserConfigArray lista) {
+	public void setLista(ArrayList<UserConfig> lista) {
 		this.lista = lista;
 	}
 

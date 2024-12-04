@@ -1,11 +1,11 @@
 package ctrl.adminControlers;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 import modelo.UserConfig;
 import modelo.Dao.IDAOUserConfigs;
 import modelo.Dao.IDAOUsuario;
-import modelo.arrays.ArrayString;
 import utils.constants.EnemyTypes;
 import vista.admin.VistaConfiguracionesUsuario;
 
@@ -35,7 +35,7 @@ public class ConfiguracionesControler extends BuscarControler {
 		UserConfig configuracion = modeloConfigs.get(idConfig);
 
 		configuracion.setArmainicial(getArmaInicial());
-		configuracion.setEnemigosActivos(getEnemigosActivos());
+		configuracion.setEnemigosActivos((String[]) getEnemigosActivos().toArray());
 		configuracion.setMultiplicadorDano(getMultiplicadorDanoJugador());
 		configuracion.setMultiplicadorDanoEnemigo(getMultiplicadorDanoEnemigo());
 		configuracion.setVidasIniciales(getVidasIniciales());
@@ -56,8 +56,8 @@ public class ConfiguracionesControler extends BuscarControler {
 		return (double) vistaConf.getSpMultiplicadorDanoEnemigos().getValue();
 	}
 
-	private String[] getEnemigosActivos() {
-		ArrayString enemiesActive = new ArrayString();
+	private ArrayList<String> getEnemigosActivos() {
+		ArrayList<String> enemiesActive = new ArrayList<>();
 		boolean helicopterActive = vistaConf.getChBoxHelicopteros().isSelected();
 		boolean granaderoActive = vistaConf.getChBoxGranaderos().isSelected();
 		boolean pistoleroActive = vistaConf.getChBoxPistoleros().isSelected();
@@ -70,7 +70,7 @@ public class ConfiguracionesControler extends BuscarControler {
 		if (helicopterActive) {
 			enemiesActive.add(EnemyTypes.HELICOPTERO);
 		}
-		return enemiesActive.getArregloObjetos();
+		return enemiesActive;
 	}
 
 	private String getArmaInicial() {

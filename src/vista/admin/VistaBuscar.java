@@ -2,6 +2,7 @@ package vista.admin;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -55,9 +56,9 @@ public class VistaBuscar extends JDialog {
 	 * 
 	 * @param users
 	 */
-	public void loadUsers(Usuario[] users) {
+	public void loadUsers(ArrayList<Usuario> users) {
 		if (users != null) {
-			listaUsuarios.setListData(users);
+			listaUsuarios.setListData((Usuario[]) users.toArray());
 		}
 	}
 

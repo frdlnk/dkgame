@@ -1,7 +1,8 @@
 package modelo.armamento.armas;
 
+import java.util.ArrayList;
+
 import modelo.armamento.municiones.Municion;
-import modelo.arrays.ArrayString;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.util.Vector2D;
 
@@ -70,7 +71,7 @@ public abstract class Arma {
 	 * @param targetsIgnored lista de tags que la municion debe ignorar
 	 * @return Municion si cumple la cadencia de tiro, null en caso contrario
 	 */
-	public Municion disparar(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored) {
+	public Municion disparar(Vector2D posicion, Vector2D direccion, ArrayList<String> targetsIgnored) {
 		if (timeToNextShoot <= 0 && balasRestantes > 0) {
 			timeToNextShoot = shootDelay;
 			Municion disparo = generarBala(posicion, direccion, targetsIgnored);
@@ -89,7 +90,7 @@ public abstract class Arma {
 	 * @param targetsIgnored Lista de tags que la Municion debe ignorar
 	 * @return Municion creada por el arma
 	 */
-	protected abstract Municion generarBala(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored);
+	protected abstract Municion generarBala(Vector2D posicion, Vector2D direccion, ArrayList<String> targetsIgnored);
 
 	/**
 	 * Se debe llamar cada frame controla la reduccion del tiempo de disparo

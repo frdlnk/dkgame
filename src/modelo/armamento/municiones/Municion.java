@@ -2,8 +2,8 @@ package modelo.armamento.municiones;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
-import modelo.arrays.ArrayString;
 import modelo.componentes.Fisica;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.component.Collider;
@@ -29,7 +29,7 @@ public abstract class Municion extends Sprite implements Colisionable, Movible {
 	protected Collider colisiona;
 	protected Fisica fisica;
 	private double velocity;
-	protected ArrayString targetIgnore;
+	protected ArrayList<String> targetIgnore;
 	private double dano;
 
 	/**
@@ -42,7 +42,7 @@ public abstract class Municion extends Sprite implements Colisionable, Movible {
 	 * @param dano          double cantidad de dano que hace la municion a las
 	 *                      entidades objetivo
 	 */
-	public Municion(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnore, double dano, double velocity) {
+	public Municion(Vector2D posicion, Vector2D direccion, ArrayList<String> targetsIgnore, double dano, double velocity) {
 		super(Tags.MUNICION);
 		Rectangle rect = new Rectangle(15, 10);
 		Color color = new Color(255, 153, 0);
@@ -168,11 +168,11 @@ public abstract class Municion extends Sprite implements Colisionable, Movible {
 		this.velocity = velocity;
 	}
 
-	public ArrayString getTargetIgnore() {
+	public ArrayList<String> getTargetIgnore() {
 		return targetIgnore;
 	}
 
-	public void setTargetIgnore(ArrayString targetIgnore) {
+	public void setTargetIgnore(ArrayList<String> targetIgnore) {
 		this.targetIgnore = targetIgnore;
 	}
 

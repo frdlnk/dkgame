@@ -1,5 +1,7 @@
 package modelo.Dao.file;
 
+import java.util.ArrayList;
+
 import ctrl.Main;
 import modelo.Usuario;
 import modelo.Dao.IDAOUsuario;
@@ -12,7 +14,7 @@ import modelo.db.text.ObjectReadManager;
  * DAO de acceso y guarado de usuarios mediante archivos de texto
  */
 public class DAO_Usuario implements IDAOUsuario {
-	UserArray lista = Main.UserDataSet;
+	ArrayList<Usuario> lista = Main.UserDataSet;
 	String fileName = "user.txt";
 
 	/**
@@ -27,10 +29,10 @@ public class DAO_Usuario implements IDAOUsuario {
 	 */
 	private void load() {
 		try (ObjectReadManager reader = new ObjectReadManager(fileName)) {
-			ArrayString records = new ArrayString();
+			ArrayList<String> records = new ArrayList<>();
 			reader.readAll(records);
 			lista.clear();
-			for (int i = 0; i < records.getSize(); i++) {
+			for (int i = 0; i < records.size(); i++) {
 				Usuario user = Usuario.deserializeUsuario(records.get(i));
 				if (user != null)
 					lista.add(user);
@@ -45,8 +47,8 @@ public class DAO_Usuario implements IDAOUsuario {
 	 */
 	public void saveAll() {
 		try (ObjectFileWriter writer = new ObjectFileWriter(fileName)) {
-			ArrayString recordsArray = new ArrayString();
-			for (Usuario user : lista.getArregloObjetos()) {
+			ArrayList<String> recordsArray = new ArrayList<>();
+			for (Usuario user : lista) {
 				if (user != null) {
 					recordsArray.add(user.crearRegistroTexto());
 				}

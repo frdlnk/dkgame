@@ -3,10 +3,10 @@ package modelo.armamento.municiones;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import modelo.armamento.Explosion;
 import modelo.armamento.Explosivo;
-import modelo.arrays.ArrayString;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.Scene;
 import motor_v1.motor.component.Renderer;
@@ -31,7 +31,7 @@ public class Granada extends Municion implements Explosivo {
 	 * @param dano          dano causado
 	 * @param velocidad     velocidad de movimiento
 	 */
-	public Granada(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnore, double dano, double velocidad) {
+	public Granada(Vector2D posicion, Vector2D direccion, ArrayList<String> targetsIgnore, double dano, double velocidad) {
 		super(posicion, direccion, targetsIgnore, dano, velocidad);
 		setNombre(Tags.GRANADA);
 		fisica.setGravity(1);

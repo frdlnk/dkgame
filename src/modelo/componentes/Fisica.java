@@ -1,6 +1,7 @@
 package modelo.componentes;
 
-import modelo.arrays.ArrayVector2D;
+import java.util.ArrayList;
+
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.component.Movement;
 import motor_v1.motor.component.Physics;
@@ -32,7 +33,7 @@ public class Fisica extends Physics {
 	private Vector2D ultimaDireccion;
 	private Transform transform;
 	private int masa;
-	private ArrayVector2D fuerzasAplicadas;
+	private ArrayList<Vector2D> fuerzasAplicadas;
 
 	/**
 	 * Crea una nueva fisica aplicada a un trasnform, con masa = 1 y gravedad = 1
@@ -63,7 +64,7 @@ public class Fisica extends Physics {
 		setFriccion(0);
 		vectorMovimiento = Vector2D.ZERO;
 		ultimaDireccion = Vector2D.ZERO;
-		fuerzasAplicadas = new ArrayVector2D();
+		fuerzasAplicadas = new ArrayList<>();
 	}
 
 	/**
@@ -118,7 +119,7 @@ public class Fisica extends Physics {
 			nuevaPosicion = transform.getPosicion().add(vectorMovimiento);
 		}
 		ultimaDireccion = vectorMovimiento;
-		for (int i = 0; i < fuerzasAplicadas.getSize(); i++) {
+		for (int i = 0; i < fuerzasAplicadas.size(); i++) {
 			Vector2D fuerzaAplicada = fuerzasAplicadas.get(i);
 			vectorMovimiento = vectorMovimiento.subtract(fuerzaAplicada);
 		}
@@ -203,11 +204,11 @@ public class Fisica extends Physics {
 		this.transform = transform;
 	}
 
-	public ArrayVector2D getFuerzasAplicadas() {
+	public ArrayList<Vector2D> getFuerzasAplicadas() {
 		return fuerzasAplicadas;
 	}
 
-	public void setFuerzasAplicadas(ArrayVector2D fuerzasAplicadas) {
+	public void setFuerzasAplicadas(ArrayList<Vector2D> fuerzasAplicadas) {
 		this.fuerzasAplicadas = fuerzasAplicadas;
 	}
 
