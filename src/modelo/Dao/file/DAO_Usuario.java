@@ -114,7 +114,11 @@ public class DAO_Usuario implements IDAOUsuario {
 
 	@Override
 	public void update(User usuario) {
-		String sql = "UPDATE " + tableString + " SET " + "Username = ?," + "Password = ?," + "Score = ?," + "Level = ? "
+		String sql = "UPDATE " + tableString + " SET " 
+				+ "Username = ?," 
+				+ "Password = ?," 
+				+ "Score = ?," 
+				+ "Level = ? "
 				+ "WHERE id = ?";
 		PreparedStatement statement = SQLiteManager.getPreparedStatement(sql);
 		try {
@@ -126,6 +130,7 @@ public class DAO_Usuario implements IDAOUsuario {
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println("error al actualizar");
+			e.printStackTrace();
 		}
 	}
 
@@ -168,11 +173,11 @@ public class DAO_Usuario implements IDAOUsuario {
 		try {
 			statement.setString(1, username);
 			ResultSet data = statement.executeQuery();
-			if (data.first()) {
+			if (data.next()) {
 				return mapRecordToUsuario(data);
 			}
 		} catch (SQLException e) {
-
+			e.printStackTrace();
 		}
 		return null;
 	}
