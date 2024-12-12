@@ -116,10 +116,16 @@ public class User extends DBModel {
 	@Override
 	public String getTableSchema() {
 		String userConfigTable = new UserConfig().getTable();
-		return "CREATE TABLE IF NOT EXISTS " + getTable() + "(" + "id INTEGER,"
-				+ "Username VARCHAR(50) UNIQUE NOT NULL," + "Password VARCHAR(10) NOT NULL," + "Score INT default 0,"
-				+ "Level INT default 0," + "ConfigID INT not null," + "PRIMARY KEY(id AUTOINCREMENT),"
-				+ "FOREIGN KEY (ConfigID) REFERENCES " + userConfigTable + "(id)" + ")";
+		return "CREATE TABLE IF NOT EXISTS " + getTable() + "(" 
+				+ "id INTEGER,"
+				+ "Username VARCHAR(50) UNIQUE NOT NULL," 
+				+ "Password VARCHAR(10) NOT NULL," 
+				+ "Score INT default 0,"
+				+ "Level INT default 0," 
+				+ "ConfigID INT not null," 
+				+ "PRIMARY KEY(id AUTOINCREMENT),"
+				+ "FOREIGN KEY (ConfigID) REFERENCES " + userConfigTable + "(id)" 
+				+ ")";
 	}
 
 }

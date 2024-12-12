@@ -99,8 +99,11 @@ public class UserConfig extends DBModel {
 
 	@Override
 	public String getTableSchema() {
-		return "Create table if not exists " + getTable() + "(" + "id INTEGER," + "VidasIniciales INT,"
-				+ "MultiplicadorDano float," + "MultiplicadorDanoEnemigo float," + "ArmaInicial VARCHAR(50),"
+		return "Create table if not exists " + getTable() + "(" 
+				+ "id INTEGER," + "VidasIniciales INT,"
+				+ "MultiplicadorDano float," 
+				+ "MultiplicadorDanoEnemigo float," 
+				+ "ArmaInicial VARCHAR(50),"
 				+ "PRIMARY KEY(id AUTOINCREMENT)" + ")";
 	}
 
