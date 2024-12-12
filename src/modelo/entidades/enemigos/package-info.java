@@ -1,5 +1,6 @@
 /**
  * Este paquete contiene los enemigos del juego
+ * 
  * @see modelo.entidades.enemigos.Enemigo
  * @see modelo.entidades.enemigos.Helicoptero
  * @see modelo.entidades.enemigos.EnemigoPistola

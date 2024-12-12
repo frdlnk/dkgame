@@ -5,7 +5,5 @@ package utils.constants;
  * 
  */
 public enum ComparativeModes {
-	IGUAL,
-	MAYOR_QUE,
-	MENOR_QUE;
+	IGUAL, MAYOR_QUE, MENOR_QUE;
 }

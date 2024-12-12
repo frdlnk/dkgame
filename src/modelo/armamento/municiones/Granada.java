@@ -31,7 +31,8 @@ public class Granada extends Municion implements Explosivo {
 	 * @param dano          dano causado
 	 * @param velocidad     velocidad de movimiento
 	 */
-	public Granada(Vector2D posicion, Vector2D direccion, ArrayList<String> targetsIgnore, double dano, double velocidad) {
+	public Granada(Vector2D posicion, Vector2D direccion, ArrayList<String> targetsIgnore, double dano,
+			double velocidad) {
 		super(posicion, direccion, targetsIgnore, dano, velocidad);
 		setNombre(Tags.GRANADA);
 		fisica.setGravity(1);

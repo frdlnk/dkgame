@@ -13,7 +13,7 @@ import modelo.DBModel;
 public class SQLiteManager {
 	public final static String CONNECTION_STRING = "jdbc:sqlite:metalSlug.db";
 	private static Connection connection;
-	
+
 	public static PreparedStatement getPreparedStatement(String sql) {
 		openCon();
 		try {
@@ -23,7 +23,7 @@ public class SQLiteManager {
 			return null;
 		}
 	}
-	
+
 	private static void suscribeModel(DBModel modelo) {
 		openCon();
 		try {
@@ -34,13 +34,13 @@ public class SQLiteManager {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void suscribeModels(DBModel[] modelos) {
 		for (DBModel dbModel : modelos) {
 			suscribeModel(dbModel);
 		}
 	}
-	
+
 	public static ResultSet get(String sql) {
 		openCon();
 		try {
@@ -51,7 +51,7 @@ public class SQLiteManager {
 			return null;
 		}
 	}
-	
+
 	private static void openCon() {
 		try {
 			if (connection == null || connection.isClosed()) {

@@ -42,7 +42,8 @@ public abstract class Municion extends Sprite implements Colisionable, Movible {
 	 * @param dano          double cantidad de dano que hace la municion a las
 	 *                      entidades objetivo
 	 */
-	public Municion(Vector2D posicion, Vector2D direccion, ArrayList<String> targetsIgnore, double dano, double velocity) {
+	public Municion(Vector2D posicion, Vector2D direccion, ArrayList<String> targetsIgnore, double dano,
+			double velocity) {
 		super(Tags.MUNICION);
 		Rectangle rect = new Rectangle(15, 10);
 		Color color = new Color(255, 153, 0);

@@ -3,7 +3,7 @@ package modelo;
 /**
  * Modelo de datos para la informacion del usuario
  */
-public class User extends DBModel{
+public class User extends DBModel {
 	private int id;
 	private String username;
 	private String password;
@@ -23,8 +23,7 @@ public class User extends DBModel{
 
 	@Override
 	public String toString() {
-		return username + ": password=" + password + ", score=" + score
-				+ ", level=" + level;
+		return username + ": password=" + password + ", score=" + score + ", level=" + level;
 	}
 
 	/**
@@ -117,16 +116,10 @@ public class User extends DBModel{
 	@Override
 	public String getTableSchema() {
 		String userConfigTable = new UserConfig().getTable();
-		return "CREATE TABLE IF NOT EXISTS "+ getTable()+"("
-				+ "id INTEGER,"
-				+ "Username VARCHAR(50) UNIQUE NOT NULL,"
-				+ "Password VARCHAR(10) NOT NULL,"
-				+ "Score INT default 0,"
-				+ "Level INT default 0,"
-				+ "ConfigID INT not null,"
-				+ "PRIMARY KEY(id AUTOINCREMENT),"
-				+ "FOREIGN KEY (ConfigID) REFERENCES "+ userConfigTable+"(id)"
-				+ ")";
+		return "CREATE TABLE IF NOT EXISTS " + getTable() + "(" + "id INTEGER,"
+				+ "Username VARCHAR(50) UNIQUE NOT NULL," + "Password VARCHAR(10) NOT NULL," + "Score INT default 0,"
+				+ "Level INT default 0," + "ConfigID INT not null," + "PRIMARY KEY(id AUTOINCREMENT),"
+				+ "FOREIGN KEY (ConfigID) REFERENCES " + userConfigTable + "(id)" + ")";
 	}
 
 }

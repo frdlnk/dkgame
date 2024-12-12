@@ -10,22 +10,22 @@ import modelo.Dao.IDAOUserConfigs;
 import modelo.db.SQLiteManager;
 
 /**
- * DAO de acceso a las configuraciones de usuario, mediante archivo binario
+ * DAO de acceso a las configuraciones de usuario, mediante SQLITE
  */
 public class DAO_UserConfig implements IDAOUserConfigs {
 	private String tableString;
+
 	/**
 	 * Crea un nuevo DAO
 	 */
-	public DAO_UserConfig(){
+	public DAO_UserConfig() {
 		tableString = new UserConfig().getTable();
 	}
 
 	@Override
 	public int insert(UserConfig config) {
-		String sql = "INSERT INTO " + tableString 
-				+ "(VidasIniciales, MultiplicadorDano, MultiplicadorDanoEnemigo, ArmaInicial) "
-				+ "VALUES(?,?,?,?)";
+		String sql = "INSERT INTO " + tableString
+				+ "(VidasIniciales, MultiplicadorDano, MultiplicadorDanoEnemigo, ArmaInicial) " + "VALUES(?,?,?,?)";
 		PreparedStatement statement = SQLiteManager.getPreparedStatement(sql);
 		try {
 			statement.setInt(1, config.getVidasIniciales());
@@ -44,14 +44,13 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 
 	@Override
 	public void delete(int id) {
-		String sql = "DELETE FROM " + tableString
-				+ " WHERE id = ?";
+		String sql = "DELETE FROM " + tableString + " WHERE id = ?";
 		PreparedStatement statement = SQLiteManager.getPreparedStatement(sql);
 		try {
 			statement.setInt(1, id);
 			statement.execute();
 		} catch (SQLException e) {
-			
+
 		}
 	}
 
@@ -62,8 +61,7 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 
 	@Override
 	public UserConfig get(int id) {
-		String sql = "select * from " + tableString
-				+ " where id = ?";
+		String sql = "select * from " + tableString + " where id = ?";
 		PreparedStatement statement = SQLiteManager.getPreparedStatement(sql);
 		try {
 			statement.setInt(1, id);
@@ -86,7 +84,7 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 		config.setArmainicial(data.getString(5));
 		return config;
 	}
-	
+
 	private ArrayList<UserConfig> mapRecordsToArray(ResultSet data) throws SQLException {
 		ArrayList<UserConfig> configs = new ArrayList<UserConfig>();
 		while (data.next()) {
@@ -97,12 +95,8 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 
 	@Override
 	public void update(UserConfig config) {
-		String sql = "UPDATE " + tableString + " SET "
-				+ "VidasIniciales = ?,"
-				+ "MultiplicadorDano = ?,"
-				+ "MultiplicadorDanoEnemigo = ?,"
-				+ "ArmaInicial = ? "
-				+ "WHERE id = ?";
+		String sql = "UPDATE " + tableString + " SET " + "VidasIniciales = ?," + "MultiplicadorDano = ?,"
+				+ "MultiplicadorDanoEnemigo = ?," + "ArmaInicial = ? " + "WHERE id = ?";
 		PreparedStatement statement = SQLiteManager.getPreparedStatement(sql);
 		try {
 			statement.setInt(1, config.getVidasIniciales());

@@ -20,7 +20,7 @@ public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		setUIManager();
-		DBModel[] modelos = {new User(), new UserConfig()};
+		DBModel[] modelos = { new User(), new UserConfig() };
 		SQLiteManager.suscribeModels(modelos);
 		DAO_Usuario modeloUsuario = new DAO_Usuario();
 		DAO_UserConfig modeloConfigs = new DAO_UserConfig();
