@@ -3,16 +3,18 @@ package utils.constants;
 /**
  * Campos del usuario que pueden ser comparados
  */
-public class UserFields {
-	// esto podria ser un enum
-	public final static String FIELD_USERNAME = "USERNAME";
-	public final static String FIELD_SCORE = "SCORE";
-	public final static String FIELD_LEVEL = "LEVEL";
+public enum UserFields {
+	FIELD_USERNAME("Username"),
+	FIELD_SCORE("Score"),
+	FIELD_LEVEL("Level");
 
-	/**
-	 * @return lista con los campos del usuario que pueden ser comparados
-	 */
-	public static String[] values() {
-		return new String[] { FIELD_USERNAME, FIELD_LEVEL, FIELD_SCORE };
+	private String text;
+	private UserFields(String text) {
+		this.text = text;
+	}
+	
+	@Override
+	public String toString() {
+		return text;
 	}
 }
