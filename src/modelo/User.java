@@ -3,7 +3,7 @@ package modelo;
 /**
  * Modelo de datos para la informacion del usuario
  */
-public class Usuario {
+public class User extends DBModel{
 	private int id;
 	private String username;
 	private String password;
@@ -11,18 +11,20 @@ public class Usuario {
 	private int level;
 	private int configId;
 
-	public Usuario(String username, String password) {
+	public User(String username, String password) {
+		super();
 		this.username = username;
 		this.password = password;
 	}
 
-	public Usuario() {
+	public User() {
+		super();
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [id=" + id + ", username=" + username + ", password=" + password + ", score=" + score
-				+ ", level=" + level + ", configId=" + configId + "]";
+		return username + ": password=" + password + ", score=" + score
+				+ ", level=" + level;
 	}
 
 	/**
@@ -45,9 +47,9 @@ public class Usuario {
 	 * @param userInfo registro de texto
 	 * @return Usuario deserializado
 	 */
-	public static Usuario deserializeUsuario(String userInfo) {
+	public static User deserializeUsuario(String userInfo) {
 		String[] data = userInfo.replace("\\n", "\n").split("','");
-		Usuario user = new Usuario();
+		User user = new User();
 		try {
 			user.setId(Integer.parseInt(data[0]));
 			user.setUsername(data[1]);
@@ -110,6 +112,21 @@ public class Usuario {
 
 	public void setConfigId(int configId) {
 		this.configId = configId;
+	}
+
+	@Override
+	public String getTableSchema() {
+		String userConfigTable = new UserConfig().getTable();
+		return "CREATE TABLE IF NOT EXISTS "+ getTable()+"("
+				+ "id INTEGER,"
+				+ "Username VARCHAR(50) UNIQUE NOT NULL,"
+				+ "Password VARCHAR(10) NOT NULL,"
+				+ "Score INT default 0,"
+				+ "Level INT default 0,"
+				+ "ConfigID INT not null,"
+				+ "PRIMARY KEY(id AUTOINCREMENT),"
+				+ "FOREIGN KEY (ConfigID) REFERENCES "+ userConfigTable+"(id)"
+				+ ")";
 	}
 
 }

@@ -1,14 +1,13 @@
 package modelo;
 
-import java.io.Serializable;
-
 import utils.constants.ArmasDisponibles;
 import utils.constants.EnemyTypes;
 
 /**
  * Modelo de datos para las configuraciones del usuario
  */
-public class UserConfig implements Serializable {
+public class UserConfig extends DBModel {
+	public static final String TABLE = "UserConfigs";
 	/**
 	 * 
 	 */
@@ -96,6 +95,23 @@ public class UserConfig implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	@Override
+	public String getTableSchema() {
+		return "Create table if not exists "+getTable()+"("
+				+ "id INTEGER,"
+				+ "VidasIniciales INT,"
+				+ "MultiplicadorDano float,"
+				+ "MultiplicadorDanoEnemigo float,"
+				+ "ArmaInicial VARCHAR(50),"
+				+ "PRIMARY KEY(id AUTOINCREMENT)"
+				+ ")";
+	}
+
+	@Override
+	public String getTable() {
+		return TABLE;
 	}
 
 }
