@@ -33,9 +33,11 @@ public class ConfiguracionesControler extends BuscarControler {
 	private void guardarConfiguracion() {
 		int idConfig = vistaConf.getListaUsuarios().getSelectedValue().getConfigId();
 		UserConfig configuracion = modeloConfigs.get(idConfig);
+		System.out.println(configuracion.getId());
+		String[] typeStrings = new String[0];
 
 		configuracion.setArmainicial(getArmaInicial());
-		configuracion.setEnemigosActivos((String[]) getEnemigosActivos().toArray());
+		configuracion.setEnemigosActivos((getEnemigosActivos().toArray(typeStrings)));
 		configuracion.setMultiplicadorDano(getMultiplicadorDanoJugador());
 		configuracion.setMultiplicadorDanoEnemigo(getMultiplicadorDanoEnemigo());
 		configuracion.setVidasIniciales(getVidasIniciales());

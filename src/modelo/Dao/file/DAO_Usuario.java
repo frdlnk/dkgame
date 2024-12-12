@@ -102,11 +102,11 @@ public class DAO_Usuario implements IDAOUsuario {
 
 	@Override
 	public void update(User usuario) {
-		String sql = "UPDATE " + tableString + " "
+		String sql = "UPDATE " + tableString + " SET "
 				+ "Username = ?,"
 				+ "Password = ?,"
 				+ "Score = ?,"
-				+ "Level = ?"
+				+ "Level = ? "
 				+ "WHERE id = ?";
 		PreparedStatement statement = SQLiteManager.getPreparedStatement(sql);
 		try {

@@ -68,11 +68,11 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 		try {
 			statement.setInt(1, id);
 			ResultSet data = statement.executeQuery();
-			if (data.first()) {
+			if (data.next()) {
 				return mapRecordToConfig(data);
 			}
 		} catch (SQLException e) {
-			
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -97,11 +97,11 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 
 	@Override
 	public void update(UserConfig config) {
-		String sql = "UPDATE " + tableString 
+		String sql = "UPDATE " + tableString + " SET "
 				+ "VidasIniciales = ?,"
 				+ "MultiplicadorDano = ?,"
 				+ "MultiplicadorDanoEnemigo = ?,"
-				+ "ArmaInicial = ?"
+				+ "ArmaInicial = ? "
 				+ "WHERE id = ?";
 		PreparedStatement statement = SQLiteManager.getPreparedStatement(sql);
 		try {
@@ -110,6 +110,7 @@ public class DAO_UserConfig implements IDAOUserConfigs {
 			statement.setDouble(3, config.getMultiplicadorDanoEnemigo());
 			statement.setString(4, config.getArmainicial());
 			statement.setInt(5, config.getId());
+			statement.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println("error al actualizar");
 		}
