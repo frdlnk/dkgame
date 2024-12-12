@@ -12,17 +12,25 @@ import utils.constants.ComparativeModes;
 import utils.constants.UserFields;
 
 /**
- * DAO de acceso y guarado de usuarios mediante archivos de texto
+ * DAO de acceso y guarado de usuarios mediante SQLITE
  */
 public class DAO_Usuario implements IDAOUsuario {
 	private String tableString;
+
 	/**
 	 * crea un nuevo DAO
 	 */
 	public DAO_Usuario() {
 		tableString = new User().getTable();
 	}
-	
+
+	/**
+	 * Mapea los valores de la row actual de un {@link ResultSet} a un {@link User}
+	 * 
+	 * @param data ResultSet con la fila selecianda para mapear
+	 * @return User con los datos extraidos
+	 * @throws SQLException si hay problemas al extraer los datos de la fila
+	 */
 	private User mapRecordToUsuario(ResultSet data) throws SQLException {
 		User user = new User();
 		user.setId(data.getInt("id"));
@@ -33,8 +41,15 @@ public class DAO_Usuario implements IDAOUsuario {
 		user.setUsername((data.getString("UserName")));
 		return user;
 	}
-	
-	private ArrayList<User> mapRecordsToArray(ResultSet data) throws SQLException{
+
+	/**
+	 * Crea un arreglo de objetos {@link User} a partir de un {@link ResultSet}
+	 * 
+	 * @param data el ResultSet que contiene los registros de users
+	 * @return ArrayList<User> con los usuarios mapeados de los registros
+	 * @throws SQLException si hay errores al acceder a los datpos edl ResultSet
+	 */
+	private ArrayList<User> mapRecordsToArray(ResultSet data) throws SQLException {
 		ArrayList<User> users = new ArrayList<User>();
 		while (data.next()) {
 			users.add(mapRecordToUsuario(data));
@@ -64,17 +79,15 @@ public class DAO_Usuario implements IDAOUsuario {
 		return -1;
 	}
 
-
 	@Override
 	public void delete(int id) {
-		String sql = "DELETE FROM " + tableString
-				+ " WHERE id = ?";
+		String sql = "DELETE FROM " + tableString + " WHERE id = ?";
 		PreparedStatement statement = SQLiteManager.getPreparedStatement(sql);
 		try {
 			statement.setInt(1, id);
 			statement.execute();
 		} catch (SQLException e) {
-			
+
 		}
 	}
 
@@ -85,8 +98,7 @@ public class DAO_Usuario implements IDAOUsuario {
 
 	@Override
 	public User get(int id) {
-		String sql = "select * from " + tableString
-				+ " where id = ?";
+		String sql = "select * from " + tableString + " where id = ?";
 		PreparedStatement statement = SQLiteManager.getPreparedStatement(sql);
 		try {
 			statement.setInt(1, id);
@@ -95,18 +107,14 @@ public class DAO_Usuario implements IDAOUsuario {
 				return mapRecordToUsuario(data);
 			}
 		} catch (SQLException e) {
-			
+
 		}
 		return null;
 	}
 
 	@Override
 	public void update(User usuario) {
-		String sql = "UPDATE " + tableString + " SET "
-				+ "Username = ?,"
-				+ "Password = ?,"
-				+ "Score = ?,"
-				+ "Level = ? "
+		String sql = "UPDATE " + tableString + " SET " + "Username = ?," + "Password = ?," + "Score = ?," + "Level = ? "
 				+ "WHERE id = ?";
 		PreparedStatement statement = SQLiteManager.getPreparedStatement(sql);
 		try {
@@ -134,8 +142,7 @@ public class DAO_Usuario implements IDAOUsuario {
 
 	@Override
 	public ArrayList<User> search(Object value, UserFields field, ComparativeModes searchMode) {
-		String sql = "select * from " + tableString + " where "
-				+ field + getComparativeModeSyntax(searchMode) + "?";
+		String sql = "select * from " + tableString + " where " + field + getComparativeModeSyntax(searchMode) + "?";
 		PreparedStatement statement = SQLiteManager.getPreparedStatement(sql);
 		try {
 			statement.setObject(1, value);
@@ -145,7 +152,7 @@ public class DAO_Usuario implements IDAOUsuario {
 			return null;
 		}
 	}
-	
+
 	private String getComparativeModeSyntax(ComparativeModes mode) {
 		return switch (mode) {
 		case IGUAL -> "=";
@@ -156,8 +163,7 @@ public class DAO_Usuario implements IDAOUsuario {
 
 	@Override
 	public User get(String username) {
-		String sql = "select * from " + tableString
-				+ " where Username = ?";
+		String sql = "select * from " + tableString + " where Username = ?";
 		PreparedStatement statement = SQLiteManager.getPreparedStatement(sql);
 		try {
 			statement.setString(1, username);
@@ -166,7 +172,7 @@ public class DAO_Usuario implements IDAOUsuario {
 				return mapRecordToUsuario(data);
 			}
 		} catch (SQLException e) {
-			
+
 		}
 		return null;
 	}
