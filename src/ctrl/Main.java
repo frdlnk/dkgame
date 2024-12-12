@@ -10,6 +10,7 @@ import modelo.DBModel;
 import modelo.User;
 import modelo.Dao.file.DAO_UserConfig;
 import modelo.Dao.file.DAO_Usuario;
+import modelo.db.SQLiteManager;
 import vista.MenuInicio;
 
 public class Main {
@@ -19,6 +20,8 @@ public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		setUIManager();
+		DBModel[] modelos = {new User(), new UserConfig()};
+		SQLiteManager.suscribeModels(modelos);
 		DAO_Usuario modeloUsuario = new DAO_Usuario();
 		DAO_UserConfig modeloConfigs = new DAO_UserConfig();
 		MenuInicio menu = new MenuInicio();
