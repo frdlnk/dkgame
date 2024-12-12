@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import modelo.UserConfig;
-import modelo.Usuario;
+import modelo.User;
 import modelo.Dao.IDAOUserConfigs;
 import modelo.Dao.IDAOUsuario;
 import vista.admin.VistaCrear;
@@ -56,7 +56,7 @@ public class CreateControler implements ActionListener {
 			UserConfig config = new UserConfig();
 			int configId = modeloConfigs.insert(config);
 
-			Usuario newUsuario = new Usuario(username, password);
+			User newUsuario = new User(username, password);
 			newUsuario.setLevel(0);
 			newUsuario.setScore(0);
 			newUsuario.setConfigId(configId);

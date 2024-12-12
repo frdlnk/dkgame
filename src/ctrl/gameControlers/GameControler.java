@@ -1,7 +1,7 @@
 package ctrl.gameControlers;
 
 import modelo.UserConfig;
-import modelo.Usuario;
+import modelo.User;
 import modelo.Dao.IDAOUserConfigs;
 import modelo.Dao.IDAOUsuario;
 import modelo.Dao.file.DAO_UserConfig;
@@ -15,7 +15,7 @@ import vista.game.VistaInicioJuego;
 public class GameControler {
 	private static GameLoop loop;
 
-	public GameControler(Usuario user, UserConfig config) {
+	public GameControler(User user, UserConfig config) {
 		Game game = new Game(user, config);
 		loop = new GameLoop(game, 3);
 	}

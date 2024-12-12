@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import modelo.UserConfig;
-import modelo.Usuario;
+import modelo.User;
 import modelo.entidades.Player;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.Lienzo;
@@ -22,7 +22,7 @@ import vista.escena.EscenaCarga;
  */
 public class Game extends Entidad {
 	public static Lienzo lienzo;
-	public static Usuario loggedUser;
+	public static User loggedUser;
 	public static UserConfig configuracion;
 	public static Player jugador;
 
@@ -34,7 +34,7 @@ public class Game extends Entidad {
 	 * @param user          Usuario logueado
 	 * @param configuracion configuracion asociada al usuario
 	 */
-	public Game(Usuario user, UserConfig configuracion) {
+	public Game(User user, UserConfig configuracion) {
 		Game.loggedUser = user;
 		Game.configuracion = configuracion;
 		jugador = generarJugador();
@@ -90,11 +90,11 @@ public class Game extends Entidad {
 		Game.lienzo = lienzo;
 	}
 
-	public static Usuario getLoggedUser() {
+	public static User getLoggedUser() {
 		return loggedUser;
 	}
 
-	public static void setLoggedUser(Usuario loggedUser) {
+	public static void setLoggedUser(User loggedUser) {
 		Game.loggedUser = loggedUser;
 	}
 

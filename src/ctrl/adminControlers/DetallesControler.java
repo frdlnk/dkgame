@@ -2,7 +2,7 @@ package ctrl.adminControlers;
 
 import java.awt.event.ActionEvent;
 
-import modelo.Usuario;
+import modelo.User;
 import modelo.Dao.IDAOUsuario;
 import vista.admin.VistaDetalles;
 
@@ -41,7 +41,7 @@ public class DetallesControler extends BuscarControler {
 	 * Muestra los detalles del usuario selecionado
 	 */
 	private void mostrarDetalles() {
-		Usuario selectedUser = vistaDetails.getListaUsuarios().getSelectedValue();
+		User selectedUser = vistaDetails.getListaUsuarios().getSelectedValue();
 		if (selectedUser != null) {
 			vistaDetails.getTfUsername().setText(selectedUser.getUsername());
 			vistaDetails.getTfNivel().setText(String.valueOf(selectedUser.getLevel()));

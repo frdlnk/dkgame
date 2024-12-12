@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import ctrl.adminControlers.CreateControler;
-import modelo.Usuario;
+import modelo.User;
 import modelo.Dao.IDAOUserConfigs;
 import modelo.Dao.IDAOUsuario;
 import vista.admin.VistaCrear;
@@ -47,10 +47,10 @@ public class WelcomeGameControler implements ActionListener {
 	 * Carga los mejores {@value #SCORES_A_MOSTRAR} scores
 	 */
 	private void loadBestScores() {
-		ArrayList<Usuario> bestScoArray = modeloUser.getBestScores(SCORES_A_MOSTRAR);
+		ArrayList<User> bestScoArray = modeloUser.getBestScores(SCORES_A_MOSTRAR);
 		String[] formatedBestScoreStrings = new String[SCORES_A_MOSTRAR];
-		for (int i = 0; i < formatedBestScoreStrings.length; i++) {
-			Usuario user = bestScoArray.get(i);
+		for (int i = 0; i < bestScoArray.size(); i++) {
+			User user = bestScoArray.get(i);
 			if (user != null) {
 				formatedBestScoreStrings[i] = user.getUsername() + ": " + user.getScore();
 			}

@@ -1,6 +1,6 @@
 package ctrl.adminControlers;
 
-import modelo.Usuario;
+import modelo.User;
 import modelo.Dao.IDAOUsuario;
 
 import java.awt.event.ActionListener;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import utils.constants.ComparativeModes;
 import utils.constants.UserFields;
 import vista.admin.VistaBuscar;
 
@@ -47,15 +48,15 @@ public abstract class BuscarControler implements DocumentListener, ActionListene
 	 */
 	public void onTextChanged() {
 		Object searchedValue = getSearchValue();
-		ArrayList<Usuario> data;
+		ArrayList<User> data;
 
 		// si no hay busqueda definida se crgan todos los datos
 		if (searchedValue.equals("")) {
 			data = modeloUsuario.getAll();
 		} else {
-			String criterio = vista.getComparativeMode();
-			String modo = vista.getSearchMode();
-			data = modeloUsuario.search(searchedValue, criterio, modo);
+			ComparativeModes modo = vista.getComparativeMode();
+			UserFields field = vista.getSearchField();
+			data = modeloUsuario.search(searchedValue, field, modo);
 		}
 
 		vista.loadUsers(data);
@@ -69,11 +70,11 @@ public abstract class BuscarControler implements DocumentListener, ActionListene
 	 * @return Object valor ingresado por el usuario con el tipo de objeto correcto
 	 */
 	private Object getSearchValue() {
-		String criterioFields = vista.getComparativeMode();
+		UserFields modo = vista.getSearchField();
 		String searchedValue = vista.getSearchTextField().getText();
 
 		// verifica si la busqueda debe ser por entero
-		if (criterioFields == UserFields.FIELD_LEVEL || criterioFields == UserFields.FIELD_SCORE) {
+		if (modo == UserFields.FIELD_LEVEL || modo == UserFields.FIELD_SCORE) {
 			if (isInteger(searchedValue)) {
 				return Integer.parseInt(searchedValue);
 			}

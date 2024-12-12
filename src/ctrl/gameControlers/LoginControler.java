@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 
 import ctrl.adminControlers.CreateControler;
 import modelo.UserConfig;
-import modelo.Usuario;
+import modelo.User;
 import modelo.Dao.IDAOUserConfigs;
 import modelo.Dao.IDAOUsuario;
 import vista.admin.VistaCrear;
@@ -65,7 +65,7 @@ public class LoginControler implements ActionListener {
 		if (validateFieldsNotEmpty()) {
 			String username = vista.getTfUsername().getText();
 			String password = vista.getTfPassword().getText();
-			Usuario user = modeloUser.get(username);
+			User user = modeloUser.get(username);
 			if (user != null && user.getPassword().equals(password)) {
 				UserConfig config = modeloConfigs.get(user.getConfigId());
 				if (config != null) {
@@ -85,7 +85,7 @@ public class LoginControler implements ActionListener {
 	 * @param user   Usuario logueado
 	 * @param config Configuracion asociada al usuario
 	 */
-	private void iniciarJuego(Usuario user, UserConfig config) {
+	private void iniciarJuego(User user, UserConfig config) {
 		new GameControler(user, config);
 	}
 

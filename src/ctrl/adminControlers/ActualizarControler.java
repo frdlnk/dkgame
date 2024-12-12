@@ -2,7 +2,7 @@ package ctrl.adminControlers;
 
 import java.awt.event.ActionEvent;
 
-import modelo.Usuario;
+import modelo.User;
 import modelo.Dao.IDAOUsuario;
 import vista.admin.VistaActualizar;
 import vista.admin.VistaBuscar;
@@ -38,7 +38,7 @@ public class ActualizarControler extends BuscarControler {
 	 * Aqui se atualiza el usuario si los datos son correctos
 	 */
 	private void actualizarUsuario() {
-		Usuario user = vistaActualizar.getListaUsuarios().getSelectedValue();
+		User user = vistaActualizar.getListaUsuarios().getSelectedValue();
 		String newPassword = vistaActualizar.getTfPassword().getText();
 		if (validateData(newPassword)) {
 			user.setPassword(newPassword);
@@ -71,7 +71,7 @@ public class ActualizarControler extends BuscarControler {
 	 * Muestra la informacion del usuario sleccionado
 	 */
 	private void mostrarInfoUsuario() {
-		Usuario user = vistaActualizar.getListaUsuarios().getSelectedValue();
+		User user = vistaActualizar.getListaUsuarios().getSelectedValue();
 		if (user != null) {
 			vistaActualizar.getTfUsername().setText(user.getUsername());
 			vistaActualizar.getTfPassword().setText(user.getPassword());

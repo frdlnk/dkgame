@@ -6,14 +6,15 @@ import java.util.ArrayList;
 import javax.swing.UIManager;
 
 import modelo.UserConfig;
-import modelo.Usuario;
+import modelo.DBModel;
+import modelo.User;
 import modelo.Dao.file.DAO_UserConfig;
 import modelo.Dao.file.DAO_Usuario;
 import vista.MenuInicio;
 
 public class Main {
 	// datasets
-	public final static ArrayList<Usuario> UserDataSet = new ArrayList<>();
+	public final static ArrayList<User> UserDataSet = new ArrayList<>();
 	public final static ArrayList<UserConfig> UserConfigsSet = new ArrayList<>();
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException {

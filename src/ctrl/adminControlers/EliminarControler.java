@@ -2,7 +2,7 @@ package ctrl.adminControlers;
 
 import java.awt.event.ActionEvent;
 
-import modelo.Usuario;
+import modelo.User;
 import modelo.Dao.IDAOUserConfigs;
 import modelo.Dao.IDAOUsuario;
 import vista.admin.VistaEliminar;
@@ -47,7 +47,7 @@ public class EliminarControler extends BuscarControler {
 	 * Elimina el usuarios selecionado
 	 */
 	private void eliminarUsuario() {
-		Usuario selectedUser = vistaEliminar.getListaUsuarios().getSelectedValue();
+		User selectedUser = vistaEliminar.getListaUsuarios().getSelectedValue();
 		modeloUsuario.delete(selectedUser);
 		modeloConfigs.delete(selectedUser.getConfigId());
 		vistaEliminar.dispose();
@@ -57,7 +57,7 @@ public class EliminarControler extends BuscarControler {
 	 * Muestra los detalles del usuario seleccionado
 	 */
 	private void mostrarDetalles() {
-		Usuario selectedUser = vistaEliminar.getListaUsuarios().getSelectedValue();
+		User selectedUser = vistaEliminar.getListaUsuarios().getSelectedValue();
 		if (selectedUser != null) {
 			vistaEliminar.getTfUsername().setText(selectedUser.getUsername());
 			vistaEliminar.getTfNivel().setText(String.valueOf(selectedUser.getLevel()));
