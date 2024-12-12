@@ -1,10 +1,10 @@
 package modelo.armamento.armas;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import modelo.armamento.municiones.Bala;
 import modelo.armamento.municiones.Municion;
-import modelo.arrays.ArrayString;
 import motor_v1.motor.util.Vector2D;
 
 /**
@@ -36,7 +36,7 @@ public class HeavyMachineGun extends Arma {
 	}
 
 	@Override
-	protected Municion generarBala(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored) {
+	protected Municion generarBala(Vector2D posicion, Vector2D direccion, ArrayList<String> targetsIgnored) {
 		Random random = new Random();
 		double dispersion = random.nextDouble(-15, 15);
 

@@ -1,8 +1,9 @@
 package modelo.armamento.armas;
 
+import java.util.ArrayList;
+
 import modelo.armamento.municiones.Choete;
 import modelo.armamento.municiones.Municion;
-import modelo.arrays.ArrayString;
 import motor_v1.motor.util.Vector2D;
 import utils.constants.Tags;
 
@@ -35,7 +36,7 @@ public class LanzaCohetes extends Arma {
 	}
 
 	@Override
-	protected Municion generarBala(Vector2D posicion, Vector2D direccion, ArrayString target) {
+	protected Municion generarBala(Vector2D posicion, Vector2D direccion, ArrayList<String> target) {
 		target.add(Tags.FLOOR);
 		return new Choete(posicion, direccion, target, 20);
 	}

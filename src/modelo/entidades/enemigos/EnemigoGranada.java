@@ -2,12 +2,12 @@ package modelo.entidades.enemigos;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.Random;
 
 import ctrl.gameControlers.Game;
 import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Granada;
-import modelo.arrays.ArrayString;
 import modelo.spritesCargados.SpritesEnemy;
 import motor_v1.motor.GameLoop;
 import motor_v1.motor.Scene;
@@ -132,7 +132,7 @@ public class EnemigoGranada extends Enemigo {
 			Vector2D direccionDisparo = new Vector2D(direccionX, -1);
 
 			// Crea y agrega la granada al escenario
-			ArrayString targetsIgnored = new ArrayString();
+			ArrayList<String> targetsIgnored = new ArrayList<>();
 			targetsIgnored.add(getNombre());
 			double dano = DANO_BASE * Game.getConfiguracion().getMultiplicadorDanoEnemigo();
 			Granada granada = new Granada(posicionDisparo(), direccionDisparo, targetsIgnored, dano, v0);

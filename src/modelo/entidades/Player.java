@@ -3,11 +3,11 @@ package modelo.entidades;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import ctrl.gameControlers.Game;
 import modelo.armamento.armas.Arma;
 import modelo.armamento.municiones.Municion;
-import modelo.arrays.ArrayString;
 import modelo.componentes.Fisica;
 import modelo.componentes.PlayerControls;
 import modelo.componentes.RelativeTransform;
@@ -265,7 +265,7 @@ public class Player extends Soldado {
 					spritesPlayer.cambiarAnimacionA(Assets.spriteNames[1]);
 				}
 				Scene escena = Scene.getEscenaActual();
-				ArrayString targetsIgnore = new ArrayString();
+				ArrayList<String> targetsIgnore = new ArrayList<>();
 				targetsIgnore.add(getNombre());
 				Municion disparo = getArma().disparar(posicionDisparo(), direccionDisparo, targetsIgnore);
 				if (escena instanceof EscenaJuego && disparo != null) {

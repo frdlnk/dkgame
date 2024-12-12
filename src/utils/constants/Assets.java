@@ -2,10 +2,10 @@ package utils.constants;
 
 import java.awt.Font;
 import java.awt.image.BufferedImage;
+import java.util.HashMap;
 
 import javax.sound.sampled.Clip;
 
-import modelo.arrays.ArrayCoords;
 import motor_v1.motor.util.Loader;
 import utils.SpriteLoader;
 
@@ -26,17 +26,17 @@ public class Assets {
 	public static Clip ROCKET_LAUNCHER_SOUND;
 	public static Clip MISSION_COMPLETE_SOUND;
 
-	public static ArrayCoords coord;
-	public static ArrayCoords cuts;
-	public static ArrayCoords gifs;
+	public static HashMap<String, int[]> coord;
+	public static HashMap<String, int[]> cuts;
+	public static HashMap<String, BufferedImage[]> gifs;
 
-	public static ArrayCoords coordL;
-	public static ArrayCoords cutsL;
-	public static ArrayCoords gifsL;
+	public static HashMap<String, int[]> coordL;
+	public static HashMap<String, int[]> cutsL;
+	public static HashMap<String, BufferedImage[]> gifsL;
 
-	public static ArrayCoords coordE;
-	public static ArrayCoords cutsE;
-	public static ArrayCoords gifsE;
+	public static HashMap<String, int[]> coordE;
+	public static HashMap<String, int[]> cutsE;
+	public static HashMap<String, BufferedImage[]> gifsE;
 
 	public static Font future;
 
@@ -66,17 +66,17 @@ public class Assets {
 
 		AVION_CATARATA_M1 = Loader.cargarImagen("/avionCatarataM1.png");
 		CATARATA_AVION = Loader.cargarImagen("/catarata.png");
-		coord = new ArrayCoords();
-		cuts = new ArrayCoords();
-		gifs = new ArrayCoords();
+		coord = new HashMap<>();
+		cuts = new HashMap<>();
+		gifs = new HashMap<>();
 
-		coordL = new ArrayCoords();
-		cutsL = new ArrayCoords();
-		gifsL = new ArrayCoords();
+		coordL = new HashMap<>();
+		cutsL = new HashMap<>();
+		gifsL = new HashMap<>();
 
-		coordE = new ArrayCoords();
-		cutsE = new ArrayCoords();
-		gifsE = new ArrayCoords();
+		coordE = new HashMap<>();
+		cutsE = new HashMap<>();
+		gifsE = new HashMap<>();
 
 		loadCoord();
 		loadCuts();
@@ -85,27 +85,27 @@ public class Assets {
 		return true;
 	}
 
-	private static void loadGifs(ArrayCoords coord, ArrayCoords cuts) {
+	private static void loadGifs(HashMap<String, int[]> coord, HashMap<String, int[]> cuts) {
 
 		BufferedImage[] temp;
 		for (int i = 0; i < coord.size(); i++) {
 
 			temp = SpriteLoader.getSubImageArray(coord.get(spriteNames[i]), PLAYER_SPRITES, cuts.get(spriteNames[i]));
-			gifs.putImage(spriteNames[i], temp);
+			gifs.put(spriteNames[i], temp);
 
 		}
 
 		for (int i = 0; i < coordL.size(); i++) {
 
 			temp = SpriteLoader.getSubImageArray(coordL.get(legNames[i]), PLAYER_SPRITES, cutsL.get(legNames[i]));
-			gifsL.putImage(legNames[i], temp);
+			gifsL.put(legNames[i], temp);
 
 		}
 
 		for (int i = 0; i < coordE.size(); i++) {
 
 			temp = SpriteLoader.getSubImageArray(coordE.get(enemNames[i]), ENEMY_SPRITES);
-			gifsE.putImage(enemNames[i], temp);
+			gifsE.put(enemNames[i], temp);
 
 		}
 	}

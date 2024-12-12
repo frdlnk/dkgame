@@ -1,6 +1,7 @@
 package modelo.armamento.municiones;
 
-import modelo.arrays.ArrayString;
+import java.util.ArrayList;
+
 import modelo.entidades.Soldado;
 import motor_v1.motor.Entidad;
 import motor_v1.motor.util.Vector2D;
@@ -22,7 +23,7 @@ public class Bala extends Municion {
 	 * @param targetsIgnored lista de tags a ignorar
 	 * @param dano           double cantidad de dano a generar en las entidades
 	 */
-	public Bala(Vector2D posicion, Vector2D direccion, ArrayString targetsIgnored, double dano) {
+	public Bala(Vector2D posicion, Vector2D direccion, ArrayList<String> targetsIgnored, double dano) {
 		super(posicion, direccion, targetsIgnored, dano, 7);
 	}
 

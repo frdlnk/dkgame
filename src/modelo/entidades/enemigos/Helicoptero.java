@@ -3,10 +3,10 @@ package modelo.entidades.enemigos;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import ctrl.gameControlers.Game;
 import modelo.armamento.municiones.Choete;
-import modelo.arrays.ArrayString;
 import modelo.componentes.RelativeTransform;
 import modelo.entidades.Player;
 import modelo.spritesCargados.SpritesEnemy;
@@ -144,7 +144,7 @@ public class Helicoptero extends Enemigo {
 		Scene escenaActual = Scene.getEscenaActual();
 
 		// Crea y agrega los cohetes al escenario
-		ArrayString targetsIgnored = new ArrayString();
+		ArrayList<String> targetsIgnored = new ArrayList<>();
 		targetsIgnored.add(getNombre());
 		double dano = DANO_BASE * Game.getConfiguracion().getMultiplicadorDanoEnemigo();
 		Choete cohete = new Choete(posicionDisparo(), Vector2D.ZERO, targetsIgnored, dano);

@@ -2,11 +2,11 @@ package modelo.entidades.enemigos;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import ctrl.gameControlers.Game;
 import modelo.armamento.armas.Pistola;
 import modelo.armamento.municiones.Municion;
-import modelo.arrays.ArrayString;
 import modelo.entidades.Player;
 import modelo.spritesCargados.SpritesEnemy;
 import motor_v1.motor.GameLoop;
@@ -111,7 +111,7 @@ public class EnemigoPistola extends Enemigo {
 		if (escena instanceof EscenaJuego) {
 			Vector2D posicionDis = posicionDisparo();
 			Vector2D direccion = getDireccionJugador(posicionDis);
-			ArrayString targetsIgnore = new ArrayString();
+			ArrayList<String> targetsIgnore = new ArrayList<>();
 			targetsIgnore.add(getNombre());
 			Municion disparo = getArma().disparar(posicionDis, direccion, targetsIgnore);
 			if (disparo != null) {

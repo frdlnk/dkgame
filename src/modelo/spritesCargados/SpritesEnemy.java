@@ -24,7 +24,7 @@ public class SpritesEnemy extends Animation {
 	private void loadGifs() {
 		Assets.load();
 		for (int i = 0; i < Assets.gifsE.size(); i++) {
-			Gif gif = new Gif(Assets.enemNames[i], Assets.gifsE.getImages(Assets.enemNames[i]), this.getTransformar(),
+			Gif gif = new Gif(Assets.enemNames[i], Assets.gifsE.get(Assets.enemNames[i]), this.getTransformar(),
 					150);
 			this.add(gif.getNombre(), gif);
 		}
