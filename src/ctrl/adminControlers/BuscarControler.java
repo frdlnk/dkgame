@@ -51,7 +51,7 @@ public abstract class BuscarControler implements DocumentListener, ActionListene
 		ArrayList<User> data;
 
 		// si no hay busqueda definida se crgan todos los datos
-		if (searchedValue.equals("")) {
+		if (searchedValue != null && searchedValue.equals("")) {
 			data = modeloUsuario.getAll();
 		} else {
 			ComparativeModes modo = vista.getComparativeMode();
