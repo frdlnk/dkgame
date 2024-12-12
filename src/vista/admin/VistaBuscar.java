@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import modelo.Usuario;
+import modelo.User;
 import utils.constants.Colors;
 import utils.constants.ComparativeModes;
 import utils.constants.UserFields;
@@ -29,12 +29,12 @@ public class VistaBuscar extends JDialog {
 	private static final long serialVersionUID = 1L;
 	private final JPanel busquedaPanel = new JPanel();
 	private JTextField searchTextField;
-	private JList<Usuario> listaUsuarios;
+	private JList<User> listaUsuarios;
 	private JLabel lblCriterio;
 	private JLabel lblSearchMode;
 	private JLabel lblBusqueda;
-	private JComboBox<String> comboBoxCriterios;
-	private JComboBox<String> comboBoxSearchModes;
+	private JComboBox<ComparativeModes> comboBoxComparativeModes;
+	private JComboBox<UserFields> comboBoxSearchFields;
 
 	/**
 	 * Create the dialog.
@@ -56,9 +56,10 @@ public class VistaBuscar extends JDialog {
 	 * 
 	 * @param users
 	 */
-	public void loadUsers(ArrayList<Usuario> users) {
+	public void loadUsers(ArrayList<User> users) {
 		if (users != null) {
-			listaUsuarios.setListData((Usuario[]) users.toArray());
+			User[] typeUsers = new User[0];
+			listaUsuarios.setListData(users.toArray(typeUsers));
 		}
 	}
 
@@ -94,33 +95,33 @@ public class VistaBuscar extends JDialog {
 		lblBusqueda.setBounds(10, 12, 71, 14);
 		busquedaPanel.add(lblBusqueda);
 
-		comboBoxCriterios = new JComboBox<>();
-		comboBoxCriterios.setModel(new DefaultComboBoxModel<>(UserFields.values()));
-		comboBoxCriterios.setBounds(184, 35, 96, 22);
-		busquedaPanel.add(comboBoxCriterios);
+		comboBoxComparativeModes = new JComboBox<>();
+		comboBoxComparativeModes.setModel(new DefaultComboBoxModel<>(ComparativeModes.values()));
+		comboBoxComparativeModes.setBounds(184, 35, 96, 22);
+		busquedaPanel.add(comboBoxComparativeModes);
 
-		comboBoxSearchModes = new JComboBox<>();
+		comboBoxSearchFields = new JComboBox<>();
 
-		comboBoxSearchModes.setModel(new DefaultComboBoxModel<>(ComparativeModes.values()));
-		comboBoxSearchModes.setBounds(438, 35, 90, 22);
-		busquedaPanel.add(comboBoxSearchModes);
+		comboBoxSearchFields.setModel(new DefaultComboBoxModel<>(UserFields.values()));
+		comboBoxSearchFields.setBounds(438, 35, 90, 22);
+		busquedaPanel.add(comboBoxSearchFields);
 	}
 
-	public String getSearchMode() {
-		String mode = comboBoxSearchModes.getItemAt(comboBoxSearchModes.getSelectedIndex());
+	public UserFields getSearchField() {
+		UserFields mode = (UserFields) comboBoxSearchFields.getSelectedItem();
 		return mode;
 	}
 
-	public String getComparativeMode() {
-		String mode = comboBoxCriterios.getItemAt(comboBoxCriterios.getSelectedIndex());
+	public ComparativeModes getComparativeMode() {
+		ComparativeModes mode = (ComparativeModes) comboBoxComparativeModes.getSelectedItem();
 		return mode;
 	}
 
-	public JList<Usuario> getListaUsuarios() {
+	public JList<User> getListaUsuarios() {
 		return listaUsuarios;
 	}
 
-	public void setListaUsuarios(JList<Usuario> listaUsuarios) {
+	public void setListaUsuarios(JList<User> listaUsuarios) {
 		this.listaUsuarios = listaUsuarios;
 	}
 
@@ -160,20 +161,20 @@ public class VistaBuscar extends JDialog {
 		this.searchTextField = searchTextField;
 	}
 
-	public JComboBox<String> getComboBoxCriterios() {
-		return comboBoxCriterios;
+	public JComboBox<ComparativeModes> getComboBoxCriterios() {
+		return comboBoxComparativeModes;
 	}
 
-	public void setComboBoxCriterios(JComboBox<String> comboBoxCriterios) {
-		this.comboBoxCriterios = comboBoxCriterios;
+	public void setComboBoxCriterios(JComboBox<ComparativeModes> comboBoxCriterios) {
+		this.comboBoxComparativeModes = comboBoxCriterios;
 	}
 
-	public JComboBox<String> getComboBoxSearchModes() {
-		return comboBoxSearchModes;
+	public JComboBox<UserFields> getComboBoxSearchModes() {
+		return comboBoxSearchFields;
 	}
 
-	public void setComboBoxSearchModes(JComboBox<String> comboBoxSearchModes) {
-		this.comboBoxSearchModes = comboBoxSearchModes;
+	public void setComboBoxSearchModes(JComboBox<UserFields> comboBoxSearchModes) {
+		this.comboBoxSearchFields = comboBoxSearchModes;
 	}
 
 	public JPanel getBusquedaPanel() {
@@ -184,8 +185,8 @@ public class VistaBuscar extends JDialog {
 	public String toString() {
 		return "VistaBuscar [busquedaPanel=" + busquedaPanel + ", searchTextField=" + searchTextField
 				+ ", listaUsuarios=" + listaUsuarios + ", lblCriterio=" + lblCriterio + ", lblSearchMode="
-				+ lblSearchMode + ", lblBusqueda=" + lblBusqueda + ", comboBoxCriterios=" + comboBoxCriterios
-				+ ", comboBoxSearchModes=" + comboBoxSearchModes + "]";
+				+ lblSearchMode + ", lblBusqueda=" + lblBusqueda + ", comboBoxCriterios=" + comboBoxComparativeModes
+				+ ", comboBoxSearchModes=" + comboBoxSearchFields + "]";
 	}
 
 }
