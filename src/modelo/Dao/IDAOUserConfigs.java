@@ -1,7 +1,8 @@
 package modelo.Dao;
 
+import java.util.ArrayList;
+
 import modelo.UserConfig;
-import modelo.arrays.UserConfigArray;
 
 /**
  * Interfaz de acceso a las configuraciones de usuario
@@ -45,7 +46,7 @@ public interface IDAOUserConfigs {
 	 * 
 	 * @return Array con las configuraciones
 	 */
-	public UserConfigArray getAll();
+	public ArrayList<UserConfig> getAll();
 
 	/**
 	 * Actualiza un registro especificado <br>

@@ -2,14 +2,14 @@ package modelo.Dao;
 
 import java.util.ArrayList;
 
-import modelo.Usuario;
+import modelo.User;
 import utils.constants.ComparativeModes;
 import utils.constants.UserFields;
 
 /**
  * Interfaz de acceso a los usuarios
  * 
- * @see Usuario
+ * @see User
  */
 public interface IDAOUsuario {
 
@@ -19,7 +19,7 @@ public interface IDAOUsuario {
 	 * @param usuario Usuario a agregar
 	 * @return id del usuario insertado, -1 si a ocurrido un error
 	 */
-	public int insert(Usuario usuario);
+	public int insert(User usuario);
 
 	/**
 	 * elimina un usuario por su id
@@ -33,7 +33,7 @@ public interface IDAOUsuario {
 	 * 
 	 * @param user usuario a eliminar
 	 */
-	public void delete(Usuario user);
+	public void delete(User user);
 
 	/**
 	 * Regresa el usuario con el id especificado
@@ -41,7 +41,7 @@ public interface IDAOUsuario {
 	 * @param id id buscado
 	 * @return el usuario buscado, null si no existe
 	 */
-	public Usuario get(int id);
+	public User get(int id);
 
 	/**
 	 * Regresa un usuario por su username
@@ -49,14 +49,14 @@ public interface IDAOUsuario {
 	 * @param username del usuario buscado
 	 * @return Usuario buscado, null si no existe
 	 */
-	public Usuario get(String username);
+	public User get(String username);
 
 	/**
 	 * Regresa todos los usuarios existentes
 	 * 
 	 * @return Array de usuarios con todos los usuarios
 	 */
-	public ArrayList<Usuario> getAll();
+	public ArrayList<User> getAll();
 
 	/**
 	 * REaliza una busaqueda de usuarios segun los criterios especificados
@@ -68,7 +68,7 @@ public interface IDAOUsuario {
 	 * @see UserFields
 	 * @see ComparativeModes
 	 */
-	public ArrayList<Usuario> search(Object value, String field, String searchMode);
+	public ArrayList<User> search(Object value, UserFields field, ComparativeModes searchMode);
 
 	/**
 	 * actualiza un usuario existente <br>
@@ -76,7 +76,7 @@ public interface IDAOUsuario {
 	 * 
 	 * @param usuario usuario a actualizar
 	 */
-	public void update(Usuario usuario);
+	public void update(User usuario);
 
 	/**
 	 * Realiza una busqueda de los mejores scores y regresa la cantidad solicitada
@@ -87,5 +87,5 @@ public interface IDAOUsuario {
 	 * @param cantidadRegistros cantidad de registros a traer
 	 * @return Array de Usuarios con los mejores Scores
 	 */
-	public ArrayList<Usuario> getBestScores(int cantidadRegistros);
+	public ArrayList<User> getBestScores(int cantidadRegistros);
 }
